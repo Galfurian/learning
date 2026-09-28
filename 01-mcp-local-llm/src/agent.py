@@ -9,8 +9,8 @@ from mcp import Client
 from mcp.client.stdio import StdioServerParameters
 from ollama import AsyncClient
 from rich.console import Console
-from rich.json import JSON
 from rich.panel import Panel
+from rich.syntax import Syntax
 from rich.text import Text
 
 SRC = Path(__file__).resolve().parent
@@ -35,9 +35,20 @@ def to_data(value: Any) -> Any:
     return value
 
 
-def json_renderable(value: Any) -> JSON:
-    """Pretty JSON renderable used inside Rich panels."""
-    return JSON.from_data(to_data(value), ensure_ascii=False)
+def json_renderable(value: Any) -> Syntax:
+    """Pretty JSON that wraps long lines instead of escaping the panel width."""
+    text = json.dumps(
+        to_data(value),
+        ensure_ascii=False,
+        indent=2,
+        default=str,
+    )
+    return Syntax(
+        text,
+        "json",
+        word_wrap=True,
+        padding=0,
+    )
 
 
 def trace_panel(
@@ -64,7 +75,7 @@ def trace_panel(
             title=title,
             subtitle=subtitle,
             border_style=border_style,
-            expand=False,
+            expand=True,
         )
     )
 
@@ -88,7 +99,7 @@ def message_bubble(
             json_renderable(data),
             title=f"{direction} · {role.upper()}",
             border_style=style,
-            expand=False,
+            expand=True,
         )
     )
 
