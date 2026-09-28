@@ -118,17 +118,13 @@ uv run mcp dev src/server.py
 
 ## 4. Let the local LLM use the MCP tools
 
-Run:
+The agent intentionally has **no default prompt**. A prompt is always required:
 
 ```bash
-uv run python src/agent.py
+uv run python src/agent.py "What is the internal code for project atlas?"
 ```
 
-The default prompt is:
-
-```text
-What is the internal code for project atlas?
-```
+Running `uv run python src/agent.py` without a prompt prints usage instead of silently choosing a question for you.
 
 The useful part of the output should look conceptually like:
 
@@ -151,6 +147,18 @@ Or force multiple tools:
 ```bash
 uv run python src/agent.py "Give me the Atlas project code and the stock count for servo-x12."
 ```
+
+### See the inner workings
+
+Use `--verbose` to make the adapter loop visible:
+
+```bash
+uv run python src/agent.py --verbose "What is the internal code for project atlas?"
+```
+
+Verbose mode shows the MCP stdio configuration, `tools/list`, the discovered MCP schemas, their conversion into Ollama tool schemas, each Ollama request/response, the model's requested tool call, MCP `tools/call`, the result, and the tool-result message fed back to the model.
+
+Normal mode keeps only the high-level tool-call trace and final answer.
 
 ## 5. Read the code in this order
 

@@ -127,6 +127,18 @@ The interesting code in this unit is the small adapter loop in `src/agent.py`:
 
 This is the minimal architecture behind many agent frameworks.
 
+## Observe the loop with `--verbose`
+
+The implementation can expose this flow at runtime:
+
+```bash
+uv run python src/agent.py --verbose "What is the internal code for project atlas?"
+```
+
+The trace shows MCP discovery, schema translation into Ollama's tool format, the model's structured tool request, MCP `tools/call`, the returned value, and the tool-result message fed into the next model invocation.
+
+Without `--verbose`, the same code path runs but these adapter details stay hidden.
+
 ## Why stdio first?
 
 For a local MCP server, stdio removes networking from the exercise. The host starts the server process and the MCP protocol travels over the child's stdin/stdout. Once the mental model is clear, the same server idea can be moved to Streamable HTTP.
