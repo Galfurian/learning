@@ -135,7 +135,7 @@ The implementation can expose this flow at runtime:
 uv run python src/agent.py --verbose "What is the internal code for project atlas?"
 ```
 
-The trace uses colored Rich panels. Protocol events such as `tools/list` and `tools/call` get their own panels, while every LLM conversation message is shown as a separate role-colored bubble.
+The trace uses colored Rich panels, but it deliberately filters SDK noise rather than dumping every object verbatim. `tools/list` is summarized as the discovered tool contract; `tools/call` shows the arguments and meaningful result; every LLM conversation message is shown as a separate role-colored bubble.
 
 This matters because tool calling is a **multi-message conversation**. After a tool executes, the host does not magically modify the previous answer: it appends a new `role=tool` message and calls the model again. In verbose mode you can inspect the complete message list sent on each Ollama request and see that history grow step by step.
 

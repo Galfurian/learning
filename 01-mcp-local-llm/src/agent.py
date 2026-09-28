@@ -8,9 +8,10 @@ from typing import Any
 from mcp import Client
 from mcp.client.stdio import StdioServerParameters
 from ollama import AsyncClient
-from rich.console import Console
+from rich.console import Console, Group
 from rich.panel import Panel
 from rich.syntax import Syntax
+from rich.table import Table
 from rich.text import Text
 
 SRC = Path(__file__).resolve().parent
@@ -25,7 +26,7 @@ ROLE_STYLES = {
 
 
 def to_data(value: Any) -> Any:
-    """Recursively turn SDK/Pydantic objects into JSON-friendly data."""
+    """Recursively turn SDK/Pydantic objects into plain Python data."""
     if hasattr(value, "model_dump"):
         return to_data(value.model_dump(by_alias=True, mode="json"))
     if isinstance(value, dict):
@@ -35,49 +36,43 @@ def to_data(value: Any) -> Any:
     return value
 
 
+def compact_data(value: Any) -> Any:
+    """Remove SDK noise such as null fields while preserving meaningful values."""
+    value = to_data(value)
+
+    if isinstance(value, dict):
+        return {
+            key: compact_data(item)
+            for key, item in value.items()
+            if item is not None
+        }
+
+    if isinstance(value, list):
+        return [compact_data(item) for item in value]
+
+    return value
+
+
 def json_renderable(value: Any) -> Syntax:
-    """Pretty JSON that wraps long lines instead of escaping the panel width."""
+    """Pretty JSON that wraps inside the terminal width."""
     text = json.dumps(
-        to_data(value),
+        compact_data(value),
         ensure_ascii=False,
         indent=2,
         default=str,
     )
-    return Syntax(
-        text,
-        "json",
-        word_wrap=True,
-        padding=0,
-    )
+    return Syntax(text, "json", word_wrap=True, padding=0)
 
 
-def trace_panel(
-    verbose: bool,
-    title: str,
-    value: Any | None = None,
-    *,
-    border_style: str = "blue",
-    subtitle: str | None = None,
-) -> None:
-    """Render one protocol/adapter step when --verbose is enabled."""
-    if not verbose:
-        return
+def parse_json_string(value: Any) -> Any:
+    """Parse JSON stored inside a string only for prettier display."""
+    if not isinstance(value, str):
+        return value
 
-    body: Any
-    if value is None:
-        body = Text("request")
-    else:
-        body = json_renderable(value)
-
-    console.print(
-        Panel(
-            body,
-            title=title,
-            subtitle=subtitle,
-            border_style=border_style,
-            expand=True,
-        )
-    )
+    try:
+        return json.loads(value)
+    except json.JSONDecodeError:
+        return value
 
 
 def message_bubble(
@@ -86,22 +81,68 @@ def message_bubble(
     *,
     direction: str,
 ) -> None:
-    """Render a complete LLM conversation message as a colored bubble."""
+    """Render one complete LLM message without irrelevant SDK null fields."""
     if not verbose:
         return
 
-    data = to_data(message)
-    role = str(data.get("role", "message")) if isinstance(data, dict) else "message"
+    data = compact_data(message)
+    role = str(data.get("role", "message"))
     style = ROLE_STYLES.get(role, "white")
+    content = data.get("content", "")
+    tool_calls = data.get("tool_calls")
+    tool_name = data.get("tool_name")
+
+    parts: list[Any] = []
+
+    if content:
+        parsed_content = parse_json_string(content)
+        if isinstance(parsed_content, (dict, list)):
+            parts.append(json_renderable(parsed_content))
+        else:
+            parts.append(Text(str(content)))
+
+    if tool_calls:
+        if parts:
+            parts.append(Text())
+        parts.append(Text("tool_calls", style="bold"))
+        parts.append(json_renderable(tool_calls))
+
+    if not parts:
+        parts.append(Text("<empty content>", style="dim"))
+
+    subtitle = f"tool={tool_name}" if tool_name else None
 
     console.print(
         Panel(
-            json_renderable(data),
+            Group(*parts),
             title=f"{direction} · {role.upper()}",
+            subtitle=subtitle,
             border_style=style,
             expand=True,
         )
     )
+
+
+def show_discovered_tools(tools: list[Any]) -> None:
+    """Show the useful result of MCP tools/list without dumping the full SDK payload."""
+    table = Table(
+        title="MCP tools discovered via tools/list",
+        show_header=True,
+        header_style="bold",
+        expand=True,
+    )
+    table.add_column("Tool")
+    table.add_column("Description")
+    table.add_column("Input schema")
+
+    for tool in tools:
+        table.add_row(
+            tool.name,
+            (tool.description or "").strip(),
+            json.dumps(tool.input_schema, ensure_ascii=False),
+        )
+
+    console.print(table)
 
 
 def show_ollama_request(
@@ -110,34 +151,19 @@ def show_ollama_request(
     step: int,
     model: str,
     messages: list[Any],
-    tools: list[dict[str, Any]],
+    tool_count: int,
 ) -> None:
+    """Show exactly the conversation history that is sent to Ollama."""
     if not verbose:
         return
 
-    console.rule(f"[bold]OLLAMA REQUEST · step {step}[/bold]")
-    trace_panel(
-        True,
-        "HOST -> OLLAMA · request metadata",
-        {
-            "model": model,
-            "think": False,
-            "message_count": len(messages),
-            "tool_count": len(tools),
-        },
-        border_style="bright_blue",
+    console.rule(
+        f"[bold]OLLAMA REQUEST · step {step}[/bold] "
+        f"[dim]model={model} · messages={len(messages)} · tools={tool_count}[/dim]"
     )
 
-    console.print("[bold]Messages sent to Ollama[/bold]")
     for message in messages:
         message_bubble(True, message, direction="HOST -> OLLAMA")
-
-    trace_panel(
-        True,
-        "HOST -> OLLAMA · tool schemas",
-        tools,
-        border_style="bright_blue",
-    )
 
 
 def to_ollama_tool(tool: Any) -> dict[str, Any]:
@@ -152,13 +178,15 @@ def to_ollama_tool(tool: Any) -> dict[str, Any]:
     }
 
 
-def tool_result_as_text(result: Any) -> str:
-    """Turn an MCP tool result into text that can be fed back to the LLM."""
+def tool_result_payload(result: Any) -> Any:
+    """Extract the meaningful tool result that will be sent back to the model."""
     if result.structured_content is not None:
-        payload = result.structured_content
-    else:
-        payload = [block.model_dump(mode="json") for block in result.content]
-    return json.dumps(payload, ensure_ascii=False)
+        return result.structured_content
+    return [block.model_dump(mode="json") for block in result.content]
+
+
+def tool_result_as_text(result: Any) -> str:
+    return json.dumps(tool_result_payload(result), ensure_ascii=False)
 
 
 async def run_agent(
@@ -173,55 +201,28 @@ async def run_agent(
         cwd=SRC,
     )
 
-    trace_panel(
-        verbose,
-        "HOST · MCP stdio server configuration",
-        {
-            "command": server.command,
-            "args": server.args,
-            "cwd": str(server.cwd),
-        },
-        border_style="blue",
-    )
+    if verbose:
+        console.print(
+            f"[bold blue]MCP server[/bold blue] "
+            f"[dim]stdio -> {SRC / 'server.py'}[/dim]"
+        )
+        console.print("[bold blue]HOST -> MCP[/bold blue] [dim]tools/list[/dim]")
 
     ollama = AsyncClient()
 
     async with Client(server) as mcp:
-        trace_panel(
-            verbose,
-            "HOST -> MCP · tools/list",
-            {"method": "tools/list"},
-            border_style="blue",
-        )
         listed = await mcp.list_tools()
 
-        mcp_tools = [
-            {
-                "name": tool.name,
-                "description": tool.description,
-                "inputSchema": tool.input_schema,
-            }
-            for tool in listed.tools
-        ]
-        trace_panel(
-            verbose,
-            "MCP -> HOST · tools/list result",
-            mcp_tools,
-            border_style="bright_blue",
-        )
+        if verbose:
+            show_discovered_tools(listed.tools)
 
         ollama_tools = [to_ollama_tool(tool) for tool in listed.tools]
-        trace_panel(
-            verbose,
-            "HOST · MCP -> Ollama schema translation",
-            ollama_tools,
-            border_style="bright_magenta",
-        )
 
-        console.print(
-            "MCP tools:",
-            ", ".join(tool.name for tool in listed.tools),
-        )
+        if not verbose:
+            console.print(
+                "MCP tools:",
+                ", ".join(tool.name for tool in listed.tools),
+            )
 
         messages: list[Any] = [
             {
@@ -240,7 +241,7 @@ async def run_agent(
                 step=step,
                 model=model,
                 messages=messages,
-                tools=ollama_tools,
+                tool_count=len(ollama_tools),
             )
 
             response = await ollama.chat(
@@ -266,47 +267,50 @@ async def run_agent(
                 name = call.function.name
                 arguments = dict(call.function.arguments)
 
-                trace_panel(
-                    verbose,
-                    "OLLAMA -> HOST · requested tool call",
-                    {"name": name, "arguments": arguments},
-                    border_style="green",
-                )
-                console.print(f"[step {step}] tool call -> {name}({arguments})")
+                if verbose:
+                    console.print(
+                        Panel(
+                            json_renderable(arguments),
+                            title=f"HOST -> MCP · tools/call · {name}",
+                            border_style="blue",
+                            expand=True,
+                        )
+                    )
+                else:
+                    console.print(
+                        f"[step {step}] tool call -> {name}({arguments})"
+                    )
 
-                trace_panel(
-                    verbose,
-                    "HOST -> MCP · tools/call",
-                    {
-                        "method": "tools/call",
-                        "name": name,
-                        "arguments": arguments,
-                    },
-                    border_style="blue",
-                )
                 result = await mcp.call_tool(name, arguments)
-                trace_panel(
-                    verbose,
-                    "MCP -> HOST · tools/call result",
-                    result,
-                    border_style="bright_blue",
-                )
+                payload = tool_result_payload(result)
 
-                text = tool_result_as_text(result)
-                console.print(f"[step {step}] tool result <- {text}")
+                if verbose:
+                    console.print(
+                        Panel(
+                            json_renderable(payload),
+                            title=f"MCP -> HOST · result · {name}",
+                            border_style="bright_blue",
+                            expand=True,
+                        )
+                    )
+                else:
+                    console.print(
+                        f"[step {step}] tool result <- "
+                        f"{json.dumps(payload, ensure_ascii=False)}"
+                    )
 
                 tool_message = {
                     "role": "tool",
                     "tool_name": name,
-                    "content": text,
+                    "content": json.dumps(payload, ensure_ascii=False),
                 }
                 messages.append(tool_message)
 
-                message_bubble(
-                    verbose,
-                    tool_message,
-                    direction="HOST queues for OLLAMA",
-                )
+                if verbose:
+                    console.print(
+                        "[dim]HOST appends the TOOL message to the conversation; "
+                        "it will appear in the next Ollama request.[/dim]"
+                    )
 
         raise RuntimeError(f"Agent exceeded {max_steps} tool-calling steps")
 
@@ -328,8 +332,8 @@ def parse_args() -> argparse.Namespace:
         "--verbose",
         action="store_true",
         help=(
-            "Render the complete MCP/Ollama exchange as colored Rich panels, "
-            "including every conversation message."
+            "Show the educational MCP/Ollama flow with complete conversation "
+            "messages and only the protocol payloads that matter."
         ),
     )
     return parser.parse_args()
