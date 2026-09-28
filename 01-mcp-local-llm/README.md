@@ -90,6 +90,17 @@ uv run python src/inspect_mcp.py
 
 This program launches `src/server.py` as a subprocess, connects to it over MCP stdio, lists the tools, prints their JSON schemas, then directly calls one tool.
 
+The two key protocol operations demonstrated here are:
+
+```text
+MCP protocol        Python SDK
+------------        ----------
+tools/list          client.list_tools()
+tools/call          client.call_tool(...)
+```
+
+So the host first discovers the server's tools through `tools/list`, then invokes one through `tools/call`. The SDK methods above are the Python interface to those protocol operations.
+
 You should see tools named:
 
 ```text
@@ -97,7 +108,7 @@ inventory_count
 project_code
 ```
 
-This step matters: MCP works independently of the LLM.
+This step matters: MCP works independently of the LLM. The detailed explanation is in [docs/mental-model.md](docs/mental-model.md).
 
 You can also inspect the server interactively with the official MCP Inspector:
 
@@ -145,9 +156,9 @@ uv run python src/agent.py "Give me the Atlas project code and the stock count f
 
 1. `src/server.py` — two ordinary Python functions become MCP tools.
 2. `src/inspect_mcp.py` — MCP discovery and invocation without any LLM.
-3. `src/agent.py::to_ollama_tool` — translates an MCP tool description into an Ollama function schema.
-4. `src/agent.py::run_agent` — the tool-calling loop.
-5. `docs/mental-model.md` — put the pieces into the right conceptual boxes.
+3. `docs/mental-model.md` — understand `tools/list`, `tools/call`, and the host/model/server separation.
+4. `src/agent.py::to_ollama_tool` — translates an MCP tool description into an Ollama function schema.
+5. `src/agent.py::run_agent` — the tool-calling loop.
 6. `exercises/README.md` — modify the system yourself.
 
 ## Files
