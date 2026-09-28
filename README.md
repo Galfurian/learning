@@ -10,10 +10,12 @@ The rule is simple: one topic = one folder = one runnable workspace.
 learning/
 ├── README.md
 ├── .gitignore
+├── docs/                  # reusable knowledge shared by multiple units
+│   └── ollama.md
 └── NN-topic-name/
     ├── README.md
     ├── pyproject.toml
-    ├── docs/
+    ├── docs/              # knowledge specific to this unit
     ├── exercises/
     └── runnable source files
 ```
@@ -22,8 +24,14 @@ Each unit should contain:
 
 - **README.md** — learning path, commands, and expected results.
 - **workspace** — the smallest runnable project that demonstrates the topic.
-- **docs/** — concepts worth keeping after the experiment.
+- **docs/** — concepts specific to that unit.
 - **exercises/** — small changes to make without copying a solution blindly.
+
+Reusable setup or concepts that may be needed by several units belong in the repository-level [docs](./docs/).
+
+## Shared docs
+
+- [Ollama on WSL/Linux](./docs/ollama.md) — install Ollama, start its local API server, pull models, and verify the service.
 
 ## Learning units
 
@@ -36,5 +44,7 @@ Each unit should contain:
 - Folders are ordered with a two-digit prefix: `01-`, `02-`, ...
 - Prefer small examples over production scaffolding.
 - Keep each unit independently runnable.
+- Put reusable environment/setup knowledge in root `docs/`.
+- Put unit-specific concepts in that unit's `docs/`.
 - Document the mental model before adding abstractions.
 - First make the protocol flow visible; only then add frameworks.

@@ -32,7 +32,7 @@ Inside WSL:
 - Ollama reachable at `http://localhost:11434`
 - an Ollama model with tool-calling support
 
-The examples default to `qwen3:4b` because it is small enough for a local learning setup. You can pass another installed tool-capable model with `--model`.
+The examples default to `qwen3:1.7b` so the exercise also works on modest laptops. You can pass another installed tool-capable model with `--model`.
 
 ## 0. Clone the learning repo
 
@@ -59,19 +59,26 @@ uv sync
 
 ## 2. Prepare Ollama
 
-Check that Ollama is reachable:
+Ollama setup is shared knowledge, so the complete WSL/Linux installation and server guide lives in [../docs/ollama.md](../docs/ollama.md).
+
+For this unit the minimum sequence is:
+
+```bash
+# Install once, if needed
+curl -fsSL https://ollama.com/install.sh | sh
+
+# Start the API server only if it is not already running
+ollama serve
+```
+
+Keep `ollama serve` running in that terminal. In another terminal:
 
 ```bash
 curl http://localhost:11434/api/tags
+ollama pull qwen3:1.7b
 ```
 
-Pull the default model:
-
-```bash
-ollama pull qwen3:4b
-```
-
-If Ollama runs on Windows rather than inside WSL, use whatever host address makes the Windows Ollama service reachable from your WSL instance.
+If the curl command already works before you run `ollama serve`, a service is already providing Ollama and you do not need to start a second server.
 
 ## 3. First understand MCP without an LLM
 

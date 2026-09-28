@@ -101,7 +101,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--model",
-        default="qwen3:4b",
+        default="qwen3:1.7b",
         help="Any Ollama model installed locally that supports tool calling.",
     )
     return parser.parse_args()
