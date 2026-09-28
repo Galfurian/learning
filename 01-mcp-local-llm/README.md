@@ -156,7 +156,11 @@ Use `--verbose` to make the adapter loop visible:
 uv run python src/agent.py --verbose "What is the internal code for project atlas?"
 ```
 
-Verbose mode shows the MCP stdio configuration, `tools/list`, the discovered MCP schemas, their conversion into Ollama tool schemas, each Ollama request/response, the model's requested tool call, MCP `tools/call`, the result, and the tool-result message fed back to the model.
+Verbose mode uses Rich panels so the exchange reads like a protocol conversation rather than a log dump. It shows the MCP stdio configuration, `tools/list`, the discovered MCP schemas, their conversion into Ollama tool schemas, each Ollama request/response, the model's requested tool call, MCP `tools/call`, the result, and the tool-result message fed back to the model.
+
+Most importantly, **every message sent to Ollama is rendered as its own colored bubble**, including `system`, `user`, `assistant`, and `tool` messages. Structured payloads and tool schemas are rendered as pretty JSON.
+
+This makes the second Ollama request especially useful to inspect: you can see the original user message, the assistant tool-call message, and the new `role=tool` message together in the exact conversation history that goes back to the model.
 
 Normal mode keeps only the high-level tool-call trace and final answer.
 

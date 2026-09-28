@@ -135,7 +135,11 @@ The implementation can expose this flow at runtime:
 uv run python src/agent.py --verbose "What is the internal code for project atlas?"
 ```
 
-The trace shows MCP discovery, schema translation into Ollama's tool format, the model's structured tool request, MCP `tools/call`, the returned value, and the tool-result message fed into the next model invocation.
+The trace uses colored Rich panels. Protocol events such as `tools/list` and `tools/call` get their own panels, while every LLM conversation message is shown as a separate role-colored bubble.
+
+This matters because tool calling is a **multi-message conversation**. After a tool executes, the host does not magically modify the previous answer: it appends a new `role=tool` message and calls the model again. In verbose mode you can inspect the complete message list sent on each Ollama request and see that history grow step by step.
+
+The trace therefore exposes MCP discovery, schema translation into Ollama's tool format, the model's structured tool request, MCP `tools/call`, the returned value, the appended tool message, and the next model invocation.
 
 Without `--verbose`, the same code path runs but these adapter details stay hidden.
 
