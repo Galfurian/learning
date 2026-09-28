@@ -9,7 +9,7 @@ from mcp import Client
 from mcp.client.stdio import StdioServerParameters
 from ollama import AsyncClient
 
-ROOT = Path(__file__).resolve().parent
+SRC = Path(__file__).resolve().parent
 
 
 def to_ollama_tool(tool: Any) -> dict[str, Any]:
@@ -36,8 +36,8 @@ def tool_result_as_text(result: Any) -> str:
 async def run_agent(prompt: str, model: str, max_steps: int = 8) -> None:
     server = StdioServerParameters(
         command=sys.executable,
-        args=[str(ROOT / "server.py")],
-        cwd=ROOT,
+        args=[str(SRC / "server.py")],
+        cwd=SRC,
     )
 
     ollama = AsyncClient()

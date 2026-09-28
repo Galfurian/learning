@@ -4,13 +4,19 @@ Do these in order.
 
 ## 1. Add one tool
 
-Add this capability to the MCP server without touching `agent.py`:
+Add this capability to the MCP server in `src/server.py` without touching `src/agent.py`:
 
 - tool name: `machine_status`
 - input: machine name
 - output: one of `idle`, `running`, `offline`
 
-Then run `inspect_mcp.py`. The new tool should appear automatically.
+Then run:
+
+```bash
+uv run python src/inspect_mcp.py
+```
+
+The new tool should appear automatically.
 
 **Point:** the host discovers the contract; you should not need to hard-code the new function in the agent.
 
@@ -26,7 +32,7 @@ Observe whether the model emits parallel calls or calls them over multiple loop 
 
 ## 3. Break the schema
 
-Temporarily change the type of `inventory_count(part: str)` to something incompatible or call it with a missing argument from `inspect_mcp.py`.
+Temporarily change the type of `inventory_count(part: str)` to something incompatible or call it with a missing argument from `src/inspect_mcp.py`.
 
 Observe where validation happens and what the MCP error looks like.
 
@@ -38,6 +44,6 @@ After the stdio version is clear, run the same MCP server using Streamable HTTP 
 
 ## 5. Remove Ollama
 
-Write a tiny fake 'model' that always returns a call to `project_code(project="atlas")`.
+Write a tiny fake 'model' under `src/` that always returns a call to `project_code(project="atlas")`.
 
 **Point:** prove to yourself that MCP and tool calling are independent. Ollama is only one possible model runtime.

@@ -11,11 +11,11 @@ Ollama model
     ^   |
     |   | function call
     |   v
-  agent.py              <-- host / adapter
+src/agent.py              <-- host / adapter
     ^   |
     |   | MCP over stdio
     |   v
-  server.py             <-- MCP server
+src/server.py             <-- MCP server
 ```
 
 The MCP server has demo data the model cannot infer reliably on its own:
@@ -85,10 +85,10 @@ If the curl command already works before you run `ollama serve`, a service is al
 Run:
 
 ```bash
-uv run python inspect_mcp.py
+uv run python src/inspect_mcp.py
 ```
 
-This program launches `server.py` as a subprocess, connects to it over MCP stdio, lists the tools, prints their JSON schemas, then directly calls one tool.
+This program launches `src/server.py` as a subprocess, connects to it over MCP stdio, lists the tools, prints their JSON schemas, then directly calls one tool.
 
 You should see tools named:
 
@@ -102,7 +102,7 @@ This step matters: MCP works independently of the LLM.
 You can also inspect the server interactively with the official MCP Inspector:
 
 ```bash
-uv run mcp dev server.py
+uv run mcp dev src/server.py
 ```
 
 ## 4. Let the local LLM use the MCP tools
@@ -110,7 +110,7 @@ uv run mcp dev server.py
 Run:
 
 ```bash
-uv run python agent.py
+uv run python src/agent.py
 ```
 
 The default prompt is:
@@ -132,21 +132,21 @@ Assistant: ...
 Try another question:
 
 ```bash
-uv run python agent.py "How many flux-capacitor units are currently in the lab?"
+uv run python src/agent.py "How many flux-capacitor units are currently in the lab?"
 ```
 
 Or force multiple tools:
 
 ```bash
-uv run python agent.py "Give me the Atlas project code and the stock count for servo-x12."
+uv run python src/agent.py "Give me the Atlas project code and the stock count for servo-x12."
 ```
 
 ## 5. Read the code in this order
 
-1. `server.py` — two ordinary Python functions become MCP tools.
-2. `inspect_mcp.py` — MCP discovery and invocation without any LLM.
-3. `agent.py::to_ollama_tool` — translates an MCP tool description into an Ollama function schema.
-4. `agent.py::run_agent` — the tool-calling loop.
+1. `src/server.py` — two ordinary Python functions become MCP tools.
+2. `src/inspect_mcp.py` — MCP discovery and invocation without any LLM.
+3. `src/agent.py::to_ollama_tool` — translates an MCP tool description into an Ollama function schema.
+4. `src/agent.py::run_agent` — the tool-calling loop.
 5. `docs/mental-model.md` — put the pieces into the right conceptual boxes.
 6. `exercises/README.md` — modify the system yourself.
 
@@ -156,9 +156,10 @@ uv run python agent.py "Give me the Atlas project code and the stock count for s
 01-mcp-local-llm/
 ├── README.md
 ├── pyproject.toml
-├── server.py
-├── inspect_mcp.py
-├── agent.py
+├── src/
+│   ├── server.py
+│   ├── inspect_mcp.py
+│   └── agent.py
 ├── docs/
 │   └── mental-model.md
 └── exercises/

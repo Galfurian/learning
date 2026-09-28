@@ -15,15 +15,16 @@ learning/
 └── NN-topic-name/
     ├── README.md
     ├── pyproject.toml
+    ├── src/               # runnable source code
     ├── docs/              # knowledge specific to this unit
-    ├── exercises/
-    └── runnable source files
+    └── exercises/
 ```
 
 Each unit should contain:
 
 - **README.md** — learning path, commands, and expected results.
 - **workspace** — the smallest runnable project that demonstrates the topic.
+- **src/** — executable/source code for the unit.
 - **docs/** — concepts specific to that unit.
 - **exercises/** — small changes to make without copying a solution blindly.
 
@@ -44,6 +45,7 @@ Reusable setup or concepts that may be needed by several units belong in the rep
 - Folders are ordered with a two-digit prefix: `01-`, `02-`, ...
 - Prefer small examples over production scaffolding.
 - Keep each unit independently runnable.
+- Put Python source files under `src/` (or a domain-equivalent source directory when that is more natural).
 - Put reusable environment/setup knowledge in root `docs/`.
 - Put unit-specific concepts in that unit's `docs/`.
 - Document the mental model before adding abstractions.

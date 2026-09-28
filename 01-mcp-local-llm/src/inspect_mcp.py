@@ -5,14 +5,14 @@ from pathlib import Path
 from mcp import Client
 from mcp.client.stdio import StdioServerParameters
 
-ROOT = Path(__file__).resolve().parent
+SRC = Path(__file__).resolve().parent
 
 
 async def main() -> None:
     params = StdioServerParameters(
         command=sys.executable,
-        args=[str(ROOT / "server.py")],
-        cwd=ROOT,
+        args=[str(SRC / "server.py")],
+        cwd=SRC,
     )
 
     async with Client(params) as client:

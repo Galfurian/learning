@@ -6,13 +6,13 @@ There are four different actors. Keeping them separate is the main point of this
 User
   |
   v
-Host / agent.py
+Host / src/agent.py
   |                         Ollama
   |--- tools schema -------> local LLM
   |<-- tool call -----------|
   |
   |        MCP over stdio
-  |--- tools/call ---------> server.py
+  |--- tools/call ---------> src/server.py
   |<-- tool result ---------|
   |
   |--- tool result --------> local LLM
@@ -23,13 +23,13 @@ User
 
 ## 1. MCP server
 
-`server.py` owns capabilities. It does **not** know Ollama exists.
+`src/server.py` owns capabilities. It does **not** know Ollama exists.
 
 It exposes typed Python functions with `@mcp.tool()`. The MCP SDK derives the tool name, description, and JSON input schema from the function, its docstring, and its annotations.
 
 ## 2. MCP client / host
 
-`agent.py` is the host. It launches the MCP server as a child process and connects over stdio.
+`src/agent.py` is the host. It launches the MCP server as a child process and connects over stdio.
 
 The host asks the server which tools exist, then invokes a tool when needed. This separation is important: MCP defines how the host discovers and calls capabilities; it is not an LLM inference API.
 
@@ -41,7 +41,7 @@ The model does not execute the function itself.
 
 ## 4. The adapter loop
 
-The interesting code in this unit is the small adapter loop in `agent.py`:
+The interesting code in this unit is the small adapter loop in `src/agent.py`:
 
 1. MCP `list_tools()` returns MCP tool descriptions.
 2. `to_ollama_tool()` maps each MCP description to Ollama's function schema.
