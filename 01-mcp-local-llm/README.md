@@ -170,14 +170,17 @@ The second Ollama request is especially useful to inspect: it shows the original
 
 Normal mode keeps only the high-level tool-call trace and final answer.
 
+The source is split by responsibility on purpose: `agent.py` contains the orchestration loop, `bridge.py` contains MCP/Ollama conversion helpers, and `ui.py` contains all Rich/verbose rendering. This keeps the learning target visible when you open `agent.py`.
+
 ## 5. Read the code in this order
 
 1. `src/server.py` — two ordinary Python functions become MCP tools.
 2. `src/inspect_mcp.py` — MCP discovery and invocation without any LLM.
 3. `docs/mental-model.md` — understand `tools/list`, `tools/call`, and the host/model/server separation.
-4. `src/agent.py::to_ollama_tool` — translates an MCP tool description into an Ollama function schema.
-5. `src/agent.py::run_agent` — the tool-calling loop.
-6. `exercises/README.md` — modify the system yourself.
+4. `src/bridge.py` — translates MCP tool definitions/results into Ollama's tool-calling format.
+5. `src/agent.py::run_agent` — the actual orchestration loop, now kept deliberately small.
+6. `src/ui.py` — Rich rendering for `--verbose`; useful for observation, but not part of the agent logic.
+7. `exercises/README.md` — modify the system yourself.
 
 ## Files
 
@@ -188,7 +191,9 @@ Normal mode keeps only the high-level tool-call trace and final answer.
 ├── src/
 │   ├── server.py
 │   ├── inspect_mcp.py
-│   └── agent.py
+│   ├── agent.py
+│   ├── bridge.py
+│   └── ui.py
 ├── docs/
 │   └── mental-model.md
 └── exercises/

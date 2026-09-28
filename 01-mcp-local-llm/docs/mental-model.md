@@ -116,7 +116,9 @@ The model does not execute the function itself.
 
 ## 4. The adapter loop
 
-The interesting code in this unit is the small adapter loop in `src/agent.py`:
+The orchestration loop lives in `src/agent.py`. Format conversion lives in `src/bridge.py`, while all Rich tracing lives in `src/ui.py`. This separation is intentional: opening `agent.py` should show the agent mechanics, not presentation code.
+
+The loop is:
 
 1. MCP `tools/list` is exposed by the Python SDK as `list_tools()`.
 2. `to_ollama_tool()` maps each discovered MCP tool description to Ollama's function schema.
