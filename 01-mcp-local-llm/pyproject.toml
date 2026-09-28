@@ -1,0 +1,12 @@
+[project]
+name = "learning-mcp-local-llm"
+version = "0.1.0"
+description = "Minimal MCP server used by a local Ollama model through tool calling"
+requires-python = ">=3.11"
+dependencies = [
+  "mcp[cli]>=2,<3",
+  "ollama>=0.6,<1",
+]
+
+[tool.uv]
+package = false
