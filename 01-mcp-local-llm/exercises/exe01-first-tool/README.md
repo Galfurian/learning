@@ -17,9 +17,12 @@ counting characters and the answer changes between runs.
 
 ## Task
 
-In `exe01.py`, write a function `count_letter(word, letter)` that returns how
-many times `letter` appears in `word`, ignoring case. Register it as an MCP
-tool on the `mcp` server object.
+`exe01.py` already contains the signature of `count_letter(word, letter)`.
+Implement it: return how many times `letter` appears in `word`, ignoring case.
+Then register it as an MCP tool on the `mcp` server object.
+
+Until you register it, `count_letter` is an ordinary Python function: the
+server does not know it exists, and `--inspect` shows no tools.
 
 Requirements:
 

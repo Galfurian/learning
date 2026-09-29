@@ -12,7 +12,9 @@ PROMPT = (
 )
 
 
-# TODO: write `count_letter(word, letter)` and register it as an MCP tool.
+# TODO: register this function as an MCP tool, add a docstring, implement it.
+def count_letter(word: str, letter: str) -> int:
+    raise NotImplementedError
 
 
 if __name__ == "__main__":

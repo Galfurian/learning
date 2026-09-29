@@ -21,14 +21,41 @@ uv run python exercises/exe05-resources/exe05.py
 The resources do not exist yet, so the host attaches nothing. Read the model's
 answer: it has no rules to follow.
 
+## What "expose" means
+
+Resources are part of MCP, exactly like tools. They are just a different MCP
+primitive, with their own protocol operations:
+
+```text
+Tools                        Resources
+-----                        ---------
+tools/list                   resources/list, resources/templates/list
+tools/call   (name + args)   resources/read   (URI)
+@mcp.tool()                  @mcp.resource("some://uri")
+```
+
+To expose something means to register it on the MCP server, so that a client
+can find it with a `.../list` request and use it with the matching request.
+A plain Python variable such as `RULES` is invisible to the client. Once a
+function returning `RULES` is registered with `@mcp.resource("lab://rules")`,
+the server lists `lab://rules` and answers `resources/read` for that URI by
+calling the function.
+
+The difference from a tool is who triggers the call. The host sends
+`tools/call` because the model asked for it. The host sends `resources/read`
+because the host itself decided to (here, because of `attach=[...]`).
+
 ## Task
 
-In `exe05.py`:
+`exe05.py` already contains the signatures of two functions. Implement both
+and register them as MCP resources:
 
-1. Expose `RULES` as a static resource with URI `lab://rules`.
-2. Expose `MACHINES` as a resource template with URI
-   `lab://machines/{machine}`. One function serves every machine; the
-   `{machine}` part of the URI becomes a function argument.
+1. `lab_rules()` returns `RULES`. Register it as a **static resource** with
+   URI `lab://rules`: one fixed URI, so the function takes no arguments.
+2. `machine_notes(machine)` returns the notes from `MACHINES`. Register it as a
+   **resource template** with URI `lab://machines/{machine}`: one function
+   serves every machine, and the `{machine}` part of the URI becomes the
+   function argument. An unknown machine is an error.
 
 Give both a description and the MIME type `text/plain`. Do not add tools.
 

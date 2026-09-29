@@ -7,8 +7,9 @@ process, so it can keep state between calls.
 
 ## Task
 
-In `exe03.py`, write a tool `book_room(room, day)` that books a room in
-`BOOKINGS`.
+`exe03.py` already contains the signature of `book_room(room, day)`.
+Implement it so that it books a room in `BOOKINGS`, and register it as an MCP
+tool.
 
 - `room`: string, case-insensitive.
 - `day`: one of `monday`, `tuesday`, `wednesday`, `thursday`, `friday`. Invalid

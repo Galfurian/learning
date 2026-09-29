@@ -1,5 +1,9 @@
 """EXE02 — input and output schemas. Task: see README.md in this folder."""
 
+from typing import Literal
+
+from pydantic import BaseModel
+
 from mcp.server import MCPServer
 
 from mcplab.exercise import run
@@ -23,9 +27,20 @@ TIMETABLE = [
 ]
 
 
-# TODO: define a `Train` output model.
+class Train(BaseModel):
+    number: str
+    departs: str
+    kind: Literal["regional", "high-speed"]
 
-# TODO: write `find_trains(...)` and register it as an MCP tool.
+
+# TODO: register this function as an MCP tool, add a docstring, implement it.
+def find_trains(
+    origin: str,
+    destination: str,
+    departs_after: str = "00:00",
+    kind: Literal["regional", "high-speed", "any"] = "any",
+) -> list[Train]:
+    raise NotImplementedError
 
 
 if __name__ == "__main__":

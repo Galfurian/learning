@@ -6,7 +6,8 @@ inference round per step, results appended to the conversation, repeat.
 
 ## Task
 
-In `exe04.py`, write two tools:
+`exe04.py` already contains the `Course` model and the signatures of two
+functions. Implement both and register them as MCP tools:
 
 1. `find_student(full_name)` returns the student ID (for example
    `"VR-48213"`). The name match ignores case and extra spaces. An unknown

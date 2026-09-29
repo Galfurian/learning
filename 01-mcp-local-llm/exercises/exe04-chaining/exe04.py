@@ -1,5 +1,7 @@
 """EXE04 — chaining tools. Task: see README.md in this folder."""
 
+from pydantic import BaseModel
+
 from mcp.server import MCPServer
 
 from mcplab.exercise import run
@@ -25,9 +27,20 @@ COURSES = {
 }
 
 
-# TODO: write `find_student(full_name)` and register it as an MCP tool.
+class Course(BaseModel):
+    code: str
+    title: str
+    room: str
 
-# TODO: write `student_courses(student_id)` and register it as an MCP tool.
+
+# TODO: register this function as an MCP tool, add a docstring, implement it.
+def find_student(full_name: str) -> str:
+    raise NotImplementedError
+
+
+# TODO: register this function as an MCP tool, add a docstring, implement it.
+def student_courses(student_id: str) -> list[Course]:
+    raise NotImplementedError
 
 
 if __name__ == "__main__":

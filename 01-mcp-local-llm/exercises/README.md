@@ -34,6 +34,13 @@ uv run python exeNN.py --serve      MCP SERVER over stdio (the host does this fo
 
 The host part is shared code in `src/mcplab/`. You only write the server part.
 
+Each `exeNN.py` gives you the function signatures. Your job is to implement
+the functions and **register** them on the `mcp` server object with a
+decorator (`@mcp.tool()`, or `@mcp.resource(...)` in EXE05). Registering is
+what "exposing" means: the server then lists the function over MCP and runs it
+when a client asks. An unregistered function is ordinary Python that no client
+can see.
+
 ## Commands
 
 Run from the unit folder (`01-mcp-local-llm/`):

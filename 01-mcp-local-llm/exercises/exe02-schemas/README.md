@@ -7,7 +7,10 @@ content.
 
 ## Task
 
-In `exe02.py`, write a tool `find_trains` that searches the `TIMETABLE`.
+`exe02.py` already contains the `Train` model and the signature of
+`find_trains`. Implement it so that it searches the `TIMETABLE`, and register
+it as an MCP tool. Compare the signature with the table below: every row comes
+from the type hints.
 
 Input:
 
@@ -19,7 +22,7 @@ Input:
 | `kind`          | one of `regional`, `high-speed`, `any`| no       | `"any"`   |
 
 Output: a list of trains ordered by departure time. Each train has exactly
-`number`, `departs` and `kind`. Define it as a Pydantic model `Train`.
+`number`, `departs` and `kind`, as defined by the Pydantic model `Train`.
 
 City names must match regardless of case (`"Verona"` and `"verona"` are the
 same city). Times in `HH:MM` format compare correctly as strings.
