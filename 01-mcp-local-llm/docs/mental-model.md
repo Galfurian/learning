@@ -23,6 +23,8 @@ HOST                         OLLAMA
 
 In verbose mode, panel titles contain only the direction between actors, such as `HOST -> OLLAMA`. The first line inside each panel states the event being shown.
 
+A `STEP` is one model-inference round. HOST sends the current conversation to OLLAMA; if the model requests a tool, HOST executes that request through the MCP SERVER as part of the same step. A new step starts only when HOST invokes OLLAMA again with the updated conversation.
+
 ## 1. MCP server
 
 `src/server.py` owns capabilities. It does **not** know Ollama exists.

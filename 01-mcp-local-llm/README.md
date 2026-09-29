@@ -166,6 +166,8 @@ Conversation roles such as `system`, `user`, `assistant`, and `tool` are message
 
 Every Rich panel title is standardized to only show communication direction, for example `HOST -> OLLAMA` or `HOST -> MCP SERVER`. The first line inside the panel says what is happening, such as `Event: conversation message · role=user` or `Event: MCP tools/call · project_code`.
 
+Each `STEP N` divider also explains its participants and purpose. A step means **one Ollama inference round plus any MCP tool execution requested by that round**. The next step begins only when HOST calls Ollama again, typically after appending a `role=tool` result to the conversation.
+
 Verbose mode is intentionally **not** a raw SDK dump. It keeps the parts that explain the architecture:
 
 - the `tools/list` discovery and a compact table of discovered tools;

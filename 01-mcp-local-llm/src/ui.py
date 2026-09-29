@@ -228,6 +228,38 @@ def show_discovered_tools(verbose: bool, tools: list[Any]) -> None:
     )
 
 
+def _show_step_context(
+    step: int,
+    messages: list[Any],
+) -> None:
+    has_tool_result = any(
+        isinstance(_compact_data(message), dict)
+        and _compact_data(message).get("role") == "tool"
+        for message in messages
+    )
+
+    if has_tool_result:
+        purpose = (
+            "Continue the model inference with tool result(s) now present in the "
+            "conversation; the model may answer or request another tool."
+        )
+    else:
+        purpose = (
+            "Run the initial model inference on the user's request and the available "
+            "tool contracts; the model may answer directly or request a tool."
+        )
+
+    console.print(
+        "[bold]Participants:[/bold] HOST <-> OLLAMA; "
+        "MCP SERVER joins this step only if the model emits tool_calls."
+    )
+    console.print(f"[bold]Purpose:[/bold] {purpose}")
+    console.print(
+        "[dim]Step boundary: one Ollama inference round plus any MCP tool execution "
+        "requested by that round. The next step starts when HOST calls Ollama again.[/dim]\n"
+    )
+
+
 def show_ollama_request(
     verbose: bool,
     *,
@@ -243,6 +275,7 @@ def show_ollama_request(
         f"[bold]STEP {step}[/bold] "
         f"[dim]model={model} · messages={len(messages)} · tools={tool_count}[/dim]"
     )
+    _show_step_context(step, messages)
 
     for message in messages:
         _message_bubble(
