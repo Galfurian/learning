@@ -64,7 +64,43 @@ def _maybe_parse_json(value: Any) -> Any:
         return value
 
 
-def _message_bubble(message: Any, *, direction: str) -> None:
+def _event_line(event: str) -> Text:
+    text = Text()
+    text.append("Event: ", style="bold")
+    text.append(event)
+    return text
+
+
+def _panel(
+    source: str,
+    target: str,
+    event: str,
+    body: Any | None = None,
+    *,
+    border_style: str = "blue",
+) -> None:
+    parts: list[Any] = [_event_line(event)]
+
+    if body is not None:
+        parts.append(Text())
+        parts.append(body)
+
+    console.print(
+        Panel(
+            Group(*parts),
+            title=f"{source} -> {target}",
+            border_style=border_style,
+            expand=True,
+        )
+    )
+
+
+def _message_bubble(
+    message: Any,
+    *,
+    source: str,
+    target: str,
+) -> None:
     data = _compact_data(message)
     role = str(data.get("role", "message"))
     style = ROLE_STYLES.get(role, "white")
@@ -72,9 +108,15 @@ def _message_bubble(message: Any, *, direction: str) -> None:
     tool_calls = data.get("tool_calls")
     tool_name = data.get("tool_name")
 
-    parts: list[Any] = []
+    parts: list[Any] = [
+        _event_line(
+            f"conversation message · role={role}"
+            + (f" · tool={tool_name}" if tool_name else "")
+        )
+    ]
 
     if content:
+        parts.append(Text())
         parsed = _maybe_parse_json(content)
         if isinstance(parsed, (dict, list)):
             parts.append(_json(parsed))
@@ -82,36 +124,74 @@ def _message_bubble(message: Any, *, direction: str) -> None:
             parts.append(Text(str(content)))
 
     if tool_calls:
-        if parts:
-            parts.append(Text())
+        parts.append(Text())
         parts.append(Text("tool_calls", style="bold"))
         parts.append(_json(tool_calls))
 
-    if not parts:
+    if not content and not tool_calls:
+        parts.append(Text())
         parts.append(Text("<empty content>", style="dim"))
 
     console.print(
         Panel(
             Group(*parts),
-            title=f"{direction} · {role.upper()}",
-            subtitle=f"tool={tool_name}" if tool_name else None,
+            title=f"{source} -> {target}",
             border_style=style,
             expand=True,
         )
     )
 
 
-def show_mcp_server(verbose: bool, server_path: Path) -> None:
+def _show_actors(model: str) -> None:
+    table = Table(
+        title="Actors",
+        show_header=True,
+        header_style="bold",
+        expand=True,
+    )
+    table.add_column("Actor")
+    table.add_column("Meaning")
+
+    table.add_row(
+        "HOST",
+        "src/agent.py: orchestrates the loop, executes MCP calls, and maintains conversation history.",
+    )
+    table.add_row(
+        "OLLAMA",
+        (
+            f"Local runtime/API running {model}. The model decides whether to emit "
+            "tool_calls and their arguments; Ollama returns that model output to HOST."
+        ),
+    )
+    table.add_row(
+        "MCP SERVER",
+        "src/server.py: exposes tools and executes them when HOST sends MCP tools/call.",
+    )
+
+    console.print(table)
+    console.print(
+        "[dim]Conversation roles (system/user/assistant/tool) are message roles, "
+        "not additional actors.[/dim]\n"
+    )
+
+
+def show_mcp_server(verbose: bool, server_path: Path, model: str) -> None:
     if not verbose:
         return
 
-    console.print(
-        f"[bold blue]MCP server[/bold blue] "
-        f"[dim]stdio -> {server_path}[/dim]"
+    _show_actors(model)
+
+    _panel(
+        "HOST",
+        "MCP SERVER",
+        f"start/connect over stdio · {server_path}",
+        border_style="blue",
     )
-    console.print(
-        "[bold blue]HOST -> MCP[/bold blue] "
-        "[dim]tools/list[/dim]"
+    _panel(
+        "HOST",
+        "MCP SERVER",
+        "MCP tools/list",
+        border_style="blue",
     )
 
 
@@ -124,7 +204,6 @@ def show_discovered_tools(verbose: bool, tools: list[Any]) -> None:
         return
 
     table = Table(
-        title="MCP tools discovered via tools/list",
         show_header=True,
         header_style="bold",
         expand=True,
@@ -140,7 +219,13 @@ def show_discovered_tools(verbose: bool, tools: list[Any]) -> None:
             json.dumps(tool.input_schema, ensure_ascii=False),
         )
 
-    console.print(table)
+    _panel(
+        "MCP SERVER",
+        "HOST",
+        "MCP tools/list result · discovered tool contracts",
+        table,
+        border_style="bright_blue",
+    )
 
 
 def show_ollama_request(
@@ -155,17 +240,25 @@ def show_ollama_request(
         return
 
     console.rule(
-        f"[bold]OLLAMA REQUEST · step {step}[/bold] "
+        f"[bold]STEP {step}[/bold] "
         f"[dim]model={model} · messages={len(messages)} · tools={tool_count}[/dim]"
     )
 
     for message in messages:
-        _message_bubble(message, direction="HOST -> OLLAMA")
+        _message_bubble(
+            message,
+            source="HOST",
+            target="OLLAMA",
+        )
 
 
 def show_ollama_response(verbose: bool, message: Any) -> None:
     if verbose:
-        _message_bubble(message, direction="OLLAMA -> HOST")
+        _message_bubble(
+            message,
+            source="OLLAMA",
+            target="HOST",
+        )
 
 
 def show_tool_call(
@@ -175,13 +268,12 @@ def show_tool_call(
     arguments: dict[str, Any],
 ) -> None:
     if verbose:
-        console.print(
-            Panel(
-                _json(arguments),
-                title=f"HOST -> MCP · tools/call · {name}",
-                border_style="blue",
-                expand=True,
-            )
+        _panel(
+            "HOST",
+            "MCP SERVER",
+            f"MCP tools/call · {name}",
+            _json(arguments),
+            border_style="blue",
         )
         return
 
@@ -195,17 +287,16 @@ def show_tool_result(
     payload: Any,
 ) -> None:
     if verbose:
-        console.print(
-            Panel(
-                _json(payload),
-                title=f"MCP -> HOST · result · {name}",
-                border_style="bright_blue",
-                expand=True,
-            )
+        _panel(
+            "MCP SERVER",
+            "HOST",
+            f"MCP tools/call result · {name}",
+            _json(payload),
+            border_style="bright_blue",
         )
         console.print(
-            "[dim]HOST appends this result as a TOOL message; "
-            "it will appear in the next Ollama request.[/dim]"
+            "[dim]HOST appends this result as a role=tool message; "
+            "that message appears in the next HOST -> OLLAMA exchange.[/dim]"
         )
         return
 

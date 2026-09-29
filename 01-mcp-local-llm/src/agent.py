@@ -33,7 +33,7 @@ async def run_agent(
         args=[str(SRC / "server.py")],
         cwd=SRC,
     )
-    show_mcp_server(verbose, SRC / "server.py")
+    show_mcp_server(verbose, SRC / "server.py", model)
 
     ollama = AsyncClient()
 

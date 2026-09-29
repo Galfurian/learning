@@ -156,6 +156,16 @@ Use `--verbose` to make the adapter loop visible:
 uv run python src/agent.py --verbose "What is the internal code for project atlas?"
 ```
 
+Verbose mode starts by defining the actors used in the trace:
+
+- **HOST** — `src/agent.py`, which orchestrates the loop and owns conversation history;
+- **OLLAMA** — the local runtime/API that runs the model; the **model** decides whether to emit `tool_calls` and with which arguments, and Ollama returns that output to the host;
+- **MCP SERVER** — `src/server.py`, which exposes and executes tools.
+
+Conversation roles such as `system`, `user`, `assistant`, and `tool` are message roles, not separate actors.
+
+Every Rich panel title is standardized to only show communication direction, for example `HOST -> OLLAMA` or `HOST -> MCP SERVER`. The first line inside the panel says what is happening, such as `Event: conversation message · role=user` or `Event: MCP tools/call · project_code`.
+
 Verbose mode is intentionally **not** a raw SDK dump. It keeps the parts that explain the architecture:
 
 - the `tools/list` discovery and a compact table of discovered tools;

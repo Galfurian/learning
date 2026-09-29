@@ -1,25 +1,27 @@
 # Mental model: MCP + tool calling
 
-There are four different actors. Keeping them separate is the main point of this unit.
+The runtime trace uses three software actors. Keeping them separate is the main point of this unit.
+
+- **HOST** — `src/agent.py`. It owns the orchestration loop and conversation history.
+- **OLLAMA** — the local model runtime/API. It runs the selected LLM. The model decides whether to emit `tool_calls` and chooses their arguments; Ollama returns that model output to the host.
+- **MCP SERVER** — `src/server.py`. It exposes tool contracts and executes tools requested through MCP.
+
+The words `system`, `user`, `assistant`, and `tool` are **conversation roles**, not additional software actors.
 
 ```text
-User
-  |
-  v
-Host / src/agent.py
-  |                         Ollama
-  |--- tools schema -------> local LLM
-  |<-- tool call -----------|
-  |
-  |        MCP over stdio
-  |--- tools/call ---------> src/server.py
-  |<-- tool result ---------|
-  |
-  |--- tool result --------> local LLM
-  |<-- final answer --------|
-  v
-User
+HOST                         OLLAMA
+ |--- messages + tools ------->|
+ |<-- assistant/tool_calls ----|
+ |
+ |         MCP over stdio
+ |--- tools/call -----------> MCP SERVER
+ |<-- tool result -----------|
+ |
+ |--- updated messages -------> OLLAMA
+ |<-- final assistant ---------|
 ```
+
+In verbose mode, panel titles contain only the direction between actors, such as `HOST -> OLLAMA`. The first line inside each panel states the event being shown.
 
 ## 1. MCP server
 
