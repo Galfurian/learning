@@ -9,10 +9,12 @@ from mcp.client.stdio import StdioServerParameters
 from ollama import AsyncClient
 
 from bridge import to_ollama_tool, tool_message_from_result
+from model_io import render_model_input
 from ui import (
     show_discovered_tools,
     show_final_answer,
     show_mcp_server,
+    show_model_input,
     show_ollama_request,
     show_ollama_response,
     show_tool_call,
@@ -26,6 +28,7 @@ async def run_agent(
     prompt: str,
     model: str,
     verbose: bool,
+    show_model_input_only: bool,
     max_steps: int = 8,
 ) -> None:
     server = StdioServerParameters(
@@ -39,7 +42,11 @@ async def run_agent(
 
     async with Client(server) as mcp:
         listed = await mcp.list_tools()
-        show_discovered_tools(verbose, listed.tools)
+        show_discovered_tools(
+            verbose,
+            listed.tools,
+            quiet=show_model_input_only,
+        )
 
         ollama_tools = [to_ollama_tool(tool) for tool in listed.tools]
 
@@ -55,6 +62,14 @@ async def run_agent(
         ]
 
         for step in range(1, max_steps + 1):
+            if show_model_input_only:
+                rendered = await render_model_input(
+                    model,
+                    messages,
+                    ollama_tools,
+                )
+                show_model_input(step, rendered)
+
             show_ollama_request(
                 verbose,
                 step=step,
@@ -82,12 +97,24 @@ async def run_agent(
                 name = call.function.name
                 arguments = dict(call.function.arguments)
 
-                show_tool_call(verbose, step, name, arguments)
+                show_tool_call(
+                    verbose,
+                    step,
+                    name,
+                    arguments,
+                    quiet=show_model_input_only,
+                )
 
                 result = await mcp.call_tool(name, arguments)
                 tool_message, payload = tool_message_from_result(name, result)
 
-                show_tool_result(verbose, step, name, payload)
+                show_tool_result(
+                    verbose,
+                    step,
+                    name,
+                    payload,
+                    quiet=show_model_input_only,
+                )
                 messages.append(tool_message)
 
         raise RuntimeError(f"Agent exceeded {max_steps} tool-calling steps")
@@ -106,7 +133,8 @@ def parse_args() -> argparse.Namespace:
         default="qwen3:1.7b",
         help="Any Ollama model installed locally that supports tool calling.",
     )
-    parser.add_argument(
+    trace_group = parser.add_mutually_exclusive_group()
+    trace_group.add_argument(
         "--verbose",
         action="store_true",
         help=(
@@ -114,9 +142,24 @@ def parse_args() -> argparse.Namespace:
             "messages and only the protocol payloads that matter."
         ),
     )
+    trace_group.add_argument(
+        "--show-model-input",
+        action="store_true",
+        help=(
+            "Show only the rendered prompt string Ollama prepares for the model "
+            "before each inference round."
+        ),
+    )
     return parser.parse_args()
 
 
 if __name__ == "__main__":
     args = parse_args()
-    asyncio.run(run_agent(args.prompt, args.model, args.verbose))
+    asyncio.run(
+        run_agent(
+            args.prompt,
+            args.model,
+            args.verbose,
+            args.show_model_input,
+        )
+    )

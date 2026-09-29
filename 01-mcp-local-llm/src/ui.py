@@ -195,12 +195,18 @@ def show_mcp_server(verbose: bool, server_path: Path, model: str) -> None:
     )
 
 
-def show_discovered_tools(verbose: bool, tools: list[Any]) -> None:
+def show_discovered_tools(
+    verbose: bool,
+    tools: list[Any],
+    *,
+    quiet: bool = False,
+) -> None:
     if not verbose:
-        console.print(
-            "MCP tools:",
-            ", ".join(tool.name for tool in tools),
-        )
+        if not quiet:
+            console.print(
+                "MCP tools:",
+                ", ".join(tool.name for tool in tools),
+            )
         return
 
     table = Table(
@@ -260,6 +266,25 @@ def _show_step_context(
     )
 
 
+def show_model_input(step: int, rendered_prompt: str) -> None:
+    console.rule(f"[bold]MODEL INPUT · step {step}[/bold]")
+    console.print(
+        Panel(
+            Group(
+                _event_line(
+                    "rendered chat template · exact prompt string before tokenization"
+                ),
+                Text(),
+                Text(rendered_prompt),
+            ),
+            title="OLLAMA -> MODEL",
+            subtitle="special BOS handling may occur separately from this string",
+            border_style="bright_magenta",
+            expand=True,
+        )
+    )
+
+
 def show_ollama_request(
     verbose: bool,
     *,
@@ -299,6 +324,8 @@ def show_tool_call(
     step: int,
     name: str,
     arguments: dict[str, Any],
+    *,
+    quiet: bool = False,
 ) -> None:
     if verbose:
         _panel(
@@ -310,7 +337,8 @@ def show_tool_call(
         )
         return
 
-    console.print(f"[step {step}] tool call -> {name}({arguments})")
+    if not quiet:
+        console.print(f"[step {step}] tool call -> {name}({arguments})")
 
 
 def show_tool_result(
@@ -318,6 +346,8 @@ def show_tool_result(
     step: int,
     name: str,
     payload: Any,
+    *,
+    quiet: bool = False,
 ) -> None:
     if verbose:
         _panel(
@@ -333,10 +363,11 @@ def show_tool_result(
         )
         return
 
-    console.print(
-        f"[step {step}] tool result <- "
-        f"{json.dumps(payload, ensure_ascii=False)}"
-    )
+    if not quiet:
+        console.print(
+            f"[step {step}] tool result <- "
+            f"{json.dumps(payload, ensure_ascii=False)}"
+        )
 
 
 def show_final_answer(content: str) -> None:

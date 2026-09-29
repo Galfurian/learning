@@ -182,7 +182,28 @@ The second Ollama request is especially useful to inspect: it shows the original
 
 Normal mode keeps only the high-level tool-call trace and final answer.
 
-The source is split by responsibility on purpose: `agent.py` contains the orchestration loop, `bridge.py` contains MCP/Ollama conversion helpers, and `ui.py` contains all Rich/verbose rendering. This keeps the learning target visible when you open `agent.py`.
+### See what the model actually receives
+
+Use a separate mode when you want to inspect the text below the chat/message abstraction:
+
+```bash
+uv run python src/agent.py --show-model-input "What is the internal code for project atlas?"
+```
+
+This mode does **not** mix the protocol trace with the model input. For each inference round it prints only the rendered prompt string produced by Ollama's chat template, then lets the normal agent continue silently until the next model invocation.
+
+So with one tool call you will normally see two rendered prompts:
+
+1. step 1: system message + user message + tool definitions;
+2. step 2: the same conversation, now extended with the assistant tool call and the tool result.
+
+This is the actual rendered prompt string immediately before tokenization. The transformer ultimately receives token IDs, and model-specific BOS handling may happen separately from the rendered string.
+
+Implementation note: this learning aid uses Ollama's internal `_debug_render_only` request option to obtain `_debug_info.rendered_template`. It is intentionally isolated in `src/model_io.py` because it is a debug/internal interface and may change across Ollama versions.
+
+`--verbose` and `--show-model-input` are mutually exclusive so the two conceptual layers remain separate.
+
+The source is split by responsibility on purpose: `agent.py` contains the orchestration loop, `bridge.py` contains MCP/Ollama conversion helpers, `model_io.py` contains low-level model-input inspection, and `ui.py` contains Rich rendering. This keeps the learning target visible when you open `agent.py`.
 
 ## 5. Read the code in this order
 
@@ -191,8 +212,9 @@ The source is split by responsibility on purpose: `agent.py` contains the orches
 3. `docs/mental-model.md` — understand `tools/list`, `tools/call`, and the host/model/server separation.
 4. `src/bridge.py` — translates MCP tool definitions/results into Ollama's tool-calling format.
 5. `src/agent.py::run_agent` — the actual orchestration loop, now kept deliberately small.
-6. `src/ui.py` — Rich rendering for `--verbose`; useful for observation, but not part of the agent logic.
-7. `exercises/README.md` — modify the system yourself.
+6. `src/model_io.py` — asks Ollama to expose the rendered prompt string used as model input.
+7. `src/ui.py` — Rich rendering for the observation modes; useful for learning, but not part of the agent logic.
+8. `exercises/README.md` — modify the system yourself.
 
 ## Files
 
@@ -205,6 +227,7 @@ The source is split by responsibility on purpose: `agent.py` contains the orches
 │   ├── inspect_mcp.py
 │   ├── agent.py
 │   ├── bridge.py
+│   ├── model_io.py
 │   └── ui.py
 ├── docs/
 │   └── mental-model.md

@@ -149,6 +149,40 @@ The trace therefore exposes MCP discovery, schema translation into Ollama's tool
 
 Without `--verbose`, the same code path runs but these adapter details stay hidden.
 
+## One level lower: the rendered model input
+
+The `messages` and `tools` objects are still not what the transformer directly consumes. Ollama applies the model's chat template and produces a single rendered prompt string. That string is then tokenized for the model.
+
+Conceptually:
+
+```text
+HOST
+  |
+  | messages + tools
+  v
+OLLAMA
+  |
+  | apply chat template
+  v
+rendered prompt string
+  |
+  | tokenize
+  v
+MODEL token IDs
+```
+
+The separate inspection mode shows that intermediate rendered string:
+
+```bash
+uv run python src/agent.py --show-model-input "What is the internal code for project atlas?"
+```
+
+It intentionally does not show the normal verbose protocol panels. Each model-inference round gets its own rendered prompt, so a tool-calling interaction normally exposes the pre-tool prompt and then the second prompt containing the assistant tool call plus the tool result.
+
+This is the exact rendered prompt string returned by Ollama immediately before tokenization, not the final token-ID sequence. Some model-specific special-token handling, such as a leading BOS token, can be applied separately by the runner.
+
+The implementation lives in `src/model_io.py` and uses Ollama's internal `_debug_render_only` facility. It is a learning/debug hook rather than a stable public API.
+
 ## Why stdio first?
 
 For a local MCP server, stdio removes networking from the exercise. The host starts the server process and the MCP protocol travels over the child's stdin/stdout. Once the mental model is clear, the same server idea can be moved to Streamable HTTP.
