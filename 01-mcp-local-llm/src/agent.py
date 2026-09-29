@@ -28,7 +28,7 @@ async def run_agent(
     prompt: str,
     model: str,
     verbose: bool,
-    show_model_input_only: bool,
+    show_raw: bool,
     max_steps: int = 8,
 ) -> None:
     server = StdioServerParameters(
@@ -45,7 +45,7 @@ async def run_agent(
         show_discovered_tools(
             verbose,
             listed.tools,
-            quiet=show_model_input_only,
+            quiet=show_raw,
         )
 
         ollama_tools = [to_ollama_tool(tool) for tool in listed.tools]
@@ -62,7 +62,7 @@ async def run_agent(
         ]
 
         for step in range(1, max_steps + 1):
-            if show_model_input_only:
+            if show_raw:
                 rendered = await render_model_input(
                     model,
                     messages,
@@ -102,7 +102,7 @@ async def run_agent(
                     step,
                     name,
                     arguments,
-                    quiet=show_model_input_only,
+                    quiet=show_raw,
                 )
 
                 result = await mcp.call_tool(name, arguments)
@@ -113,7 +113,7 @@ async def run_agent(
                     step,
                     name,
                     payload,
-                    quiet=show_model_input_only,
+                    quiet=show_raw,
                 )
                 messages.append(tool_message)
 
@@ -143,7 +143,7 @@ def parse_args() -> argparse.Namespace:
         ),
     )
     trace_group.add_argument(
-        "--show-model-input",
+        "--show-raw",
         action="store_true",
         help=(
             "Show only the rendered prompt string Ollama prepares for the model "
@@ -160,6 +160,6 @@ if __name__ == "__main__":
             args.prompt,
             args.model,
             args.verbose,
-            args.show_model_input,
+            args.show_raw,
         )
     )

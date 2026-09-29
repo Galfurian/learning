@@ -174,7 +174,7 @@ MODEL token IDs
 The separate inspection mode shows that intermediate rendered string:
 
 ```bash
-uv run python src/agent.py --show-model-input "What is the internal code for project atlas?"
+uv run python src/agent.py --show-raw "What is the internal code for project atlas?"
 ```
 
 It intentionally does not show the normal verbose protocol panels. Each model-inference round gets its own rendered prompt, so a tool-calling interaction normally exposes the pre-tool prompt and then the second prompt containing the assistant tool call plus the tool result.

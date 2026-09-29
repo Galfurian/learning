@@ -187,7 +187,7 @@ Normal mode keeps only the high-level tool-call trace and final answer.
 Use a separate mode when you want to inspect the text below the chat/message abstraction:
 
 ```bash
-uv run python src/agent.py --show-model-input "What is the internal code for project atlas?"
+uv run python src/agent.py --show-raw "What is the internal code for project atlas?"
 ```
 
 This mode does **not** mix the protocol trace with the model input. For each inference round it prints only the rendered prompt string produced by Ollama's chat template, then lets the normal agent continue silently until the next model invocation.
@@ -201,7 +201,7 @@ This is the actual rendered prompt string immediately before tokenization. The t
 
 Implementation note: this learning aid uses Ollama's internal `_debug_render_only` request option to obtain `_debug_info.rendered_template`. It is intentionally isolated in `src/model_io.py` because it is a debug/internal interface and may change across Ollama versions.
 
-`--verbose` and `--show-model-input` are mutually exclusive so the two conceptual layers remain separate.
+`--verbose` and `--show-raw` are mutually exclusive so the two conceptual layers remain separate.
 
 The source is split by responsibility on purpose: `agent.py` contains the orchestration loop, `bridge.py` contains MCP/Ollama conversion helpers, `model_io.py` contains low-level model-input inspection, and `ui.py` contains Rich rendering. This keeps the learning target visible when you open `agent.py`.
 
