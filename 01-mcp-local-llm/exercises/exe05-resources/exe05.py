@@ -25,26 +25,14 @@ MACHINES = {
 
 
 # TODO: register this function as the MCP resource `lab://rules`, implement it.
-@mcp.resource(
-    "lab://rules",
-    description="Current laboratory rules.",
-    mime_type="text/plain",
-)
 def lab_rules() -> str:
-    return RULES
+    raise NotImplementedError
 
 
 # TODO: register this function as the MCP resource template
 # `lab://machines/{machine}`, implement it.
-@mcp.resource(
-    "lab://machines/{machine}",
-    description="Notes for a specific machine.",
-    mime_type="text/plain",
-)
 def machine_notes(machine: str) -> str:
-    if machine not in MACHINES:
-        raise ValueError(f"Unknown machine: {machine}")
-    return MACHINES[machine]
+    raise NotImplementedError
 
 
 if __name__ == "__main__":
