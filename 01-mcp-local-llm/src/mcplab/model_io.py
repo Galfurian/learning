@@ -20,12 +20,13 @@ def _render_model_input_sync(
     model: str,
     messages: list[Any],
     tools: list[dict[str, Any]],
+    think: bool,
 ) -> str:
     payload = {
         "model": model,
         "messages": _jsonable(messages),
         "tools": _jsonable(tools),
-        "think": False,
+        "think": think,
         "stream": False,
         "_debug_render_only": True,
     }
@@ -45,7 +46,7 @@ def _render_model_input_sync(
     except KeyError as exc:
         raise RuntimeError(
             "This Ollama version did not return _debug_info.rendered_template. "
-            "The --show-model-input mode relies on Ollama's internal "
+            "The --show-raw mode relies on Ollama's internal "
             "_debug_render_only option."
         ) from exc
 
@@ -54,6 +55,7 @@ async def render_model_input(
     model: str,
     messages: list[Any],
     tools: list[dict[str, Any]],
+    think: bool = False,
 ) -> str:
     """Ask Ollama to render the chat template without running the model."""
     return await asyncio.to_thread(
@@ -61,4 +63,5 @@ async def render_model_input(
         model,
         messages,
         tools,
+        think,
     )

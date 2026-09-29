@@ -1,5 +1,4 @@
 import json
-from pathlib import Path
 from typing import Any
 
 from rich.console import Console, Group
@@ -142,7 +141,7 @@ def _message_bubble(
     )
 
 
-def _show_actors(model: str) -> None:
+def _show_actors(model: str, server_label: str) -> None:
     table = Table(
         title="Actors",
         show_header=True,
@@ -154,7 +153,7 @@ def _show_actors(model: str) -> None:
 
     table.add_row(
         "HOST",
-        "src/agent.py: orchestrates the loop, executes MCP calls, and maintains conversation history.",
+        "mcplab.agent: orchestrates the loop, executes MCP calls, and maintains conversation history.",
     )
     table.add_row(
         "OLLAMA",
@@ -165,7 +164,7 @@ def _show_actors(model: str) -> None:
     )
     table.add_row(
         "MCP SERVER",
-        "src/server.py: exposes tools and executes them when HOST sends MCP tools/call.",
+        f"{server_label}: exposes tools and executes them when HOST sends MCP tools/call.",
     )
 
     console.print(table)
@@ -175,16 +174,16 @@ def _show_actors(model: str) -> None:
     )
 
 
-def show_mcp_server(verbose: bool, server_path: Path, model: str) -> None:
+def show_mcp_server(verbose: bool, server_label: str, model: str) -> None:
     if not verbose:
         return
 
-    _show_actors(model)
+    _show_actors(model, server_label)
 
     _panel(
         "HOST",
         "MCP SERVER",
-        f"start/connect over stdio · {server_path}",
+        f"start/connect over stdio · {server_label}",
         border_style="blue",
     )
     _panel(
@@ -231,6 +230,44 @@ def show_discovered_tools(
         "MCP tools/list result · discovered tool contracts",
         table,
         border_style="bright_blue",
+    )
+
+
+def show_attached_resource(
+    verbose: bool,
+    uri: str,
+    text: str,
+    *,
+    quiet: bool = False,
+) -> None:
+    if verbose:
+        _panel(
+            "HOST",
+            "MCP SERVER",
+            f"MCP resources/read · {uri}",
+            border_style="blue",
+        )
+        _panel(
+            "MCP SERVER",
+            "HOST",
+            f"MCP resources/read result · {uri}",
+            Text(text),
+            border_style="bright_blue",
+        )
+        console.print(
+            "[dim]HOST chose to attach this resource: it is appended to the "
+            "system message. The model never requested it.[/dim]"
+        )
+        return
+
+    if not quiet:
+        console.print(f"MCP resource attached: {uri}")
+
+
+def show_missing_resource(uri: str, error: Exception) -> None:
+    console.print(
+        f"[red]MCP resource not attached: {uri} ({error}). "
+        "The model answers without it.[/red]"
     )
 
 

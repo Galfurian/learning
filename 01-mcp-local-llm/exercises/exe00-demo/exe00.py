@@ -1,6 +1,13 @@
+"""EXE00 — a solved example. Nothing to write: read it, run it, trace it."""
+
 from mcp.server import MCPServer
+from mcp.server.mcpserver.exceptions import ToolError
+
+from mcplab.exercise import run
 
 mcp = MCPServer("learning-lab")
+
+PROMPT = "What is the internal code for project atlas?"
 
 INVENTORY = {
     "flux-capacitor": 3,
@@ -23,7 +30,7 @@ def inventory_count(part: str) -> int:
     """
     key = part.strip().lower()
     if key not in INVENTORY:
-        raise ValueError(f"Unknown part: {part}")
+        raise ToolError(f"Unknown part: {part}. Known parts: {', '.join(INVENTORY)}")
     return INVENTORY[key]
 
 
@@ -36,9 +43,9 @@ def project_code(project: str) -> str:
     """
     key = project.strip().lower()
     if key not in PROJECT_CODES:
-        raise ValueError(f"Unknown project: {project}")
+        raise ToolError(f"Unknown project: {project}. Known projects: {', '.join(PROJECT_CODES)}")
     return PROJECT_CODES[key]
 
 
 if __name__ == "__main__":
-    mcp.run(transport="stdio")
+    run(mcp, PROMPT, __file__)

@@ -11,14 +11,19 @@ Ollama model
     ^   |
     |   | function call
     |   v
-src/agent.py              <-- host / adapter
+HOST (src/mcplab/)          <-- host / adapter, shared by every exercise
     ^   |
     |   | MCP over stdio
     |   v
-src/server.py             <-- MCP server
+exercises/exeNN-*/exeNN.py  <-- MCP server, the part you write
 ```
 
-The MCP server has demo data the model cannot infer reliably on its own:
+Each exercise file is an MCP server with a fixed prompt. Running it starts the
+host, which launches the same file as an MCP server and lets the model use its
+tools. You only write server code; the host is already done.
+
+The first exercise, `exe00-demo`, is already solved. Its MCP server has demo
+data the model cannot infer reliably on its own:
 
 - lab inventory counts
 - internal demo project codes
@@ -82,15 +87,32 @@ If the curl command already works before you run `ollama serve`, a service is al
 
 ## 3. First understand MCP without an LLM
 
-Run:
+Open [exercises/exe00-demo/exe00.py](exercises/exe00-demo/exe00.py). Two
+ordinary Python functions become MCP tools through `@mcp.tool()`.
+
+Ask the server what it exposes:
 
 ```bash
-uv run python src/inspect_mcp.py
+uv run python exercises/exe00-demo/exe00.py --inspect
 ```
 
-This program launches `src/server.py` as a subprocess, connects to it over MCP stdio, lists the tools, prints their JSON schemas, then directly calls one tool.
+This launches `exe00.py` as a subprocess, connects to it over MCP stdio, and
+prints the tools with their JSON schemas. No model is involved. You should see
+tools named:
 
-The two key protocol operations demonstrated here are:
+```text
+inventory_count
+project_code
+```
+
+Then call the tools directly, still without a model:
+
+```bash
+uv run python exercises/exe00-demo/check.py
+```
+
+Read `check.py`: it lists the tools and calls them by name. These are the two
+key protocol operations:
 
 ```text
 MCP protocol        Python SDK
@@ -99,53 +121,49 @@ tools/list          client.list_tools()
 tools/call          client.call_tool(...)
 ```
 
-So the host first discovers the server's tools through `tools/list`, then invokes one through `tools/call`. The SDK methods above are the Python interface to those protocol operations.
+So the host first discovers the server's tools through `tools/list`, then
+invokes one through `tools/call`. The SDK methods above are the Python
+interface to those protocol operations.
 
-You should see tools named:
-
-```text
-inventory_count
-project_code
-```
-
-This step matters: MCP works independently of the LLM. The detailed explanation is in [docs/mental-model.md](docs/mental-model.md).
+This step matters: MCP works independently of the LLM. The detailed explanation
+is in [docs/mental-model.md](docs/mental-model.md).
 
 You can also inspect the server interactively with the official MCP Inspector:
 
 ```bash
-uv run mcp dev src/server.py
+uv run mcp dev exercises/exe00-demo/exe00.py
 ```
 
 ## 4. Let the local LLM use the MCP tools
 
-The agent intentionally has **no default prompt**. A prompt is always required:
+Run the exercise. The model answers the `PROMPT` written in the file:
 
 ```bash
-uv run python src/agent.py "What is the internal code for project atlas?"
+uv run python exercises/exe00-demo/exe00.py
 ```
 
-Running `uv run python src/agent.py` without a prompt prints usage instead of silently choosing a question for you.
-
-The useful part of the output should look conceptually like:
+The useful part of the output should look like:
 
 ```text
+Prompt: What is the internal code for project atlas?
+
 MCP tools: inventory_count, project_code
 [step 1] tool call -> project_code({'project': 'atlas'})
-[step 1] tool result <- ...A7-KAPPA...
+[step 1] tool result <- {"result": "A7-KAPPA"}
 
 Assistant: ...
 ```
 
-Try another question:
+Ask something else with `--prompt`:
 
 ```bash
-uv run python src/agent.py "How many flux-capacitor units are currently in the lab?"
+uv run python exercises/exe00-demo/exe00.py --prompt "How many flux-capacitor units are currently in the lab?"
 ```
 
 Or force multiple tools:
 
 ```bash
-uv run python src/agent.py "Give me the Atlas project code and the stock count for servo-x12."
+uv run python exercises/exe00-demo/exe00.py --prompt "Give me the Atlas project code and the stock count for servo-x12."
 ```
 
 ### See the inner workings
@@ -153,14 +171,14 @@ uv run python src/agent.py "Give me the Atlas project code and the stock count f
 Use `--verbose` to make the adapter loop visible:
 
 ```bash
-uv run python src/agent.py --verbose "What is the internal code for project atlas?"
+uv run python exercises/exe00-demo/exe00.py --verbose
 ```
 
 Verbose mode starts by defining the actors used in the trace:
 
-- **HOST** — `src/agent.py`, which orchestrates the loop and owns conversation history;
+- **HOST** — `src/mcplab/agent.py`, which orchestrates the loop and owns conversation history;
 - **OLLAMA** — the local runtime/API that runs the model; the **model** decides whether to emit `tool_calls` and with which arguments, and Ollama returns that output to the host;
-- **MCP SERVER** — `src/server.py`, which exposes and executes tools.
+- **MCP SERVER** — the exercise file (here `exe00.py`), which exposes and executes tools.
 
 Conversation roles such as `system`, `user`, `assistant`, and `tool` are message roles, not separate actors.
 
@@ -187,7 +205,7 @@ Normal mode keeps only the high-level tool-call trace and final answer.
 Use a separate mode when you want to inspect the text below the chat/message abstraction:
 
 ```bash
-uv run python src/agent.py --show-raw "What is the internal code for project atlas?"
+uv run python exercises/exe00-demo/exe00.py --show-raw
 ```
 
 This mode does **not** mix the protocol trace with the model input. For each inference round it prints only the rendered prompt string produced by Ollama's chat template, then lets the normal agent continue silently until the next model invocation.
@@ -199,22 +217,41 @@ So with one tool call you will normally see two rendered prompts:
 
 This is the actual rendered prompt string immediately before tokenization. The transformer ultimately receives token IDs, and model-specific BOS handling may happen separately from the rendered string.
 
-Implementation note: this learning aid uses Ollama's internal `_debug_render_only` request option to obtain `_debug_info.rendered_template`. It is intentionally isolated in `src/model_io.py` because it is a debug/internal interface and may change across Ollama versions.
+Implementation note: this learning aid uses Ollama's internal `_debug_render_only` request option to obtain `_debug_info.rendered_template`. It is intentionally isolated in `src/mcplab/model_io.py` because it is a debug/internal interface and may change across Ollama versions.
 
 `--verbose` and `--show-raw` are mutually exclusive so the two conceptual layers remain separate.
 
-The source is split by responsibility on purpose: `agent.py` contains the orchestration loop, `bridge.py` contains MCP/Ollama conversion helpers, `model_io.py` contains low-level model-input inspection, and `ui.py` contains Rich rendering. This keeps the learning target visible when you open `agent.py`.
+### All options
+
+Every exercise file accepts the same options:
+
+| Option           | Effect                                                   |
+|------------------|----------------------------------------------------------|
+| `--inspect`      | list tools and resources over MCP, without the model      |
+| `--verbose`      | full HOST / OLLAMA / MCP SERVER trace                     |
+| `--show-raw`     | only the rendered prompt the model receives               |
+| `--prompt "..."` | ask something other than the file's `PROMPT`              |
+| `--think`        | let the model reason before answering (slower)            |
+| `--model NAME`   | use another tool-capable Ollama model                     |
+| `--serve`        | run as MCP server over stdio (the host does this for you) |
 
 ## 5. Read the code in this order
 
-1. `src/server.py` — two ordinary Python functions become MCP tools.
-2. `src/inspect_mcp.py` — MCP discovery and invocation without any LLM.
+1. `exercises/exe00-demo/exe00.py` — two ordinary Python functions become MCP tools.
+2. `exercises/exe00-demo/check.py` — MCP discovery and invocation without any LLM.
 3. `docs/mental-model.md` — understand `tools/list`, `tools/call`, and the host/model/server separation.
-4. `src/bridge.py` — translates MCP tool definitions/results into Ollama's tool-calling format.
-5. `src/agent.py::run_agent` — the actual orchestration loop, now kept deliberately small.
-6. `src/model_io.py` — asks Ollama to expose the rendered prompt string used as model input.
-7. `src/ui.py` — Rich rendering for the observation modes; useful for learning, but not part of the agent logic.
-8. `exercises/README.md` — modify the system yourself.
+4. `src/mcplab/exercise.py` — how one file acts as both host and MCP server.
+5. `src/mcplab/bridge.py` — translates MCP tool definitions/results into Ollama's tool-calling format.
+6. `src/mcplab/agent.py::run_agent` — the actual orchestration loop, kept deliberately small.
+7. `src/mcplab/model_io.py` — asks Ollama to expose the rendered prompt string used as model input.
+8. `src/mcplab/ui.py` — Rich rendering for the observation modes; useful for learning, but not part of the agent logic.
+
+The source is split by responsibility on purpose: `agent.py` contains the orchestration loop, `bridge.py` contains MCP/Ollama conversion helpers, `model_io.py` contains low-level model-input inspection, and `ui.py` contains Rich rendering. This keeps the learning target visible when you open `agent.py`.
+
+## 6. Write your own MCP servers
+
+Continue with [exercises/README.md](exercises/README.md): five exercises, each
+one a server with a TODO, a fixed prompt, and a check.
 
 ## Files
 
@@ -223,16 +260,24 @@ The source is split by responsibility on purpose: `agent.py` contains the orches
 ├── README.md
 ├── pyproject.toml
 ├── src/
-│   ├── server.py
-│   ├── inspect_mcp.py
-│   ├── agent.py
-│   ├── bridge.py
-│   ├── model_io.py
-│   └── ui.py
+│   └── mcplab/            # host code shared by all exercises (installed by uv sync)
+│       ├── agent.py       # orchestration loop
+│       ├── bridge.py      # MCP <-> Ollama conversion
+│       ├── model_io.py    # --show-raw support
+│       ├── ui.py          # Rich rendering
+│       ├── exercise.py    # command line of every exercise file
+│       └── checks.py      # helpers for exercise checks
 ├── docs/
 │   └── mental-model.md
 └── exercises/
-    └── README.md
+    ├── README.md
+    ├── exe00-demo/        # solved example: exe00.py, check.py
+    ├── exe01-first-tool/  # README.md, exe01.py, check.py
+    ├── exe02-schemas/
+    ├── exe03-errors-state/
+    ├── exe04-chaining/
+    ├── exe05-resources/
+    └── solutions/
 ```
 
 ## The key lesson
@@ -243,4 +288,4 @@ MCP and LLM tool calling solve different halves of the problem:
 - **Tool calling** lets the model emit a structured request saying which capability it wants and with which arguments.
 - **The host** connects the two worlds and owns execution.
 
-Once this unit is clear, the natural next unit is to remove one simplification at a time: resources/prompts, Streamable HTTP, multiple MCP servers, permissions, or a more capable agent loop.
+Once this unit is clear, the natural next unit is to remove one simplification at a time: prompts, Streamable HTTP, multiple MCP servers, permissions, or a more capable agent loop.

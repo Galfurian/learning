@@ -2,9 +2,9 @@
 
 The runtime trace uses three software actors. Keeping them separate is the main point of this unit.
 
-- **HOST** — `src/agent.py`. It owns the orchestration loop and conversation history.
+- **HOST** — `src/mcplab/agent.py`. It owns the orchestration loop and conversation history.
 - **OLLAMA** — the local model runtime/API. It runs the selected LLM. The model decides whether to emit `tool_calls` and chooses their arguments; Ollama returns that model output to the host.
-- **MCP SERVER** — `src/server.py`. It exposes tool contracts and executes tools requested through MCP.
+- **MCP SERVER** — the exercise file, for example `exercises/exe00-demo/exe00.py`. It exposes tool contracts and executes tools requested through MCP.
 
 The words `system`, `user`, `assistant`, and `tool` are **conversation roles**, not additional software actors.
 
@@ -27,13 +27,15 @@ A `STEP` is one model-inference round. HOST sends the current conversation to OL
 
 ## 1. MCP server
 
-`src/server.py` owns capabilities. It does **not** know Ollama exists.
+`exercises/exe00-demo/exe00.py` owns capabilities. Its tools do **not** know Ollama exists.
 
 It exposes typed Python functions with `@mcp.tool()`. The MCP SDK derives the tool name, description, and JSON input schema from the function, its docstring, and its annotations.
 
 ## 2. MCP client / host
 
-`src/agent.py` is the host. It launches the MCP server as a child process and connects over stdio.
+`src/mcplab/agent.py` is the host. It launches the MCP server as a child process and connects over stdio.
+
+In the exercises, one file plays both roles. `exeNN.py` starts the host; the host runs `exeNN.py --serve` as the child process, which is the MCP server. They are still two separate processes that talk only through MCP. See `src/mcplab/exercise.py`.
 
 The host asks the server which tools exist, then invokes a tool when needed. This separation is important: MCP defines how the host discovers and calls capabilities; it is not an LLM inference API.
 
@@ -66,7 +68,7 @@ page = await client.list_tools()
 
 That call corresponds to MCP `tools/list`.
 
-This is why adding a new `@mcp.tool()` to `src/server.py` does not require adding its name manually to `src/agent.py`: the host discovers it.
+This is why adding a new `@mcp.tool()` to an exercise file does not require adding its name manually to `src/mcplab/agent.py`: the host discovers it.
 
 ### `tools/call`: invoke one discovered tool
 
@@ -110,7 +112,7 @@ MCP server
     executes the actual Python function
 ```
 
-The LLM itself is not speaking MCP in this exercise. The host speaks MCP to the server and separately speaks Ollama's tool-calling format to the model.
+The LLM itself is not speaking MCP in these exercises. The host speaks MCP to the server and separately speaks Ollama's tool-calling format to the model.
 
 ## 3. Local LLM
 
@@ -120,7 +122,7 @@ The model does not execute the function itself.
 
 ## 4. The adapter loop
 
-The orchestration loop lives in `src/agent.py`. Format conversion lives in `src/bridge.py`, while all Rich tracing lives in `src/ui.py`. This separation is intentional: opening `agent.py` should show the agent mechanics, not presentation code.
+The orchestration loop lives in `src/mcplab/agent.py`. Format conversion lives in `src/mcplab/bridge.py`, while all Rich tracing lives in `src/mcplab/ui.py`. This separation is intentional: opening `agent.py` should show the agent mechanics, not presentation code.
 
 The loop is:
 
@@ -138,7 +140,7 @@ This is the minimal architecture behind many agent frameworks.
 The implementation can expose this flow at runtime:
 
 ```bash
-uv run python src/agent.py --verbose "What is the internal code for project atlas?"
+uv run python exercises/exe00-demo/exe00.py --verbose
 ```
 
 The trace uses colored Rich panels, but it deliberately filters SDK noise rather than dumping every object verbatim. `tools/list` is summarized as the discovered tool contract; `tools/call` shows the arguments and meaningful result; every LLM conversation message is shown as a separate role-colored bubble.
@@ -174,14 +176,14 @@ MODEL token IDs
 The separate inspection mode shows that intermediate rendered string:
 
 ```bash
-uv run python src/agent.py --show-raw "What is the internal code for project atlas?"
+uv run python exercises/exe00-demo/exe00.py --show-raw
 ```
 
 It intentionally does not show the normal verbose protocol panels. Each model-inference round gets its own rendered prompt, so a tool-calling interaction normally exposes the pre-tool prompt and then the second prompt containing the assistant tool call plus the tool result.
 
 This is the exact rendered prompt string returned by Ollama immediately before tokenization, not the final token-ID sequence. Some model-specific special-token handling, such as a leading BOS token, can be applied separately by the runner.
 
-The implementation lives in `src/model_io.py` and uses Ollama's internal `_debug_render_only` facility. It is a learning/debug hook rather than a stable public API.
+The implementation lives in `src/mcplab/model_io.py` and uses Ollama's internal `_debug_render_only` facility. It is a learning/debug hook rather than a stable public API.
 
 ## Why stdio first?
 
