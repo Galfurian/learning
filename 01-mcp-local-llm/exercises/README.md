@@ -21,6 +21,7 @@ Each one adds a single MCP concept.
 | 03 | [exe03-errors-state](exe03-errors-state/) | `isError` results, `ToolError`, server state     |
 | 04 | [exe04-chaining](exe04-chaining/)         | one tool's output is the next tool's input; the host loop |
 | 05 | [exe05-resources](exe05-resources/)       | resources: context the host chooses, not the model |
+| 06 | [exe06-on-demand-resources](exe06-on-demand-resources/) | exposed is not loaded: the host reads a resource only when needed |
 
 ## How one exercise file works
 
@@ -36,7 +37,8 @@ The host part is shared code in `src/mcplab/`. You only write the server part.
 
 Each `exeNN.py` gives you the function signatures. Your job is to implement
 the functions and **register** them on the `mcp` server object with a
-decorator (`@mcp.tool()`, or `@mcp.resource(...)` in EXE05). Registering is
+decorator (`@mcp.tool()`, or `@mcp.resource(...)` in EXE05) or with
+`mcp.add_resource(...)` (EXE06). Registering is
 what "exposing" means: the server then lists the function over MCP and runs it
 when a client asks. An unregistered function is ordinary Python that no client
 can see.
@@ -67,7 +69,7 @@ uv run python exercises/exe01-first-tool/check.py exercises/solutions/exe01.py
 
 ## Extra
 
-When the five exercises are clear, try these on your own. There is no scaffold.
+When the six exercises are clear, try these on your own. There is no scaffold.
 
 1. **Two tools, one question.** Put the EXE02 and EXE03 tools in one server and
    ask something that needs both. Does the model call them in parallel or in

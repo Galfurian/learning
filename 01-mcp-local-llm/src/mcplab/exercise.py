@@ -95,8 +95,13 @@ def run(
     file: str,
     *,
     attach: Sequence[str] = (),
+    on_demand_resources: bool = False,
 ) -> None:
-    """Entry point of an exercise file: ``run(mcp, PROMPT, __file__)``."""
+    """Entry point of an exercise file: ``run(mcp, PROMPT, __file__)``.
+
+    ``attach`` and ``on_demand_resources`` choose how the host brings MCP
+    resources into the model's context; see ``mcplab.agent.run_agent``.
+    """
     args = parse_args(prompt)
 
     if args.serve:
@@ -128,6 +133,7 @@ def run(
             verbose=args.verbose,
             show_raw=args.show_raw,
             attach=attach,
+            on_demand_resources=on_demand_resources,
             think=args.think,
         )
     )

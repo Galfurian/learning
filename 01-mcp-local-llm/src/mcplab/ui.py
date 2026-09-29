@@ -264,6 +264,110 @@ def show_attached_resource(
         console.print(f"MCP resource attached: {uri}")
 
 
+def show_resource_catalog(
+    verbose: bool,
+    resources: list[Any],
+    *,
+    quiet: bool = False,
+) -> None:
+    if not verbose:
+        if not quiet:
+            console.print(
+                "MCP resources (listed, not loaded):",
+                ", ".join(str(resource.uri) for resource in resources) or "none",
+            )
+        return
+
+    _panel(
+        "HOST",
+        "MCP SERVER",
+        "MCP resources/list",
+        border_style="blue",
+    )
+
+    table = Table(show_header=True, header_style="bold", expand=True)
+    table.add_column("URI")
+    table.add_column("Description")
+    for resource in resources:
+        table.add_row(str(resource.uri), resource.description or resource.name)
+
+    _panel(
+        "MCP SERVER",
+        "HOST",
+        "MCP resources/list result · metadata only, no content",
+        table,
+        border_style="bright_blue",
+    )
+    console.print(
+        "[dim]HOST puts only this list in the system message and adds its own "
+        "tool read_resource. Content is read only if the model asks.[/dim]"
+    )
+
+
+def show_resource_request(
+    verbose: bool,
+    step: int,
+    uri: str,
+    *,
+    quiet: bool = False,
+) -> None:
+    if verbose:
+        _panel(
+            "HOST",
+            "MCP SERVER",
+            f"MCP resources/read · {uri} · requested by the model via host tool read_resource",
+            border_style="blue",
+        )
+        return
+
+    if not quiet:
+        console.print(f"[step {step}] host tool read_resource -> MCP resources/read {uri}")
+
+
+def show_resource_result(
+    verbose: bool,
+    step: int,
+    uri: str,
+    content: str,
+    *,
+    quiet: bool = False,
+) -> None:
+    if verbose:
+        _panel(
+            "MCP SERVER",
+            "HOST",
+            f"MCP resources/read result · {uri}",
+            Text(content),
+            border_style="bright_blue",
+        )
+        console.print(
+            "[dim]HOST appends this content as a role=tool message: from now on "
+            "it is part of the model's context.[/dim]"
+        )
+        return
+
+    if not quiet:
+        console.print(f"[step {step}] resource loaded <- {uri} ({len(content)} chars)")
+
+
+def show_context_summary(
+    exposed: list[Any],
+    templates: list[Any],
+    loaded: list[str],
+) -> None:
+    uris = [str(resource.uri) for resource in exposed]
+    patterns = [template.uri_template for template in templates]
+    console.print(
+        f"\n[bold]Resources exposed by the server:[/bold] {len(uris)} static"
+        + (f" ({', '.join(uris)})" if uris else "")
+        + (f", {len(patterns)} template(s) ({', '.join(patterns)})" if patterns else "")
+    )
+    console.print(
+        f"[bold]Resources loaded into the model's context:[/bold] {len(loaded)}"
+        + (f" ({', '.join(loaded)})" if loaded else "")
+    )
+
+
 def show_missing_resource(uri: str, error: Exception) -> None:
     console.print(
         f"[red]MCP resource not attached: {uri} ({error}). "

@@ -84,3 +84,5 @@ model step, and the model is never asked.
   read the rules then?
 - Change `attach=` to read `lab://machines/3d-printer` instead. Ask a question
   about the laser cutter with `--prompt`. The host controls what the model knows.
+- Here the host attaches everything before it sees the question. EXE06 shows
+  the alternative: list everything, load only what the request needs.

@@ -250,7 +250,7 @@ The source is split by responsibility on purpose: `agent.py` contains the orches
 
 ## 6. Write your own MCP servers
 
-Continue with [exercises/README.md](exercises/README.md): five exercises, each
+Continue with [exercises/README.md](exercises/README.md): six exercises, each
 one a server with a TODO, a fixed prompt, and a check.
 
 ## Files
@@ -277,6 +277,7 @@ one a server with a TODO, a fixed prompt, and a check.
     ├── exe03-errors-state/
     ├── exe04-chaining/
     ├── exe05-resources/
+    ├── exe06-on-demand-resources/
     └── solutions/
 ```
 
