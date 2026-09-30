@@ -68,11 +68,21 @@ def _load(path: Path) -> ModuleType:
 CheckFn = Callable[[Client, Checker], Awaitable[None]]
 
 
-def run_checks(checks: CheckFn, default_file: str) -> None:
-    """Run ``checks`` against the exercise file (or a path given on the CLI)."""
+def run_checks(
+    checks: CheckFn,
+    default_file: str,
+    prepare: Callable[[ModuleType], None] | None = None,
+) -> None:
+    """Run ``checks`` against the exercise file (or a path given on the CLI).
+
+    ``prepare`` runs on the loaded module before connecting, for example to
+    register capabilities that the file only registers in its ``__main__`` block.
+    """
     path = Path(sys.argv[1] if len(sys.argv) > 1 else default_file).resolve()
     print(f"Checking {path}\n")
     module = _load(path)
+    if prepare is not None:
+        prepare(module)
 
     async def main() -> Checker:
         checker = Checker()

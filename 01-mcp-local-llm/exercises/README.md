@@ -11,7 +11,8 @@ exeNN-topic/
 
 Start with `exe00-demo`: it is already solved, so you can read a working server
 and try every command before writing your own. Then do the others in order.
-Each one adds a single MCP concept.
+Each one adds a single MCP concept. `exe07-factory-cell` is a solved demo
+again: it puts everything together on a longer task.
 
 | #  | Folder                                    | MCP concept                                      |
 |----|-------------------------------------------|--------------------------------------------------|
@@ -22,6 +23,7 @@ Each one adds a single MCP concept.
 | 04 | [exe04-chaining](exe04-chaining/)         | one tool's output is the next tool's input; the host loop |
 | 05 | [exe05-resources](exe05-resources/)       | resources: context the host chooses, not the model |
 | 06 | [exe06-on-demand-resources](exe06-on-demand-resources/) | exposed is not loaded: the host reads a resource only when needed |
+| 07 | [exe07-factory-cell](exe07-factory-cell/)  | demo: simulated factory logs, many rounds, context budget, thinking |
 
 ## How one exercise file works
 
@@ -54,6 +56,8 @@ uv run python exercises/exe01-first-tool/exe01.py              # the model answe
 uv run python exercises/exe01-first-tool/exe01.py --verbose    # full HOST/OLLAMA/MCP trace
 uv run python exercises/exe01-first-tool/exe01.py --show-raw   # the prompt the model receives
 uv run python exercises/exe01-first-tool/exe01.py --think      # let the model reason first
+uv run python exercises/exe01-first-tool/exe01.py --think --show-thinking  # and show all of it
+uv run python exercises/exe01-first-tool/exe01.py --num-ctx 16384  # context window in tokens
 uv run python exercises/exe01-first-tool/exe01.py --prompt "..."  # ask something else
 uv run mcp dev exercises/exe01-first-tool/exe01.py             # official MCP Inspector
 ```
@@ -79,4 +83,5 @@ When the six exercises are clear, try these on your own. There is no scaffold.
 3. **Remove Ollama.** Write a fake "model" that always returns a call to
    `project_code(project="atlas")` of EXE00. MCP and tool calling are independent.
 4. **Prompts.** Add an `@mcp.prompt()` to EXE05 and let the host build the user
-   message from `prompts/get`. This completes the tool/resource/prompt triad.
+   message from `prompts/get` with `run(..., mcp_prompt=(name, arguments))`.
+   EXE07 shows a working example. This completes the tool/resource/prompt triad.

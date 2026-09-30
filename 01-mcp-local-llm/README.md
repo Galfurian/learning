@@ -142,17 +142,27 @@ Run the exercise. The model answers the `PROMPT` written in the file:
 uv run python exercises/exe00-demo/exe00.py
 ```
 
-The useful part of the output should look like:
+The output is a chat, like a web assistant. The model's reply streams live;
+tools, context and timing appear between the bubbles:
 
 ```text
-Prompt: What is the internal code for project atlas?
-
 MCP tools: inventory_count, project_code
-[step 1] tool call -> project_code({'project': 'atlas'})
-[step 1] tool result <- {"result": "A7-KAPPA"}
-
-Assistant: ...
+╭─ You ─────────────────────────────────────────────────╮
+│ What is the internal code for project atlas?          │
+╰───────────────────────────────────────────────────────╯
+step 1 · context: 271 prompt + 21 output = 292 / Ollama default tokens · model 1.2s ...
+╭─ Tool · project_code · 0.10s ─────────────────────────╮
+│ project=atlas                                         │
+│ A7-KAPPA                                              │
+╰───────────────────────────────────────────────────────╯
+╭─ Assistant ───────────────────────────────────────────╮
+│ The internal demo code for project atlas is A7-KAPPA. │
+╰───────────────────────────────────────────────────────╯
 ```
+
+With `--think`, a `Thinking` box scrolls live while the model reasons, then
+collapses into one line such as `Thought for 4.0s · "Okay, the user is asking
+for..."`. Add `--show-thinking` to keep the whole thinking on screen.
 
 Ask something else with `--prompt`:
 
@@ -198,7 +208,8 @@ Noise such as SDK metadata, null fields, repeated tool schemas, and repeated req
 
 The second Ollama request is especially useful to inspect: it shows the original user message, the assistant tool-call message, and the new `role=tool` message together in the exact conversation history that goes back to the model.
 
-Normal mode keeps only the high-level tool-call trace and final answer.
+Normal mode (the chat view) keeps only the conversation, a brief summary of
+each tool result, and the final answer.
 
 ### See what the model actually receives
 
@@ -232,6 +243,8 @@ Every exercise file accepts the same options:
 | `--show-raw`     | only the rendered prompt the model receives               |
 | `--prompt "..."` | ask something other than the file's `PROMPT`              |
 | `--think`        | let the model reason before answering (slower)            |
+| `--show-thinking`| keep the whole thinking on screen, not one collapsed line |
+| `--num-ctx N`    | context window in tokens (Ollama's default otherwise)     |
 | `--model NAME`   | use another tool-capable Ollama model                     |
 | `--serve`        | run as MCP server over stdio (the host does this for you) |
 
@@ -251,7 +264,8 @@ The source is split by responsibility on purpose: `agent.py` contains the orches
 ## 6. Write your own MCP servers
 
 Continue with [exercises/README.md](exercises/README.md): six exercises, each
-one a server with a TODO, a fixed prompt, and a check.
+one a server with a TODO, a fixed prompt, and a check, then a final demo on a
+simulated factory cell.
 
 ## Files
 
@@ -278,6 +292,7 @@ one a server with a TODO, a fixed prompt, and a check.
     ├── exe04-chaining/
     ├── exe05-resources/
     ├── exe06-on-demand-resources/
+    ├── exe07-factory-cell/  # demo: simulated factory, long context
     └── solutions/
 ```
 

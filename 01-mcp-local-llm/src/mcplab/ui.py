@@ -1,7 +1,12 @@
 import json
+import time
+from collections.abc import Iterator
+from contextlib import contextmanager
 from typing import Any
 
 from rich.console import Console, Group
+from rich.live import Live
+from rich.markdown import Markdown
 from rich.panel import Panel
 from rich.syntax import Syntax
 from rich.table import Table
@@ -104,6 +109,7 @@ def _message_bubble(
     role = str(data.get("role", "message"))
     style = ROLE_STYLES.get(role, "white")
     content = data.get("content", "")
+    thinking = data.get("thinking")
     tool_calls = data.get("tool_calls")
     tool_name = data.get("tool_name")
 
@@ -113,6 +119,11 @@ def _message_bubble(
             + (f" · tool={tool_name}" if tool_name else "")
         )
     ]
+
+    if thinking:
+        parts.append(Text())
+        parts.append(Text("thinking", style="bold"))
+        parts.append(Text(str(thinking).strip(), style="dim italic"))
 
     if content:
         parts.append(Text())
@@ -127,7 +138,7 @@ def _message_bubble(
         parts.append(Text("tool_calls", style="bold"))
         parts.append(_json(tool_calls))
 
-    if not content and not tool_calls:
+    if not content and not tool_calls and not thinking:
         parts.append(Text())
         parts.append(Text("<empty content>", style="dim"))
 
@@ -264,6 +275,25 @@ def show_attached_resource(
         console.print(f"MCP resource attached: {uri}")
 
 
+def show_mcp_prompt(
+    verbose: bool,
+    name: str,
+    arguments: dict[str, str],
+    messages: list[dict[str, str]],
+) -> None:
+    call = f"{name}({', '.join(f'{k}={v!r}' for k, v in arguments.items())})"
+    text = "\n\n".join(f"[{m['role']}] {m['content']}" for m in messages)
+    if verbose:
+        _panel("HOST", "MCP SERVER", f"MCP prompts/get · {call}", border_style="blue")
+        _panel("MCP SERVER", "HOST", f"MCP prompts/get result · {call}", Text(text),
+               border_style="bright_blue")
+        console.print(
+            "[dim]HOST uses these messages as the user's request, instead of a typed prompt.[/dim]"
+        )
+        return
+    show_user_message(text, source=f"MCP prompt {call}")
+
+
 def show_resource_catalog(
     verbose: bool,
     resources: list[Any],
@@ -320,8 +350,7 @@ def show_resource_request(
         )
         return
 
-    if not quiet:
-        console.print(f"[step {step}] host tool read_resource -> MCP resources/read {uri}")
+    # Chat mode shows request and result together, in show_resource_result.
 
 
 def show_resource_result(
@@ -347,7 +376,17 @@ def show_resource_result(
         return
 
     if not quiet:
-        console.print(f"[step {step}] resource loaded <- {uri} ({len(content)} chars)")
+        console.print(
+            Panel(
+                Group(
+                    Text("host tool read_resource -> MCP resources/read", style="bold"),
+                    _brief_text(content),
+                ),
+                title=f"Resource · {uri}",
+                title_align="left",
+                border_style="yellow",
+            )
+        )
 
 
 def show_context_summary(
@@ -478,8 +517,7 @@ def show_tool_call(
         )
         return
 
-    if not quiet:
-        console.print(f"[step {step}] tool call -> {name}({arguments})")
+    # Chat mode shows call and result together, in show_tool_result.
 
 
 def show_tool_result(
@@ -487,14 +525,17 @@ def show_tool_result(
     step: int,
     name: str,
     payload: Any,
+    elapsed_s: float,
     *,
+    arguments: dict[str, Any] | None = None,
+    error: bool = False,
     quiet: bool = False,
 ) -> None:
     if verbose:
         _panel(
             "MCP SERVER",
             "HOST",
-            f"MCP tools/call result · {name}",
+            f"MCP tools/call result · {name} · {duration(elapsed_s)}",
             _json(payload),
             border_style="bright_blue",
         )
@@ -505,11 +546,268 @@ def show_tool_result(
         return
 
     if not quiet:
+        args = "  ".join(f"{key}={value}" for key, value in (arguments or {}).items())
         console.print(
-            f"[step {step}] tool result <- "
-            f"{json.dumps(payload, ensure_ascii=False)}"
+            Panel(
+                Group(Text(args or "(no arguments)", style="bold"), _brief(payload, error)),
+                title=f"Tool · {name} · {duration(elapsed_s)}",
+                title_align="left",
+                border_style="red" if error else "yellow",
+            )
         )
 
 
+def duration(seconds: float) -> str:
+    """Human-readable duration: '0.02s', '12.3s', '2m 57s'."""
+    if seconds < 1:
+        return f"{seconds:.2f}s"
+    if seconds < 60:
+        return f"{seconds:.1f}s"
+    minutes, rest = divmod(round(seconds), 60)
+    return f"{minutes}m {rest:02d}s"
+
+
+def show_context_usage(
+    step: int,
+    prompt_tokens: int,
+    output_tokens: int,
+    num_ctx: int | None,
+    truncated: bool,
+    thinking_chars: int,
+    model_s: float,
+    prompt_s: float,
+    output_s: float,
+    elapsed_s: float,
+) -> None:
+    used = prompt_tokens + output_tokens
+    window = f"{num_ctx:,}" if num_ctx else "Ollama default"
+    share = f" ({used / num_ctx:.0%})" if num_ctx else ""
+    line = (
+        f"step {step} · context: {prompt_tokens:,} prompt + {output_tokens:,} output "
+        f"= {used:,} / {window} tokens{share}"
+    )
+    if thinking_chars:
+        line += f" · thought {thinking_chars:,} chars"
+    line += (
+        f" · model {duration(model_s)} (prompt {duration(prompt_s)}, output {duration(output_s)})"
+        f" · elapsed {duration(elapsed_s)}"
+    )
+    console.print(f"[dim]{line}[/dim]")
+    if truncated:
+        console.print(
+            f"[bold red]\\[step {step}] the conversation no longer fits: Ollama dropped part "
+            "of it. Raise --num-ctx.[/bold red]"
+        )
+
+
+def show_answer_check(step: int, feedback: str | None, answer: str, retry: bool) -> None:
+    if feedback is None:
+        console.print(f"[green]step {step} · host check: answer accepted[/green]")
+        return
+    if not retry:
+        console.print(
+            Panel(Text(feedback), title="Host check failed again · no retries left, "
+                  "showing the answer anyway", title_align="left", border_style="red")
+        )
+        return
+    console.print(
+        Panel(Markdown(answer.strip() or "(empty)"), title="Assistant · rejected by the host check",
+              title_align="left", border_style="grey50")
+    )
+    console.print(
+        Panel(Text(feedback), title="Host -> model", title_align="left", border_style="yellow")
+    )
+
+
+def show_skipped_call(
+    verbose: bool,
+    step: int,
+    name: str,
+    arguments: dict[str, Any],
+    *,
+    quiet: bool = False,
+) -> None:
+    if quiet:
+        return
+    console.print(
+        f"[dim]step {step} · tool call skipped (one per step) -> {name}({arguments})[/dim]"
+    )
+
+
+def show_run_summary(
+    total_s: float,
+    model_s: float,
+    tools_s: float,
+    steps: int,
+    tool_calls: int,
+) -> None:
+    console.print(
+        f"\n[bold]Done in {duration(total_s)}[/bold] · {steps} model call(s): "
+        f"{duration(model_s)} · {tool_calls} tool call(s): {duration(tools_s)} · "
+        f"other (startup, MCP discovery): {duration(max(total_s - model_s - tools_s, 0))}"
+    )
+
+
+VERDICT_STYLES = {"✓": "green", "~": "yellow", "✗": "red"}
+
+
+def show_grade(rows: list[tuple[str, str, str]]) -> None:
+    """Score of the final answer against the known truth. Only for humans."""
+    table = Table(show_header=True, header_style="bold", expand=True, box=None)
+    table.add_column("Aspect")
+    table.add_column("", width=2)
+    table.add_column("Note")
+    for aspect, verdict, note in rows:
+        table.add_row(aspect, Text(verdict, style=VERDICT_STYLES.get(verdict, "")), note)
+    points = sum({"✓": 1.0, "~": 0.5}.get(verdict, 0.0) for _, verdict, _ in rows)
+    console.print(
+        Panel(table, title=f"Grade · {points:g}/{len(rows)} · not shown to the model",
+              title_align="left", border_style="magenta")
+    )
+
+
 def show_final_answer(content: str) -> None:
-    console.print(f"\nAssistant: {content}")
+    console.print(
+        Panel(Markdown(content.strip() or "(empty)"), title="Assistant", title_align="left",
+              border_style="green")
+    )
+
+
+# --- chat view: the default mode, neither --verbose nor --show-raw ------------------
+
+
+def _clip(line: str, width: int = 110) -> str:
+    return line if len(line) <= width else line[: width - 1] + "…"
+
+
+def _brief_text(text: str, lines: int = 3) -> Text:
+    """First lines of a long text, and how many are left out."""
+    rows = text.strip().splitlines()
+    shown = "\n".join(_clip(row) for row in rows[:lines])
+    if len(rows) > lines:
+        shown += f"\n… (+{len(rows) - lines} more lines)"
+    return Text(shown, style="dim")
+
+
+def _brief(payload: Any, error: bool) -> Text:
+    """A few lines that tell what a tool returned, without dumping it."""
+    if error:
+        text = " ".join(
+            block.get("text", "") for block in payload if isinstance(block, dict)
+        ) if isinstance(payload, list) else str(payload)
+        return Text("error: " + _clip(text, 300), style="red")
+    if isinstance(payload, dict) and set(payload) == {"result"}:
+        payload = payload["result"]
+    if isinstance(payload, str):
+        return _brief_text(payload)
+    if not isinstance(payload, dict):
+        return _brief_text(json.dumps(payload, ensure_ascii=False, indent=1))
+
+    out = Text(style="dim")
+    scalars = [
+        f"{key}={value}"
+        for key, value in payload.items()
+        if value is not None and not isinstance(value, (dict, list))
+        and not (isinstance(value, str) and "\n" in value)
+    ]
+    if scalars:
+        out.append("↳ " + _clip("  ".join(scalars), 200) + "\n")
+    for key, value in payload.items():
+        if isinstance(value, str) and "\n" in value:
+            out.append(f"{key}:\n")
+            out.append_text(_brief_text(value))
+            out.append("\n")
+        elif isinstance(value, list):
+            items = ", ".join(_clip(json.dumps(item, ensure_ascii=False), 60) for item in value[:3])
+            more = f" … (+{len(value) - 3})" if len(value) > 3 else ""
+            out.append(f"{key}: {len(value)} item(s): {items}{more}\n")
+        elif isinstance(value, dict):
+            out.append(f"{key}: " + _clip(json.dumps(value, ensure_ascii=False), 200) + "\n")
+    out.rstrip()
+    return out
+
+
+def show_user_message(text: str, source: str | None = None) -> None:
+    console.print(
+        Panel(Text(text.strip()), title="You" + (f" · {source}" if source else ""),
+              title_align="left", border_style="cyan")
+    )
+
+
+class TurnView:
+    """What one model call looks like while it streams: thinking, then writing."""
+
+    def __init__(self) -> None:
+        self.started = time.perf_counter()
+        self.thinking = ""
+        self.content = ""
+        self.thinking_started: float | None = None
+        self.thinking_ended: float | None = None
+
+    def add(self, thinking: str | None, content: str | None) -> None:
+        now = time.perf_counter()
+        if thinking:
+            self.thinking_started = self.thinking_started or now
+            self.thinking += thinking
+        if content and self.thinking_started and not self.thinking_ended:
+            self.thinking_ended = now
+        if content:
+            self.content += content
+
+    def finish(self) -> None:
+        if self.thinking_started and not self.thinking_ended:
+            self.thinking_ended = time.perf_counter()
+
+    @property
+    def thinking_s(self) -> float:
+        if not self.thinking_started:
+            return 0.0
+        return (self.thinking_ended or time.perf_counter()) - self.thinking_started
+
+    def __rich__(self) -> Group:
+        parts: list[Any] = []
+        if not self.thinking and not self.content:
+            waited = duration(time.perf_counter() - self.started)
+            parts.append(Text(f"  Reading the prompt… {waited}", style="dim"))
+        if self.thinking:
+            tail = "\n".join(self.thinking.strip()[-600:].splitlines()[-4:])
+            parts.append(
+                Panel(Text(tail, style="dim italic"),
+                      title=f"Thinking · {duration(self.thinking_s)}", title_align="left",
+                      border_style="grey50")
+            )
+        if self.content:
+            tail = "\n".join(self.content.strip()[-1200:].splitlines()[-8:])
+            parts.append(Panel(Text(tail), title="Assistant · writing…", title_align="left",
+                               border_style="green"))
+        return Group(*parts)
+
+
+@contextmanager
+def live_turn(enabled: bool) -> Iterator[TurnView]:
+    """Show a model call live while it streams; erase it when done."""
+    view = TurnView()
+    if not enabled:
+        yield view
+        view.finish()
+        return
+    with Live(view, console=console, refresh_per_second=8, transient=True):
+        yield view
+    view.finish()
+
+
+def show_thinking(view: TurnView, full: bool) -> None:
+    """After a model call: the thinking, collapsed to one line or in full."""
+    thinking = view.thinking.strip()
+    if not thinking:
+        return
+    if full:
+        console.print(
+            Panel(Text(thinking, style="dim italic"), title=f"Thought for {duration(view.thinking_s)}",
+                  title_align="left", border_style="grey50")
+        )
+        return
+    first = thinking.replace("\n", " ").split(". ")[0].strip()
+    console.print(
+        Text(f"  Thought for {duration(view.thinking_s)} · \"{_clip(first, 120)}\"", style="dim italic")
+    )

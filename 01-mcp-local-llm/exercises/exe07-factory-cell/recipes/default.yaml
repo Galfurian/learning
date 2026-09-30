@@ -1,0 +1,37 @@
+# Default line for EXE07. Station behavior lives in factory/stations/*.py;
+# this file only says which stations exist, how parts flow, when the cell
+# produces, and what goes wrong. Times are military: "0952" is 09:52.
+# Always quote them: unquoted, YAML reads 0700 as an octal number.
+name: cell-1
+seed: 7
+first_part_id: 301
+
+part:
+  nominal_mm: 40.000
+  tolerance_mm: 0.050
+
+stations:
+- { id: WH1, type: warehouse }
+- { id: R1, type: robot, params: { move_s: 6, grip_s: 3 } }
+- { id: C1, type: conveyor, params: { transit_s: 45, capacity: 4 } }
+- { id: QC1, type: vision_qc, params: { inspect_s: 8, defect_rate: 0.04 } }
+- { id: M1, type: mill, params: { cycle_s: 240, tool_life_parts: 18 } }
+
+# Every part visits these stations in order. R1 and WH1 appear twice:
+# they are shared resources with one FIFO queue each.
+route: [ WH1, R1, C1, QC1, M1, R1, WH1 ]
+
+# Three production orders, one per shift, 40 parts each. Each has its own logs.
+# Stations keep their state from one day to the next: the tool keeps wearing.
+productions:
+- { id: PO-1001, start: "0800", end: "1200", orders: { count: 40, release_every_s: 300 } }
+- { id: PO-1002, start: "1200", end: "1600", orders: { count: 40, release_every_s: 300 } }
+- { id: PO-1003, start: "1600", end: "2000", orders: { count: 40, release_every_s: 300 } }
+
+faults:
+# A conveyor jam. It slows the line down, nothing else.
+- { production: PO-1001, at: "0940", station: C1, kind: jam, duration_s: 240 }
+# The tool breaks; its replacement gets a wrong offset for 30 minutes.
+- { production: PO-1003, at: "1752", station: M1, kind: tool_offset_error, value_mm: 0.12, duration_s: 1800 }
+# Another conveyor jam, in the middle of the rejects.
+- { production: PO-1003, at: "1815", station: C1, kind: jam, duration_s: 180 }

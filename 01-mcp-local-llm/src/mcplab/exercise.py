@@ -12,14 +12,14 @@ import asyncio
 import json
 import logging
 import sys
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from pathlib import Path
 
 from mcp import Client
 from mcp.client.stdio import StdioServerParameters
 from mcp.server import MCPServer
 
-from .agent import DEFAULT_MODEL, run_agent
+from .agent import DEFAULT_MODEL, SYSTEM_PROMPT, run_agent
 
 
 async def inspect(server: StdioServerParameters) -> None:
@@ -46,7 +46,7 @@ async def inspect(server: StdioServerParameters) -> None:
             print(f"- {template.uri_template}  {template.description or ''}")
 
 
-def parse_args(prompt: str) -> argparse.Namespace:
+def parse_args(prompt: str, num_ctx: int | None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Run this exercise: the local model answers PROMPT using your MCP server."
     )
@@ -59,6 +59,22 @@ def parse_args(prompt: str) -> argparse.Namespace:
         "--model",
         default=DEFAULT_MODEL,
         help="Any Ollama model installed locally that supports tool calling.",
+    )
+    parser.add_argument(
+        "--num-ctx",
+        type=int,
+        default=num_ctx,
+        help="Context window in tokens"
+        + (
+            f" (default for this file: {num_ctx})."
+            if num_ctx
+            else " (default: Ollama's)."
+        ),
+    )
+    parser.add_argument(
+        "--show-thinking",
+        action="store_true",
+        help="Keep the model's whole thinking on screen instead of one collapsed line.",
     )
     parser.add_argument(
         "--think",
@@ -94,15 +110,27 @@ def run(
     prompt: str,
     file: str,
     *,
+    system_prompt: str = SYSTEM_PROMPT,
     attach: Sequence[str] = (),
     on_demand_resources: bool = False,
+    num_ctx: int | None = None,
+    mcp_prompt: tuple[str, dict[str, str]] | None = None,
+    verify: Callable[[str], str | None] | None = None,
+    one_call_per_step: bool = False,
+    grade: Callable[[str], list[tuple[str, str, str]]] | None = None,
+    max_steps: int = 8,
 ) -> None:
     """Entry point of an exercise file: ``run(mcp, PROMPT, __file__)``.
 
     ``attach`` and ``on_demand_resources`` choose how the host brings MCP
     resources into the model's context; see ``mcplab.agent.run_agent``.
+    ``num_ctx`` is this file's default context window; ``--num-ctx`` overrides it.
+    ``mcp_prompt`` makes the host build the user message from an MCP prompt.
+    ``verify`` and ``one_call_per_step`` change how the host drives the model;
+    see ``mcplab.agent.run_agent``.
+    ``max_steps`` caps the number of model calls in one run.
     """
-    args = parse_args(prompt)
+    args = parse_args(prompt, num_ctx)
 
     if args.serve:
         mcp.run(transport="stdio")
@@ -123,17 +151,24 @@ def run(
         asyncio.run(inspect(server))
         return
 
-    print(f"Prompt: {args.prompt}\n")
     asyncio.run(
         run_agent(
             args.prompt,
             server,
             server_label=path.name,
+            system_prompt=system_prompt,
             model=args.model,
             verbose=args.verbose,
             show_raw=args.show_raw,
             attach=attach,
             on_demand_resources=on_demand_resources,
             think=args.think,
+            num_ctx=args.num_ctx,
+            mcp_prompt=mcp_prompt,
+            verify=verify,
+            one_call_per_step=one_call_per_step,
+            show_thinking_text=args.show_thinking,
+            grade=grade,
+            max_steps=max_steps,
         )
     )
