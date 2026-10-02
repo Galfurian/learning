@@ -109,6 +109,23 @@ If your machine has more headroom, use:
 ollama pull qwen3:4b
 ```
 
+### Decision models
+
+Some units use **decision models** instead of chat models. They return
+probabilities for a fixed set of answers instead of generating text, and they
+are served by a different endpoint, `POST /v1/systemone`, available since
+Ollama 0.35:
+
+```bash
+ollama --version
+ollama pull tev1:4b-q4_K_M      # 2.7 GB
+ollama pull tev1:0.8b           # 0.8 GB, faster and less accurate
+```
+
+`ollama show <model>` lists `decision` among the capabilities of these models.
+They are not meant for `ollama run`; see the unit that uses them for the
+request format.
+
 ## 4. Sanity-check inference
 
 The simplest interactive test is:
@@ -224,6 +241,16 @@ Download it:
 
 ```bash
 ollama pull qwen3:1.7b
+```
+
+### WSL becomes unstable with several models loaded
+
+Each loaded model stays in memory for a few minutes after its last request.
+On a laptop, check what is loaded and unload what you do not need:
+
+```bash
+ollama ps
+ollama stop <model>
 ```
 
 ### The laptop is too slow

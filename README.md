@@ -32,13 +32,14 @@ Reusable setup or concepts that may be needed by several units belong in the rep
 
 ## Shared docs
 
-- [Ollama on WSL/Linux](./docs/ollama.md) — install Ollama, start its local API server, pull models, and verify the service.
+- [Ollama on WSL/Linux](./docs/ollama.md) — install Ollama, start its local API server, pull models (chat and decision models), and verify the service.
 
 ## Learning units
 
 | Unit | Topic | Goal |
 |---|---|---|
 | [01](./01-mcp-local-llm/) | MCP + local LLM tool calling | Build an MCP server and let a small local LLM discover and call its tools |
+| [02](./02-decision-models/) | Decision models | Ask a local decision model typed questions about a state, read its probabilities, and let application code act |
 
 ## Conventions
 
