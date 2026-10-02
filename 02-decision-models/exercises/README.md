@@ -11,7 +11,8 @@ exeNN-topic/
 
 Start with `exe00-demo`: it is already solved, so you can read a working file
 and try every command before writing your own. Then do the others in order.
-Each one adds a single concept.
+Each one adds a single concept. `exe08-production-line` is a solved demo
+again: it puts everything together on a simulated production line.
 
 | #  | Folder                                                  | Concept                                                     |
 |----|---------------------------------------------------------|-------------------------------------------------------------|
@@ -23,8 +24,11 @@ Each one adds a single concept.
 | 05 | [exe05-confidence](exe05-confidence/)                   | probabilities, confidence, margin; when a person must decide |
 | 06 | [exe06-multiple-decisions](exe06-multiple-decisions/)   | several questions about one state; together vs separately   |
 | 07 | [exe07-decide-vs-act](exe07-decide-vs-act/)             | the model decides, the code checks facts, applies rules, acts |
+| 08 | [exe08-production-line](exe08-production-line/)         | demo: a line breaks; code detects, the model diagnoses per machine, code repairs |
 
 ## How one exercise file works
+
+(EXE08 has its own structure, described in its README.)
 
 Every `exeNN.py` has the same parts:
 

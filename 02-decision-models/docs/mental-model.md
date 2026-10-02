@@ -148,6 +148,41 @@ models, adding a question can move the answer to another one (EXE06 measures
 it). The runner can send them together (default) or one request per question
 (`--separately`).
 
+## Context window
+
+Two numbers, easy to confuse:
+
+- `ollama show tev1:4b-q4_K_M` reports `context length 262144`. That is what
+  the base architecture supports.
+- The model actually runs with `num_ctx 2050`, set in its Modelfile (the
+  `CONTEXT` column of `ollama ps`). That is the real limit: about 2,000
+  tokens.
+
+The limit applies **per question**. Each question becomes its own prompt:
+system prompt + state + question + options. So:
+
+- a `choice` with many described options leaves less room for the state than
+  a `noul`;
+- `input_tokens` in the response grows with the number of questions, because
+  every question reads the state again (EXE06).
+
+Beyond the limit, the request fails. Measured on `tev1:4b-q4_K_M`:
+
+| State                | Input tokens | Result                                    |
+|----------------------|--------------|-------------------------------------------|
+| ~100 short sentences | ~1,310       | right answer, about 45 s on CPU           |
+| ~300 short sentences | ~3,710       | `prompt 0 has 3713 tokens; expected 1–2050 (input is never truncated)` |
+
+This is the opposite of a chat model in [unit 01](../../01-mcp-local-llm/),
+where Ollama silently drops what does not fit. Here nothing is cut: the
+application gets an error and must make the state shorter.
+
+That is a design constraint, not a detail. It is why EXE08 diagnoses one
+machine over a ten-minute window instead of the whole line, and why a summary
+written by code works better than raw log lines: fewer tokens, more meaning.
+A long state is also slow: nearly all the time of a decision goes into
+reading the prompt.
+
 ## Deciding is not acting
 
 The model answers a question. It never:
@@ -188,7 +223,8 @@ text. It is consistent with what the API shows:
 - `usage.output_tokens` is about one per question;
 - at most 26 options per question (one letter each);
 - the same request returns the same numbers (no sampling);
-- the context window is small (`num_ctx 2050`): the state must be short.
+- the context window is small (`num_ctx 2050`, see "Context window"): the
+  state must be short.
 
 The exact prompt Ollama builds from your `state` and `questions` is internal
 to Ollama; this unit only relies on the public request and response.

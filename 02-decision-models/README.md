@@ -216,7 +216,8 @@ Every exercise file accepts the same options:
 ## 6. Write your own decision code
 
 Continue with [exercises/README.md](exercises/README.md): seven exercises,
-each one a file with a TODO and a check.
+each one a file with a TODO and a check, then a final demo on a simulated
+production line.
 
 ## Files
 
@@ -243,6 +244,7 @@ each one a file with a TODO and a check.
     ├── exe05-confidence/           # probabilities and confidence
     ├── exe06-multiple-decisions/   # several questions, one state
     ├── exe07-decide-vs-act/        # the model decides, the code acts
+    ├── exe08-production-line/      # demo: simulated line, two-step diagnosis
     └── solutions/
 ```
 
