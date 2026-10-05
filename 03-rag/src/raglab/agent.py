@@ -13,7 +13,7 @@ from typing import Any
 from mcp import Client
 from mcp.client.stdio import StdioServerParameters
 
-from .client import Tracer, chat
+from .client import OllamaError, Tracer, chat
 from .generation import REFUSAL, CitationReport, check_citations
 
 TOOL_PROMPT = f"""You answer questions about the machine manuals of one plant.
@@ -56,7 +56,38 @@ class ToolRun:
     seconds: float
 
 
+def _first_ollama_error(error: BaseException) -> OllamaError | None:
+    """The MCP client runs in an anyio task group, which wraps errors in an ExceptionGroup."""
+    if isinstance(error, OllamaError):
+        return error
+    if isinstance(error, BaseExceptionGroup):
+        for inner in error.exceptions:
+            found = _first_ollama_error(inner)
+            if found is not None:
+                return found
+    return None
+
+
 async def run_tool_agent(
+    question: str,
+    server_script: Path,
+    *,
+    model: str,
+    num_ctx: int,
+    max_steps: int = 4,
+    tracer: Tracer | None = None,
+) -> ToolRun:
+    try:
+        return await _run_tool_agent(question, server_script, model=model, num_ctx=num_ctx,
+                                     max_steps=max_steps, tracer=tracer)
+    except BaseExceptionGroup as group:
+        found = _first_ollama_error(group)
+        if found is None:
+            raise
+        raise found from None
+
+
+async def _run_tool_agent(
     question: str,
     server_script: Path,
     *,

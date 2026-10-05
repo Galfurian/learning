@@ -68,6 +68,7 @@ answer, 3 without), with `embeddinggemma` and `qwen3:1.7b`:
   no-answer question. It is a coarse check: "Check the air pressure is below
   2.5 bar" fails it because it does not say "supply hose".
 - **citations ok**: the cited ids are among the chunks the generator saw.
+- **avg prompt tokens**: for `tool`, the final generator call only.
 
 ### stuff
 
@@ -120,8 +121,10 @@ for 12 of 17 questions, fewer than the pipeline:
 - it often wrote the excerpt id in prose instead of in brackets, so 4 of 20
   answers failed the citation check.
 
-It also costs more: two generator calls per question, about 644 prompt
-tokens and 11 s, against 414 and 5.5 s. Giving the model the decision of
+It also costs more: two generator calls per question and 11 s, against one
+call and 5.5 s. The 644 prompt tokens in the table count only the final call
+(which already holds the first call's messages and the excerpts); the first
+call reads its prompt too, so the total input is larger. Giving the model the decision of
 when and how to search adds a step that can fail.
 
 ## Run it yourself

@@ -17,3 +17,21 @@ def test_excerpts_from_structured_and_text():
     assert excerpts_from({"result": {"excerpts": found}}) == found
     assert excerpts_from([{"type": "text", "text": '{"excerpts": [{"id": "a-1", "section_id": "a", "text": "x"}]}'}]) == found
     assert excerpts_from({"unexpected": 1}) == []
+
+
+def test_ollama_error_in_tool_mode_is_not_hidden_in_an_exception_group(monkeypatch):
+    import asyncio
+    from pathlib import Path
+
+    import pytest
+
+    from raglab import agent
+    from raglab.client import OllamaError
+
+    def fail(*args, **kwargs):
+        raise OllamaError('model "nope" not found, try pulling it first. Run: ollama pull nope')
+
+    monkeypatch.setattr(agent, "chat", fail)
+    server = Path(__file__).resolve().parents[1] / "exercises" / "exe09-demo" / "manual_server.py"
+    with pytest.raises(OllamaError, match="ollama pull nope"):
+        asyncio.run(agent.run_tool_agent("q", server, model="nope", num_ctx=2048))

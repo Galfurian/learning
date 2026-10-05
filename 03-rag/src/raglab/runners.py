@@ -317,23 +317,25 @@ def run_hybrid(keyword_search, fuse, file: str) -> None:
     except NotImplementedError:
         ui.show_todo("keyword_search(chunks, weights, query, k)", "Only the semantic retriever exists so far.")
         return
+    # --question and --case select the questions; --eval needs all of them.
+    selected = questions if args.eval else select_questions(args, questions)
+    depth = 10
     try:
         index = dev_index(args, chunks)
+        semantic = run_search(selected, index.search, depth)
     except OllamaError as exc:
         ui.show_error(str(exc))
         raise SystemExit(1) from None
-    depth = 10
-    semantic = run_search(questions, index.search, depth)
-    keyword = {q.id: keyword_search(chunks, weights, q.text, depth) for q in questions}
+    keyword = {q.id: keyword_search(chunks, weights, q.text, depth) for q in selected}
     try:
-        fused = {q.id: fuse([semantic[q.id], keyword[q.id]]) for q in questions}
+        fused = {q.id: fuse([semantic[q.id], keyword[q.id]]) for q in selected}
     except NotImplementedError:
         ui.show_todo("fuse(rankings)", "Keyword search works; now combine it with the semantic ranking.")
         fused = None
     runs = [("semantic", semantic), ("keyword", keyword)] + ([("fused", fused)] if fused else [])
     if not args.eval:
-        for number, q in enumerate(select_questions(args, questions), start=1):
-            ui.show_question(number, len(questions), q.text)
+        for number, q in enumerate(selected, start=1):
+            ui.show_question(number, len(selected), q.text)
             for name, results in runs:
                 ui.show_hits(results[q.id][: args.top_k], q.relevant, title=name, show_text=True)
         return
