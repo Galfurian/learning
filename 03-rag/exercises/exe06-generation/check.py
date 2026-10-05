@@ -19,8 +19,10 @@ def checks(exe, check):
     check.ok(multi.ok and multi.cited == ids, "several ids in one bracket are all read", multi)
     bad = exe.check_citations("Yes. [rf9-profile-1]", ids)
     check.ok(not bad.ok and bad.unknown == ["rf9-profile-1"], "an id outside the context fails", bad)
-    check.ok(exe.check_citations("Yes.", ids).problem == "no citations", "no citation fails")
-    check.ok(exe.check_citations(REFUSAL, ids).ok, "the refusal passes")
+    no_citation = exe.check_citations("Yes.", ids)
+    check.ok(no_citation.problem == "no citations", "an answer without citations fails", no_citation)
+    refusal = exe.check_citations(REFUSAL, ids)
+    check.ok(refusal.ok, f"the refusal {REFUSAL!r}, with no citations, passes (refused=True, problem='')", refusal)
     check.ok(not exe.check_citations(f"{REFUSAL} [p3-temps-1]", ids).ok, "a refusal with citations fails")
     recorded = Path(__file__).with_name("recorded.json")
     if recorded.exists():
