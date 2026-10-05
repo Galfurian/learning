@@ -65,16 +65,58 @@ the best hit scores at least `THRESHOLD`.
 
 ```bash
 uv run python exercises/exe05-context/check.py
-uv run python exercises/exe05-context/exe05.py
-uv run python exercises/exe05-context/exe05.py --case 24
 ```
+
+Then run the whole dev set again:
+
+```bash
+uv run python exercises/exe05-context/exe05.py
+```
+
+What to look at:
+
+- **The threshold table.** The row of your `THRESHOLD` is marked `yours`.
+  Read its two error columns: how many answerable questions it refuses, and
+  how many no-answer questions it still passes. Compare its cost with the
+  row marked `cheapest`.
+- **One block per question.** Each block shows the top 3 hits with their
+  scores, then the line `answerable(hits) -> True` or `-> False`. When it is
+  `True`, the context your `build_context` built follows; when it is `False`,
+  the APP abstains and no context is built. This exercise never calls the
+  generator: it shows what the APP would send.
 
 ## What the threshold still lets through
 
-With `THRESHOLD = 0.33`, d23 (warranty, 0.462), d25 (DPI, 0.558) and d26
-(nitrogen flow, 0.531) still reach the generator, with three chunks that do
-not contain the answer. The generator's refusal is the second check: EXE06
-shows that the generator refused all three.
+The four no-answer questions are the last four of the dev set: 23 (warranty),
+24 (oscilloscope), 25 (engraving DPI) and 26 (nitrogen flow). Look at them
+one at a time:
+
+```bash
+uv run python exercises/exe05-context/exe05.py --case 24
+uv run python exercises/exe05-context/exe05.py --case 23
+```
+
+With `THRESHOLD = 0.33`:
+
+- `--case 24`: the best hit is `p3-bed-1` at 0.325, below the threshold.
+  The line says `answerable(hits) -> False: the APP would abstain`. The
+  threshold did its job.
+- `--case 23`, `--case 25`, `--case 26`: the best hits score 0.462, 0.558
+  and 0.531. The line says `-> True`, and the context below it holds three
+  chunks that do not contain the answer (for 23: the C-12 maintenance,
+  tension and speed sections; nothing about a warranty). These three
+  questions reach the generator.
+
+What does the generator do with them? This exercise does not call it. EXE06
+does: after you write the prompt there, run
+
+```bash
+uv run python exercises/exe06-generation/exe06.py --case 23
+```
+
+and look at the green answer panel. In the measured runs the generator
+replied "Not in the manuals." for all three: its refusal is the second
+check, after the threshold.
 
 Other signals use more than the top-1 score: the margin between the first
 two hits, a reranker, a keyword match (EXE07). The extras in
