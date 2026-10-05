@@ -1,6 +1,5 @@
 import numpy as np
 import pytest
-
 from raglab.corpus import Chunk
 from raglab.embedders import FakeEmbedder
 from raglab.evalset import (

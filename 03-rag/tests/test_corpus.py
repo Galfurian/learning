@@ -1,7 +1,6 @@
 import json
 
 import pytest
-
 from raglab.chunking import chunk_all, chunk_section, windows
 from raglab.corpus import (
     DEV_MANUALS,

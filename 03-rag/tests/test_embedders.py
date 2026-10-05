@@ -1,5 +1,4 @@
 import numpy as np
-
 from raglab import embedders
 from raglab.cache import EmbeddingCache
 from raglab.embedders import FakeEmbedder, OllamaEmbedder, tokens

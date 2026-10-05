@@ -3,7 +3,6 @@ import json
 from urllib.error import HTTPError, URLError
 
 import pytest
-
 from raglab import client
 
 
