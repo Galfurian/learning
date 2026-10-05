@@ -104,10 +104,8 @@ class OllamaEmbedder:
             return text
         return self.formats[1].format(text=text, title=title or "none")
 
-    def _embed(self, texts: list[str]) -> np.ndarray:
-        vectors: list[np.ndarray | None] = [
-            self.cache.get(self.model, text) if self.cache else None for text in texts
-        ]
+    def _embed(self, texts: list[str], cache: EmbeddingCache | None) -> np.ndarray:
+        vectors: list[np.ndarray | None] = [cache.get(self.model, text) if cache else None for text in texts]
         self.cached += sum(vector is not None for vector in vectors)
         missing = [i for i, vector in enumerate(vectors) if vector is None]
         # Small batches: long CPU requests have crashed WSL before.
@@ -118,15 +116,16 @@ class OllamaEmbedder:
             for i, values in zip(chunk, result.vectors):
                 vector = np.asarray(values, dtype=np.float32)
                 vectors[i] = vector
-                if self.cache:
-                    self.cache.put(self.model, texts[i], vector)
+                if cache:
+                    cache.put(self.model, texts[i], vector)
         if not vectors:
             return np.zeros((0, 0), dtype=np.float32)
         return np.stack(vectors)
 
     def embed_documents(self, texts: list[str], titles: list[str] | None = None) -> np.ndarray:
         titles = titles or [None] * len(texts)
-        return self._embed([self.format_document(t, h) for t, h in zip(texts, titles)])
+        return self._embed([self.format_document(t, h) for t, h in zip(texts, titles)], self.cache)
 
     def embed_query(self, text: str) -> np.ndarray:
-        return self._embed([self.format_query(text)])[0]
+        # Not cached: one short request, and --verbose should always show it.
+        return self._embed([self.format_query(text)], None)[0]

@@ -74,3 +74,17 @@ def test_ollama_embedder_uses_cache_and_batches(monkeypatch, tmp_path):
     # Another prefix setting is another text: no reuse.
     OllamaEmbedder("embeddinggemma", prefixed=False, cache=EmbeddingCache(tmp_path)).embed_documents(["a"])
     assert sent[-1] == ["a"]
+
+
+def test_queries_are_not_cached_so_verbose_always_shows_the_call(monkeypatch, tmp_path):
+    sent = []
+
+    def fake_embed(model, texts, tracer=None):
+        sent.append(list(texts))
+        return type("R", (), {"vectors": [[1.0, 0.0] for _ in texts]})()
+
+    monkeypatch.setattr(embedders, "embed", fake_embed)
+    embedder = OllamaEmbedder("embeddinggemma", cache=EmbeddingCache(tmp_path))
+    embedder.embed_query("q")
+    embedder.embed_query("q")
+    assert len(sent) == 2
