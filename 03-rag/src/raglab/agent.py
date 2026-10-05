@@ -54,6 +54,7 @@ class ToolRun:
     steps: int
     prompt_tokens: int
     seconds: float
+    thinking: str = ""
 
 
 def _first_ollama_error(error: BaseException) -> OllamaError | None:
@@ -75,11 +76,12 @@ async def run_tool_agent(
     model: str,
     num_ctx: int,
     max_steps: int = 4,
+    think: bool = False,
     tracer: Tracer | None = None,
 ) -> ToolRun:
     try:
         return await _run_tool_agent(question, server_script, model=model, num_ctx=num_ctx,
-                                     max_steps=max_steps, tracer=tracer)
+                                     max_steps=max_steps, think=think, tracer=tracer)
     except BaseExceptionGroup as group:
         found = _first_ollama_error(group)
         if found is None:
@@ -94,6 +96,7 @@ async def _run_tool_agent(
     model: str,
     num_ctx: int,
     max_steps: int = 4,
+    think: bool = False,
     tracer: Tracer | None = None,
 ) -> ToolRun:
     server = StdioServerParameters(command=sys.executable, args=[str(server_script)])
@@ -105,9 +108,12 @@ async def _run_tool_agent(
         searches: list[str] = []
         answer = f"(no final answer after {max_steps} steps)"
         prompt_tokens, seconds, steps = 0, 0.0, 0
+        thoughts: list[str] = []
         for steps in range(1, max_steps + 1):
-            result = chat(model, messages, num_ctx=num_ctx, tools=tools, tracer=tracer)
+            result = chat(model, messages, num_ctx=num_ctx, tools=tools, think=think, tracer=tracer)
             prompt_tokens, seconds = result.prompt_tokens, seconds + result.seconds
+            if result.thinking:
+                thoughts.append(result.thinking)
             messages.append(result.message)
             if not result.tool_calls:
                 answer = result.content
@@ -126,4 +132,4 @@ async def _run_tool_agent(
                         seen.append(excerpt)
                 messages.append({"role": "tool", "tool_name": name, "content": json.dumps(payload, ensure_ascii=False)})
         return ToolRun(answer, searches, seen, check_citations(answer, [s["id"] for s in seen]),
-                       steps, prompt_tokens, seconds)
+                       steps, prompt_tokens, seconds, "\n\n".join(thoughts))

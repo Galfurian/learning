@@ -48,18 +48,21 @@ def run_one(mode, question, args, sections, chunks, search):
                       think=args.think, tracer=tracer(args))
         seen = [Hit(c, 0.0, r) for r, c in enumerate(context.chunks, start=1)]
         answer, citations, tokens = result.content, check_citations(result.content, context.ids), result.prompt_tokens
+        thinking = result.thinking
         extra = f"{len(context.chunks)} of {len(sections)} sections fit"
     elif mode == "pipeline":
         trace = answer_question(question.text, search, k=config.K, budget=config.BUDGET, min_score=config.MIN_SCORE,
                                 model=args.model, num_ctx=config.NUM_CTX, think=args.think, tracer=tracer(args))
         seen, answer, citations, tokens = trace.hits, trace.answer, trace.citations, trace.prompt_tokens
+        thinking = trace.thinking
         extra = "abstained: " + trace.abstain_reason if trace.abstained else ""
     else:
         run = asyncio.run(run_tool_agent(question.text, HERE / "manual_server.py", model=args.model,
-                                         num_ctx=config.NUM_CTX, tracer=tracer(args)))
+                                         num_ctx=config.NUM_CTX, think=args.think, tracer=tracer(args)))
         by_id = {c.id: c for c in chunks}
         seen = [Hit(by_id[s["id"]], s["score"], r) for r, s in enumerate(run.seen, start=1) if s["id"] in by_id]
         answer, citations, tokens = run.answer, run.citations, run.prompt_tokens
+        thinking = run.thinking
         extra = f"searches: {run.searches}"
     return {
         "id": question.id, "category": question.category, "answer": answer,
@@ -69,6 +72,7 @@ def run_one(mode, question, args, sections, chunks, search):
         "seen": [h.chunk.id for h in seen][:50],
         "facts": answer_ok(answer, question), "citations": citations.ok,
         "prompt_tokens": tokens, "seconds": round(time.perf_counter() - started, 1), "note": extra,
+        "thinking": thinking,
     }
 
 
@@ -116,6 +120,8 @@ def main() -> None:
         for number, question in enumerate(questions, start=1):
             ui.show_question(number, len(questions), question.text)
             row = run_one(args.mode, question, args, sections, chunks, search)
+            if row["thinking"]:
+                ui.show_note("Thinking · GENERATIVE MODEL (--think):\n" + row["thinking"])
             ui.show_table(f"{args.mode}", ["answer", "evidence", "facts", "citations", "note"],
                           [(row["answer"][:200], row["evidence"], row["facts"], row["citations"], row["note"])])
             runs.append(row)
