@@ -21,7 +21,7 @@ class EmbeddingCache:
 
     @staticmethod
     def key(model: str, text: str) -> str:
-        return hashlib.sha256(f"{model}\n{text}".encode("utf-8")).hexdigest()
+        return hashlib.sha256(f"{model}\n{text}".encode()).hexdigest()
 
     def _path(self, model: str, text: str) -> Path:
         folder = re.sub(r"[^A-Za-z0-9._-]", "_", model)
