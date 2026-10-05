@@ -5,8 +5,9 @@ Each trace records what every stage produced, so you can name the first
 stage that failed, with a rule, not an opinion.
 
 The 10 traces in `traces/` come from real runs of `exe00.py --record` on the
-dev set: three settings (the default, `--fake-embed`, `--min-score 0.45`),
-then a person read each answer and wrote the labels.
+dev set: three settings (the default, `--fake-embed`, `--min-score 0.45`).
+The labels were then written by reading each answer and its cited chunks;
+each trace has a `note` with the reason. Read them: you may disagree.
 
 ## The rule
 
@@ -32,8 +33,8 @@ are expected, and the generator's refusal is the last check.
 
 ## The labels
 
-`answer_correct` and `supported` were written by a person who read the
-answer and the cited chunks. `supported` is false when the cited chunk does
+`answer_correct` and `supported` are judgments about text: someone has to
+read the answer and the cited chunks to write them. `supported` is false when the cited chunk does
 not state the claim, even if the claim is right. For a refusal there is no
 claim, so `supported` is `null`.
 
