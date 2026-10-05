@@ -1,0 +1,59 @@
+{
+ "question": "The extruder makes a clicking noise.",
+ "relevant": [
+  "p3-troubleshooting"
+ ],
+ "answerable": true,
+ "settings": {
+  "embedder": "embeddinggemma",
+  "k": 3,
+  "budget": 1500,
+  "min_score": null,
+  "model": "qwen3:1.7b",
+  "size": 60,
+  "retriever": "semantic"
+ },
+ "hits": [
+  {
+   "id": "p3-troubleshooting-1",
+   "section_id": "p3-troubleshooting",
+   "score": 0.4811,
+   "rank": 1
+  },
+  {
+   "id": "p3-cooling-1",
+   "section_id": "p3-cooling",
+   "score": 0.3431,
+   "rank": 2
+  },
+  {
+   "id": "c12-troubleshooting-1",
+   "section_id": "c12-troubleshooting",
+   "score": 0.322,
+   "rank": 3
+  }
+ ],
+ "context": [
+  {
+   "id": "p3-troubleshooting-1",
+   "section_id": "p3-troubleshooting"
+  },
+  {
+   "id": "p3-cooling-1",
+   "section_id": "p3-cooling"
+  },
+  {
+   "id": "c12-troubleshooting-1",
+   "section_id": "c12-troubleshooting"
+  }
+ ],
+ "answer": "The extruder makes a clicking noise. [p3-troubleshooting-1]",
+ "abstained": false,
+ "abstain_reason": "",
+ "labels": {
+  "answer_correct": false,
+  "supported": false
+ },
+ "expected": "GENERATION",
+ "note": "The answer repeats the question; the cited chunk says the nozzle is clogged and gives the cold pull, the answer says neither."
+}

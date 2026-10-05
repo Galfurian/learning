@@ -1,0 +1,59 @@
+{
+ "question": "The laser tube is overheating. What temperature should the coolant be?",
+ "relevant": [
+  "lx40-cooling"
+ ],
+ "answerable": true,
+ "settings": {
+  "embedder": "embeddinggemma",
+  "k": 3,
+  "budget": 1500,
+  "min_score": null,
+  "model": "qwen3:1.7b",
+  "size": 60,
+  "retriever": "semantic"
+ },
+ "hits": [
+  {
+   "id": "lx40-cooling-1",
+   "section_id": "lx40-cooling",
+   "score": 0.6569,
+   "rank": 1
+  },
+  {
+   "id": "lx40-troubleshooting-2",
+   "section_id": "lx40-troubleshooting",
+   "score": 0.5536,
+   "rank": 2
+  },
+  {
+   "id": "lx40-errors-2",
+   "section_id": "lx40-errors",
+   "score": 0.5018,
+   "rank": 3
+  }
+ ],
+ "context": [
+  {
+   "id": "lx40-cooling-1",
+   "section_id": "lx40-cooling"
+  },
+  {
+   "id": "lx40-troubleshooting-2",
+   "section_id": "lx40-troubleshooting"
+  },
+  {
+   "id": "lx40-errors-2",
+   "section_id": "lx40-errors"
+  }
+ ],
+ "answer": "The coolant should be between 15 and 22 °C. [lx40-cooling-1]",
+ "abstained": false,
+ "abstain_reason": "",
+ "labels": {
+  "answer_correct": true,
+  "supported": true
+ },
+ "expected": "NONE",
+ "note": "15 and 22 °C, cited from lx40-cooling-1."
+}

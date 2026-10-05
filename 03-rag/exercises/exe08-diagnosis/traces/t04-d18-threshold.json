@@ -1,0 +1,46 @@
+{
+ "question": "What is PN-X7S-919-A?",
+ "relevant": [
+  "rf9-parts"
+ ],
+ "answerable": true,
+ "settings": {
+  "embedder": "embeddinggemma",
+  "k": 3,
+  "budget": 1500,
+  "min_score": 0.45,
+  "model": "qwen3:1.7b",
+  "size": 60,
+  "retriever": "semantic"
+ },
+ "hits": [
+  {
+   "id": "rf9-parts-1",
+   "section_id": "rf9-parts",
+   "score": 0.3491,
+   "rank": 1
+  },
+  {
+   "id": "p3-parts-1",
+   "section_id": "p3-parts",
+   "score": 0.3421,
+   "rank": 2
+  },
+  {
+   "id": "lx40-parts-1",
+   "section_id": "lx40-parts",
+   "score": 0.3092,
+   "rank": 3
+  }
+ ],
+ "context": [],
+ "answer": "Not in the manuals.",
+ "abstained": true,
+ "abstain_reason": "threshold",
+ "labels": {
+  "answer_correct": false,
+  "supported": null
+ },
+ "expected": "CONTEXT",
+ "note": "rf9-parts is the top hit, but its score 0.349 is below --min-score 0.45: the APP abstained."
+}

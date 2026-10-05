@@ -1,0 +1,59 @@
+{
+ "question": "What is the highest temperature in the lead-free solder profile?",
+ "relevant": [
+  "rf9-profile"
+ ],
+ "answerable": true,
+ "settings": {
+  "embedder": "embeddinggemma",
+  "k": 3,
+  "budget": 1500,
+  "min_score": null,
+  "model": "qwen3:1.7b",
+  "size": 60,
+  "retriever": "semantic"
+ },
+ "hits": [
+  {
+   "id": "rf9-leaded-1",
+   "section_id": "rf9-leaded",
+   "score": 0.6141,
+   "rank": 1
+  },
+  {
+   "id": "rf9-profile-1",
+   "section_id": "rf9-profile",
+   "score": 0.5436,
+   "rank": 2
+  },
+  {
+   "id": "p3-temps-1",
+   "section_id": "p3-temps",
+   "score": 0.3322,
+   "rank": 3
+  }
+ ],
+ "context": [
+  {
+   "id": "rf9-leaded-1",
+   "section_id": "rf9-leaded"
+  },
+  {
+   "id": "rf9-profile-1",
+   "section_id": "rf9-profile"
+  },
+  {
+   "id": "p3-temps-1",
+   "section_id": "p3-temps"
+  }
+ ],
+ "answer": "The highest temperature in the lead-free solder profile is 245 °C. [rf9-profile-1]",
+ "abstained": false,
+ "abstain_reason": "",
+ "labels": {
+  "answer_correct": true,
+  "supported": true
+ },
+ "expected": "NONE",
+ "note": "The leaded profile ranks first, the lead-free one second; the generator picked the right one (245 °C) and cited it."
+}

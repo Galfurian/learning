@@ -1,0 +1,57 @@
+{
+ "question": "What is the warranty period of the conveyor?",
+ "relevant": [],
+ "answerable": false,
+ "settings": {
+  "embedder": "embeddinggemma",
+  "k": 3,
+  "budget": 1500,
+  "min_score": null,
+  "model": "qwen3:1.7b",
+  "size": 60,
+  "retriever": "semantic"
+ },
+ "hits": [
+  {
+   "id": "c12-maintenance-1",
+   "section_id": "c12-maintenance",
+   "score": 0.4616,
+   "rank": 1
+  },
+  {
+   "id": "c12-tension-1",
+   "section_id": "c12-tension",
+   "score": 0.417,
+   "rank": 2
+  },
+  {
+   "id": "c12-speed-1",
+   "section_id": "c12-speed",
+   "score": 0.389,
+   "rank": 3
+  }
+ ],
+ "context": [
+  {
+   "id": "c12-maintenance-1",
+   "section_id": "c12-maintenance"
+  },
+  {
+   "id": "c12-tension-1",
+   "section_id": "c12-tension"
+  },
+  {
+   "id": "c12-speed-1",
+   "section_id": "c12-speed"
+  }
+ ],
+ "answer": "Not in the manuals.",
+ "abstained": false,
+ "abstain_reason": "",
+ "labels": {
+  "answer_correct": null,
+  "supported": null
+ },
+ "expected": "NONE",
+ "note": "No manual has a warranty; three irrelevant chunks reached the generator, and it refused."
+}

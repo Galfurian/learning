@@ -346,8 +346,12 @@ def run_hybrid(keyword_search, fuse, file: str) -> None:
     ui.show_table(f"R@{args.top_k} · {index.embedder.name}", ["retriever", "R@k", "E@k", *categories], rows)
 
 
+TRACES = Path(__file__).resolve().parents[2] / "exercises" / "exe08-diagnosis" / "traces"
+
+
 def run_diagnosis(diagnose, file: str) -> None:
-    folder = Path(file).resolve().parent / "traces"
+    # One folder of traces, also when a solution file runs from exercises/solutions/.
+    folder = TRACES
     rows = []
     for path in sorted(folder.glob("*.json")):
         trace = json.loads(path.read_text(encoding="utf-8"))

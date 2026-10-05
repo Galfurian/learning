@@ -1,0 +1,46 @@
+{
+ "question": "My prints don't stay attached to the plate.",
+ "relevant": [
+  "p3-bed"
+ ],
+ "answerable": true,
+ "settings": {
+  "embedder": "embeddinggemma",
+  "k": 3,
+  "budget": 1500,
+  "min_score": 0.45,
+  "model": "qwen3:1.7b",
+  "size": 60,
+  "retriever": "semantic"
+ },
+ "hits": [
+  {
+   "id": "p3-bed-1",
+   "section_id": "p3-bed",
+   "score": 0.4188,
+   "rank": 1
+  },
+  {
+   "id": "p3-troubleshooting-2",
+   "section_id": "p3-troubleshooting",
+   "score": 0.4115,
+   "rank": 2
+  },
+  {
+   "id": "lx40-troubleshooting-1",
+   "section_id": "lx40-troubleshooting",
+   "score": 0.3544,
+   "rank": 3
+  }
+ ],
+ "context": [],
+ "answer": "Not in the manuals.",
+ "abstained": true,
+ "abstain_reason": "threshold",
+ "labels": {
+  "answer_correct": false,
+  "supported": null
+ },
+ "expected": "CONTEXT",
+ "note": "p3-bed is the top hit, but its score 0.419 is below --min-score 0.45: the APP abstained."
+}

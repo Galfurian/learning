@@ -1,0 +1,59 @@
+{
+ "question": "What is PN-X7S-919-A?",
+ "relevant": [
+  "rf9-parts"
+ ],
+ "answerable": true,
+ "settings": {
+  "embedder": "embeddinggemma",
+  "k": 3,
+  "budget": 1500,
+  "min_score": null,
+  "model": "qwen3:1.7b",
+  "size": 60,
+  "retriever": "semantic"
+ },
+ "hits": [
+  {
+   "id": "rf9-parts-1",
+   "section_id": "rf9-parts",
+   "score": 0.3491,
+   "rank": 1
+  },
+  {
+   "id": "p3-parts-1",
+   "section_id": "p3-parts",
+   "score": 0.3421,
+   "rank": 2
+  },
+  {
+   "id": "lx40-parts-1",
+   "section_id": "lx40-parts",
+   "score": 0.3092,
+   "rank": 3
+  }
+ ],
+ "context": [
+  {
+   "id": "rf9-parts-1",
+   "section_id": "rf9-parts"
+  },
+  {
+   "id": "p3-parts-1",
+   "section_id": "p3-parts"
+  },
+  {
+   "id": "lx40-parts-1",
+   "section_id": "lx40-parts"
+  }
+ ],
+ "answer": "PN-X7S-919-A is a convection fan motor. [p3-parts-1]",
+ "abstained": false,
+ "abstain_reason": "",
+ "labels": {
+  "answer_correct": true,
+  "supported": false
+ },
+ "expected": "GENERATION",
+ "note": "Right answer, wrong citation: p3-parts-1 does not contain PN-X7S-919-A; the fact is in rf9-parts-1. Retrieval chose right, the generator cited the near-duplicate."
+}

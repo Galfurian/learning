@@ -1,0 +1,59 @@
+{
+ "question": "Can I cut a vinyl sheet on the laser?",
+ "relevant": [
+  "lx40-materials"
+ ],
+ "answerable": true,
+ "settings": {
+  "embedder": "embeddinggemma",
+  "k": 3,
+  "budget": 1500,
+  "min_score": null,
+  "model": "qwen3:1.7b",
+  "size": 60,
+  "retriever": "semantic"
+ },
+ "hits": [
+  {
+   "id": "lx40-materials-1",
+   "section_id": "lx40-materials",
+   "score": 0.6025,
+   "rank": 1
+  },
+  {
+   "id": "lx40-thickness-1",
+   "section_id": "lx40-thickness",
+   "score": 0.5208,
+   "rank": 2
+  },
+  {
+   "id": "lx40-overview-1",
+   "section_id": "lx40-overview",
+   "score": 0.5089,
+   "rank": 3
+  }
+ ],
+ "context": [
+  {
+   "id": "lx40-materials-1",
+   "section_id": "lx40-materials"
+  },
+  {
+   "id": "lx40-thickness-1",
+   "section_id": "lx40-thickness"
+  },
+  {
+   "id": "lx40-overview-1",
+   "section_id": "lx40-overview"
+  }
+ ],
+ "answer": "The manual does not mention cutting vinyl sheet material. Not in the manuals.",
+ "abstained": false,
+ "abstain_reason": "",
+ "labels": {
+  "answer_correct": false,
+  "supported": null
+ },
+ "expected": "GENERATION",
+ "note": "lx40-materials ('Never cut PVC or vinyl') is first in the context; the generator replied that the manual does not mention vinyl."
+}

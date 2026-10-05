@@ -1,0 +1,59 @@
+{
+ "question": "Tiny resistors lift up vertically after soldering.",
+ "relevant": [
+  "rf9-troubleshooting"
+ ],
+ "answerable": true,
+ "settings": {
+  "embedder": "fake (bag of words)",
+  "k": 3,
+  "budget": 1500,
+  "min_score": null,
+  "model": "qwen3:1.7b",
+  "size": 60,
+  "retriever": "semantic"
+ },
+ "hits": [
+  {
+   "id": "c12-parts-1",
+   "section_id": "c12-parts",
+   "score": 0.0803,
+   "rank": 1
+  },
+  {
+   "id": "p3-troubleshooting-2",
+   "section_id": "p3-troubleshooting",
+   "score": 0.0745,
+   "rank": 2
+  },
+  {
+   "id": "p3-troubleshooting-1",
+   "section_id": "p3-troubleshooting",
+   "score": 0.0682,
+   "rank": 3
+  }
+ ],
+ "context": [
+  {
+   "id": "c12-parts-1",
+   "section_id": "c12-parts"
+  },
+  {
+   "id": "p3-troubleshooting-2",
+   "section_id": "p3-troubleshooting"
+  },
+  {
+   "id": "p3-troubleshooting-1",
+   "section_id": "p3-troubleshooting"
+  }
+ ],
+ "answer": "Not in the manuals.",
+ "abstained": false,
+ "abstain_reason": "",
+ "labels": {
+  "answer_correct": false,
+  "supported": null
+ },
+ "expected": "RETRIEVAL",
+ "note": "FakeEmbedder: no chunk of rf9-troubleshooting in the hits ('tiny resistors lift up' shares no word with 'tombstoning')."
+}

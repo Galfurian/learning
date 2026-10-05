@@ -1,0 +1,59 @@
+{
+ "question": "How hot can the printer nozzle go before it is damaged?",
+ "relevant": [
+  "p3-temps"
+ ],
+ "answerable": true,
+ "settings": {
+  "embedder": "fake (bag of words)",
+  "k": 3,
+  "budget": 1500,
+  "min_score": null,
+  "model": "qwen3:1.7b",
+  "size": 60,
+  "retriever": "semantic"
+ },
+ "hits": [
+  {
+   "id": "p3-overview-1",
+   "section_id": "p3-overview",
+   "score": 0.2148,
+   "rank": 1
+  },
+  {
+   "id": "p3-parts-1",
+   "section_id": "p3-parts",
+   "score": 0.2121,
+   "rank": 2
+  },
+  {
+   "id": "p3-bed-1",
+   "section_id": "p3-bed",
+   "score": 0.1721,
+   "rank": 3
+  }
+ ],
+ "context": [
+  {
+   "id": "p3-overview-1",
+   "section_id": "p3-overview"
+  },
+  {
+   "id": "p3-parts-1",
+   "section_id": "p3-parts"
+  },
+  {
+   "id": "p3-bed-1",
+   "section_id": "p3-bed"
+  }
+ ],
+ "answer": "The manuals do not contain information about how hot the printer nozzle can go before it is damaged.  \n\nNot in the manuals.",
+ "abstained": false,
+ "abstain_reason": "",
+ "labels": {
+  "answer_correct": false,
+  "supported": null
+ },
+ "expected": "RETRIEVAL",
+ "note": "FakeEmbedder: p3-temps is rank 4, outside k = 3; the generator refused."
+}
