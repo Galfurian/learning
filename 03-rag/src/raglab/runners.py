@@ -202,15 +202,16 @@ def run_chunking(chunker, file: str, sizes=(15, 30, 60, 120, 400)) -> None:
             index = Index.build(chunks, embedder)
             results = run_search(questions, index.search, 10)
             words = sum(len(c.text.split()) for c in chunks) / len(chunks)
-            rows.append((label, len(chunks), round(words), recall_at_k(questions, results, 3),
+            rows.append((label, len(chunks), round(words), recall_at_k(questions, results, 1),
+                         evidence_at_k(questions, results, 1), recall_at_k(questions, results, 3),
                          evidence_at_k(questions, results, 3)))
     except OllamaError as exc:
         ui.show_error(str(exc))
         raise SystemExit(1) from None
     ui.show_table(f"Chunking vs retrieval · {embedder.name}",
-                  ["chunker", "chunks", "words/chunk", "R@3 (section)", "E@3 (evidence)"], rows)
-    ui.show_note("R@3: a chunk of a relevant section is in the top 3. "
-                 "E@3: the top 3 chunks contain the facts a correct answer needs.")
+                  ["chunker", "chunks", "words/chunk", "R@1", "E@1", "R@3", "E@3"], rows)
+    ui.show_note("R@k: a chunk of a relevant section is in the top k. "
+                 "E@k: the top k chunks contain the facts a correct answer needs.")
 
 
 def run_retrieval(search, recall, file: str) -> None:
