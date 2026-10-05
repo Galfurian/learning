@@ -11,7 +11,9 @@ from rich.syntax import Syntax
 from rich.table import Table
 from rich.text import Text
 
-console = Console()
+console = Console(
+    width=80,
+)
 
 ACTOR_STYLE = {
     "APP": "magenta",
@@ -90,7 +92,7 @@ def show_answer(trace: Any) -> None:
         return
     status = "citations ok" if trace.citations.ok else f"citation problem: {trace.citations.problem}"
     subtitle = (f"{trace.model} · {trace.seconds_generation:.1f}s · prompt {trace.prompt_tokens} tokens "
-                f"(estimated context {trace.context.tokens}) · {status}")
+                f"(est. context {trace.context.tokens}) · {status}")
     console.print(Panel(Text(trace.answer), title="Answer · GENERATIVE MODEL", subtitle=subtitle, border_style="green"))
 
 
