@@ -99,3 +99,13 @@ def test_trace_record_is_json_ready(monkeypatch):
     assert record["context"] == [{"id": "a-1", "section_id": "a"}]
     assert record["labels"] == {"answer_correct": None, "supported": None}
 
+
+
+def test_answer_question_keeps_the_thinking(monkeypatch):
+    def chat(model, messages, **kwargs):
+        assert kwargs["think"] is True
+        return ChatResult("22 °C. [a-1]", "The cooling chunk says 15-22.", [], {}, 100, 5, 0.1, {})
+
+    monkeypatch.setattr(pipeline, "chat", chat)
+    trace = pipeline.answer_question("q", lambda text, k: hits("a-1"), think=True)
+    assert trace.thinking == "The cooling chunk says 15-22."

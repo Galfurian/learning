@@ -41,6 +41,7 @@ class Trace:
     prompt_tokens: int
     seconds_retrieval: float
     seconds_generation: float
+    thinking: str = ""
 
 
 def answer_question(
@@ -78,7 +79,7 @@ def answer_question(
     result = chat(model, messages, think=think, num_ctx=num_ctx, tracer=tracer)
     return Trace(question, k, hits, kept, context, messages, result.content,
                  check_citations(result.content, context.ids), False, "", model,
-                 result.prompt_tokens, seconds_retrieval, result.seconds)
+                 result.prompt_tokens, seconds_retrieval, result.seconds, result.thinking)
 
 
 def trace_record(trace: Trace, question: Question | None, settings: dict[str, Any]) -> dict[str, Any]:

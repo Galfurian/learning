@@ -44,13 +44,14 @@ def run_one(mode, question, args, sections, chunks, search):
     started = time.perf_counter()
     if mode == "stuff":
         context = stuffed_context(sections)
-        result = chat(args.model, build_messages(question.text, context), num_ctx=config.NUM_CTX, tracer=tracer(args))
+        result = chat(args.model, build_messages(question.text, context), num_ctx=config.NUM_CTX,
+                      think=args.think, tracer=tracer(args))
         seen = [Hit(c, 0.0, r) for r, c in enumerate(context.chunks, start=1)]
         answer, citations, tokens = result.content, check_citations(result.content, context.ids), result.prompt_tokens
         extra = f"{len(context.chunks)} of {len(sections)} sections fit"
     elif mode == "pipeline":
         trace = answer_question(question.text, search, k=config.K, budget=config.BUDGET, min_score=config.MIN_SCORE,
-                                model=args.model, num_ctx=config.NUM_CTX, tracer=tracer(args))
+                                model=args.model, num_ctx=config.NUM_CTX, think=args.think, tracer=tracer(args))
         seen, answer, citations, tokens = trace.hits, trace.answer, trace.citations, trace.prompt_tokens
         extra = "abstained: " + trace.abstain_reason if trace.abstained else ""
     else:

@@ -90,6 +90,9 @@ def show_answer(trace: Any) -> None:
         console.print(Panel(f"{trace.answer}\n\nThe APP abstained ({trace.abstain_reason}); the generator was not called.",
                             title="Answer · APP", border_style="magenta"))
         return
+    if trace.thinking:
+        console.print(Panel(Text(trace.thinking, style="dim"), title="Thinking · GENERATIVE MODEL (--think)",
+                            border_style="dim green"))
     status = "citations ok" if trace.citations.ok else f"citation problem: {trace.citations.problem}"
     subtitle = (f"{trace.model} · {trace.seconds_generation:.1f}s · prompt {trace.prompt_tokens} tokens "
                 f"(est. context {trace.context.tokens}) · {status}")
