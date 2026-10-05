@@ -10,14 +10,18 @@ def question(qid, relevant):
 
 def checks(exe, check):
     chunks = [fake_chunk("a-1"), fake_chunk("b-1"), fake_chunk("c-1")]
-    vectors = np.array([[1.0, 0.0], [0.0, 1.0], [0.6, 0.8]])
-    done, hits = check.calls(exe.search, vectors, chunks, np.array([0.0, 1.0]), 2)
+    # float32, like the vectors of the real index.
+    vectors = np.array([[1.0, 0.0], [0.0, 1.0], [0.6, 0.8]], dtype=np.float32)
+    done, hits = check.calls(exe.search, vectors, chunks, np.array([0.0, 1.0], dtype=np.float32), 2)
     if not done:
         return
     check.ok([h.chunk.id for h in hits] == ["b-1", "c-1"], "best first", [h.chunk.id for h in hits])
     check.ok([h.rank for h in hits] == [1, 2], "ranks start at 1")
-    check.ok(abs(hits[1].score - 0.8) < 1e-6 and isinstance(hits[1].score, float), "score is the dot product, as a float")
-    check.ok(len(exe.search(vectors, chunks, np.array([1.0, 0.0]), 10)) == 3, "k larger than the corpus returns all")
+    check.ok(abs(hits[1].score - 0.8) < 1e-6, "score is the dot product", hits[1].score)
+    check.ok(all(isinstance(h.score, float) for h in hits),
+             "scores are Python floats (np.float32 is not: use float(...))", [type(h.score).__name__ for h in hits])
+    check.ok(len(exe.search(vectors, chunks, np.array([1.0, 0.0], dtype=np.float32), 10)) == 3,
+             "k larger than the corpus returns all")
     questions = [question("q1", {"a"}), question("q2", {"b"}), question("q3", set())]
     results = {"q1": fake_hits("a-1", "b-1"), "q2": fake_hits("c-1", "b-1"), "q3": fake_hits("a-1")}
     done, r1 = check.calls(exe.recall_at_k, questions, results, 1)

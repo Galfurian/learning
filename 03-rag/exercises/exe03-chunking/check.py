@@ -12,7 +12,10 @@ def checks(exe, check):
         return
     words = [body(c, exe.WITH_TITLE).split() for c in chunks]
     check.ok([c.id for c in chunks] == ["demo-errors-1", "demo-errors-2", "demo-errors-3"],
-             "10 words, size 4, overlap 1 -> ids demo-errors-1..3", [c.id for c in chunks])
+             "10 words, size 4, overlap 1 -> ids demo-errors-1..3",
+             {c.id: w for c, w in zip(chunks, words)})
+    check.ok(all(not set(w) <= set(prev) for prev, w in zip(words, words[1:])),
+             "every window adds new words (stop when a window reaches the last word)", words)
     check.ok(words[:2] == [["w1", "w2", "w3", "w4"], ["w4", "w5", "w6", "w7"]], "windows overlap by 1 word", words)
     check.ok(words and words[-1][-1] == "w10", "the last chunk ends at the last word")
     check.ok(all(len(w) <= 4 for w in words), "no chunk has more than `size` words (title line excluded)")

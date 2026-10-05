@@ -5,6 +5,22 @@ one matrix-vector product. Measure retrieval on labeled questions before you
 generate any answer: if the right section is not retrieved, no prompt can
 fix the answer.
 
+## Task
+
+Implement in `exe04.py`:
+
+- `search(vectors, chunks, query, k)`: one matrix-vector product, then the k
+  best `Hit`s, rank from 1;
+- `recall_at_k(questions, results, k)`: the fraction of answerable questions
+  with a chunk of a relevant section in the first k hits.
+
+```bash
+uv run python exercises/exe04-retrieval/check.py
+```
+
+`exe04.py --eval` prints your recall next to the library's. They must be
+equal.
+
 ## The cache
 
 Embedding the 43 dev chunks takes about 6 s on CPU. The APP stores every
@@ -24,22 +40,6 @@ changed, and never reuses a stale vector.
 
 Questions are not cached: each one is one short request, and `--verbose`
 always shows it.
-
-## Task
-
-Implement in `exe04.py`:
-
-- `search(vectors, chunks, query, k)`: one matrix-vector product, then the k
-  best `Hit`s, rank from 1;
-- `recall_at_k(questions, results, k)`: the fraction of answerable questions
-  with a chunk of a relevant section in the first k hits.
-
-```bash
-uv run python exercises/exe04-retrieval/check.py
-```
-
-`exe04.py --eval` prints your recall next to the library's. They must be
-equal.
 
 ## Run and compare
 
