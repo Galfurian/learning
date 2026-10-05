@@ -1,0 +1,17 @@
+{
+ "question": "What is PN-X7S-919-A?",
+ "context_ids": [
+  "rf9-parts-1",
+  "p3-parts-1",
+  "lx40-parts-1"
+ ],
+ "answer": "PN-X7S-919-A is a convection fan motor. [p3-parts-1]",
+ "cited_chunk_text": "Bramble P3 3D printer — Spare parts\nPN-X7R-991-A: nozzle, 0.4 mm, hardened steel. PN-X7R-991-B: nozzle, 0.6 mm, hardened steel. PN-X7R-919-A: heater cartridge, 24 V 40 W. PN-12T: hotend thermistor. PN-31C: enclosure kit for ABS.",
+ "supporting_chunk_text": "Corvid RF-9 reflow oven — Spare parts\nPN-X7S-991-A: zone heater, 1.2 kW. PN-X7S-919-A: convection fan motor. PN-88K: type K thermocouple. PN-X7S-199-A: conveyor mesh, 300 mm.",
+ "why_wrong": "The answer is right, but it cites p3-parts-1 (the 3D printer's spare parts), which does not contain PN-X7S-919-A. The fact comes from rf9-parts-1, which was also in the context.",
+ "recorded_with": {
+  "embedder": "embeddinggemma",
+  "model": "qwen3:1.7b",
+  "k": 3
+ }
+}

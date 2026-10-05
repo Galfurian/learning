@@ -255,7 +255,7 @@ def run_retrieval(search, recall, file: str) -> None:
 
 
 def threshold_table(top1, cost_miss: float, cost_false: float):
-    candidates = [0.0] + sorted({round(score, 3) for score, _ in top1})
+    candidates = [0.0] + sorted({score for score, _ in top1})
     rows = []
     for threshold in candidates:
         missed = sum(answerable and score < threshold for score, answerable in top1)
@@ -285,9 +285,10 @@ def run_context(build_context_fn, answerable, file: str, *, threshold: float, co
     rows = threshold_table(top1, cost_miss, cost_false)
     best = min(rows, key=lambda r: (r[3], r[0]))
     mine = next((r for r in rows if r[0] >= threshold), rows[-1])
+    marks = {id(best): "cheapest", id(mine): "yours"} if best is not mine else {id(best): "cheapest, yours"}
     ui.show_table(f"Thresholds · cost: missed answer {cost_miss}, wrong accept {cost_false}",
-                  ["threshold", "answerable refused", "no-answer passed", "cost"],
-                  [r for r in rows if r in (best, mine) or r[0] == 0.0])
+                  ["threshold", "answerable refused", "no-answer passed", "cost", ""],
+                  [(*r, marks.get(id(r), "")) for r in rows])
     ui.show_note(f"cheapest threshold on this dev set: {best[0]:.3f}. Yours: {threshold}. "
                  f"Only {sum(not a for _, a in top1)} no-answer questions: this choice rests on very little data.")
     selected = select_questions(args, questions)

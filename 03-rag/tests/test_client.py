@@ -98,3 +98,14 @@ def test_render_prompt_returns_template(monkeypatch):
     monkeypatch.setattr(client, "post", fake)
     assert client.render_prompt("m", [{"role": "user", "content": "hi"}]) == "<|im_start|>user\nhi"
     assert sent["_debug_render_only"] is True
+
+
+def test_chat_moves_inline_thinking_out_of_the_content(monkeypatch):
+    # qwen3:4b ignores "think": false and writes its reasoning into the content.
+    raw = {"message": {"role": "assistant", "content": "Okay, [x-1] maybe...\n</think>\n\nYes. [a-1]"}}
+    monkeypatch.setattr(client, "post", lambda url, body, timeout=600: raw)
+    result = client.chat("m", [])
+    assert result.content == "Yes. [a-1]"
+    assert result.thinking == "Okay, [x-1] maybe..."
+    raw["message"]["content"] = "<think>\nhmm\n</think>\nNo."
+    assert client.chat("m", []).content == "No."

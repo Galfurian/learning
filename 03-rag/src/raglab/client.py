@@ -103,6 +103,14 @@ def chat_body(
     return body
 
 
+def split_thinking(content: str) -> tuple[str, str]:
+    """Some models ignore "think": false and write their reasoning before </think>."""
+    if "</think>" not in content:
+        return content, ""
+    thinking, answer = content.rsplit("</think>", 1)
+    return answer.strip(), thinking.replace("<think>", "").strip()
+
+
 def chat(
     model: str,
     messages: list[dict[str, Any]],
@@ -119,9 +127,10 @@ def chat(
     if tracer is not None:
         tracer("GENERATIVE MODEL", CHAT_URL, body, raw)
     message = raw.get("message", {})
+    content, inline = split_thinking(message.get("content", "") or "")
     return ChatResult(
-        content=message.get("content", ""),
-        thinking=message.get("thinking", "") or "",
+        content=content,
+        thinking=(message.get("thinking", "") or "") + inline,
         tool_calls=message.get("tool_calls", []) or [],
         message=message,
         prompt_tokens=raw.get("prompt_eval_count", 0),
