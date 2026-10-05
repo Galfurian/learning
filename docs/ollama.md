@@ -126,6 +126,21 @@ ollama pull tev1:0.8b           # 0.8 GB, faster and less accurate
 They are not meant for `ollama run`; see the unit that uses them for the
 request format.
 
+### Embedding models
+
+Some units use **embedding models**. They turn a text into a vector of fixed
+size, through `POST /api/embed`, and they do not generate text:
+
+```bash
+ollama pull embeddinggemma      # 621 MB, 768 numbers per text
+ollama pull nomic-embed-text    # 274 MB, optional comparison
+curl http://localhost:11434/api/embed -d '{"model": "embeddinggemma", "input": ["hello"]}'
+```
+
+The response has one list of numbers per input text. The vectors Ollama
+returns have length 1 (they are L2-normalized). `ollama run` is not the way
+to use these models; see the unit that uses them.
+
 ## 4. Sanity-check inference
 
 The simplest interactive test is:

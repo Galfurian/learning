@@ -68,7 +68,7 @@ solution):
   does not save the identifier question it was meant for.
 
 This is the honest result on 22 questions with only three part numbers. Two
-things change in EXE09: the plant has 32 machines, four of each type, with
+things change in EXE09: the plant has 40 machines, five of each type, with
 look-alike codes and part numbers in every manual. That is where the
 structural argument is tested. Other fusions exist: weights per retriever,
 or routing a query that contains a known identifier to keyword search
