@@ -1,0 +1,22 @@
+[
+  {"id": "h01", "question": "What does error E-6120 mean on the Ibis R-82?", "relevant": ["robot1-errors", "robot1-cooling"], "category": "code", "answer": "The joint 3 gearbox is above its limit of 78 °C; let it cool for 10 minutes.", "must_contain": ["78"]},
+  {"id": "h02", "question": "On the Heron M-78, what is error E-3312?", "relevant": ["mill2-errors"], "category": "code", "answer": "The spindle is above its limit of 88 °C.", "must_contain": ["88"]},
+  {"id": "h03", "question": "The Kestrel LX-57 shows E-4320. What should I check?", "relevant": ["laser3-errors"], "category": "code", "answer": "The air pressure is below 2.5 bar: check the supply hose and the inline filter.", "must_contain": ["supply hose"]},
+  {"id": "h04", "question": "What does E-9103 mean on the Marten S-90?", "relevant": ["sealer4-errors"], "category": "code", "answer": "Sensor S49 does not respond; check its cable at terminal X19.", "must_contain": ["S49"]},
+  {"id": "h05", "question": "What is PN-X3Q-919-A?", "relevant": ["laser3-parts"], "category": "part-number", "answer": "The first mirror of the Kestrel LX-57.", "must_contain": ["first mirror"]},
+  {"id": "h06", "question": "Which part number is the vacuum cup of the Ibis R-82?", "relevant": ["robot1-parts"], "category": "part-number", "answer": "PN-X1V-991-B.", "must_contain": ["PN-X1V-991-B"]},
+  {"id": "h07", "question": "What is part PN-X4Y-919-B?", "relevant": ["sealer4-parts"], "category": "part-number", "answer": "The sealing jaw of the Marten S-90.", "must_contain": ["sealing jaw"]},
+  {"id": "h08", "question": "Which part number is the ring light of the Lynx V-27?", "relevant": ["vision5-parts"], "category": "part-number", "answer": "PN-X5W-919-B.", "must_contain": ["PN-X5W-919-B"]},
+  {"id": "h09", "question": "What is the nominal spindle speed of the Heron M-78?", "relevant": ["mill2-settings"], "category": "setting", "answer": "17000 rpm.", "must_contain": ["17000"]},
+  {"id": "h10", "question": "What exposure time range is allowed on the Lynx V-27?", "relevant": ["vision5-settings"], "category": "setting", "answer": "4–8 ms.", "must_contain": ["8 ms"]},
+  {"id": "h11", "question": "How often must the cooling fan filter of the Corvid RF-70 be cleaned?", "relevant": ["oven1-maintenance"], "category": "setting", "answer": "Every 100 operating hours.", "must_contain": ["100"]},
+  {"id": "h12", "question": "How often do I grease the tool holder mount on the Heron M-78?", "relevant": ["mill2-maintenance"], "category": "setting", "answer": "Every 1500 operating hours, with grease GR-5.", "must_contain": ["1500"]},
+  {"id": "h13", "question": "The Ibis R-82 halted and there is no code on the screen. Why?", "relevant": ["robot1-troubleshooting"], "category": "paraphrase", "answer": "The emergency stop on the rear panel is pressed.", "must_contain": ["rear"]},
+  {"id": "h14", "question": "Parts from the Kestrel LX-57 differ between the morning and the evening shift. What can I do?", "relevant": ["laser3-troubleshooting"], "category": "paraphrase", "answer": "Run the 10-minute warm-up before the first job.", "must_contain": ["10-minute"]},
+  {"id": "h15", "question": "The jaw temperature of the Marten S-90 keeps wandering in the middle of a job. How do I fix it?", "relevant": ["sealer4-troubleshooting", "sealer4-calibration"], "category": "paraphrase", "answer": "Sensor S49 needs calibration with tool CT-78.", "must_contain": ["CT-78"]},
+  {"id": "h16", "question": "What is the nominal peak temperature of the Corvid RF-70?", "relevant": ["oven1-settings"], "category": "distractor", "answer": "235 °C.", "must_contain": ["235"]},
+  {"id": "h17", "question": "What is the largest part the Kestrel LX-57 accepts?", "relevant": ["laser3-materials"], "category": "distractor", "answer": "150 × 300 mm.", "must_contain": ["150", "300"]},
+  {"id": "h18", "question": "What is the warranty period of the Ibis R-82?", "relevant": [], "category": "no-answer", "answer": "", "must_contain": []},
+  {"id": "h19", "question": "What is the maximum welding current of the plant's spot welder?", "relevant": [], "category": "no-answer", "answer": "", "must_contain": []},
+  {"id": "h20", "question": "What does error E-6999 mean on the Ibis R-82?", "relevant": [], "category": "no-answer", "answer": "", "must_contain": []}
+]
