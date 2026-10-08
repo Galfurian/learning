@@ -1,0 +1,236 @@
+{
+ "question_id": "s01",
+ "category": "code",
+ "answerable": true,
+ "candidates": [
+  {
+   "id": "printer2-errors-1",
+   "section_id": "printer2-errors",
+   "gain": 2,
+   "first_rank": 1,
+   "rank": 1,
+   "score": 0.7661,
+   "rerank_score": null
+  },
+  {
+   "id": "printer2-errors-2",
+   "section_id": "printer2-errors",
+   "gain": 1,
+   "first_rank": 2,
+   "rank": 2,
+   "score": 0.7405,
+   "rerank_score": null
+  },
+  {
+   "id": "printer5-errors-1",
+   "section_id": "printer5-errors",
+   "gain": 0,
+   "first_rank": 3,
+   "rank": 3,
+   "score": 0.7344,
+   "rerank_score": null
+  },
+  {
+   "id": "printer1-errors-2",
+   "section_id": "printer1-errors",
+   "gain": 0,
+   "first_rank": 4,
+   "rank": 4,
+   "score": 0.7287,
+   "rerank_score": null
+  },
+  {
+   "id": "printer1-errors-1",
+   "section_id": "printer1-errors",
+   "gain": 0,
+   "first_rank": 5,
+   "rank": 5,
+   "score": 0.7191,
+   "rerank_score": null
+  },
+  {
+   "id": "printer4-errors-1",
+   "section_id": "printer4-errors",
+   "gain": 0,
+   "first_rank": 6,
+   "rank": 6,
+   "score": 0.7064,
+   "rerank_score": null
+  },
+  {
+   "id": "robot2-errors-1",
+   "section_id": "robot2-errors",
+   "gain": 0,
+   "first_rank": 7,
+   "rank": 7,
+   "score": 0.7053,
+   "rerank_score": null
+  },
+  {
+   "id": "printer3-errors-1",
+   "section_id": "printer3-errors",
+   "gain": 0,
+   "first_rank": 8,
+   "rank": 8,
+   "score": 0.7047,
+   "rerank_score": null
+  },
+  {
+   "id": "printer4-errors-2",
+   "section_id": "printer4-errors",
+   "gain": 0,
+   "first_rank": 9,
+   "rank": 9,
+   "score": 0.6922,
+   "rerank_score": null
+  },
+  {
+   "id": "vision4-errors-1",
+   "section_id": "vision4-errors",
+   "gain": 0,
+   "first_rank": 10,
+   "rank": 10,
+   "score": 0.6895,
+   "rerank_score": null
+  },
+  {
+   "id": "printer5-errors-2",
+   "section_id": "printer5-errors",
+   "gain": 0,
+   "first_rank": 11,
+   "rank": 11,
+   "score": 0.6894,
+   "rerank_score": null
+  },
+  {
+   "id": "printer3-errors-2",
+   "section_id": "printer3-errors",
+   "gain": 0,
+   "first_rank": 12,
+   "rank": 12,
+   "score": 0.6883,
+   "rerank_score": null
+  },
+  {
+   "id": "printer2-overview-1",
+   "section_id": "printer2-overview",
+   "gain": 0,
+   "first_rank": 13,
+   "rank": 13,
+   "score": 0.6838,
+   "rerank_score": null
+  },
+  {
+   "id": "vision5-errors-1",
+   "section_id": "vision5-errors",
+   "gain": 0,
+   "first_rank": 14,
+   "rank": 14,
+   "score": 0.682,
+   "rerank_score": null
+  },
+  {
+   "id": "vision1-errors-1",
+   "section_id": "vision1-errors",
+   "gain": 0,
+   "first_rank": 15,
+   "rank": 15,
+   "score": 0.6817,
+   "rerank_score": null
+  },
+  {
+   "id": "robot5-errors-1",
+   "section_id": "robot5-errors",
+   "gain": 0,
+   "first_rank": 16,
+   "rank": 16,
+   "score": 0.6816,
+   "rerank_score": null
+  },
+  {
+   "id": "robot1-errors-1",
+   "section_id": "robot1-errors",
+   "gain": 0,
+   "first_rank": 17,
+   "rank": 17,
+   "score": 0.6775,
+   "rerank_score": null
+  },
+  {
+   "id": "vision2-errors-1",
+   "section_id": "vision2-errors",
+   "gain": 0,
+   "first_rank": 18,
+   "rank": 18,
+   "score": 0.6772,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor1-errors-1",
+   "section_id": "conveyor1-errors",
+   "gain": 0,
+   "first_rank": 19,
+   "rank": 19,
+   "score": 0.6761,
+   "rerank_score": null
+  },
+  {
+   "id": "printer2-troubleshooting-2",
+   "section_id": "printer2-troubleshooting",
+   "gain": 0,
+   "first_rank": 20,
+   "rank": 20,
+   "score": 0.6749,
+   "rerank_score": null
+  }
+ ],
+ "top": [
+  {
+   "id": "printer2-errors-1",
+   "section_id": "printer2-errors",
+   "gain": 2,
+   "first_rank": 1,
+   "rank": 1,
+   "score": 0.7661,
+   "rerank_score": 7.3155
+  },
+  {
+   "id": "printer2-errors-2",
+   "section_id": "printer2-errors",
+   "gain": 1,
+   "first_rank": 2,
+   "rank": 2,
+   "score": 0.7405,
+   "rerank_score": 6.0973
+  },
+  {
+   "id": "printer5-errors-1",
+   "section_id": "printer5-errors",
+   "gain": 0,
+   "first_rank": 3,
+   "rank": 3,
+   "score": 0.7344,
+   "rerank_score": 4.9278
+  }
+ ],
+ "answer": "Error E-2132 on the Bramble P-55 3D printer means that the hotend is above its limit of 66 °C. Let it cool for 30 minutes before a restart. [printer2-errors-1]",
+ "facts": true,
+ "citations_ok": true,
+ "refused": false,
+ "seconds": {
+  "first_stage": 0.097,
+  "rerank": 0.001,
+  "generation": 4.304
+ },
+ "rerank_requests": 0,
+ "settings": {
+  "first_stage": "nomic",
+  "depth": 20,
+  "reranker": "minilm",
+  "top_k": 3,
+  "model": "qwen3:1.7b",
+  "out": null
+ },
+ "question": "What does error E-2132 mean on the Bramble P-55?",
+ "expected": "NONE"
+}

@@ -1,0 +1,236 @@
+{
+ "question_id": "s03",
+ "category": "code",
+ "answerable": true,
+ "candidates": [
+  {
+   "id": "robot3-overview-1",
+   "section_id": "robot3-overview",
+   "gain": 0,
+   "first_rank": 1,
+   "rank": 1,
+   "score": 0.7531,
+   "rerank_score": null
+  },
+  {
+   "id": "robot3-errors-1",
+   "section_id": "robot3-errors",
+   "gain": 2,
+   "first_rank": 2,
+   "rank": 2,
+   "score": 0.7464,
+   "rerank_score": null
+  },
+  {
+   "id": "robot3-settings-1",
+   "section_id": "robot3-settings",
+   "gain": 0,
+   "first_rank": 3,
+   "rank": 3,
+   "score": 0.7432,
+   "rerank_score": null
+  },
+  {
+   "id": "robot3-installation-1",
+   "section_id": "robot3-installation",
+   "gain": 0,
+   "first_rank": 4,
+   "rank": 4,
+   "score": 0.7423,
+   "rerank_score": null
+  },
+  {
+   "id": "robot3-materials-1",
+   "section_id": "robot3-materials",
+   "gain": 0,
+   "first_rank": 5,
+   "rank": 5,
+   "score": 0.7364,
+   "rerank_score": null
+  },
+  {
+   "id": "robot3-errors-2",
+   "section_id": "robot3-errors",
+   "gain": 2,
+   "first_rank": 6,
+   "rank": 6,
+   "score": 0.7346,
+   "rerank_score": null
+  },
+  {
+   "id": "robot3-calibration-1",
+   "section_id": "robot3-calibration",
+   "gain": 0,
+   "first_rank": 7,
+   "rank": 7,
+   "score": 0.7333,
+   "rerank_score": null
+  },
+  {
+   "id": "robot2-errors-1",
+   "section_id": "robot2-errors",
+   "gain": 0,
+   "first_rank": 8,
+   "rank": 8,
+   "score": 0.7244,
+   "rerank_score": null
+  },
+  {
+   "id": "robot1-errors-1",
+   "section_id": "robot1-errors",
+   "gain": 0,
+   "first_rank": 9,
+   "rank": 9,
+   "score": 0.7217,
+   "rerank_score": null
+  },
+  {
+   "id": "robot5-errors-1",
+   "section_id": "robot5-errors",
+   "gain": 0,
+   "first_rank": 10,
+   "rank": 10,
+   "score": 0.716,
+   "rerank_score": null
+  },
+  {
+   "id": "robot5-errors-2",
+   "section_id": "robot5-errors",
+   "gain": 0,
+   "first_rank": 11,
+   "rank": 11,
+   "score": 0.7113,
+   "rerank_score": null
+  },
+  {
+   "id": "robot1-errors-2",
+   "section_id": "robot1-errors",
+   "gain": 0,
+   "first_rank": 12,
+   "rank": 12,
+   "score": 0.7093,
+   "rerank_score": null
+  },
+  {
+   "id": "robot3-troubleshooting-1",
+   "section_id": "robot3-troubleshooting",
+   "gain": 0,
+   "first_rank": 13,
+   "rank": 13,
+   "score": 0.7068,
+   "rerank_score": null
+  },
+  {
+   "id": "robot4-errors-1",
+   "section_id": "robot4-errors",
+   "gain": 0,
+   "first_rank": 14,
+   "rank": 14,
+   "score": 0.7044,
+   "rerank_score": null
+  },
+  {
+   "id": "robot4-errors-2",
+   "section_id": "robot4-errors",
+   "gain": 0,
+   "first_rank": 15,
+   "rank": 15,
+   "score": 0.6965,
+   "rerank_score": null
+  },
+  {
+   "id": "robot3-parts-1",
+   "section_id": "robot3-parts",
+   "gain": 0,
+   "first_rank": 16,
+   "rank": 16,
+   "score": 0.696,
+   "rerank_score": null
+  },
+  {
+   "id": "robot3-troubleshooting-2",
+   "section_id": "robot3-troubleshooting",
+   "gain": 0,
+   "first_rank": 17,
+   "rank": 17,
+   "score": 0.6952,
+   "rerank_score": null
+  },
+  {
+   "id": "robot3-startup-1",
+   "section_id": "robot3-startup",
+   "gain": 0,
+   "first_rank": 18,
+   "rank": 18,
+   "score": 0.6952,
+   "rerank_score": null
+  },
+  {
+   "id": "robot3-startup-2",
+   "section_id": "robot3-startup",
+   "gain": 0,
+   "first_rank": 19,
+   "rank": 19,
+   "score": 0.6947,
+   "rerank_score": null
+  },
+  {
+   "id": "robot1-overview-1",
+   "section_id": "robot1-overview",
+   "gain": 0,
+   "first_rank": 20,
+   "rank": 20,
+   "score": 0.6921,
+   "rerank_score": null
+  }
+ ],
+ "top": [
+  {
+   "id": "robot3-errors-1",
+   "section_id": "robot3-errors",
+   "gain": 2,
+   "first_rank": 2,
+   "rank": 1,
+   "score": 0.7464,
+   "rerank_score": 6.4956
+  },
+  {
+   "id": "robot3-errors-2",
+   "section_id": "robot3-errors",
+   "gain": 2,
+   "first_rank": 6,
+   "rank": 2,
+   "score": 0.7346,
+   "rerank_score": 5.4388
+  },
+  {
+   "id": "robot5-errors-2",
+   "section_id": "robot5-errors",
+   "gain": 0,
+   "first_rank": 11,
+   "rank": 3,
+   "score": 0.7113,
+   "rerank_score": 4.5311
+  }
+ ],
+ "answer": "The Ibis R-26 shows E-6230. Check the supply hose and the inline filter. [robot3-errors-1]",
+ "facts": false,
+ "citations_ok": true,
+ "refused": false,
+ "seconds": {
+  "first_stage": 0.31,
+  "rerank": 0.001,
+  "generation": 3.531
+ },
+ "rerank_requests": 0,
+ "settings": {
+  "first_stage": "nomic",
+  "depth": 20,
+  "reranker": "minilm",
+  "top_k": 3,
+  "model": "qwen3:1.7b",
+  "out": null
+ },
+ "question": "The Ibis R-26 shows E-6230. What should I check?",
+ "expected": "GENERATION"
+}

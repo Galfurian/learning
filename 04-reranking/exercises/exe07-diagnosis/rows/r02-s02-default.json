@@ -1,0 +1,236 @@
+{
+ "question_id": "s02",
+ "category": "code",
+ "answerable": true,
+ "candidates": [
+  {
+   "id": "conveyor4-errors-1",
+   "section_id": "conveyor4-errors",
+   "gain": 1,
+   "first_rank": 1,
+   "rank": 1,
+   "score": 0.7333,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor4-overview-1",
+   "section_id": "conveyor4-overview",
+   "gain": 0,
+   "first_rank": 2,
+   "rank": 2,
+   "score": 0.7246,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor4-materials-1",
+   "section_id": "conveyor4-materials",
+   "gain": 0,
+   "first_rank": 3,
+   "rank": 3,
+   "score": 0.7147,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor1-errors-1",
+   "section_id": "conveyor1-errors",
+   "gain": 0,
+   "first_rank": 4,
+   "rank": 4,
+   "score": 0.7132,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor3-errors-1",
+   "section_id": "conveyor3-errors",
+   "gain": 0,
+   "first_rank": 5,
+   "rank": 5,
+   "score": 0.6988,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor2-errors-1",
+   "section_id": "conveyor2-errors",
+   "gain": 0,
+   "first_rank": 6,
+   "rank": 6,
+   "score": 0.6975,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor4-installation-1",
+   "section_id": "conveyor4-installation",
+   "gain": 0,
+   "first_rank": 7,
+   "rank": 7,
+   "score": 0.6938,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor4-settings-1",
+   "section_id": "conveyor4-settings",
+   "gain": 0,
+   "first_rank": 8,
+   "rank": 8,
+   "score": 0.6876,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor1-overview-1",
+   "section_id": "conveyor1-overview",
+   "gain": 0,
+   "first_rank": 9,
+   "rank": 9,
+   "score": 0.6853,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor4-calibration-1",
+   "section_id": "conveyor4-calibration",
+   "gain": 0,
+   "first_rank": 10,
+   "rank": 10,
+   "score": 0.6829,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor1-materials-1",
+   "section_id": "conveyor1-materials",
+   "gain": 0,
+   "first_rank": 11,
+   "rank": 11,
+   "score": 0.681,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor2-materials-1",
+   "section_id": "conveyor2-materials",
+   "gain": 0,
+   "first_rank": 12,
+   "rank": 12,
+   "score": 0.6763,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor3-materials-1",
+   "section_id": "conveyor3-materials",
+   "gain": 0,
+   "first_rank": 13,
+   "rank": 13,
+   "score": 0.6754,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor5-errors-1",
+   "section_id": "conveyor5-errors",
+   "gain": 0,
+   "first_rank": 14,
+   "rank": 14,
+   "score": 0.6748,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor3-overview-1",
+   "section_id": "conveyor3-overview",
+   "gain": 0,
+   "first_rank": 15,
+   "rank": 15,
+   "score": 0.6747,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor2-overview-1",
+   "section_id": "conveyor2-overview",
+   "gain": 0,
+   "first_rank": 16,
+   "rank": 16,
+   "score": 0.674,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor1-errors-2",
+   "section_id": "conveyor1-errors",
+   "gain": 0,
+   "first_rank": 17,
+   "rank": 17,
+   "score": 0.6723,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor4-parts-1",
+   "section_id": "conveyor4-parts",
+   "gain": 0,
+   "first_rank": 18,
+   "rank": 18,
+   "score": 0.6667,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor1-installation-1",
+   "section_id": "conveyor1-installation",
+   "gain": 0,
+   "first_rank": 19,
+   "rank": 19,
+   "score": 0.6628,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor4-errors-2",
+   "section_id": "conveyor4-errors",
+   "gain": 2,
+   "first_rank": 20,
+   "rank": 20,
+   "score": 0.6623,
+   "rerank_score": null
+  }
+ ],
+ "top": [
+  {
+   "id": "conveyor4-errors-2",
+   "section_id": "conveyor4-errors",
+   "gain": 2,
+   "first_rank": 20,
+   "rank": 1,
+   "score": 0.6623,
+   "rerank_score": 7.0467
+  },
+  {
+   "id": "conveyor4-errors-1",
+   "section_id": "conveyor4-errors",
+   "gain": 1,
+   "first_rank": 1,
+   "rank": 2,
+   "score": 0.7333,
+   "rerank_score": 5.5468
+  },
+  {
+   "id": "conveyor4-overview-1",
+   "section_id": "conveyor4-overview",
+   "gain": 0,
+   "first_rank": 2,
+   "rank": 3,
+   "score": 0.7246,
+   "rerank_score": 4.0002
+  }
+ ],
+ "answer": "E-5310: sensor S42 does not respond. Check its cable at terminal X19. [conveyor4-errors-1]",
+ "facts": true,
+ "citations_ok": true,
+ "refused": false,
+ "seconds": {
+  "first_stage": 0.282,
+  "rerank": 0.002,
+  "generation": 1.504
+ },
+ "rerank_requests": 0,
+ "settings": {
+  "first_stage": "nomic",
+  "depth": 20,
+  "reranker": "minilm",
+  "top_k": 3,
+  "model": "qwen3:1.7b",
+  "out": null
+ },
+ "question": "On the Tamarin C-83, what is E-5310?",
+ "expected": "NONE"
+}

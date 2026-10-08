@@ -41,6 +41,7 @@ Reusable setup or concepts that may be needed by several units belong in the rep
 | [01](./01-mcp-local-llm/) | MCP + local LLM tool calling | Build an MCP server and let a small local LLM discover and call its tools |
 | [02](./02-decision-models/) | Decision models | Ask a local decision model typed questions about a state, read its probabilities, and let application code act |
 | [03](./03-rag/) | RAG with local models | Chunk, embed and retrieve invented manuals, build the context, generate grounded answers, and measure every step |
+| [04](./04-reranking/) | Reranking | Put a cross-encoder or a decision model between retrieval and generation, and measure quality, depth and cost |
 
 ## Conventions
 

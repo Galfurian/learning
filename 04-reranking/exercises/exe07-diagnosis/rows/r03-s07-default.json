@@ -1,0 +1,236 @@
+{
+ "question_id": "s07",
+ "category": "part-number",
+ "answerable": true,
+ "candidates": [
+  {
+   "id": "oven2-parts-1",
+   "section_id": "oven2-parts",
+   "gain": 0,
+   "first_rank": 1,
+   "rank": 1,
+   "score": 0.6216,
+   "rerank_score": null
+  },
+  {
+   "id": "robot5-parts-1",
+   "section_id": "robot5-parts",
+   "gain": 0,
+   "first_rank": 2,
+   "rank": 2,
+   "score": 0.6201,
+   "rerank_score": null
+  },
+  {
+   "id": "robot1-parts-1",
+   "section_id": "robot1-parts",
+   "gain": 0,
+   "first_rank": 3,
+   "rank": 3,
+   "score": 0.607,
+   "rerank_score": null
+  },
+  {
+   "id": "robot4-parts-1",
+   "section_id": "robot4-parts",
+   "gain": 0,
+   "first_rank": 4,
+   "rank": 4,
+   "score": 0.6016,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor5-parts-1",
+   "section_id": "conveyor5-parts",
+   "gain": 0,
+   "first_rank": 5,
+   "rank": 5,
+   "score": 0.6,
+   "rerank_score": null
+  },
+  {
+   "id": "printer4-parts-1",
+   "section_id": "printer4-parts",
+   "gain": 0,
+   "first_rank": 6,
+   "rank": 6,
+   "score": 0.5976,
+   "rerank_score": null
+  },
+  {
+   "id": "printer1-parts-1",
+   "section_id": "printer1-parts",
+   "gain": 0,
+   "first_rank": 7,
+   "rank": 7,
+   "score": 0.5973,
+   "rerank_score": null
+  },
+  {
+   "id": "printer2-parts-1",
+   "section_id": "printer2-parts",
+   "gain": 0,
+   "first_rank": 8,
+   "rank": 8,
+   "score": 0.5972,
+   "rerank_score": null
+  },
+  {
+   "id": "robot3-parts-1",
+   "section_id": "robot3-parts",
+   "gain": 0,
+   "first_rank": 9,
+   "rank": 9,
+   "score": 0.5956,
+   "rerank_score": null
+  },
+  {
+   "id": "oven1-parts-1",
+   "section_id": "oven1-parts",
+   "gain": 0,
+   "first_rank": 10,
+   "rank": 10,
+   "score": 0.5953,
+   "rerank_score": null
+  },
+  {
+   "id": "vision3-parts-1",
+   "section_id": "vision3-parts",
+   "gain": 0,
+   "first_rank": 11,
+   "rank": 11,
+   "score": 0.5923,
+   "rerank_score": null
+  },
+  {
+   "id": "sealer2-parts-1",
+   "section_id": "sealer2-parts",
+   "gain": 0,
+   "first_rank": 12,
+   "rank": 12,
+   "score": 0.5912,
+   "rerank_score": null
+  },
+  {
+   "id": "mill1-parts-1",
+   "section_id": "mill1-parts",
+   "gain": 0,
+   "first_rank": 13,
+   "rank": 13,
+   "score": 0.5887,
+   "rerank_score": null
+  },
+  {
+   "id": "vision1-parts-1",
+   "section_id": "vision1-parts",
+   "gain": 0,
+   "first_rank": 14,
+   "rank": 14,
+   "score": 0.5885,
+   "rerank_score": null
+  },
+  {
+   "id": "mill4-parts-1",
+   "section_id": "mill4-parts",
+   "gain": 0,
+   "first_rank": 15,
+   "rank": 15,
+   "score": 0.5859,
+   "rerank_score": null
+  },
+  {
+   "id": "robot2-parts-1",
+   "section_id": "robot2-parts",
+   "gain": 0,
+   "first_rank": 16,
+   "rank": 16,
+   "score": 0.5847,
+   "rerank_score": null
+  },
+  {
+   "id": "vision5-parts-1",
+   "section_id": "vision5-parts",
+   "gain": 0,
+   "first_rank": 17,
+   "rank": 17,
+   "score": 0.5845,
+   "rerank_score": null
+  },
+  {
+   "id": "printer5-parts-1",
+   "section_id": "printer5-parts",
+   "gain": 0,
+   "first_rank": 18,
+   "rank": 18,
+   "score": 0.5836,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor1-parts-1",
+   "section_id": "conveyor1-parts",
+   "gain": 0,
+   "first_rank": 19,
+   "rank": 19,
+   "score": 0.583,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor2-parts-1",
+   "section_id": "conveyor2-parts",
+   "gain": 0,
+   "first_rank": 20,
+   "rank": 20,
+   "score": 0.5818,
+   "rerank_score": null
+  }
+ ],
+ "top": [
+  {
+   "id": "oven1-parts-1",
+   "section_id": "oven1-parts",
+   "gain": 0,
+   "first_rank": 10,
+   "rank": 1,
+   "score": 0.5953,
+   "rerank_score": 6.0322
+  },
+  {
+   "id": "mill1-parts-1",
+   "section_id": "mill1-parts",
+   "gain": 0,
+   "first_rank": 13,
+   "rank": 2,
+   "score": 0.5887,
+   "rerank_score": 5.9446
+  },
+  {
+   "id": "printer1-parts-1",
+   "section_id": "printer1-parts",
+   "gain": 0,
+   "first_rank": 7,
+   "rank": 3,
+   "score": 0.5973,
+   "rerank_score": 5.8128
+  }
+ ],
+ "answer": "The manuals do not contain any information about part PN-X1Q-199-A. \n\nNot in the manuals.",
+ "facts": false,
+ "citations_ok": true,
+ "refused": true,
+ "seconds": {
+  "first_stage": 0.132,
+  "rerank": 0.002,
+  "generation": 3.919
+ },
+ "rerank_requests": 0,
+ "settings": {
+  "first_stage": "nomic",
+  "depth": 20,
+  "reranker": "minilm",
+  "top_k": 3,
+  "model": "qwen3:1.7b",
+  "out": null
+ },
+ "question": "What is part PN-X1Q-199-A?",
+ "expected": "CANDIDATES"
+}

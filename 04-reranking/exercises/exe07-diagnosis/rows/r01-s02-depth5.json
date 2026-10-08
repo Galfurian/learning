@@ -1,0 +1,101 @@
+{
+ "question_id": "s02",
+ "category": "code",
+ "answerable": true,
+ "candidates": [
+  {
+   "id": "conveyor4-errors-1",
+   "section_id": "conveyor4-errors",
+   "gain": 1,
+   "first_rank": 1,
+   "rank": 1,
+   "score": 0.7333,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor4-overview-1",
+   "section_id": "conveyor4-overview",
+   "gain": 0,
+   "first_rank": 2,
+   "rank": 2,
+   "score": 0.7246,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor4-materials-1",
+   "section_id": "conveyor4-materials",
+   "gain": 0,
+   "first_rank": 3,
+   "rank": 3,
+   "score": 0.7147,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor1-errors-1",
+   "section_id": "conveyor1-errors",
+   "gain": 0,
+   "first_rank": 4,
+   "rank": 4,
+   "score": 0.7132,
+   "rerank_score": null
+  },
+  {
+   "id": "conveyor3-errors-1",
+   "section_id": "conveyor3-errors",
+   "gain": 0,
+   "first_rank": 5,
+   "rank": 5,
+   "score": 0.6988,
+   "rerank_score": null
+  }
+ ],
+ "top": [
+  {
+   "id": "conveyor4-errors-1",
+   "section_id": "conveyor4-errors",
+   "gain": 1,
+   "first_rank": 1,
+   "rank": 1,
+   "score": 0.7333,
+   "rerank_score": 5.5468
+  },
+  {
+   "id": "conveyor4-overview-1",
+   "section_id": "conveyor4-overview",
+   "gain": 0,
+   "first_rank": 2,
+   "rank": 2,
+   "score": 0.7246,
+   "rerank_score": 4.0002
+  },
+  {
+   "id": "conveyor3-errors-1",
+   "section_id": "conveyor3-errors",
+   "gain": 0,
+   "first_rank": 5,
+   "rank": 3,
+   "score": 0.6988,
+   "rerank_score": 3.0785
+  }
+ ],
+ "answer": "The manuals do not mention E-5310. Not in the manuals.",
+ "facts": false,
+ "citations_ok": true,
+ "refused": true,
+ "seconds": {
+  "first_stage": 0.123,
+  "rerank": 0.001,
+  "generation": 3.677
+ },
+ "rerank_requests": 0,
+ "settings": {
+  "first_stage": "nomic",
+  "depth": 5,
+  "reranker": "minilm",
+  "top_k": 3,
+  "model": "qwen3:1.7b",
+  "out": null
+ },
+ "question": "On the Tamarin C-83, what is E-5310?",
+ "expected": "CANDIDATES"
+}

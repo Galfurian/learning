@@ -273,3 +273,21 @@ ollama stop <model>
 For the learning goal, latency is not important. Tool calling still demonstrates the same architecture on CPU.
 
 Start with `qwen3:1.7b`; only move to a larger model if the small model fails to follow the tool-calling task reliably.
+
+## Remote Ollama
+
+The `ollama` CLI and the units send their requests to `OLLAMA_HOST`. Unset,
+that is the local machine (`127.0.0.1:11434`). To use another machine, for
+example a lab PC with a GPU:
+
+```bash
+export OLLAMA_HOST=<host>:11434     # for this shell only; unset OLLAMA_HOST to go back
+ollama list
+ollama pull tev1:4b-q4_K_M
+uv run python exercises/exe00-demo/exe00.py --case 2
+```
+
+On the remote machine, the server must listen on the network:
+`OLLAMA_HOST=0.0.0.0 ollama serve` (or the same variable in its service
+configuration). Times measured on a remote GPU are not CPU costs: unit 04
+labels every time with the machine it comes from.

@@ -1,0 +1,236 @@
+{
+ "question_id": "s28",
+ "category": "paraphrase",
+ "answerable": true,
+ "candidates": [
+  {
+   "id": "sealer2-overview-1",
+   "section_id": "sealer2-overview",
+   "gain": 0,
+   "first_rank": 1,
+   "rank": 1,
+   "score": 0.7426,
+   "rerank_score": null
+  },
+  {
+   "id": "sealer2-errors-2",
+   "section_id": "sealer2-errors",
+   "gain": 0,
+   "first_rank": 2,
+   "rank": 2,
+   "score": 0.7253,
+   "rerank_score": null
+  },
+  {
+   "id": "sealer1-errors-2",
+   "section_id": "sealer1-errors",
+   "gain": 0,
+   "first_rank": 3,
+   "rank": 3,
+   "score": 0.7203,
+   "rerank_score": null
+  },
+  {
+   "id": "sealer2-errors-1",
+   "section_id": "sealer2-errors",
+   "gain": 0,
+   "first_rank": 4,
+   "rank": 4,
+   "score": 0.7185,
+   "rerank_score": null
+  },
+  {
+   "id": "sealer2-troubleshooting-1",
+   "section_id": "sealer2-troubleshooting",
+   "gain": 2,
+   "first_rank": 5,
+   "rank": 5,
+   "score": 0.7172,
+   "rerank_score": null
+  },
+  {
+   "id": "sealer2-maintenance-1",
+   "section_id": "sealer2-maintenance",
+   "gain": 0,
+   "first_rank": 6,
+   "rank": 6,
+   "score": 0.7166,
+   "rerank_score": null
+  },
+  {
+   "id": "sealer2-startup-1",
+   "section_id": "sealer2-startup",
+   "gain": 0,
+   "first_rank": 7,
+   "rank": 7,
+   "score": 0.7117,
+   "rerank_score": null
+  },
+  {
+   "id": "sealer2-troubleshooting-2",
+   "section_id": "sealer2-troubleshooting",
+   "gain": 2,
+   "first_rank": 8,
+   "rank": 8,
+   "score": 0.7101,
+   "rerank_score": null
+  },
+  {
+   "id": "sealer2-calibration-1",
+   "section_id": "sealer2-calibration",
+   "gain": 0,
+   "first_rank": 9,
+   "rank": 9,
+   "score": 0.7016,
+   "rerank_score": null
+  },
+  {
+   "id": "sealer1-troubleshooting-1",
+   "section_id": "sealer1-troubleshooting",
+   "gain": 0,
+   "first_rank": 10,
+   "rank": 10,
+   "score": 0.6926,
+   "rerank_score": null
+  },
+  {
+   "id": "sealer5-errors-1",
+   "section_id": "sealer5-errors",
+   "gain": 0,
+   "first_rank": 11,
+   "rank": 11,
+   "score": 0.6923,
+   "rerank_score": null
+  },
+  {
+   "id": "sealer2-startup-2",
+   "section_id": "sealer2-startup",
+   "gain": 0,
+   "first_rank": 12,
+   "rank": 12,
+   "score": 0.6914,
+   "rerank_score": null
+  },
+  {
+   "id": "sealer5-troubleshooting-1",
+   "section_id": "sealer5-troubleshooting",
+   "gain": 0,
+   "first_rank": 13,
+   "rank": 13,
+   "score": 0.6877,
+   "rerank_score": null
+  },
+  {
+   "id": "sealer2-settings-1",
+   "section_id": "sealer2-settings",
+   "gain": 0,
+   "first_rank": 14,
+   "rank": 14,
+   "score": 0.6874,
+   "rerank_score": null
+  },
+  {
+   "id": "sealer3-errors-2",
+   "section_id": "sealer3-errors",
+   "gain": 0,
+   "first_rank": 15,
+   "rank": 15,
+   "score": 0.6873,
+   "rerank_score": null
+  },
+  {
+   "id": "sealer2-safety-1",
+   "section_id": "sealer2-safety",
+   "gain": 0,
+   "first_rank": 16,
+   "rank": 16,
+   "score": 0.6869,
+   "rerank_score": null
+  },
+  {
+   "id": "sealer2-parts-1",
+   "section_id": "sealer2-parts",
+   "gain": 0,
+   "first_rank": 17,
+   "rank": 17,
+   "score": 0.6845,
+   "rerank_score": null
+  },
+  {
+   "id": "sealer3-troubleshooting-1",
+   "section_id": "sealer3-troubleshooting",
+   "gain": 0,
+   "first_rank": 18,
+   "rank": 18,
+   "score": 0.6843,
+   "rerank_score": null
+  },
+  {
+   "id": "sealer2-installation-1",
+   "section_id": "sealer2-installation",
+   "gain": 0,
+   "first_rank": 19,
+   "rank": 19,
+   "score": 0.6841,
+   "rerank_score": null
+  },
+  {
+   "id": "sealer5-troubleshooting-2",
+   "section_id": "sealer5-troubleshooting",
+   "gain": 0,
+   "first_rank": 20,
+   "rank": 20,
+   "score": 0.6835,
+   "rerank_score": null
+  }
+ ],
+ "top": [
+  {
+   "id": "sealer2-startup-1",
+   "section_id": "sealer2-startup",
+   "gain": 0,
+   "first_rank": 7,
+   "rank": 1,
+   "score": 0.7117,
+   "rerank_score": 1.484
+  },
+  {
+   "id": "sealer2-overview-1",
+   "section_id": "sealer2-overview",
+   "gain": 0,
+   "first_rank": 1,
+   "rank": 2,
+   "score": 0.7426,
+   "rerank_score": 0.526
+  },
+  {
+   "id": "sealer2-errors-2",
+   "section_id": "sealer2-errors",
+   "gain": 0,
+   "first_rank": 2,
+   "rank": 3,
+   "score": 0.7253,
+   "rerank_score": 0.1838
+  }
+ ],
+ "answer": "The display is not showing any information, so check the error codes. E-9312: the sealing jaw is above its limit of 67 °C. Let it cool for 20 minutes before a restart. [sealer2-errors-2]",
+ "facts": false,
+ "citations_ok": true,
+ "refused": false,
+ "seconds": {
+  "first_stage": 0.11,
+  "rerank": 0.001,
+  "generation": 2.301
+ },
+ "rerank_requests": 0,
+ "settings": {
+  "first_stage": "nomic",
+  "depth": 20,
+  "reranker": "minilm",
+  "top_k": 3,
+  "model": "qwen3:1.7b",
+  "out": null
+ },
+ "question": "My Marten S-25 keeps shutting itself off and nothing shows on the display. Where should I look?",
+ "expected": "RERANK"
+}

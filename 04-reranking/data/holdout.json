@@ -1,0 +1,22 @@
+[
+ {"id":"h01","question":"What does E-2310 mean on the Bramble P-10?","relevant":["printer4-errors"],"category":"code","answer":"The hotend is above its limit of 90 °C; let it cool for 15 minutes.","must_contain":["90"]},
+ {"id":"h02","question":"The Tamarin C-66 shows E-5120. What is wrong?","relevant":["conveyor1-errors"],"category":"code","answer":"Sensor S14 does not respond.","must_contain":["S14"]},
+ {"id":"h03","question":"What does error E-6241 mean on the Ibis R-99?","relevant":["robot5-errors"],"category":"code","answer":"The air pressure is below 1.5 bar.","must_contain":["1.5 bar"]},
+ {"id":"h04","question":"On the Marten S-74, what does E-9412 mean?","relevant":["sealer5-errors"],"category":"code","answer":"The sealing jaw is above its limit of 76 °C.","must_contain":["76"]},
+ {"id":"h05","question":"What is PN-X4Q-919-B?","relevant":["laser4-parts"],"category":"part-number","answer":"The first mirror of the Kestrel LX-44.","must_contain":["first mirror"]},
+ {"id":"h06","question":"What is part PN-X1U-991-A?","relevant":["mill1-parts"],"category":"part-number","answer":"The probe stylus of the Heron M-30.","must_contain":["probe stylus"]},
+ {"id":"h07","question":"Which part number is the ring light of the Lynx V-79?","relevant":["vision3-parts"],"category":"part-number","answer":"PN-X3W-919-B.","must_contain":["PN-X3W-919-B"]},
+ {"id":"h08","question":"Which part number is the thermocouple of the Corvid RF-40?","relevant":["oven5-parts"],"category":"part-number","answer":"PN-X5S-991-A.","must_contain":["PN-X5S-991-A"]},
+ {"id":"h09","question":"What is the nominal belt speed of the Tamarin C-66?","relevant":["conveyor1-settings"],"category":"setting","answer":"48 m/min.","must_contain":["48"]},
+ {"id":"h10","question":"Which grease goes on the heater element mount of the Marten S-74?","relevant":["sealer5-maintenance"],"category":"setting","answer":"GR-5.","must_contain":["GR-5"]},
+ {"id":"h11","question":"What spindle speed range is allowed on the Heron M-30?","relevant":["mill1-settings"],"category":"setting","answer":"7000–11000 rpm.","must_contain":["7000–11000"]},
+ {"id":"h12","question":"The Corvid RF-40 halts with a blank display and no error. Where should I look?","relevant":["oven5-troubleshooting"],"category":"paraphrase","answer":"The emergency stop on the rear panel.","must_contain":["rear"]},
+ {"id":"h13","question":"Parts from the Kestrel LX-44 come out differently on each shift. What should we do?","relevant":["laser4-troubleshooting"],"category":"paraphrase","answer":"Run the 5-minute warm-up before the first job.","must_contain":["5-minute"]},
+ {"id":"h14","question":"The payload reading of the Ibis R-99 creeps during a job. Which tool fixes it?","relevant":["robot5-troubleshooting","robot5-calibration"],"category":"paraphrase","answer":"Calibration tool CT-33.","must_contain":["CT-33"]},
+ {"id":"h15","question":"What is the nominal nozzle temperature of the Bramble P-10?","relevant":["printer4-settings"],"category":"sibling","answer":"245 °C.","must_contain":["245"]},
+ {"id":"h16","question":"How often must the light bar fan filter of the Lynx V-79 be cleaned?","relevant":["vision3-maintenance"],"category":"sibling","answer":"Every 200 operating hours.","must_contain":["200"]},
+ {"id":"h17","question":"Which test program does the Heron M-30 load at start-up?","relevant":["mill1-startup"],"category":"second-chunk","answer":"P835.","must_contain":["P835"]},
+ {"id":"h18","question":"What is the warranty of the Tamarin C-66?","relevant":[],"category":"no-answer","answer":"","must_contain":[]},
+ {"id":"h19","question":"What is the maximum welding current of the plant's spot welder?","relevant":[],"category":"no-answer","answer":"","must_contain":[]},
+ {"id":"h20","question":"What does error E-4999 mean on the Kestrel LX-44?","relevant":[],"category":"no-answer","answer":"","must_contain":[]}
+]
