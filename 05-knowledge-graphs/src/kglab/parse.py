@@ -26,6 +26,11 @@ def alarm_id(device: str, name: str) -> str:
     return f"alarm:{device}/{name}"
 
 
+def display(item: dict[str, Any]) -> list[str]:
+    """The display name, as an OPC-UA DisplayName next to the BrowseName: "Low air pressure"."""
+    return [item["display"]] if item.get("display") else []
+
+
 def parse_model(data: dict[str, Any], file: str, graph: Graph | None = None) -> Graph:
     """Add one device's tree to `graph` (a new graph if None)."""
     graph = graph if graph is not None else Graph()
@@ -52,19 +57,19 @@ def parse_model(data: dict[str, Any], file: str, graph: Graph | None = None) -> 
                 name = item["variable"]
                 node = f"{parent}/{name}"
                 where = f"{file}#{'/'.join(path + [name])}"
-                graph.add_node(Node(node, "Variable", name, props={
+                graph.add_node(Node(node, "Variable", name, display(item), props={
                     "type": item.get("type", ""), "initial": item.get("initial"),
                     "description": item.get("description", "")}))
                 graph.add_triple(parent, "exposes_variable", node, where)
                 if in_alarms:
                     alarm = alarm_id(device, name)
-                    graph.add_node(Node(alarm, "Alarm", name, props={"flag": node}))
+                    graph.add_node(Node(alarm, "Alarm", name, display(item), props={"flag": node}))
                     graph.add_triple(device, "has_alarm", alarm, where)
             elif "method" in item:
                 name = item["method"]
                 node = f"{parent}/{name}"
                 where = f"{file}#{'/'.join(path + [name])}"
-                graph.add_node(Node(node, "Method", name, props={"description": item.get("description", "")}))
+                graph.add_node(Node(node, "Method", name, display(item), props={"description": item.get("description", "")}))
                 graph.add_triple(parent, "exposes_method", node, where)
                 for p in item.get("parameters", []) or []:
                     pid = f"{node}/{p['name']}"

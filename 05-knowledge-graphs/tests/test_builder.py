@@ -38,3 +38,12 @@ def test_build_keeps_resolved_links_only():
     links = {(e.s, e.r, e.o) for e in g.edges if e.source == "c1"}
     assert links == {("rover1", "serves_bay", "bay:5"), ("rover1/Motion/StartMission", "requires", "cond:rover1/idle")}
     assert report.kept == 2 and report.unresolved["none"] == 1
+
+
+def test_bare_type_word_means_the_one_in_the_chunk():
+    g = tree()
+    g.add_node(Node("incident:2026-03-04-1", "Incident", "4 March incident", ["4 March"]))
+    g.add_node(Node("incident:2026-03-05-1", "Incident", "5 March incident", ["5 March"]))
+    r = Linker(g).resolve("The incident", ("Incident",), "On 4 March, R-1 stopped.")
+    assert (r.node, r.level) == ("incident:2026-03-04-1", "chunk")
+    assert Linker(g).resolve("The incident", ("Incident",), "R-1 stopped.").node is None

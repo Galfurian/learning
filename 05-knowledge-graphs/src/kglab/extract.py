@@ -22,7 +22,7 @@ from .scorecache import ScoreCache
 LINK_RELATIONS: dict[str, tuple[str, str, str]] = {
     "serves_bay": ("Device", "Bay", "the device loads or unloads pallets at that conveyor bay"),
     "next_step": ("Bay", "Bay", "on the route, pallets go from the first bay to the second"),
-    "moves": ("Device", "Item", "the device carries or handles that kind of item"),
+    "moves": ("Device", "Item or Pallet", "the device carries or handles that item or pallet"),
     "stops": ("Alarm", "Device", "when the alarm is active, the device stops"),
     "confirms": ("Variable", "Mission or Method", "the variable reports the result of that mission or method"),
     "requires": ("Method", "Condition", "the method runs only when the condition is true"),

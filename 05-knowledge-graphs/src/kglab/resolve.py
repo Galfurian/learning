@@ -18,7 +18,8 @@ from .metrics import AMBIGUOUS
 
 
 def normalize(text: str) -> str:
-    text = text.lower().strip()
+    text = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", text.strip())  # "NoAirPressure" -> "No Air Pressure"
+    text = text.lower()
     text = re.sub(r"[^a-z0-9:/ -]+", " ", text)
     text = re.sub(r"[\s-]+", " ", text).strip()
     return re.sub(r"^the ", "", text)

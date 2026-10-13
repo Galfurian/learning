@@ -42,3 +42,14 @@ def test_model_chunks(tmp_path):
     assert [c.id for c in chunks] == ["rover1/Status", "rover1/Alarms", "rover1/StartMission"]
     assert "variable Busy (bool = False)" in chunks[0].text
     assert "method StartMission(mission: string) -> (submitted: bool)" in chunks[2].text
+
+
+def test_display_name_becomes_alias_and_camel_case_normalizes():
+    from kglab.resolve import Resolver
+    model = {**MODEL, "nodes": [{"folder": "Alarms", "children": [
+        {"variable": "NoAirPressure", "display": "Low air pressure", "type": "bool"}]}]}
+    g = parse_model(model, "models/rover1.yml")
+    assert g.nodes["alarm:rover1/NoAirPressure"].aliases == ["Low air pressure"]
+    r = Resolver(g, types=("Alarm",))
+    assert r.resolve("low air pressure").node == "alarm:rover1/NoAirPressure"
+    assert r.resolve("no air pressure").node == "alarm:rover1/NoAirPressure"

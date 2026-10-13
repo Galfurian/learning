@@ -65,6 +65,13 @@ class Linker:
             norm = normalize(mention)
             names = [n for n in self.catalog.nodes.values()
                      if n.type in types and any(contains_words(norm, normalize(x)) for x in [n.name, *n.aliases] if x)]
+        if not names and norm in {t.lower() for t in types}:
+            # A bare type word ("the incident", "the alarm") means the one node of that type the chunk names.
+            names = [n for n in self.catalog.nodes.values() if n.type in types and any(
+                contains_words(normalize(chunk_text), normalize(x)) for x in [n.name, *n.aliases] if x)]
+            if len(names) == 1:
+                return Resolution(mention, names[0].id, "chunk")
+            names = []
         if not names:
             return Resolution(mention, None, "none")
         if len(names) == 1:
