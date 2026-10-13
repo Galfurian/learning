@@ -3,58 +3,392 @@
     {
       "id": "line:main",
       "type": "Line",
-      "name": "Main Line",
+      "name": "the line",
       "aliases": [],
       "props": {}
     },
     {
       "id": "cell:conveyor",
       "type": "Cell",
-      "name": "Conveyor Cell",
+      "name": "conveyor",
       "aliases": [],
       "props": {}
     },
     {
       "id": "cell:warehouse",
       "type": "Cell",
-      "name": "Warehouse Cell",
+      "name": "warehouse",
       "aliases": [],
       "props": {}
     },
     {
       "id": "cell:transport",
       "type": "Cell",
-      "name": "Transport Cell",
+      "name": "transport",
       "aliases": [],
       "props": {}
     },
     {
       "id": "cell:test",
       "type": "Cell",
-      "name": "Test Cell",
+      "name": "test",
       "aliases": [],
       "props": {}
     },
     {
       "id": "cell:cnc",
       "type": "Cell",
-      "name": "CNC Cell",
+      "name": "cnc",
       "aliases": [],
       "props": {}
     },
     {
       "id": "cell:assembly",
       "type": "Cell",
-      "name": "Assembly Cell",
+      "name": "assembly",
       "aliases": [],
       "props": {}
     },
     {
       "id": "cell:qc",
       "type": "Cell",
-      "name": "QC Cell",
+      "name": "qc",
       "aliases": [],
       "props": {}
+    },
+    {
+      "id": "assembly",
+      "type": "Device",
+      "name": "Assembly Cell",
+      "aliases": [],
+      "props": {
+        "kind": "assembly PLC and arms"
+      }
+    },
+    {
+      "id": "assembly/Status",
+      "type": "Folder",
+      "name": "Status",
+      "aliases": [],
+      "props": {
+        "description": "Current device state."
+      }
+    },
+    {
+      "id": "assembly/Status/Busy",
+      "type": "Variable",
+      "name": "Busy",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "True while the current operation runs."
+      }
+    },
+    {
+      "id": "assembly/Status/CurrentMission",
+      "type": "Variable",
+      "name": "CurrentMission",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "initial": "",
+        "description": "Name of the active mission."
+      }
+    },
+    {
+      "id": "assembly/Status/LastResult",
+      "type": "Variable",
+      "name": "LastResult",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "initial": "idle",
+        "description": "Result of the last operation."
+      }
+    },
+    {
+      "id": "assembly/Alarms",
+      "type": "Folder",
+      "name": "Alarms",
+      "aliases": [],
+      "props": {
+        "description": "Assembly alarm flags."
+      }
+    },
+    {
+      "id": "assembly/Alarms/EmergencyStop",
+      "type": "Variable",
+      "name": "EmergencyStop",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "An emergency stop is active."
+      }
+    },
+    {
+      "id": "alarm:assembly/EmergencyStop",
+      "type": "Alarm",
+      "name": "EmergencyStop",
+      "aliases": [],
+      "props": {
+        "flag": "assembly/Alarms/EmergencyStop"
+      }
+    },
+    {
+      "id": "assembly/Alarms/ScrewdriverFault",
+      "type": "Variable",
+      "name": "ScrewdriverFault",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "The screwdriver reports a fault."
+      }
+    },
+    {
+      "id": "alarm:assembly/ScrewdriverFault",
+      "type": "Alarm",
+      "name": "ScrewdriverFault",
+      "aliases": [],
+      "props": {
+        "flag": "assembly/Alarms/ScrewdriverFault"
+      }
+    },
+    {
+      "id": "assembly/ResetAlarms",
+      "type": "Method",
+      "name": "ResetAlarms",
+      "aliases": [],
+      "props": {
+        "description": "Clears alarms after the cause is safe."
+      }
+    },
+    {
+      "id": "assembly/ResetAlarms/mask",
+      "type": "Parameter",
+      "name": "mask",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "description": "Alarm group to clear."
+      }
+    },
+    {
+      "id": "assembly/ResetAlarms/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when the reset is accepted."
+      }
+    },
+    {
+      "id": "assembly/Assembly",
+      "type": "Folder",
+      "name": "Assembly",
+      "aliases": [],
+      "props": {
+        "description": "Assembly operations."
+      }
+    },
+    {
+      "id": "assembly/Assembly/Assemble",
+      "type": "Method",
+      "name": "Assemble",
+      "aliases": [],
+      "props": {
+        "description": "Fits the covers to the board."
+      }
+    },
+    {
+      "id": "assembly/Assembly/Assemble/board",
+      "type": "Parameter",
+      "name": "board",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "description": "Board identifier."
+      }
+    },
+    {
+      "id": "assembly/Assembly/Assemble/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when assembled."
+      }
+    },
+    {
+      "id": "assembly/Assembly/Screw",
+      "type": "Method",
+      "name": "Screw",
+      "aliases": [],
+      "props": {
+        "description": "Runs the screwdriver program."
+      }
+    },
+    {
+      "id": "assembly/Assembly/Screw/program",
+      "type": "Parameter",
+      "name": "program",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "description": "Screwdriver program."
+      }
+    },
+    {
+      "id": "assembly/Assembly/Screw/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when complete."
+      }
+    },
+    {
+      "id": "cnc",
+      "type": "Device",
+      "name": "Engraving Cell",
+      "aliases": [],
+      "props": {
+        "kind": "CNC and arm"
+      }
+    },
+    {
+      "id": "cnc/Status",
+      "type": "Folder",
+      "name": "Status",
+      "aliases": [],
+      "props": {
+        "description": "Current device state."
+      }
+    },
+    {
+      "id": "cnc/Status/Busy",
+      "type": "Variable",
+      "name": "Busy",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "True while the current operation runs."
+      }
+    },
+    {
+      "id": "cnc/Status/CurrentMission",
+      "type": "Variable",
+      "name": "CurrentMission",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "initial": "",
+        "description": "Name of the active mission."
+      }
+    },
+    {
+      "id": "cnc/Status/LastResult",
+      "type": "Variable",
+      "name": "LastResult",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "initial": "idle",
+        "description": "Result of the last operation."
+      }
+    },
+    {
+      "id": "cnc/Arm",
+      "type": "Folder",
+      "name": "Arm",
+      "aliases": [],
+      "props": {
+        "description": "Arm and spindle operations."
+      }
+    },
+    {
+      "id": "cnc/Arm/AtPallet",
+      "type": "Variable",
+      "name": "AtPallet",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "True when the arm is at the pallet."
+      }
+    },
+    {
+      "id": "cnc/Arm/PickBoard",
+      "type": "Method",
+      "name": "PickBoard",
+      "aliases": [],
+      "props": {
+        "description": "Picks a board from the pallet."
+      }
+    },
+    {
+      "id": "cnc/Arm/PickBoard/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when picked."
+      }
+    },
+    {
+      "id": "cnc/Arm/Engrave",
+      "type": "Method",
+      "name": "Engrave",
+      "aliases": [],
+      "props": {
+        "description": "Engraves the board identifier."
+      }
+    },
+    {
+      "id": "cnc/Arm/Engrave/serial",
+      "type": "Parameter",
+      "name": "serial",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "description": "Board serial number."
+      }
+    },
+    {
+      "id": "cnc/Arm/Engrave/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when engraving is complete."
+      }
+    },
+    {
+      "id": "cnc/Arm/PlaceBoard",
+      "type": "Method",
+      "name": "PlaceBoard",
+      "aliases": [],
+      "props": {
+        "description": "Places the board on the pallet."
+      }
+    },
+    {
+      "id": "cnc/Arm/PlaceBoard/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when placed."
+      }
     },
     {
       "id": "conveyor",
@@ -62,8 +396,7 @@
       "name": "Loop Conveyor",
       "aliases": [],
       "props": {
-        "kind": "pallet conveyor",
-        "cell": "cell:conveyor"
+        "kind": "pallet conveyor"
       }
     },
     {
@@ -72,7 +405,7 @@
       "name": "Status",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Current device state."
       }
     },
     {
@@ -81,7 +414,9 @@
       "name": "Busy",
       "aliases": [],
       "props": {
-        "type": "bool"
+        "type": "bool",
+        "initial": false,
+        "description": "True while the current operation runs."
       }
     },
     {
@@ -90,7 +425,9 @@
       "name": "CurrentMission",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "initial": "",
+        "description": "Name of the active mission."
       }
     },
     {
@@ -99,7 +436,9 @@
       "name": "LastResult",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "initial": "idle",
+        "description": "Result of the last operation."
       }
     },
     {
@@ -108,7 +447,7 @@
       "name": "Alarms",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Alarm flags reported by the device."
       }
     },
     {
@@ -117,7 +456,9 @@
       "name": "NoAirPressure",
       "aliases": [],
       "props": {
-        "type": "bool"
+        "type": "bool",
+        "initial": false,
+        "description": "The air supply is below the safe level."
       }
     },
     {
@@ -125,7 +466,9 @@
       "type": "Alarm",
       "name": "NoAirPressure",
       "aliases": [],
-      "props": {}
+      "props": {
+        "flag": "conveyor/Alarms/NoAirPressure"
+      }
     },
     {
       "id": "conveyor/Alarms/EmergencyStop",
@@ -133,7 +476,9 @@
       "name": "EmergencyStop",
       "aliases": [],
       "props": {
-        "type": "bool"
+        "type": "bool",
+        "initial": false,
+        "description": "An emergency stop is active."
       }
     },
     {
@@ -141,7 +486,9 @@
       "type": "Alarm",
       "name": "EmergencyStop",
       "aliases": [],
-      "props": {}
+      "props": {
+        "flag": "conveyor/Alarms/EmergencyStop"
+      }
     },
     {
       "id": "conveyor/Alarms/MotorTrip",
@@ -149,7 +496,9 @@
       "name": "MotorTrip",
       "aliases": [],
       "props": {
-        "type": "bool"
+        "type": "bool",
+        "initial": false,
+        "description": "The drive motor has tripped."
       }
     },
     {
@@ -157,7 +506,9 @@
       "type": "Alarm",
       "name": "MotorTrip",
       "aliases": [],
-      "props": {}
+      "props": {
+        "flag": "conveyor/Alarms/MotorTrip"
+      }
     },
     {
       "id": "conveyor/Alarms/RFIDFault",
@@ -165,7 +516,9 @@
       "name": "RFIDFault",
       "aliases": [],
       "props": {
-        "type": "bool"
+        "type": "bool",
+        "initial": false,
+        "description": "A pallet RFID read failed."
       }
     },
     {
@@ -173,7 +526,9 @@
       "type": "Alarm",
       "name": "RFIDFault",
       "aliases": [],
-      "props": {}
+      "props": {
+        "flag": "conveyor/Alarms/RFIDFault"
+      }
     },
     {
       "id": "conveyor/ResetAlarms",
@@ -181,7 +536,7 @@
       "name": "ResetAlarms",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Clears alarms after the cause is safe."
       }
     },
     {
@@ -190,7 +545,8 @@
       "name": "mask",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "description": "Alarm group to clear."
       }
     },
     {
@@ -200,7 +556,7 @@
       "aliases": [],
       "props": {
         "type": "bool",
-        "return": true
+        "description": "True when the reset is accepted."
       }
     },
     {
@@ -209,7 +565,7 @@
       "name": "MovePallet",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Moves one pallet to a bay."
       }
     },
     {
@@ -218,7 +574,8 @@
       "name": "pallet",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "description": "Pallet identifier."
       }
     },
     {
@@ -227,7 +584,8 @@
       "name": "bay",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "description": "Destination bay."
       }
     },
     {
@@ -237,228 +595,118 @@
       "aliases": [],
       "props": {
         "type": "bool",
-        "return": true
+        "description": "True when the move is queued."
       }
     },
     {
-      "id": "warehouse",
+      "id": "qc",
       "type": "Device",
-      "name": "Vertical Warehouse",
+      "name": "Camera Quality Cell",
       "aliases": [],
       "props": {
-        "kind": "vertical warehouse",
-        "cell": "cell:warehouse"
+        "kind": "camera quality control"
       }
     },
     {
-      "id": "warehouse/Status",
+      "id": "qc/Status",
       "type": "Folder",
       "name": "Status",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Current device state."
       }
     },
     {
-      "id": "warehouse/Status/Busy",
+      "id": "qc/Status/Busy",
       "type": "Variable",
       "name": "Busy",
       "aliases": [],
       "props": {
-        "type": "bool"
+        "type": "bool",
+        "initial": false,
+        "description": "True while the current operation runs."
       }
     },
     {
-      "id": "warehouse/Status/CurrentMission",
+      "id": "qc/Status/CurrentMission",
       "type": "Variable",
       "name": "CurrentMission",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "initial": "",
+        "description": "Name of the active mission."
       }
     },
     {
-      "id": "warehouse/Status/LastResult",
+      "id": "qc/Status/LastResult",
       "type": "Variable",
       "name": "LastResult",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "initial": "idle",
+        "description": "Result of the last operation."
       }
     },
     {
-      "id": "warehouse/Inventory",
+      "id": "qc/Inspection",
       "type": "Folder",
-      "name": "Inventory",
+      "name": "Inspection",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Pallet inspection operations."
       }
     },
     {
-      "id": "warehouse/Inventory/TrayInBay",
-      "type": "Variable",
-      "name": "TrayInBay",
-      "aliases": [],
-      "props": {
-        "type": "string"
-      }
-    },
-    {
-      "id": "warehouse/Inventory/StockReady",
-      "type": "Variable",
-      "name": "StockReady",
-      "aliases": [],
-      "props": {
-        "type": "bool"
-      }
-    },
-    {
-      "id": "warehouse/Alarms",
-      "type": "Folder",
-      "name": "Alarms",
-      "aliases": [],
-      "props": {
-        "type": null
-      }
-    },
-    {
-      "id": "warehouse/Alarms/NoAirPressure",
-      "type": "Variable",
-      "name": "NoAirPressure",
-      "aliases": [],
-      "props": {
-        "type": "bool"
-      }
-    },
-    {
-      "id": "alarm:warehouse/NoAirPressure",
-      "type": "Alarm",
-      "name": "NoAirPressure",
-      "aliases": [],
-      "props": {}
-    },
-    {
-      "id": "warehouse/Alarms/EmergencyStop",
-      "type": "Variable",
-      "name": "EmergencyStop",
-      "aliases": [],
-      "props": {
-        "type": "bool"
-      }
-    },
-    {
-      "id": "alarm:warehouse/EmergencyStop",
-      "type": "Alarm",
-      "name": "EmergencyStop",
-      "aliases": [],
-      "props": {}
-    },
-    {
-      "id": "warehouse/Alarms/MotorTrip",
-      "type": "Variable",
-      "name": "MotorTrip",
-      "aliases": [],
-      "props": {
-        "type": "bool"
-      }
-    },
-    {
-      "id": "alarm:warehouse/MotorTrip",
-      "type": "Alarm",
-      "name": "MotorTrip",
-      "aliases": [],
-      "props": {}
-    },
-    {
-      "id": "warehouse/Alarms/RFIDFault",
-      "type": "Variable",
-      "name": "RFIDFault",
-      "aliases": [],
-      "props": {
-        "type": "bool"
-      }
-    },
-    {
-      "id": "alarm:warehouse/RFIDFault",
-      "type": "Alarm",
-      "name": "RFIDFault",
-      "aliases": [],
-      "props": {}
-    },
-    {
-      "id": "warehouse/ResetAlarms",
+      "id": "qc/Inspection/CheckPallet",
       "type": "Method",
-      "name": "ResetAlarms",
+      "name": "CheckPallet",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Checks the assembled pallet."
       }
     },
     {
-      "id": "warehouse/ResetAlarms/mask",
+      "id": "qc/Inspection/CheckPallet/pallet",
       "type": "Parameter",
-      "name": "mask",
+      "name": "pallet",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "description": "Pallet identifier."
       }
     },
     {
-      "id": "warehouse/ResetAlarms/done",
+      "id": "qc/Inspection/CheckPallet/passed",
       "type": "Variable",
-      "name": "done",
+      "name": "passed",
       "aliases": [],
       "props": {
         "type": "bool",
-        "return": true
+        "description": "True when all checks pass."
       }
     },
     {
-      "id": "warehouse/ExtractTray",
-      "type": "Method",
-      "name": "ExtractTray",
-      "aliases": [],
-      "props": {
-        "type": null
-      }
-    },
-    {
-      "id": "warehouse/ExtractTray/tray",
-      "type": "Parameter",
-      "name": "tray",
-      "aliases": [],
-      "props": {
-        "type": "string"
-      }
-    },
-    {
-      "id": "warehouse/ExtractTray/accepted",
+      "id": "qc/Inspection/Passed",
       "type": "Variable",
-      "name": "accepted",
+      "name": "Passed",
       "aliases": [],
       "props": {
         "type": "bool",
-        "return": true
+        "initial": false,
+        "description": "Result of the last pallet inspection."
       }
     },
     {
-      "id": "warehouse/SendBack",
-      "type": "Method",
-      "name": "SendBack",
-      "aliases": [],
-      "props": {
-        "type": null
-      }
-    },
-    {
-      "id": "warehouse/SendBack/done",
+      "id": "qc/Inspection/ChecksTotal",
       "type": "Variable",
-      "name": "done",
+      "name": "ChecksTotal",
       "aliases": [],
       "props": {
-        "type": "bool",
-        "return": true
+        "type": "number",
+        "initial": 0,
+        "description": "Number of completed inspections."
       }
     },
     {
@@ -470,8 +718,7 @@
         "R-1"
       ],
       "props": {
-        "kind": "mobile robot",
-        "cell": "cell:transport"
+        "kind": "mobile robot"
       }
     },
     {
@@ -480,7 +727,7 @@
       "name": "Status",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Current device state."
       }
     },
     {
@@ -489,7 +736,9 @@
       "name": "Busy",
       "aliases": [],
       "props": {
-        "type": "bool"
+        "type": "bool",
+        "initial": false,
+        "description": "True while the current operation runs."
       }
     },
     {
@@ -498,7 +747,9 @@
       "name": "CurrentMission",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "initial": "",
+        "description": "Name of the active mission."
       }
     },
     {
@@ -507,7 +758,9 @@
       "name": "LastResult",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "initial": "idle",
+        "description": "Result of the last operation."
       }
     },
     {
@@ -516,7 +769,7 @@
       "name": "Motion",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Motion commands."
       }
     },
     {
@@ -525,7 +778,7 @@
       "name": "StartMission",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Starts a named delivery mission."
       }
     },
     {
@@ -534,7 +787,8 @@
       "name": "mission",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "description": "Mission identifier."
       }
     },
     {
@@ -544,7 +798,7 @@
       "aliases": [],
       "props": {
         "type": "bool",
-        "return": true
+        "description": "True when accepted."
       }
     },
     {
@@ -553,7 +807,7 @@
       "name": "StopMission",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Stops the active delivery mission."
       }
     },
     {
@@ -563,7 +817,7 @@
       "aliases": [],
       "props": {
         "type": "bool",
-        "return": true
+        "description": "True when stopped."
       }
     },
     {
@@ -575,8 +829,7 @@
         "R-2"
       ],
       "props": {
-        "kind": "mobile robot",
-        "cell": "cell:transport"
+        "kind": "mobile robot"
       }
     },
     {
@@ -585,7 +838,7 @@
       "name": "Status",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Current device state."
       }
     },
     {
@@ -594,7 +847,9 @@
       "name": "Busy",
       "aliases": [],
       "props": {
-        "type": "bool"
+        "type": "bool",
+        "initial": false,
+        "description": "True while the current operation runs."
       }
     },
     {
@@ -603,7 +858,9 @@
       "name": "CurrentMission",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "initial": "",
+        "description": "Name of the active mission."
       }
     },
     {
@@ -612,7 +869,9 @@
       "name": "LastResult",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "initial": "idle",
+        "description": "Result of the last operation."
       }
     },
     {
@@ -621,7 +880,7 @@
       "name": "Motion",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Motion commands."
       }
     },
     {
@@ -630,7 +889,7 @@
       "name": "StartMission",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Starts a named delivery mission."
       }
     },
     {
@@ -639,7 +898,8 @@
       "name": "mission",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "description": "Mission identifier."
       }
     },
     {
@@ -649,7 +909,7 @@
       "aliases": [],
       "props": {
         "type": "bool",
-        "return": true
+        "description": "True when accepted."
       }
     },
     {
@@ -658,7 +918,7 @@
       "name": "StopMission",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Stops the active delivery mission."
       }
     },
     {
@@ -668,7 +928,7 @@
       "aliases": [],
       "props": {
         "type": "bool",
-        "return": true
+        "description": "True when stopped."
       }
     },
     {
@@ -677,8 +937,7 @@
       "name": "Board Tester",
       "aliases": [],
       "props": {
-        "kind": "test cell",
-        "cell": "cell:test"
+        "kind": "test cell"
       }
     },
     {
@@ -687,7 +946,7 @@
       "name": "Status",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Current device state."
       }
     },
     {
@@ -696,7 +955,9 @@
       "name": "Busy",
       "aliases": [],
       "props": {
-        "type": "bool"
+        "type": "bool",
+        "initial": false,
+        "description": "True while the current operation runs."
       }
     },
     {
@@ -705,7 +966,9 @@
       "name": "CurrentMission",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "initial": "",
+        "description": "Name of the active mission."
       }
     },
     {
@@ -714,7 +977,9 @@
       "name": "LastResult",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "initial": "idle",
+        "description": "Result of the last operation."
       }
     },
     {
@@ -723,7 +988,7 @@
       "name": "Boards",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Board transfer and test operations."
       }
     },
     {
@@ -732,7 +997,7 @@
       "name": "BoardIn",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Accepts a board at the input bay."
       }
     },
     {
@@ -742,7 +1007,7 @@
       "aliases": [],
       "props": {
         "type": "bool",
-        "return": true
+        "description": "True when accepted."
       }
     },
     {
@@ -751,7 +1016,7 @@
       "name": "RunTest",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Runs the board test."
       }
     },
     {
@@ -760,7 +1025,8 @@
       "name": "serial",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "description": "Board serial number."
       }
     },
     {
@@ -770,7 +1036,7 @@
       "aliases": [],
       "props": {
         "type": "bool",
-        "return": true
+        "description": "True when the test starts."
       }
     },
     {
@@ -779,7 +1045,7 @@
       "name": "BoardOut",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Releases a tested board."
       }
     },
     {
@@ -789,7 +1055,7 @@
       "aliases": [],
       "props": {
         "type": "bool",
-        "return": true
+        "description": "True when released."
       }
     },
     {
@@ -798,418 +1064,257 @@
       "name": "TestPassed",
       "aliases": [],
       "props": {
-        "type": "bool"
+        "type": "bool",
+        "initial": false,
+        "description": "Result of the last board test."
       }
     },
     {
-      "id": "cnc",
+      "id": "warehouse",
       "type": "Device",
-      "name": "Engraving Cell",
+      "name": "Vertical Warehouse",
       "aliases": [],
       "props": {
-        "kind": "CNC and arm",
-        "cell": "cell:cnc"
+        "kind": "vertical warehouse"
       }
     },
     {
-      "id": "cnc/Status",
+      "id": "warehouse/Status",
       "type": "Folder",
       "name": "Status",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Current device state."
       }
     },
     {
-      "id": "cnc/Status/Busy",
+      "id": "warehouse/Status/Busy",
       "type": "Variable",
       "name": "Busy",
       "aliases": [],
       "props": {
-        "type": "bool"
+        "type": "bool",
+        "initial": false,
+        "description": "True while the current operation runs."
       }
     },
     {
-      "id": "cnc/Status/CurrentMission",
+      "id": "warehouse/Status/CurrentMission",
       "type": "Variable",
       "name": "CurrentMission",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "initial": "",
+        "description": "Name of the active mission."
       }
     },
     {
-      "id": "cnc/Status/LastResult",
+      "id": "warehouse/Status/LastResult",
       "type": "Variable",
       "name": "LastResult",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "initial": "idle",
+        "description": "Result of the last operation."
       }
     },
     {
-      "id": "cnc/Arm",
+      "id": "warehouse/Inventory",
       "type": "Folder",
-      "name": "Arm",
+      "name": "Inventory",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Trays and stock state."
       }
     },
     {
-      "id": "cnc/Arm/AtPallet",
+      "id": "warehouse/Inventory/TrayInBay",
       "type": "Variable",
-      "name": "AtPallet",
+      "name": "TrayInBay",
       "aliases": [],
       "props": {
-        "type": "bool"
+        "type": "string",
+        "initial": "",
+        "description": "Tray currently at the operator bay."
       }
     },
     {
-      "id": "cnc/Arm/PickBoard",
-      "type": "Method",
-      "name": "PickBoard",
-      "aliases": [],
-      "props": {
-        "type": null
-      }
-    },
-    {
-      "id": "cnc/Arm/PickBoard/done",
+      "id": "warehouse/Inventory/StockReady",
       "type": "Variable",
-      "name": "done",
+      "name": "StockReady",
       "aliases": [],
       "props": {
         "type": "bool",
-        "return": true
+        "initial": true,
+        "description": "True when the requested tray can be handled."
       }
     },
     {
-      "id": "cnc/Arm/Engrave",
-      "type": "Method",
-      "name": "Engrave",
-      "aliases": [],
-      "props": {
-        "type": null
-      }
-    },
-    {
-      "id": "cnc/Arm/Engrave/serial",
-      "type": "Parameter",
-      "name": "serial",
-      "aliases": [],
-      "props": {
-        "type": "string"
-      }
-    },
-    {
-      "id": "cnc/Arm/Engrave/done",
-      "type": "Variable",
-      "name": "done",
-      "aliases": [],
-      "props": {
-        "type": "bool",
-        "return": true
-      }
-    },
-    {
-      "id": "cnc/Arm/PlaceBoard",
-      "type": "Method",
-      "name": "PlaceBoard",
-      "aliases": [],
-      "props": {
-        "type": null
-      }
-    },
-    {
-      "id": "cnc/Arm/PlaceBoard/done",
-      "type": "Variable",
-      "name": "done",
-      "aliases": [],
-      "props": {
-        "type": "bool",
-        "return": true
-      }
-    },
-    {
-      "id": "assembly",
-      "type": "Device",
-      "name": "Assembly Cell",
-      "aliases": [],
-      "props": {
-        "kind": "assembly PLC and arms",
-        "cell": "cell:assembly"
-      }
-    },
-    {
-      "id": "assembly/Status",
-      "type": "Folder",
-      "name": "Status",
-      "aliases": [],
-      "props": {
-        "type": null
-      }
-    },
-    {
-      "id": "assembly/Status/Busy",
-      "type": "Variable",
-      "name": "Busy",
-      "aliases": [],
-      "props": {
-        "type": "bool"
-      }
-    },
-    {
-      "id": "assembly/Status/CurrentMission",
-      "type": "Variable",
-      "name": "CurrentMission",
-      "aliases": [],
-      "props": {
-        "type": "string"
-      }
-    },
-    {
-      "id": "assembly/Status/LastResult",
-      "type": "Variable",
-      "name": "LastResult",
-      "aliases": [],
-      "props": {
-        "type": "string"
-      }
-    },
-    {
-      "id": "assembly/Alarms",
+      "id": "warehouse/Alarms",
       "type": "Folder",
       "name": "Alarms",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Alarm flags reported by the device."
       }
     },
     {
-      "id": "assembly/Alarms/EmergencyStop",
+      "id": "warehouse/Alarms/NoAirPressure",
+      "type": "Variable",
+      "name": "NoAirPressure",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "The air supply is below the safe level."
+      }
+    },
+    {
+      "id": "alarm:warehouse/NoAirPressure",
+      "type": "Alarm",
+      "name": "NoAirPressure",
+      "aliases": [],
+      "props": {
+        "flag": "warehouse/Alarms/NoAirPressure"
+      }
+    },
+    {
+      "id": "warehouse/Alarms/EmergencyStop",
       "type": "Variable",
       "name": "EmergencyStop",
       "aliases": [],
       "props": {
-        "type": "bool"
+        "type": "bool",
+        "initial": false,
+        "description": "An emergency stop is active."
       }
     },
     {
-      "id": "alarm:assembly/EmergencyStop",
+      "id": "alarm:warehouse/EmergencyStop",
       "type": "Alarm",
       "name": "EmergencyStop",
       "aliases": [],
-      "props": {}
-    },
-    {
-      "id": "assembly/Alarms/ScrewdriverFault",
-      "type": "Variable",
-      "name": "ScrewdriverFault",
-      "aliases": [],
       "props": {
-        "type": "bool"
+        "flag": "warehouse/Alarms/EmergencyStop"
       }
     },
     {
-      "id": "alarm:assembly/ScrewdriverFault",
-      "type": "Alarm",
-      "name": "ScrewdriverFault",
+      "id": "warehouse/Alarms/MotorTrip",
+      "type": "Variable",
+      "name": "MotorTrip",
       "aliases": [],
-      "props": {}
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "The drive motor has tripped."
+      }
     },
     {
-      "id": "assembly/ResetAlarms",
+      "id": "alarm:warehouse/MotorTrip",
+      "type": "Alarm",
+      "name": "MotorTrip",
+      "aliases": [],
+      "props": {
+        "flag": "warehouse/Alarms/MotorTrip"
+      }
+    },
+    {
+      "id": "warehouse/Alarms/RFIDFault",
+      "type": "Variable",
+      "name": "RFIDFault",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "A pallet RFID read failed."
+      }
+    },
+    {
+      "id": "alarm:warehouse/RFIDFault",
+      "type": "Alarm",
+      "name": "RFIDFault",
+      "aliases": [],
+      "props": {
+        "flag": "warehouse/Alarms/RFIDFault"
+      }
+    },
+    {
+      "id": "warehouse/ResetAlarms",
       "type": "Method",
       "name": "ResetAlarms",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Clears alarms after the cause is safe."
       }
     },
     {
-      "id": "assembly/ResetAlarms/mask",
+      "id": "warehouse/ResetAlarms/mask",
       "type": "Parameter",
       "name": "mask",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "description": "Alarm group to clear."
       }
     },
     {
-      "id": "assembly/ResetAlarms/done",
+      "id": "warehouse/ResetAlarms/done",
       "type": "Variable",
       "name": "done",
       "aliases": [],
       "props": {
         "type": "bool",
-        "return": true
+        "description": "True when the reset is accepted."
       }
     },
     {
-      "id": "assembly/Assembly",
-      "type": "Folder",
-      "name": "Assembly",
-      "aliases": [],
-      "props": {
-        "type": null
-      }
-    },
-    {
-      "id": "assembly/Assembly/Assemble",
+      "id": "warehouse/ExtractTray",
       "type": "Method",
-      "name": "Assemble",
+      "name": "ExtractTray",
       "aliases": [],
       "props": {
-        "type": null
+        "description": "Brings a tray to the operator bay."
       }
     },
     {
-      "id": "assembly/Assembly/Assemble/board",
+      "id": "warehouse/ExtractTray/tray",
       "type": "Parameter",
-      "name": "board",
+      "name": "tray",
       "aliases": [],
       "props": {
-        "type": "string"
+        "type": "string",
+        "description": "Tray identifier."
       }
     },
     {
-      "id": "assembly/Assembly/Assemble/done",
+      "id": "warehouse/ExtractTray/accepted",
+      "type": "Variable",
+      "name": "accepted",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when extraction is queued."
+      }
+    },
+    {
+      "id": "warehouse/SendBack",
+      "type": "Method",
+      "name": "SendBack",
+      "aliases": [],
+      "props": {
+        "description": "Returns the tray from the operator bay."
+      }
+    },
+    {
+      "id": "warehouse/SendBack/done",
       "type": "Variable",
       "name": "done",
       "aliases": [],
       "props": {
         "type": "bool",
-        "return": true
-      }
-    },
-    {
-      "id": "assembly/Assembly/Screw",
-      "type": "Method",
-      "name": "Screw",
-      "aliases": [],
-      "props": {
-        "type": null
-      }
-    },
-    {
-      "id": "assembly/Assembly/Screw/program",
-      "type": "Parameter",
-      "name": "program",
-      "aliases": [],
-      "props": {
-        "type": "string"
-      }
-    },
-    {
-      "id": "assembly/Assembly/Screw/done",
-      "type": "Variable",
-      "name": "done",
-      "aliases": [],
-      "props": {
-        "type": "bool",
-        "return": true
-      }
-    },
-    {
-      "id": "qc",
-      "type": "Device",
-      "name": "Camera Quality Cell",
-      "aliases": [],
-      "props": {
-        "kind": "camera quality control",
-        "cell": "cell:qc"
-      }
-    },
-    {
-      "id": "qc/Status",
-      "type": "Folder",
-      "name": "Status",
-      "aliases": [],
-      "props": {
-        "type": null
-      }
-    },
-    {
-      "id": "qc/Status/Busy",
-      "type": "Variable",
-      "name": "Busy",
-      "aliases": [],
-      "props": {
-        "type": "bool"
-      }
-    },
-    {
-      "id": "qc/Status/CurrentMission",
-      "type": "Variable",
-      "name": "CurrentMission",
-      "aliases": [],
-      "props": {
-        "type": "string"
-      }
-    },
-    {
-      "id": "qc/Status/LastResult",
-      "type": "Variable",
-      "name": "LastResult",
-      "aliases": [],
-      "props": {
-        "type": "string"
-      }
-    },
-    {
-      "id": "qc/Inspection",
-      "type": "Folder",
-      "name": "Inspection",
-      "aliases": [],
-      "props": {
-        "type": null
-      }
-    },
-    {
-      "id": "qc/Inspection/CheckPallet",
-      "type": "Method",
-      "name": "CheckPallet",
-      "aliases": [],
-      "props": {
-        "type": null
-      }
-    },
-    {
-      "id": "qc/Inspection/CheckPallet/pallet",
-      "type": "Parameter",
-      "name": "pallet",
-      "aliases": [],
-      "props": {
-        "type": "string"
-      }
-    },
-    {
-      "id": "qc/Inspection/CheckPallet/passed",
-      "type": "Variable",
-      "name": "passed",
-      "aliases": [],
-      "props": {
-        "type": "bool",
-        "return": true
-      }
-    },
-    {
-      "id": "qc/Inspection/Passed",
-      "type": "Variable",
-      "name": "Passed",
-      "aliases": [],
-      "props": {
-        "type": "bool"
-      }
-    },
-    {
-      "id": "qc/Inspection/ChecksTotal",
-      "type": "Variable",
-      "name": "ChecksTotal",
-      "aliases": [],
-      "props": {
-        "type": "number"
+        "description": "True when return is accepted."
       }
     },
     {
@@ -1419,44 +1524,230 @@
     {
       "s": "line:main",
       "r": "contains",
-      "o": "cell:conveyor",
-      "source": "line"
+      "o": "cell:assembly",
+      "source": "models/assembly.yml#"
     },
     {
-      "s": "line:main",
+      "s": "cell:assembly",
       "r": "contains",
-      "o": "cell:warehouse",
-      "source": "line"
+      "o": "assembly",
+      "source": "models/assembly.yml#"
     },
     {
-      "s": "line:main",
+      "s": "assembly",
       "r": "contains",
-      "o": "cell:transport",
-      "source": "line"
+      "o": "assembly/Status",
+      "source": "models/assembly.yml#Status"
     },
     {
-      "s": "line:main",
+      "s": "assembly/Status",
+      "r": "exposes_variable",
+      "o": "assembly/Status/Busy",
+      "source": "models/assembly.yml#Status/Busy"
+    },
+    {
+      "s": "assembly/Status",
+      "r": "exposes_variable",
+      "o": "assembly/Status/CurrentMission",
+      "source": "models/assembly.yml#Status/CurrentMission"
+    },
+    {
+      "s": "assembly/Status",
+      "r": "exposes_variable",
+      "o": "assembly/Status/LastResult",
+      "source": "models/assembly.yml#Status/LastResult"
+    },
+    {
+      "s": "assembly",
       "r": "contains",
-      "o": "cell:test",
-      "source": "line"
+      "o": "assembly/Alarms",
+      "source": "models/assembly.yml#Alarms"
+    },
+    {
+      "s": "assembly/Alarms",
+      "r": "exposes_variable",
+      "o": "assembly/Alarms/EmergencyStop",
+      "source": "models/assembly.yml#Alarms/EmergencyStop"
+    },
+    {
+      "s": "assembly",
+      "r": "has_alarm",
+      "o": "alarm:assembly/EmergencyStop",
+      "source": "models/assembly.yml#Alarms/EmergencyStop"
+    },
+    {
+      "s": "assembly/Alarms",
+      "r": "exposes_variable",
+      "o": "assembly/Alarms/ScrewdriverFault",
+      "source": "models/assembly.yml#Alarms/ScrewdriverFault"
+    },
+    {
+      "s": "assembly",
+      "r": "has_alarm",
+      "o": "alarm:assembly/ScrewdriverFault",
+      "source": "models/assembly.yml#Alarms/ScrewdriverFault"
+    },
+    {
+      "s": "assembly",
+      "r": "exposes_method",
+      "o": "assembly/ResetAlarms",
+      "source": "models/assembly.yml#ResetAlarms"
+    },
+    {
+      "s": "assembly/ResetAlarms",
+      "r": "has_parameter",
+      "o": "assembly/ResetAlarms/mask",
+      "source": "models/assembly.yml#ResetAlarms"
+    },
+    {
+      "s": "assembly/ResetAlarms",
+      "r": "returns",
+      "o": "assembly/ResetAlarms/done",
+      "source": "models/assembly.yml#ResetAlarms"
+    },
+    {
+      "s": "assembly",
+      "r": "contains",
+      "o": "assembly/Assembly",
+      "source": "models/assembly.yml#Assembly"
+    },
+    {
+      "s": "assembly/Assembly",
+      "r": "exposes_method",
+      "o": "assembly/Assembly/Assemble",
+      "source": "models/assembly.yml#Assembly/Assemble"
+    },
+    {
+      "s": "assembly/Assembly/Assemble",
+      "r": "has_parameter",
+      "o": "assembly/Assembly/Assemble/board",
+      "source": "models/assembly.yml#Assembly/Assemble"
+    },
+    {
+      "s": "assembly/Assembly/Assemble",
+      "r": "returns",
+      "o": "assembly/Assembly/Assemble/done",
+      "source": "models/assembly.yml#Assembly/Assemble"
+    },
+    {
+      "s": "assembly/Assembly",
+      "r": "exposes_method",
+      "o": "assembly/Assembly/Screw",
+      "source": "models/assembly.yml#Assembly/Screw"
+    },
+    {
+      "s": "assembly/Assembly/Screw",
+      "r": "has_parameter",
+      "o": "assembly/Assembly/Screw/program",
+      "source": "models/assembly.yml#Assembly/Screw"
+    },
+    {
+      "s": "assembly/Assembly/Screw",
+      "r": "returns",
+      "o": "assembly/Assembly/Screw/done",
+      "source": "models/assembly.yml#Assembly/Screw"
     },
     {
       "s": "line:main",
       "r": "contains",
       "o": "cell:cnc",
-      "source": "line"
+      "source": "models/cnc.yml#"
+    },
+    {
+      "s": "cell:cnc",
+      "r": "contains",
+      "o": "cnc",
+      "source": "models/cnc.yml#"
+    },
+    {
+      "s": "cnc",
+      "r": "contains",
+      "o": "cnc/Status",
+      "source": "models/cnc.yml#Status"
+    },
+    {
+      "s": "cnc/Status",
+      "r": "exposes_variable",
+      "o": "cnc/Status/Busy",
+      "source": "models/cnc.yml#Status/Busy"
+    },
+    {
+      "s": "cnc/Status",
+      "r": "exposes_variable",
+      "o": "cnc/Status/CurrentMission",
+      "source": "models/cnc.yml#Status/CurrentMission"
+    },
+    {
+      "s": "cnc/Status",
+      "r": "exposes_variable",
+      "o": "cnc/Status/LastResult",
+      "source": "models/cnc.yml#Status/LastResult"
+    },
+    {
+      "s": "cnc",
+      "r": "contains",
+      "o": "cnc/Arm",
+      "source": "models/cnc.yml#Arm"
+    },
+    {
+      "s": "cnc/Arm",
+      "r": "exposes_variable",
+      "o": "cnc/Arm/AtPallet",
+      "source": "models/cnc.yml#Arm/AtPallet"
+    },
+    {
+      "s": "cnc/Arm",
+      "r": "exposes_method",
+      "o": "cnc/Arm/PickBoard",
+      "source": "models/cnc.yml#Arm/PickBoard"
+    },
+    {
+      "s": "cnc/Arm/PickBoard",
+      "r": "returns",
+      "o": "cnc/Arm/PickBoard/done",
+      "source": "models/cnc.yml#Arm/PickBoard"
+    },
+    {
+      "s": "cnc/Arm",
+      "r": "exposes_method",
+      "o": "cnc/Arm/Engrave",
+      "source": "models/cnc.yml#Arm/Engrave"
+    },
+    {
+      "s": "cnc/Arm/Engrave",
+      "r": "has_parameter",
+      "o": "cnc/Arm/Engrave/serial",
+      "source": "models/cnc.yml#Arm/Engrave"
+    },
+    {
+      "s": "cnc/Arm/Engrave",
+      "r": "returns",
+      "o": "cnc/Arm/Engrave/done",
+      "source": "models/cnc.yml#Arm/Engrave"
+    },
+    {
+      "s": "cnc/Arm",
+      "r": "exposes_method",
+      "o": "cnc/Arm/PlaceBoard",
+      "source": "models/cnc.yml#Arm/PlaceBoard"
+    },
+    {
+      "s": "cnc/Arm/PlaceBoard",
+      "r": "returns",
+      "o": "cnc/Arm/PlaceBoard/done",
+      "source": "models/cnc.yml#Arm/PlaceBoard"
     },
     {
       "s": "line:main",
       "r": "contains",
-      "o": "cell:assembly",
-      "source": "line"
+      "o": "cell:conveyor",
+      "source": "models/conveyor.yml#"
     },
     {
-      "s": "line:main",
+      "s": "cell:conveyor",
       "r": "contains",
-      "o": "cell:qc",
-      "source": "line"
+      "o": "conveyor",
+      "source": "models/conveyor.yml#"
     },
     {
       "s": "conveyor",
@@ -1579,10 +1870,322 @@
       "source": "models/conveyor.yml#MovePallet"
     },
     {
-      "s": "cell:conveyor",
+      "s": "line:main",
       "r": "contains",
-      "o": "conveyor",
-      "source": "line"
+      "o": "cell:qc",
+      "source": "models/qc.yml#"
+    },
+    {
+      "s": "cell:qc",
+      "r": "contains",
+      "o": "qc",
+      "source": "models/qc.yml#"
+    },
+    {
+      "s": "qc",
+      "r": "contains",
+      "o": "qc/Status",
+      "source": "models/qc.yml#Status"
+    },
+    {
+      "s": "qc/Status",
+      "r": "exposes_variable",
+      "o": "qc/Status/Busy",
+      "source": "models/qc.yml#Status/Busy"
+    },
+    {
+      "s": "qc/Status",
+      "r": "exposes_variable",
+      "o": "qc/Status/CurrentMission",
+      "source": "models/qc.yml#Status/CurrentMission"
+    },
+    {
+      "s": "qc/Status",
+      "r": "exposes_variable",
+      "o": "qc/Status/LastResult",
+      "source": "models/qc.yml#Status/LastResult"
+    },
+    {
+      "s": "qc",
+      "r": "contains",
+      "o": "qc/Inspection",
+      "source": "models/qc.yml#Inspection"
+    },
+    {
+      "s": "qc/Inspection",
+      "r": "exposes_method",
+      "o": "qc/Inspection/CheckPallet",
+      "source": "models/qc.yml#Inspection/CheckPallet"
+    },
+    {
+      "s": "qc/Inspection/CheckPallet",
+      "r": "has_parameter",
+      "o": "qc/Inspection/CheckPallet/pallet",
+      "source": "models/qc.yml#Inspection/CheckPallet"
+    },
+    {
+      "s": "qc/Inspection/CheckPallet",
+      "r": "returns",
+      "o": "qc/Inspection/CheckPallet/passed",
+      "source": "models/qc.yml#Inspection/CheckPallet"
+    },
+    {
+      "s": "qc/Inspection",
+      "r": "exposes_variable",
+      "o": "qc/Inspection/Passed",
+      "source": "models/qc.yml#Inspection/Passed"
+    },
+    {
+      "s": "qc/Inspection",
+      "r": "exposes_variable",
+      "o": "qc/Inspection/ChecksTotal",
+      "source": "models/qc.yml#Inspection/ChecksTotal"
+    },
+    {
+      "s": "line:main",
+      "r": "contains",
+      "o": "cell:transport",
+      "source": "models/rover1.yml#"
+    },
+    {
+      "s": "cell:transport",
+      "r": "contains",
+      "o": "rover1",
+      "source": "models/rover1.yml#"
+    },
+    {
+      "s": "rover1",
+      "r": "contains",
+      "o": "rover1/Status",
+      "source": "models/rover1.yml#Status"
+    },
+    {
+      "s": "rover1/Status",
+      "r": "exposes_variable",
+      "o": "rover1/Status/Busy",
+      "source": "models/rover1.yml#Status/Busy"
+    },
+    {
+      "s": "rover1/Status",
+      "r": "exposes_variable",
+      "o": "rover1/Status/CurrentMission",
+      "source": "models/rover1.yml#Status/CurrentMission"
+    },
+    {
+      "s": "rover1/Status",
+      "r": "exposes_variable",
+      "o": "rover1/Status/LastResult",
+      "source": "models/rover1.yml#Status/LastResult"
+    },
+    {
+      "s": "rover1",
+      "r": "contains",
+      "o": "rover1/Motion",
+      "source": "models/rover1.yml#Motion"
+    },
+    {
+      "s": "rover1/Motion",
+      "r": "exposes_method",
+      "o": "rover1/Motion/StartMission",
+      "source": "models/rover1.yml#Motion/StartMission"
+    },
+    {
+      "s": "rover1/Motion/StartMission",
+      "r": "has_parameter",
+      "o": "rover1/Motion/StartMission/mission",
+      "source": "models/rover1.yml#Motion/StartMission"
+    },
+    {
+      "s": "rover1/Motion/StartMission",
+      "r": "returns",
+      "o": "rover1/Motion/StartMission/submitted",
+      "source": "models/rover1.yml#Motion/StartMission"
+    },
+    {
+      "s": "rover1/Motion",
+      "r": "exposes_method",
+      "o": "rover1/Motion/StopMission",
+      "source": "models/rover1.yml#Motion/StopMission"
+    },
+    {
+      "s": "rover1/Motion/StopMission",
+      "r": "returns",
+      "o": "rover1/Motion/StopMission/stopped",
+      "source": "models/rover1.yml#Motion/StopMission"
+    },
+    {
+      "s": "line:main",
+      "r": "contains",
+      "o": "cell:transport",
+      "source": "models/rover2.yml#"
+    },
+    {
+      "s": "cell:transport",
+      "r": "contains",
+      "o": "rover2",
+      "source": "models/rover2.yml#"
+    },
+    {
+      "s": "rover2",
+      "r": "contains",
+      "o": "rover2/Status",
+      "source": "models/rover2.yml#Status"
+    },
+    {
+      "s": "rover2/Status",
+      "r": "exposes_variable",
+      "o": "rover2/Status/Busy",
+      "source": "models/rover2.yml#Status/Busy"
+    },
+    {
+      "s": "rover2/Status",
+      "r": "exposes_variable",
+      "o": "rover2/Status/CurrentMission",
+      "source": "models/rover2.yml#Status/CurrentMission"
+    },
+    {
+      "s": "rover2/Status",
+      "r": "exposes_variable",
+      "o": "rover2/Status/LastResult",
+      "source": "models/rover2.yml#Status/LastResult"
+    },
+    {
+      "s": "rover2",
+      "r": "contains",
+      "o": "rover2/Motion",
+      "source": "models/rover2.yml#Motion"
+    },
+    {
+      "s": "rover2/Motion",
+      "r": "exposes_method",
+      "o": "rover2/Motion/StartMission",
+      "source": "models/rover2.yml#Motion/StartMission"
+    },
+    {
+      "s": "rover2/Motion/StartMission",
+      "r": "has_parameter",
+      "o": "rover2/Motion/StartMission/mission",
+      "source": "models/rover2.yml#Motion/StartMission"
+    },
+    {
+      "s": "rover2/Motion/StartMission",
+      "r": "returns",
+      "o": "rover2/Motion/StartMission/submitted",
+      "source": "models/rover2.yml#Motion/StartMission"
+    },
+    {
+      "s": "rover2/Motion",
+      "r": "exposes_method",
+      "o": "rover2/Motion/StopMission",
+      "source": "models/rover2.yml#Motion/StopMission"
+    },
+    {
+      "s": "rover2/Motion/StopMission",
+      "r": "returns",
+      "o": "rover2/Motion/StopMission/stopped",
+      "source": "models/rover2.yml#Motion/StopMission"
+    },
+    {
+      "s": "line:main",
+      "r": "contains",
+      "o": "cell:test",
+      "source": "models/tester.yml#"
+    },
+    {
+      "s": "cell:test",
+      "r": "contains",
+      "o": "tester",
+      "source": "models/tester.yml#"
+    },
+    {
+      "s": "tester",
+      "r": "contains",
+      "o": "tester/Status",
+      "source": "models/tester.yml#Status"
+    },
+    {
+      "s": "tester/Status",
+      "r": "exposes_variable",
+      "o": "tester/Status/Busy",
+      "source": "models/tester.yml#Status/Busy"
+    },
+    {
+      "s": "tester/Status",
+      "r": "exposes_variable",
+      "o": "tester/Status/CurrentMission",
+      "source": "models/tester.yml#Status/CurrentMission"
+    },
+    {
+      "s": "tester/Status",
+      "r": "exposes_variable",
+      "o": "tester/Status/LastResult",
+      "source": "models/tester.yml#Status/LastResult"
+    },
+    {
+      "s": "tester",
+      "r": "contains",
+      "o": "tester/Boards",
+      "source": "models/tester.yml#Boards"
+    },
+    {
+      "s": "tester/Boards",
+      "r": "exposes_method",
+      "o": "tester/Boards/BoardIn",
+      "source": "models/tester.yml#Boards/BoardIn"
+    },
+    {
+      "s": "tester/Boards/BoardIn",
+      "r": "returns",
+      "o": "tester/Boards/BoardIn/accepted",
+      "source": "models/tester.yml#Boards/BoardIn"
+    },
+    {
+      "s": "tester/Boards",
+      "r": "exposes_method",
+      "o": "tester/Boards/RunTest",
+      "source": "models/tester.yml#Boards/RunTest"
+    },
+    {
+      "s": "tester/Boards/RunTest",
+      "r": "has_parameter",
+      "o": "tester/Boards/RunTest/serial",
+      "source": "models/tester.yml#Boards/RunTest"
+    },
+    {
+      "s": "tester/Boards/RunTest",
+      "r": "returns",
+      "o": "tester/Boards/RunTest/started",
+      "source": "models/tester.yml#Boards/RunTest"
+    },
+    {
+      "s": "tester/Boards",
+      "r": "exposes_method",
+      "o": "tester/Boards/BoardOut",
+      "source": "models/tester.yml#Boards/BoardOut"
+    },
+    {
+      "s": "tester/Boards/BoardOut",
+      "r": "returns",
+      "o": "tester/Boards/BoardOut/done",
+      "source": "models/tester.yml#Boards/BoardOut"
+    },
+    {
+      "s": "tester/Boards",
+      "r": "exposes_variable",
+      "o": "tester/Boards/TestPassed",
+      "source": "models/tester.yml#Boards/TestPassed"
+    },
+    {
+      "s": "line:main",
+      "r": "contains",
+      "o": "cell:warehouse",
+      "source": "models/warehouse.yml#"
+    },
+    {
+      "s": "cell:warehouse",
+      "r": "contains",
+      "o": "warehouse",
+      "source": "models/warehouse.yml#"
     },
     {
       "s": "warehouse",
@@ -1727,498 +2330,6 @@
       "r": "returns",
       "o": "warehouse/SendBack/done",
       "source": "models/warehouse.yml#SendBack"
-    },
-    {
-      "s": "cell:warehouse",
-      "r": "contains",
-      "o": "warehouse",
-      "source": "line"
-    },
-    {
-      "s": "rover1",
-      "r": "contains",
-      "o": "rover1/Status",
-      "source": "models/rover1.yml#Status"
-    },
-    {
-      "s": "rover1/Status",
-      "r": "exposes_variable",
-      "o": "rover1/Status/Busy",
-      "source": "models/rover1.yml#Status/Busy"
-    },
-    {
-      "s": "rover1/Status",
-      "r": "exposes_variable",
-      "o": "rover1/Status/CurrentMission",
-      "source": "models/rover1.yml#Status/CurrentMission"
-    },
-    {
-      "s": "rover1/Status",
-      "r": "exposes_variable",
-      "o": "rover1/Status/LastResult",
-      "source": "models/rover1.yml#Status/LastResult"
-    },
-    {
-      "s": "rover1",
-      "r": "contains",
-      "o": "rover1/Motion",
-      "source": "models/rover1.yml#Motion"
-    },
-    {
-      "s": "rover1/Motion",
-      "r": "exposes_method",
-      "o": "rover1/Motion/StartMission",
-      "source": "models/rover1.yml#Motion/StartMission"
-    },
-    {
-      "s": "rover1/Motion/StartMission",
-      "r": "has_parameter",
-      "o": "rover1/Motion/StartMission/mission",
-      "source": "models/rover1.yml#Motion/StartMission"
-    },
-    {
-      "s": "rover1/Motion/StartMission",
-      "r": "returns",
-      "o": "rover1/Motion/StartMission/submitted",
-      "source": "models/rover1.yml#Motion/StartMission"
-    },
-    {
-      "s": "rover1/Motion",
-      "r": "exposes_method",
-      "o": "rover1/Motion/StopMission",
-      "source": "models/rover1.yml#Motion/StopMission"
-    },
-    {
-      "s": "rover1/Motion/StopMission",
-      "r": "returns",
-      "o": "rover1/Motion/StopMission/stopped",
-      "source": "models/rover1.yml#Motion/StopMission"
-    },
-    {
-      "s": "cell:transport",
-      "r": "contains",
-      "o": "rover1",
-      "source": "line"
-    },
-    {
-      "s": "rover2",
-      "r": "contains",
-      "o": "rover2/Status",
-      "source": "models/rover2.yml#Status"
-    },
-    {
-      "s": "rover2/Status",
-      "r": "exposes_variable",
-      "o": "rover2/Status/Busy",
-      "source": "models/rover2.yml#Status/Busy"
-    },
-    {
-      "s": "rover2/Status",
-      "r": "exposes_variable",
-      "o": "rover2/Status/CurrentMission",
-      "source": "models/rover2.yml#Status/CurrentMission"
-    },
-    {
-      "s": "rover2/Status",
-      "r": "exposes_variable",
-      "o": "rover2/Status/LastResult",
-      "source": "models/rover2.yml#Status/LastResult"
-    },
-    {
-      "s": "rover2",
-      "r": "contains",
-      "o": "rover2/Motion",
-      "source": "models/rover2.yml#Motion"
-    },
-    {
-      "s": "rover2/Motion",
-      "r": "exposes_method",
-      "o": "rover2/Motion/StartMission",
-      "source": "models/rover2.yml#Motion/StartMission"
-    },
-    {
-      "s": "rover2/Motion/StartMission",
-      "r": "has_parameter",
-      "o": "rover2/Motion/StartMission/mission",
-      "source": "models/rover2.yml#Motion/StartMission"
-    },
-    {
-      "s": "rover2/Motion/StartMission",
-      "r": "returns",
-      "o": "rover2/Motion/StartMission/submitted",
-      "source": "models/rover2.yml#Motion/StartMission"
-    },
-    {
-      "s": "rover2/Motion",
-      "r": "exposes_method",
-      "o": "rover2/Motion/StopMission",
-      "source": "models/rover2.yml#Motion/StopMission"
-    },
-    {
-      "s": "rover2/Motion/StopMission",
-      "r": "returns",
-      "o": "rover2/Motion/StopMission/stopped",
-      "source": "models/rover2.yml#Motion/StopMission"
-    },
-    {
-      "s": "cell:transport",
-      "r": "contains",
-      "o": "rover2",
-      "source": "line"
-    },
-    {
-      "s": "tester",
-      "r": "contains",
-      "o": "tester/Status",
-      "source": "models/tester.yml#Status"
-    },
-    {
-      "s": "tester/Status",
-      "r": "exposes_variable",
-      "o": "tester/Status/Busy",
-      "source": "models/tester.yml#Status/Busy"
-    },
-    {
-      "s": "tester/Status",
-      "r": "exposes_variable",
-      "o": "tester/Status/CurrentMission",
-      "source": "models/tester.yml#Status/CurrentMission"
-    },
-    {
-      "s": "tester/Status",
-      "r": "exposes_variable",
-      "o": "tester/Status/LastResult",
-      "source": "models/tester.yml#Status/LastResult"
-    },
-    {
-      "s": "tester",
-      "r": "contains",
-      "o": "tester/Boards",
-      "source": "models/tester.yml#Boards"
-    },
-    {
-      "s": "tester/Boards",
-      "r": "exposes_method",
-      "o": "tester/Boards/BoardIn",
-      "source": "models/tester.yml#Boards/BoardIn"
-    },
-    {
-      "s": "tester/Boards/BoardIn",
-      "r": "returns",
-      "o": "tester/Boards/BoardIn/accepted",
-      "source": "models/tester.yml#Boards/BoardIn"
-    },
-    {
-      "s": "tester/Boards",
-      "r": "exposes_method",
-      "o": "tester/Boards/RunTest",
-      "source": "models/tester.yml#Boards/RunTest"
-    },
-    {
-      "s": "tester/Boards/RunTest",
-      "r": "has_parameter",
-      "o": "tester/Boards/RunTest/serial",
-      "source": "models/tester.yml#Boards/RunTest"
-    },
-    {
-      "s": "tester/Boards/RunTest",
-      "r": "returns",
-      "o": "tester/Boards/RunTest/started",
-      "source": "models/tester.yml#Boards/RunTest"
-    },
-    {
-      "s": "tester/Boards",
-      "r": "exposes_method",
-      "o": "tester/Boards/BoardOut",
-      "source": "models/tester.yml#Boards/BoardOut"
-    },
-    {
-      "s": "tester/Boards/BoardOut",
-      "r": "returns",
-      "o": "tester/Boards/BoardOut/done",
-      "source": "models/tester.yml#Boards/BoardOut"
-    },
-    {
-      "s": "tester/Boards",
-      "r": "exposes_variable",
-      "o": "tester/Boards/TestPassed",
-      "source": "models/tester.yml#Boards/TestPassed"
-    },
-    {
-      "s": "cell:test",
-      "r": "contains",
-      "o": "tester",
-      "source": "line"
-    },
-    {
-      "s": "cnc",
-      "r": "contains",
-      "o": "cnc/Status",
-      "source": "models/cnc.yml#Status"
-    },
-    {
-      "s": "cnc/Status",
-      "r": "exposes_variable",
-      "o": "cnc/Status/Busy",
-      "source": "models/cnc.yml#Status/Busy"
-    },
-    {
-      "s": "cnc/Status",
-      "r": "exposes_variable",
-      "o": "cnc/Status/CurrentMission",
-      "source": "models/cnc.yml#Status/CurrentMission"
-    },
-    {
-      "s": "cnc/Status",
-      "r": "exposes_variable",
-      "o": "cnc/Status/LastResult",
-      "source": "models/cnc.yml#Status/LastResult"
-    },
-    {
-      "s": "cnc",
-      "r": "contains",
-      "o": "cnc/Arm",
-      "source": "models/cnc.yml#Arm"
-    },
-    {
-      "s": "cnc/Arm",
-      "r": "exposes_variable",
-      "o": "cnc/Arm/AtPallet",
-      "source": "models/cnc.yml#Arm/AtPallet"
-    },
-    {
-      "s": "cnc/Arm",
-      "r": "exposes_method",
-      "o": "cnc/Arm/PickBoard",
-      "source": "models/cnc.yml#Arm/PickBoard"
-    },
-    {
-      "s": "cnc/Arm/PickBoard",
-      "r": "returns",
-      "o": "cnc/Arm/PickBoard/done",
-      "source": "models/cnc.yml#Arm/PickBoard"
-    },
-    {
-      "s": "cnc/Arm",
-      "r": "exposes_method",
-      "o": "cnc/Arm/Engrave",
-      "source": "models/cnc.yml#Arm/Engrave"
-    },
-    {
-      "s": "cnc/Arm/Engrave",
-      "r": "has_parameter",
-      "o": "cnc/Arm/Engrave/serial",
-      "source": "models/cnc.yml#Arm/Engrave"
-    },
-    {
-      "s": "cnc/Arm/Engrave",
-      "r": "returns",
-      "o": "cnc/Arm/Engrave/done",
-      "source": "models/cnc.yml#Arm/Engrave"
-    },
-    {
-      "s": "cnc/Arm",
-      "r": "exposes_method",
-      "o": "cnc/Arm/PlaceBoard",
-      "source": "models/cnc.yml#Arm/PlaceBoard"
-    },
-    {
-      "s": "cnc/Arm/PlaceBoard",
-      "r": "returns",
-      "o": "cnc/Arm/PlaceBoard/done",
-      "source": "models/cnc.yml#Arm/PlaceBoard"
-    },
-    {
-      "s": "cell:cnc",
-      "r": "contains",
-      "o": "cnc",
-      "source": "line"
-    },
-    {
-      "s": "assembly",
-      "r": "contains",
-      "o": "assembly/Status",
-      "source": "models/assembly.yml#Status"
-    },
-    {
-      "s": "assembly/Status",
-      "r": "exposes_variable",
-      "o": "assembly/Status/Busy",
-      "source": "models/assembly.yml#Status/Busy"
-    },
-    {
-      "s": "assembly/Status",
-      "r": "exposes_variable",
-      "o": "assembly/Status/CurrentMission",
-      "source": "models/assembly.yml#Status/CurrentMission"
-    },
-    {
-      "s": "assembly/Status",
-      "r": "exposes_variable",
-      "o": "assembly/Status/LastResult",
-      "source": "models/assembly.yml#Status/LastResult"
-    },
-    {
-      "s": "assembly",
-      "r": "contains",
-      "o": "assembly/Alarms",
-      "source": "models/assembly.yml#Alarms"
-    },
-    {
-      "s": "assembly/Alarms",
-      "r": "exposes_variable",
-      "o": "assembly/Alarms/EmergencyStop",
-      "source": "models/assembly.yml#Alarms/EmergencyStop"
-    },
-    {
-      "s": "assembly",
-      "r": "has_alarm",
-      "o": "alarm:assembly/EmergencyStop",
-      "source": "models/assembly.yml#Alarms/EmergencyStop"
-    },
-    {
-      "s": "assembly/Alarms",
-      "r": "exposes_variable",
-      "o": "assembly/Alarms/ScrewdriverFault",
-      "source": "models/assembly.yml#Alarms/ScrewdriverFault"
-    },
-    {
-      "s": "assembly",
-      "r": "has_alarm",
-      "o": "alarm:assembly/ScrewdriverFault",
-      "source": "models/assembly.yml#Alarms/ScrewdriverFault"
-    },
-    {
-      "s": "assembly",
-      "r": "exposes_method",
-      "o": "assembly/ResetAlarms",
-      "source": "models/assembly.yml#ResetAlarms"
-    },
-    {
-      "s": "assembly/ResetAlarms",
-      "r": "has_parameter",
-      "o": "assembly/ResetAlarms/mask",
-      "source": "models/assembly.yml#ResetAlarms"
-    },
-    {
-      "s": "assembly/ResetAlarms",
-      "r": "returns",
-      "o": "assembly/ResetAlarms/done",
-      "source": "models/assembly.yml#ResetAlarms"
-    },
-    {
-      "s": "assembly",
-      "r": "contains",
-      "o": "assembly/Assembly",
-      "source": "models/assembly.yml#Assembly"
-    },
-    {
-      "s": "assembly/Assembly",
-      "r": "exposes_method",
-      "o": "assembly/Assembly/Assemble",
-      "source": "models/assembly.yml#Assembly/Assemble"
-    },
-    {
-      "s": "assembly/Assembly/Assemble",
-      "r": "has_parameter",
-      "o": "assembly/Assembly/Assemble/board",
-      "source": "models/assembly.yml#Assembly/Assemble"
-    },
-    {
-      "s": "assembly/Assembly/Assemble",
-      "r": "returns",
-      "o": "assembly/Assembly/Assemble/done",
-      "source": "models/assembly.yml#Assembly/Assemble"
-    },
-    {
-      "s": "assembly/Assembly",
-      "r": "exposes_method",
-      "o": "assembly/Assembly/Screw",
-      "source": "models/assembly.yml#Assembly/Screw"
-    },
-    {
-      "s": "assembly/Assembly/Screw",
-      "r": "has_parameter",
-      "o": "assembly/Assembly/Screw/program",
-      "source": "models/assembly.yml#Assembly/Screw"
-    },
-    {
-      "s": "assembly/Assembly/Screw",
-      "r": "returns",
-      "o": "assembly/Assembly/Screw/done",
-      "source": "models/assembly.yml#Assembly/Screw"
-    },
-    {
-      "s": "cell:assembly",
-      "r": "contains",
-      "o": "assembly",
-      "source": "line"
-    },
-    {
-      "s": "qc",
-      "r": "contains",
-      "o": "qc/Status",
-      "source": "models/qc.yml#Status"
-    },
-    {
-      "s": "qc/Status",
-      "r": "exposes_variable",
-      "o": "qc/Status/Busy",
-      "source": "models/qc.yml#Status/Busy"
-    },
-    {
-      "s": "qc/Status",
-      "r": "exposes_variable",
-      "o": "qc/Status/CurrentMission",
-      "source": "models/qc.yml#Status/CurrentMission"
-    },
-    {
-      "s": "qc/Status",
-      "r": "exposes_variable",
-      "o": "qc/Status/LastResult",
-      "source": "models/qc.yml#Status/LastResult"
-    },
-    {
-      "s": "qc",
-      "r": "contains",
-      "o": "qc/Inspection",
-      "source": "models/qc.yml#Inspection"
-    },
-    {
-      "s": "qc/Inspection",
-      "r": "exposes_method",
-      "o": "qc/Inspection/CheckPallet",
-      "source": "models/qc.yml#Inspection/CheckPallet"
-    },
-    {
-      "s": "qc/Inspection/CheckPallet",
-      "r": "has_parameter",
-      "o": "qc/Inspection/CheckPallet/pallet",
-      "source": "models/qc.yml#Inspection/CheckPallet"
-    },
-    {
-      "s": "qc/Inspection/CheckPallet",
-      "r": "returns",
-      "o": "qc/Inspection/CheckPallet/passed",
-      "source": "models/qc.yml#Inspection/CheckPallet"
-    },
-    {
-      "s": "qc/Inspection",
-      "r": "exposes_variable",
-      "o": "qc/Inspection/Passed",
-      "source": "models/qc.yml#Inspection/Passed"
-    },
-    {
-      "s": "qc/Inspection",
-      "r": "exposes_variable",
-      "o": "qc/Inspection/ChecksTotal",
-      "source": "models/qc.yml#Inspection/ChecksTotal"
-    },
-    {
-      "s": "cell:qc",
-      "r": "contains",
-      "o": "qc",
-      "source": "line"
     },
     {
       "s": "conveyor",

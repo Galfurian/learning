@@ -1,7 +1,7 @@
 device: qc
 name: Camera Quality Cell
 kind: camera quality control
-cell: cell:qc
+cell: qc
 nodes:
 - folder: Status
   description: Current device state.

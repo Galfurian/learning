@@ -3,6 +3,7 @@ import re
 from pathlib import Path
 
 import yaml
+from kglab.parse import load_models
 
 
 ROOT = Path(__file__).parents[1]
@@ -63,6 +64,17 @@ def test_gold_node_ids_are_unique_and_sources_exist():
         text = chunks[source]
         assert any(value in text for value in mentions(node_by_id[edge["s"]], edge["s"])), edge
         assert any(value in text for value in mentions(node_by_id[edge["o"]], edge["o"])), edge
+
+
+def test_gold_tree_matches_independent_generator_contract():
+    gold = json.loads((DATA / "gold.json").read_text(encoding="utf-8"))
+    parsed = load_models(DATA / "line" / "models")
+    gold_tree = {
+        (edge["s"], edge["r"], edge["o"])
+        for edge in gold["edges"]
+        if edge["source"].startswith("models/")
+    }
+    assert parsed.triples() == gold_tree
 
 
 def test_prose_edges_are_distributed_and_schema_is_used():

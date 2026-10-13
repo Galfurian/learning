@@ -1,7 +1,7 @@
 device: conveyor
 name: Loop Conveyor
 kind: pallet conveyor
-cell: cell:conveyor
+cell: conveyor
 nodes:
 - folder: Status
   description: Current device state.

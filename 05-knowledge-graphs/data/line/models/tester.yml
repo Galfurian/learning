@@ -1,7 +1,7 @@
 device: tester
 name: Board Tester
 kind: test cell
-cell: cell:test
+cell: test
 nodes:
 - folder: Status
   description: Current device state.

@@ -1,7 +1,7 @@
 device: rover2
 name: Rover R-2
 kind: mobile robot
-cell: cell:transport
+cell: transport
 nodes:
 - folder: Status
   description: Current device state.

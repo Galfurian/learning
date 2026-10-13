@@ -1,7 +1,7 @@
 device: cnc
 name: Engraving Cell
 kind: CNC and arm
-cell: cell:cnc
+cell: cnc
 nodes:
 - folder: Status
   description: Current device state.

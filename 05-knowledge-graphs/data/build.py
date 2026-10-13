@@ -62,12 +62,12 @@ def reset_method() -> dict[str, Any]:
 
 def models() -> list[dict[str, Any]]:
     return [
-        {"device": "conveyor", "name": "Loop Conveyor", "kind": "pallet conveyor", "cell": "cell:conveyor",
+        {"device": "conveyor", "name": "Loop Conveyor", "kind": "pallet conveyor", "cell": "conveyor",
          "nodes": [status(), alarm_folder(), reset_method(), method("MovePallet", "Moves one pallet to a bay.",
              [{"name": "pallet", "type": "string", "description": "Pallet identifier."},
               {"name": "bay", "type": "string", "description": "Destination bay."}],
              [{"name": "accepted", "type": "bool", "description": "True when the move is queued."}])]},
-        {"device": "warehouse", "name": "Vertical Warehouse", "kind": "vertical warehouse", "cell": "cell:warehouse",
+        {"device": "warehouse", "name": "Vertical Warehouse", "kind": "vertical warehouse", "cell": "warehouse",
          "nodes": [status(), folder("Inventory", "Trays and stock state.", [
              variable("TrayInBay", "string", "", "Tray currently at the operator bay."),
              variable("StockReady", "bool", True, "True when the requested tray can be handled."),
@@ -76,7 +76,7 @@ def models() -> list[dict[str, Any]]:
              [{"name": "accepted", "type": "bool", "description": "True when extraction is queued."}]),
          method("SendBack", "Returns the tray from the operator bay.", returns=[
              {"name": "done", "type": "bool", "description": "True when return is accepted."}])]},
-        {"device": "rover1", "name": "Rover R-1", "kind": "mobile robot", "cell": "cell:transport",
+        {"device": "rover1", "name": "Rover R-1", "kind": "mobile robot", "cell": "transport",
          "nodes": [status(), folder("Motion", "Motion commands.", [
              method("StartMission", "Starts a named delivery mission.",
                     [{"name": "mission", "type": "string", "description": "Mission identifier."}],
@@ -84,7 +84,7 @@ def models() -> list[dict[str, Any]]:
              method("StopMission", "Stops the active delivery mission.", returns=[
                  {"name": "stopped", "type": "bool", "description": "True when stopped."}]),
          ])]},
-        {"device": "rover2", "name": "Rover R-2", "kind": "mobile robot", "cell": "cell:transport",
+        {"device": "rover2", "name": "Rover R-2", "kind": "mobile robot", "cell": "transport",
          "nodes": [status(), folder("Motion", "Motion commands.", [
              method("StartMission", "Starts a named delivery mission.",
                     [{"name": "mission", "type": "string", "description": "Mission identifier."}],
@@ -92,7 +92,7 @@ def models() -> list[dict[str, Any]]:
              method("StopMission", "Stops the active delivery mission.", returns=[
                  {"name": "stopped", "type": "bool", "description": "True when stopped."}]),
          ])]},
-        {"device": "tester", "name": "Board Tester", "kind": "test cell", "cell": "cell:test",
+        {"device": "tester", "name": "Board Tester", "kind": "test cell", "cell": "test",
          "nodes": [status(), folder("Boards", "Board transfer and test operations.", [
              method("BoardIn", "Accepts a board at the input bay.", returns=[
                  {"name": "accepted", "type": "bool", "description": "True when accepted."}]),
@@ -103,7 +103,7 @@ def models() -> list[dict[str, Any]]:
                  {"name": "done", "type": "bool", "description": "True when released."}]),
              variable("TestPassed", "bool", False, "Result of the last board test."),
          ])]},
-        {"device": "cnc", "name": "Engraving Cell", "kind": "CNC and arm", "cell": "cell:cnc",
+        {"device": "cnc", "name": "Engraving Cell", "kind": "CNC and arm", "cell": "cnc",
          "nodes": [status(), folder("Arm", "Arm and spindle operations.", [
              variable("AtPallet", "bool", False, "True when the arm is at the pallet."),
              method("PickBoard", "Picks a board from the pallet.", returns=[
@@ -114,7 +114,7 @@ def models() -> list[dict[str, Any]]:
              method("PlaceBoard", "Places the board on the pallet.", returns=[
                  {"name": "done", "type": "bool", "description": "True when placed."}]),
          ])]},
-        {"device": "assembly", "name": "Assembly Cell", "kind": "assembly PLC and arms", "cell": "cell:assembly",
+        {"device": "assembly", "name": "Assembly Cell", "kind": "assembly PLC and arms", "cell": "assembly",
          "nodes": [status(), folder("Alarms", "Assembly alarm flags.", [
              variable("EmergencyStop", "bool", False, "An emergency stop is active."),
              variable("ScrewdriverFault", "bool", False, "The screwdriver reports a fault."),
@@ -126,7 +126,7 @@ def models() -> list[dict[str, Any]]:
                     [{"name": "program", "type": "string", "description": "Screwdriver program."}],
                     [{"name": "done", "type": "bool", "description": "True when complete."}]),
          ])]},
-        {"device": "qc", "name": "Camera Quality Cell", "kind": "camera quality control", "cell": "cell:qc",
+        {"device": "qc", "name": "Camera Quality Cell", "kind": "camera quality control", "cell": "qc",
          "nodes": [status(), folder("Inspection", "Pallet inspection operations.", [
              method("CheckPallet", "Checks the assembled pallet.",
                     [{"name": "pallet", "type": "string", "description": "Pallet identifier."}],
@@ -159,28 +159,44 @@ def model_graph(model: dict[str, Any]) -> tuple[list[dict[str, Any]], list[dict[
     device = model["device"]
     nodes = [{"id": device, "type": "Device", "name": model["name"],
               "aliases": (["the first rover", "R-1"] if device == "rover1" else
-                          ["the second rover", "R-2"] if device == "rover2" else []), "props": {"kind": model["kind"], "cell": model["cell"]}}]
+                          ["the second rover", "R-2"] if device == "rover2" else []), "props": {"kind": model["kind"]}}]
     edges: list[dict[str, str]] = []
+    model_file = f"models/{device}.yml"
+    if model.get("cell"):
+        cell = f"cell:{model['cell']}"
+        edges.append({"s": "line:main", "r": "contains", "o": cell, "source": f"{model_file}#"})
+        edges.append({"s": cell, "r": "contains", "o": device, "source": f"{model_file}#"})
+    else:
+        edges.append({"s": "line:main", "r": "contains", "o": device, "source": f"{model_file}#"})
     for node_id, kind, parent, node in iter_children(model["nodes"], device):
-        nodes.append({"id": node_id, "type": kind, "name": display(node), "aliases": [], "props": {"type": node.get("type")} })
-        source = f"models/{device}.yml#{node_id[len(device) + 1:]}"
+        if kind == "Folder":
+            props = {"description": node.get("description", "")}
+        elif kind == "Variable":
+            props = {"type": node.get("type", ""), "initial": node.get("initial"),
+                     "description": node.get("description", "")}
+        else:
+            props = {"description": node.get("description", "")}
+        nodes.append({"id": node_id, "type": kind, "name": display(node), "aliases": [], "props": props})
+        source = f"{model_file}#{node_id[len(device) + 1:]}"
         if kind == "Folder":
             edges.append({"s": parent, "r": "contains", "o": node_id, "source": source})
         elif kind == "Variable":
             edges.append({"s": parent, "r": "exposes_variable", "o": node_id, "source": source})
             if parent.endswith("/Alarms"):
                 alarm_id = f"alarm:{device}/{node['variable']}"
-                nodes.append({"id": alarm_id, "type": "Alarm", "name": str(node["variable"]), "aliases": [], "props": {}})
+                nodes.append({"id": alarm_id, "type": "Alarm", "name": str(node["variable"]), "aliases": [], "props": {"flag": node_id}})
                 edges.append({"s": device, "r": "has_alarm", "o": alarm_id, "source": source})
         else:
             edges.append({"s": parent, "r": "exposes_method", "o": node_id, "source": source})
             for item in node.get("parameters", []):
                 parameter_id = f"{node_id}/{item['name']}"
-                nodes.append({"id": parameter_id, "type": "Parameter", "name": item["name"], "aliases": [], "props": {"type": item["type"]}})
+                nodes.append({"id": parameter_id, "type": "Parameter", "name": item["name"], "aliases": [],
+                              "props": {"type": item["type"], "description": item.get("description", "")}})
                 edges.append({"s": node_id, "r": "has_parameter", "o": parameter_id, "source": source})
             for item in node.get("returns", []):
                 return_id = f"{node_id}/{item['name']}"
-                nodes.append({"id": return_id, "type": "Variable", "name": item["name"], "aliases": [], "props": {"type": item["type"], "return": True}})
+                nodes.append({"id": return_id, "type": "Variable", "name": item["name"], "aliases": [],
+                              "props": {"type": item["type"], "description": item.get("description", "")}})
                 edges.append({"s": node_id, "r": "returns", "o": return_id, "source": source})
     return nodes, edges
 
@@ -250,23 +266,23 @@ def main() -> None:
         path.unlink()
 
     all_nodes: list[dict[str, Any]] = [
-        {"id": "line:main", "type": "Line", "name": "Main Line", "aliases": [], "props": {}},
+        {"id": "line:main", "type": "Line", "name": "the line", "aliases": [], "props": {}},
     ]
     all_edges: list[dict[str, str]] = []
     cells = {
-        "cell:conveyor": "Conveyor Cell", "cell:warehouse": "Warehouse Cell", "cell:transport": "Transport Cell",
-        "cell:test": "Test Cell", "cell:cnc": "CNC Cell", "cell:assembly": "Assembly Cell", "cell:qc": "QC Cell",
+        "cell:conveyor": "conveyor", "cell:warehouse": "warehouse", "cell:transport": "transport",
+        "cell:test": "test", "cell:cnc": "cnc", "cell:assembly": "assembly", "cell:qc": "qc",
     }
     for cell_id, name in cells.items():
         all_nodes.append({"id": cell_id, "type": "Cell", "name": name, "aliases": [], "props": {}})
-        all_edges.append({"s": "line:main", "r": "contains", "o": cell_id, "source": "line"})
 
-    for model in models():
+    model_list = models()
+    for model in model_list:
         write_model(model)
+    for model in sorted(model_list, key=lambda item: item["device"]):
         nodes, edges = model_graph(model)
         all_nodes.extend(nodes)
         all_edges.extend(edges)
-        all_edges.append({"s": model["cell"], "r": "contains", "o": model["device"], "source": "line"})
 
     extra_nodes = [
         ("bay:1", "Bay", "Bay 1"), ("bay:2", "Bay", "Bay 2"), ("bay:3", "Bay", "Bay 3"),

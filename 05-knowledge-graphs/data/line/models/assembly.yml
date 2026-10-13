@@ -1,7 +1,7 @@
 device: assembly
 name: Assembly Cell
 kind: assembly PLC and arms
-cell: cell:assembly
+cell: assembly
 nodes:
 - folder: Status
   description: Current device state.

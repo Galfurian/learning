@@ -1,7 +1,7 @@
 device: warehouse
 name: Vertical Warehouse
 kind: vertical warehouse
-cell: cell:warehouse
+cell: warehouse
 nodes:
 - folder: Status
   description: Current device state.
