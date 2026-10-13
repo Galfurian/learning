@@ -18,6 +18,25 @@ nodes:
     type: string
     initial: idle
     description: Result of the last operation.
+- folder: Alarms
+  description: Alarm flags reported by the device.
+  children:
+  - variable: NoAirPressure
+    type: bool
+    initial: false
+    description: The air supply is below the safe level.
+  - variable: EmergencyStop
+    type: bool
+    initial: false
+    description: An emergency stop is active.
+  - variable: MotorTrip
+    type: bool
+    initial: false
+    description: The drive motor has tripped.
+  - variable: RFIDFault
+    type: bool
+    initial: false
+    description: A pallet RFID read failed.
 - folder: Boards
   description: Board transfer and test operations.
   children:
@@ -49,3 +68,64 @@ nodes:
     type: bool
     initial: false
     description: Result of the last board test.
+- folder: Statistics
+  description: Counters for the current shift.
+  children:
+  - variable: CyclesToday
+    type: number
+    initial: 0
+    description: Completed cycles since the shift started.
+  - variable: FaultsToday
+    type: number
+    initial: 0
+    description: Faults recorded since the shift started.
+  - variable: MinutesRunning
+    type: number
+    initial: 0
+    description: Running minutes since the last reset.
+  - variable: LastCycleSeconds
+    type: number
+    initial: 0
+    description: Duration of the last completed cycle.
+- folder: Diagnostics
+  description: Checks used by maintenance staff.
+  children:
+  - variable: CommunicationOk
+    type: bool
+    initial: true
+    description: True when the controller answers.
+  - variable: SafetyOk
+    type: bool
+    initial: true
+    description: True when safety inputs are healthy.
+  - variable: Firmware
+    type: string
+    initial: line-1.0
+    description: Invented controller firmware label.
+  - method: ReadDiagnostics
+    description: Reads the maintenance diagnostics.
+    parameters: []
+    returns:
+    - name: report
+      type: string
+      description: Short diagnostic report.
+- folder: Maintenance
+  description: Routine service operations.
+  children:
+  - method: AcknowledgeService
+    description: Records a completed service visit.
+    parameters:
+    - name: note
+      type: string
+      description: Service note.
+    returns:
+    - name: accepted
+      type: bool
+      description: True when the note is saved.
+  - method: ResetCounters
+    description: Resets shift counters after approval.
+    parameters: []
+    returns:
+    - name: done
+      type: bool
+      description: True when counters are reset.

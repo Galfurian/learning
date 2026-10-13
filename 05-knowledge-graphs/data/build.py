@@ -60,8 +60,33 @@ def reset_method() -> dict[str, Any]:
                    [{"name": "done", "type": "bool", "description": "True when the reset is accepted."}])
 
 
-def models() -> list[dict[str, Any]]:
+def common_diagnostics() -> list[dict[str, Any]]:
     return [
+        folder("Statistics", "Counters for the current shift.", [
+            variable("CyclesToday", "number", 0, "Completed cycles since the shift started."),
+            variable("FaultsToday", "number", 0, "Faults recorded since the shift started."),
+            variable("MinutesRunning", "number", 0, "Running minutes since the last reset."),
+            variable("LastCycleSeconds", "number", 0, "Duration of the last completed cycle."),
+        ]),
+        folder("Diagnostics", "Checks used by maintenance staff.", [
+            variable("CommunicationOk", "bool", True, "True when the controller answers."),
+            variable("SafetyOk", "bool", True, "True when safety inputs are healthy."),
+            variable("Firmware", "string", "line-1.0", "Invented controller firmware label."),
+            method("ReadDiagnostics", "Reads the maintenance diagnostics.", returns=[
+                {"name": "report", "type": "string", "description": "Short diagnostic report."}]),
+        ]),
+        folder("Maintenance", "Routine service operations.", [
+            method("AcknowledgeService", "Records a completed service visit.",
+                   [{"name": "note", "type": "string", "description": "Service note."}],
+                   [{"name": "accepted", "type": "bool", "description": "True when the note is saved."}]),
+            method("ResetCounters", "Resets shift counters after approval.", returns=[
+                {"name": "done", "type": "bool", "description": "True when counters are reset."}]),
+        ]),
+    ]
+
+
+def models() -> list[dict[str, Any]]:
+    result = [
         {"device": "conveyor", "name": "Loop Conveyor", "kind": "pallet conveyor", "cell": "conveyor",
          "nodes": [status(), alarm_folder(), reset_method(), method("MovePallet", "Moves one pallet to a bay.",
              [{"name": "pallet", "type": "string", "description": "Pallet identifier."},
@@ -118,6 +143,8 @@ def models() -> list[dict[str, Any]]:
          "nodes": [status(), folder("Alarms", "Assembly alarm flags.", [
              variable("EmergencyStop", "bool", False, "An emergency stop is active."),
              variable("ScrewdriverFault", "bool", False, "The screwdriver reports a fault."),
+             variable("NoAirPressure", "bool", False, "The air supply is below the safe level."),
+             variable("MotorTrip", "bool", False, "The assembly drive has tripped."),
          ]), reset_method(), folder("Assembly", "Assembly operations.", [
              method("Assemble", "Fits the covers to the board.",
                     [{"name": "board", "type": "string", "description": "Board identifier."}],
@@ -133,8 +160,13 @@ def models() -> list[dict[str, Any]]:
                     [{"name": "passed", "type": "bool", "description": "True when all checks pass."}]),
              variable("Passed", "bool", False, "Result of the last pallet inspection."),
              variable("ChecksTotal", "number", 0, "Number of completed inspections."),
-         ])]},
+             ])]},
     ]
+    for model in result:
+        if not any(node.get("folder") == "Alarms" for node in model["nodes"]):
+            model["nodes"].insert(1, alarm_folder())
+        model["nodes"].extend(common_diagnostics())
+    return result
 
 
 def iter_children(nodes: list[dict[str, Any]], prefix: str) -> list[tuple[str, str, str | None, dict[str, Any]]]:
@@ -206,48 +238,113 @@ def prose() -> tuple[dict[str, list[dict[str, Any]]], list[dict[str, str]]]:
     links: list[dict[str, str]] = []
 
     def add(file: str, chunk: str, text: str, edges: list[tuple[str, str, str]]) -> None:
+        while len(text.split()) < 50:
+            text += " Record the result in the shift log before the next handover."
         notes.setdefault(file, []).append({"id": chunk, "title": chunk.replace("-", " ").title(), "text": text})
         for s, r, o in edges:
             links.append({"s": s, "r": r, "o": o, "source": chunk})
 
-    add("conveyor.md", "conveyor-route", "The Loop Conveyor serves bay 1 and bay 2. MovePallet moves pallet:7 to bay:1, then to bay:2. The conveyor requires cond:conveyor/ready, observed by conveyor/Status/Busy.", [
+    add("conveyor.md", "conveyor-route", "The Loop Conveyor serves bay 1 and bay 2. MovePallet moves pallet 7 to bay 1, then to bay 2. The conveyor requires the line-ready condition, observed by the Busy flag in its Status folder. A full loop takes about four minutes at the standard speed.", [
         ("conveyor", "serves_bay", "bay:1"), ("conveyor", "serves_bay", "bay:2"), ("conveyor", "moves", "pallet:7"), ("conveyor/MovePallet", "requires", "cond:conveyor/ready"), ("cond:conveyor/ready", "observed_by", "conveyor/Status/Busy")])
-    add("conveyor.md", "conveyor-alarms", "The conveyor alarm:conveyor/NoAirPressure stops assembly and alarm:conveyor/MotorTrip stops qc. ResetAlarms fixes both alarms after the line is safe.", [
+    add("conveyor.md", "conveyor-alarms", "The low air pressure alarm of the Loop Conveyor stops the Assembly Cell, and its motor trip alarm stops the Camera Quality Cell. The ResetAlarms method clears both alarms after the guard is closed. Call the line supervisor if an alarm returns twice in one shift.", [
         ("alarm:conveyor/NoAirPressure", "stops", "assembly"), ("alarm:conveyor/MotorTrip", "stops", "qc")])
-    add("warehouse.md", "warehouse-operations", "The Vertical Warehouse serves bay 5. ExtractTray requires cond:warehouse/idle, observed by warehouse/Status/Busy, and moves item:tray. SendBack also moves item:tray.", [
+    add("warehouse.md", "warehouse-operations", "The Vertical Warehouse serves bay 5. ExtractTray requires the warehouse to be idle, observed by the Busy flag in the Status folder, and moves a tray to the operator bay. SendBack also moves a tray. Wait ten seconds after the lift stops before opening the bay door.", [
         ("warehouse", "serves_bay", "bay:5"), ("warehouse/ExtractTray", "requires", "cond:warehouse/idle"), ("cond:warehouse/idle", "observed_by", "warehouse/Status/Busy"), ("warehouse", "moves", "item:tray")])
-    add("warehouse.md", "warehouse-reset", "The warehouse alarm reset uses warehouse/ResetAlarms. Its operation needs cond:warehouse/stock-ready, observed by warehouse/Inventory/StockReady, and the result is warehouse/ResetAlarms/done.", [
+    add("warehouse.md", "warehouse-reset", "The warehouse alarm reset uses ResetAlarms. Its operation needs the stock-ready condition, observed by the StockReady flag in Inventory, and returns a completion flag. The operator must check that no person is inside the lift before starting a tray cycle.", [
         ("warehouse/ResetAlarms", "requires", "cond:warehouse/stock-ready"), ("cond:warehouse/stock-ready", "observed_by", "warehouse/Inventory/StockReady")])
-    add("rovers.md", "rovers-missions", "Rover R-1, also called the first rover, serves bay 5 and moves item:board from the warehouse to pallet:7. StartMission requires cond:rover/idle, observed by rover1/Status/Busy. Rover R-2 serves bay 5 too.", [
+    add("rovers.md", "rovers-missions", "Rover R-1, also called the first rover, serves bay 5 and moves a board from the warehouse to pallet 7. StartMission requires the rover to be idle, observed by the Busy flag in the Status folder of R-1. Rover R-2 serves bay 5 too, but it does not serve bay 3. Charge either rover for twenty minutes after four missions.", [
         ("rover1", "serves_bay", "bay:5"), ("rover1", "moves", "item:board"), ("rover1/Motion/StartMission", "requires", "cond:rover/idle"), ("cond:rover/idle", "observed_by", "rover1/Status/Busy"), ("rover2", "serves_bay", "bay:5")])
-    add("rovers.md", "rovers-confirm", "The rover mission:rover/deliver-board is confirmed by rover1/Status/LastResult. The second rover, or R-2, can also move item:cover to pallet:7.", [
+    add("rovers.md", "rovers-confirm", "The delivery mission is confirmed by the LastResult flag in the Status folder of R-1. The second rover, also called R-2, can move a cover to pallet 7. It then waits for bay 5 before returning to the charging point. Do not swap the two mission names in the supervisor configuration.", [
         ("rover1/Status/LastResult", "confirms", "mission:rover/deliver-board"), ("rover2", "moves", "item:cover")])
-    add("tester.md", "tester-route", "The Board Tester serves bay 2 and moves item:board to cell:cnc. BoardIn requires cond:tester/ready, observed by tester/Status/Busy.", [
+    add("tester.md", "tester-route", "The Board Tester serves bay 2 and moves a board to the Engraving Cell. BoardIn requires the tester to be ready, observed by the Busy flag in its Status folder. The input clamp takes six seconds to close and must be empty before a new board arrives.", [
         ("tester", "serves_bay", "bay:2"), ("tester", "moves", "item:board"), ("tester/Boards/BoardIn", "requires", "cond:tester/ready"), ("cond:tester/ready", "observed_by", "tester/Status/Busy")])
-    add("tester.md", "tester-result", "The test mission:tester/board-test is confirmed by tester/Boards/TestPassed. RunTest returns tester/Boards/RunTest/started.", [
+    add("tester.md", "tester-result", "The board test mission is confirmed by the TestPassed flag in the Boards folder. RunTest returns a submitted result before the measurements finish. A failed test keeps the board at the output station until a technician records the reason.", [
         ("tester/Boards/TestPassed", "confirms", "mission:tester/board-test")])
-    add("cnc.md", "cnc-route", "The Engraving Cell serves bay 3 and moves item:board. PickBoard requires cond:cnc/idle, observed by cnc/Status/Busy.", [
+    add("cnc.md", "cnc-route", "The Engraving Cell serves bay 3 and moves a board. PickBoard requires the CNC cell to be idle, observed by the Busy flag in its Status folder. The arm must approach from the marked side, and the spindle needs a thirty-second warm-up before engraving.", [
         ("cnc", "serves_bay", "bay:3"), ("cnc", "moves", "item:board"), ("cnc/Arm/PickBoard", "requires", "cond:cnc/idle"), ("cond:cnc/idle", "observed_by", "cnc/Status/Busy")])
-    add("cnc.md", "cnc-confirm", "The engraving mission:cnc/engrave-board is confirmed by cnc/Status/LastResult. PlaceBoard moves item:board to pallet:7.", [
+    add("cnc.md", "cnc-confirm", "The engraving mission is confirmed by the LastResult flag in the Status folder of the Engraving Cell. PlaceBoard moves the board to pallet 7. Inspect the engraving depth every fifty boards and stop the cell if the depth is outside the work instruction.", [
         ("cnc/Status/LastResult", "confirms", "mission:cnc/engrave-board"), ("cnc", "moves", "item:board")])
-    add("assembly.md", "assembly-route", "The Assembly Cell serves bay 4 and moves item:cover-top and item:cover-bottom onto pallet:7. Assemble requires cond:assembly/idle, observed by assembly/Status/Busy.", [
+    add("assembly.md", "assembly-route", "The Assembly Cell serves bay 4 and moves a top cover and a bottom cover onto pallet 7. Assemble requires the cell to be idle, observed by the Busy flag in its Status folder. The two arms must report home before the pallet enters the fixture.", [
         ("assembly", "serves_bay", "bay:4"), ("assembly", "moves", "item:cover-top"), ("assembly", "moves", "item:cover-bottom"), ("assembly/Assembly/Assemble", "requires", "cond:assembly/idle"), ("cond:assembly/idle", "observed_by", "assembly/Status/Busy")])
-    add("assembly.md", "assembly-confirm", "The assembly mission:assembly/fit-covers is confirmed by assembly/Status/LastResult. Screw requires cond:assembly/screwdriver-ready, observed by assembly/Status/Busy.", [
+    add("assembly.md", "assembly-confirm", "The assembly mission is confirmed by the LastResult flag in the Status folder. Screw requires the screwdriver to be ready, observed by the Busy flag while the program runs. Replace the bit after two hundred cycles and record the program number in the shift log.", [
         ("assembly/Status/LastResult", "confirms", "mission:assembly/fit-covers"), ("assembly/Assembly/Screw", "requires", "cond:assembly/screwdriver-ready"), ("cond:assembly/screwdriver-ready", "observed_by", "assembly/Status/Busy")])
-    add("qc.md", "qc-route", "The Camera Quality Cell serves bay 5. CheckPallet requires cond:qc/idle, observed by qc/Status/Busy, and confirms mission:qc/inspect-pallet through qc/Inspection/Passed.", [
+    add("qc.md", "qc-route", "The Camera Quality Cell serves bay 5. CheckPallet requires the inspection cell to be idle, observed by the Busy flag in its Status folder, and confirms the pallet inspection through the Passed flag in Inspection. The camera takes twelve seconds to scan one pallet.", [
         ("qc", "serves_bay", "bay:5"), ("qc/Inspection/CheckPallet", "requires", "cond:qc/idle"), ("cond:qc/idle", "observed_by", "qc/Status/Busy"), ("qc/Inspection/Passed", "confirms", "mission:qc/inspect-pallet")])
-    add("qc.md", "qc-result", "The QC mission:qc/inspect-pallet is confirmed by qc/Inspection/Passed. The camera cell moves item:board to the finished pallet record.", [
+    add("qc.md", "qc-result", "The pallet inspection is confirmed by the Passed flag in the Inspection folder. The camera cell moves the board to the finished pallet record. If the result is false, keep the pallet in bay 5 and ask quality staff to review the images before releasing it.", [
         ("qc/Inspection/Passed", "confirms", "mission:qc/inspect-pallet"), ("qc", "moves", "item:board")])
-    add("line.md", "line-route", "The route is bay:1, then bay:2, bay:3, bay:4, and bay:5. The conveyor next step is bay:2; bay:2 next step is bay:3; bay:3 next step is bay:4; bay:4 next step is bay:5.", [
+    add("line.md", "line-route", "The route is bay 1, then bay 2, bay 3, bay 4, and bay 5. The conveyor next step is bay 2; bay 2 next step is bay 3; bay 3 next step is bay 4; bay 4 next step is bay 5. A pallet must not skip a bay because the barcode reader checks the route at every stop.", [
         ("bay:1", "next_step", "bay:2"), ("bay:2", "next_step", "bay:3"), ("bay:3", "next_step", "bay:4"), ("bay:4", "next_step", "bay:5")])
-    add("line.md", "line-stops", "alarm:assembly/EmergencyStop stops conveyor. alarm:conveyor/EmergencyStop stops warehouse. alarm:conveyor/NoAirPressure stops assembly.", [
+    add("line.md", "line-stops", "An emergency stop in the Assembly Cell stops the conveyor. An emergency stop on the conveyor stops the warehouse. The low air pressure alarm of the conveyor stops the Assembly Cell. The alarm lamp stays on until the cause is removed and the reset method is accepted.", [
         ("alarm:assembly/EmergencyStop", "stops", "conveyor"), ("alarm:conveyor/EmergencyStop", "stops", "warehouse"), ("alarm:conveyor/NoAirPressure", "stops", "assembly")])
-    add("incidents.md", "incident-rover-alias", "Incident incident:2026-03-04-1: on 2026-03-04, the first rover raised alarm:conveyor/RFIDFault while moving item:board. The incident was on rover1 and rover1/Motion/StopMission fixed it.", [
+    add("incidents.md", "incident-rover-alias", "On 4 March, the first rover raised an RFID reader fault on the loop conveyor while moving a board. The incident was on Rover R-1, and StopMission on that rover fixed it.", [
         ("incident:2026-03-04-1", "incident_on", "rover1"), ("incident:2026-03-04-1", "raised", "alarm:conveyor/RFIDFault"), ("incident:2026-03-04-1", "fixed_by_method", "rover1/Motion/StopMission")])
-    add("incidents.md", "incident-rover-second", "Incident incident:2026-03-05-1: on 2026-03-05, R-2 had alarm:assembly/ScrewdriverFault. The incident was on rover2 and rover2/Motion/StopMission fixed it.", [
+    add("incidents.md", "incident-rover-second", "On 5 March, R-2 reported a screwdriver fault in the Assembly Cell. The incident was on the second rover, and StopMission on that rover fixed it.", [
         ("incident:2026-03-05-1", "incident_on", "rover2"), ("incident:2026-03-05-1", "raised", "alarm:assembly/ScrewdriverFault"), ("incident:2026-03-05-1", "fixed_by_method", "rover2/Motion/StopMission")])
-    add("incidents.md", "incident-ambiguous", "Incident incident:2026-03-06-1: on 2026-03-06, the rover raised alarm:conveyor/MotorTrip. The phrase the rover is ambiguous: it can mean rover1 or rover2, so the incident is not linked to one device.", [
+    add("incidents.md", "incident-ambiguous", "On 6 March, the rover raised a motor trip alarm on the conveyor. The operator stopped the line and recorded the event for the morning review.", [
         ("incident:2026-03-06-1", "raised", "alarm:conveyor/MotorTrip")])
+
+    # These sections add operational detail that is useful context but is not
+    # part of the fixed graph schema.  They also make the extraction cost
+    # realistic without adding copied industrial documentation.
+    operating_notes = [
+        ("conveyor.md", "Loop Conveyor", "The conveyor operator", "pallets, photo eyes and the guard circuit"),
+        ("warehouse.md", "Vertical Warehouse", "The warehouse operator", "trays, the lift and the operator bay"),
+        ("rovers.md", "Rover R-1", "The transport operator", "missions, charging and the safety scanner"),
+        ("tester.md", "Board Tester", "The test operator", "board clamps, serial numbers and test recipes"),
+        ("cnc.md", "Engraving Cell", "The CNC operator", "the spindle, the arm and engraving depth"),
+        ("assembly.md", "Assembly Cell", "The assembly operator", "the two arms, covers and the screwdriver"),
+        ("qc.md", "Camera Quality Cell", "The quality operator", "the camera, lighting and inspection results"),
+        ("rovers.md", "Rover R-2", "The transport operator", "the second rover, charging and return paths"),
+    ]
+    for number, (file, device_name, actor, detail) in enumerate(operating_notes, start=1):
+        for part in range(1, 6):
+            chunk = f"{file.removesuffix('.md')}-detail-{number}-{part}"
+            text = (
+                f"{device_name} operating note {part}: {actor} checks {detail} before the first cycle. "
+                "The measured value is written in the shift log and the next operator confirms it at handover. "
+                "A normal cycle may pause for inspection when the line is busy, but the operator must not bypass a guard, "
+                "ignore a warning, or restart equipment while a person is inside the work area."
+            )
+            add(file, chunk, text, [])
+
+    add("line.md", "line-alternatives", "The Loop Conveyor also serves bay 3 and bay 4 for maintenance returns. It moves pallet 8 during a return cycle. The Vertical Warehouse serves bay 1 when a replenishment tray is needed. R-1 moves a tray, while R-2 moves a board. The Board Tester moves a cover for a fixture check. The Engraving Cell moves a top cover, the Assembly Cell moves a board, and the Camera Quality Cell moves a cover after inspection.", [
+        ("conveyor", "serves_bay", "bay:3"), ("conveyor", "serves_bay", "bay:4"), ("warehouse", "serves_bay", "bay:1"),
+        ("conveyor", "moves", "pallet:8"), ("rover1", "moves", "item:tray"), ("rover2", "moves", "item:board"), ("tester", "moves", "item:cover"),
+        ("cnc", "moves", "item:cover-top"), ("assembly", "moves", "item:board"), ("qc", "moves", "item:cover")])
+
+    extra_incidents = [
+        ("2026-03-07-1", "7 March", "the warehouse operator", "Vertical Warehouse", "warehouse", "a low air pressure alarm", "warehouse/ResetAlarms", "ResetAlarms"),
+        ("2026-03-08-1", "8 March", "the first rover", "Rover R-1", "rover1", "a motor trip alarm on the conveyor", "rover1/Motion/StopMission", "StopMission"),
+        ("2026-03-09-1", "9 March", "R-2", "Rover R-2", "rover2", "an emergency stop alarm", "rover2/Motion/StopMission", "StopMission"),
+        ("2026-03-10-1", "10 March", "the test operator", "Board Tester", "tester", "a low air pressure alarm", "tester/Boards/BoardOut", "BoardOut"),
+        ("2026-03-11-1", "11 March", "the CNC operator", "Engraving Cell", "cnc", "an emergency stop alarm", "cnc/Arm/PlaceBoard", "PlaceBoard"),
+        ("2026-03-12-1", "12 March", "the assembly operator", "Assembly Cell", "assembly", "a screwdriver fault alarm", "assembly/ResetAlarms", "ResetAlarms"),
+        ("2026-03-13-1", "13 March", "the quality operator", "Camera Quality Cell", "qc", "a motor trip alarm on the conveyor", "qc/Inspection/CheckPallet", "CheckPallet"),
+        ("2026-03-14-1", "14 March", "the warehouse operator", "Vertical Warehouse", "warehouse", "an emergency stop alarm", "warehouse/ResetAlarms", "ResetAlarms"),
+        ("2026-03-15-1", "15 March", "the first rover", "Rover R-1", "rover1", "a low air pressure alarm", "rover1/Motion/StopMission", "StopMission"),
+        ("2026-03-16-1", "16 March", "R-2", "Rover R-2", "rover2", "an RFID reader fault", "rover2/Motion/StopMission", "StopMission"),
+        ("2026-03-17-1", "17 March", "the test operator", "Board Tester", "tester", "an emergency stop alarm", "tester/Boards/BoardOut", "BoardOut"),
+        ("2026-03-18-1", "18 March", "the CNC operator", "Engraving Cell", "cnc", "a motor trip alarm on the conveyor", "cnc/Arm/PlaceBoard", "PlaceBoard"),
+        ("2026-03-19-1", "19 March", "the assembly operator", "Assembly Cell", "assembly", "an emergency stop alarm", "assembly/ResetAlarms", "ResetAlarms"),
+        ("2026-03-20-1", "20 March", "the quality operator", "Camera Quality Cell", "qc", "a low air pressure alarm", "qc/Inspection/CheckPallet", "CheckPallet"),
+        ("2026-03-21-1", "21 March", "the warehouse operator", "Vertical Warehouse", "warehouse", "a motor trip alarm on the conveyor", "warehouse/ResetAlarms", "ResetAlarms"),
+        ("2026-03-22-1", "22 March", "the first rover", "Rover R-1", "rover1", "an RFID reader fault", "rover1/Motion/StopMission", "StopMission"),
+        ("2026-03-23-1", "23 March", "R-2", "Rover R-2", "rover2", "a low air pressure alarm", "rover2/Motion/StopMission", "StopMission"),
+    ]
+    alarm_for = {
+        "a low air pressure alarm": "NoAirPressure", "an emergency stop alarm": "EmergencyStop",
+        "a motor trip alarm on the conveyor": "MotorTrip", "an RFID reader fault": "RFIDFault",
+        "a screwdriver fault alarm": "ScrewdriverFault",
+    }
+    for incident_id, date, actor, display_name, device, alarm_text, fixed_method, method_name in extra_incidents:
+        chunk = f"incident-{incident_id}"
+        text = f"On {date}, {actor} reported {alarm_text}. The incident was on {display_name}; {method_name} fixed it after the area was checked. The supervisor recorded the shift, the affected pallet, and the follow-up action."
+        alarm_device = "assembly" if alarm_text == "a screwdriver fault alarm" else "conveyor" if "conveyor" in alarm_text or "RFID" in alarm_text else device
+        add("incidents.md", chunk, text, [
+            (f"incident:{incident_id}", "incident_on", device),
+            (f"incident:{incident_id}", "raised", f"alarm:{alarm_device}/{alarm_for[alarm_text]}"),
+            (f"incident:{incident_id}", "fixed_by_method", fixed_method),
+        ])
     return notes, links
 
 
@@ -287,6 +384,7 @@ def main() -> None:
     extra_nodes = [
         ("bay:1", "Bay", "Bay 1"), ("bay:2", "Bay", "Bay 2"), ("bay:3", "Bay", "Bay 3"),
         ("bay:4", "Bay", "Bay 4"), ("bay:5", "Bay", "Bay 5"), ("pallet:7", "Pallet", "Pallet 7"),
+        ("pallet:8", "Pallet", "Pallet 8"),
         ("item:board", "Item", "Board"), ("item:cover", "Item", "Cover"),
         ("item:cover-top", "Item", "Top cover"),
         ("item:cover-bottom", "Item", "Bottom cover"), ("item:tray", "Item", "Tray"),
@@ -305,10 +403,11 @@ def main() -> None:
                           ("cond:assembly/idle", "Assembly idle"), ("cond:assembly/screwdriver-ready", "Screwdriver ready"),
                           ("cond:qc/idle", "QC idle")]:
         all_nodes.append({"id": node_id, "type": "Condition", "name": name, "aliases": [], "props": {}})
-    for incident_id, date in [("incident:2026-03-04-1", "2026-03-04"), ("incident:2026-03-05-1", "2026-03-05"), ("incident:2026-03-06-1", "2026-03-06")]:
-        all_nodes.append({"id": incident_id, "type": "Incident", "name": incident_id, "aliases": [], "props": {"date": date}})
-
     notes, links = prose()
+    incident_ids = sorted({edge["s"] for edge in links if edge["s"].startswith("incident:")})
+    for incident_id in incident_ids:
+        date = incident_id.split(":", 1)[1].rsplit("-", 1)[0]
+        all_nodes.append({"id": incident_id, "type": "Incident", "name": incident_id, "aliases": [], "props": {"date": date}})
     for file, sections in notes.items():
         path = NOTES / file
         lines = [f"# {file.removesuffix('.md').replace('-', ' ').title()}", ""]

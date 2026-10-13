@@ -157,6 +157,46 @@
       }
     },
     {
+      "id": "assembly/Alarms/NoAirPressure",
+      "type": "Variable",
+      "name": "NoAirPressure",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "The air supply is below the safe level."
+      }
+    },
+    {
+      "id": "alarm:assembly/NoAirPressure",
+      "type": "Alarm",
+      "name": "NoAirPressure",
+      "aliases": [],
+      "props": {
+        "flag": "assembly/Alarms/NoAirPressure"
+      }
+    },
+    {
+      "id": "assembly/Alarms/MotorTrip",
+      "type": "Variable",
+      "name": "MotorTrip",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "The assembly drive has tripped."
+      }
+    },
+    {
+      "id": "alarm:assembly/MotorTrip",
+      "type": "Alarm",
+      "name": "MotorTrip",
+      "aliases": [],
+      "props": {
+        "flag": "assembly/Alarms/MotorTrip"
+      }
+    },
+    {
       "id": "assembly/ResetAlarms",
       "type": "Method",
       "name": "ResetAlarms",
@@ -253,6 +293,177 @@
       }
     },
     {
+      "id": "assembly/Statistics",
+      "type": "Folder",
+      "name": "Statistics",
+      "aliases": [],
+      "props": {
+        "description": "Counters for the current shift."
+      }
+    },
+    {
+      "id": "assembly/Statistics/CyclesToday",
+      "type": "Variable",
+      "name": "CyclesToday",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Completed cycles since the shift started."
+      }
+    },
+    {
+      "id": "assembly/Statistics/FaultsToday",
+      "type": "Variable",
+      "name": "FaultsToday",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Faults recorded since the shift started."
+      }
+    },
+    {
+      "id": "assembly/Statistics/MinutesRunning",
+      "type": "Variable",
+      "name": "MinutesRunning",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Running minutes since the last reset."
+      }
+    },
+    {
+      "id": "assembly/Statistics/LastCycleSeconds",
+      "type": "Variable",
+      "name": "LastCycleSeconds",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Duration of the last completed cycle."
+      }
+    },
+    {
+      "id": "assembly/Diagnostics",
+      "type": "Folder",
+      "name": "Diagnostics",
+      "aliases": [],
+      "props": {
+        "description": "Checks used by maintenance staff."
+      }
+    },
+    {
+      "id": "assembly/Diagnostics/CommunicationOk",
+      "type": "Variable",
+      "name": "CommunicationOk",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": true,
+        "description": "True when the controller answers."
+      }
+    },
+    {
+      "id": "assembly/Diagnostics/SafetyOk",
+      "type": "Variable",
+      "name": "SafetyOk",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": true,
+        "description": "True when safety inputs are healthy."
+      }
+    },
+    {
+      "id": "assembly/Diagnostics/Firmware",
+      "type": "Variable",
+      "name": "Firmware",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "initial": "line-1.0",
+        "description": "Invented controller firmware label."
+      }
+    },
+    {
+      "id": "assembly/Diagnostics/ReadDiagnostics",
+      "type": "Method",
+      "name": "ReadDiagnostics",
+      "aliases": [],
+      "props": {
+        "description": "Reads the maintenance diagnostics."
+      }
+    },
+    {
+      "id": "assembly/Diagnostics/ReadDiagnostics/report",
+      "type": "Variable",
+      "name": "report",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "description": "Short diagnostic report."
+      }
+    },
+    {
+      "id": "assembly/Maintenance",
+      "type": "Folder",
+      "name": "Maintenance",
+      "aliases": [],
+      "props": {
+        "description": "Routine service operations."
+      }
+    },
+    {
+      "id": "assembly/Maintenance/AcknowledgeService",
+      "type": "Method",
+      "name": "AcknowledgeService",
+      "aliases": [],
+      "props": {
+        "description": "Records a completed service visit."
+      }
+    },
+    {
+      "id": "assembly/Maintenance/AcknowledgeService/note",
+      "type": "Parameter",
+      "name": "note",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "description": "Service note."
+      }
+    },
+    {
+      "id": "assembly/Maintenance/AcknowledgeService/accepted",
+      "type": "Variable",
+      "name": "accepted",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when the note is saved."
+      }
+    },
+    {
+      "id": "assembly/Maintenance/ResetCounters",
+      "type": "Method",
+      "name": "ResetCounters",
+      "aliases": [],
+      "props": {
+        "description": "Resets shift counters after approval."
+      }
+    },
+    {
+      "id": "assembly/Maintenance/ResetCounters/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when counters are reset."
+      }
+    },
+    {
       "id": "cnc",
       "type": "Device",
       "name": "Engraving Cell",
@@ -301,6 +512,95 @@
         "type": "string",
         "initial": "idle",
         "description": "Result of the last operation."
+      }
+    },
+    {
+      "id": "cnc/Alarms",
+      "type": "Folder",
+      "name": "Alarms",
+      "aliases": [],
+      "props": {
+        "description": "Alarm flags reported by the device."
+      }
+    },
+    {
+      "id": "cnc/Alarms/NoAirPressure",
+      "type": "Variable",
+      "name": "NoAirPressure",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "The air supply is below the safe level."
+      }
+    },
+    {
+      "id": "alarm:cnc/NoAirPressure",
+      "type": "Alarm",
+      "name": "NoAirPressure",
+      "aliases": [],
+      "props": {
+        "flag": "cnc/Alarms/NoAirPressure"
+      }
+    },
+    {
+      "id": "cnc/Alarms/EmergencyStop",
+      "type": "Variable",
+      "name": "EmergencyStop",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "An emergency stop is active."
+      }
+    },
+    {
+      "id": "alarm:cnc/EmergencyStop",
+      "type": "Alarm",
+      "name": "EmergencyStop",
+      "aliases": [],
+      "props": {
+        "flag": "cnc/Alarms/EmergencyStop"
+      }
+    },
+    {
+      "id": "cnc/Alarms/MotorTrip",
+      "type": "Variable",
+      "name": "MotorTrip",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "The drive motor has tripped."
+      }
+    },
+    {
+      "id": "alarm:cnc/MotorTrip",
+      "type": "Alarm",
+      "name": "MotorTrip",
+      "aliases": [],
+      "props": {
+        "flag": "cnc/Alarms/MotorTrip"
+      }
+    },
+    {
+      "id": "cnc/Alarms/RFIDFault",
+      "type": "Variable",
+      "name": "RFIDFault",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "A pallet RFID read failed."
+      }
+    },
+    {
+      "id": "alarm:cnc/RFIDFault",
+      "type": "Alarm",
+      "name": "RFIDFault",
+      "aliases": [],
+      "props": {
+        "flag": "cnc/Alarms/RFIDFault"
       }
     },
     {
@@ -388,6 +688,177 @@
       "props": {
         "type": "bool",
         "description": "True when placed."
+      }
+    },
+    {
+      "id": "cnc/Statistics",
+      "type": "Folder",
+      "name": "Statistics",
+      "aliases": [],
+      "props": {
+        "description": "Counters for the current shift."
+      }
+    },
+    {
+      "id": "cnc/Statistics/CyclesToday",
+      "type": "Variable",
+      "name": "CyclesToday",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Completed cycles since the shift started."
+      }
+    },
+    {
+      "id": "cnc/Statistics/FaultsToday",
+      "type": "Variable",
+      "name": "FaultsToday",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Faults recorded since the shift started."
+      }
+    },
+    {
+      "id": "cnc/Statistics/MinutesRunning",
+      "type": "Variable",
+      "name": "MinutesRunning",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Running minutes since the last reset."
+      }
+    },
+    {
+      "id": "cnc/Statistics/LastCycleSeconds",
+      "type": "Variable",
+      "name": "LastCycleSeconds",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Duration of the last completed cycle."
+      }
+    },
+    {
+      "id": "cnc/Diagnostics",
+      "type": "Folder",
+      "name": "Diagnostics",
+      "aliases": [],
+      "props": {
+        "description": "Checks used by maintenance staff."
+      }
+    },
+    {
+      "id": "cnc/Diagnostics/CommunicationOk",
+      "type": "Variable",
+      "name": "CommunicationOk",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": true,
+        "description": "True when the controller answers."
+      }
+    },
+    {
+      "id": "cnc/Diagnostics/SafetyOk",
+      "type": "Variable",
+      "name": "SafetyOk",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": true,
+        "description": "True when safety inputs are healthy."
+      }
+    },
+    {
+      "id": "cnc/Diagnostics/Firmware",
+      "type": "Variable",
+      "name": "Firmware",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "initial": "line-1.0",
+        "description": "Invented controller firmware label."
+      }
+    },
+    {
+      "id": "cnc/Diagnostics/ReadDiagnostics",
+      "type": "Method",
+      "name": "ReadDiagnostics",
+      "aliases": [],
+      "props": {
+        "description": "Reads the maintenance diagnostics."
+      }
+    },
+    {
+      "id": "cnc/Diagnostics/ReadDiagnostics/report",
+      "type": "Variable",
+      "name": "report",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "description": "Short diagnostic report."
+      }
+    },
+    {
+      "id": "cnc/Maintenance",
+      "type": "Folder",
+      "name": "Maintenance",
+      "aliases": [],
+      "props": {
+        "description": "Routine service operations."
+      }
+    },
+    {
+      "id": "cnc/Maintenance/AcknowledgeService",
+      "type": "Method",
+      "name": "AcknowledgeService",
+      "aliases": [],
+      "props": {
+        "description": "Records a completed service visit."
+      }
+    },
+    {
+      "id": "cnc/Maintenance/AcknowledgeService/note",
+      "type": "Parameter",
+      "name": "note",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "description": "Service note."
+      }
+    },
+    {
+      "id": "cnc/Maintenance/AcknowledgeService/accepted",
+      "type": "Variable",
+      "name": "accepted",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when the note is saved."
+      }
+    },
+    {
+      "id": "cnc/Maintenance/ResetCounters",
+      "type": "Method",
+      "name": "ResetCounters",
+      "aliases": [],
+      "props": {
+        "description": "Resets shift counters after approval."
+      }
+    },
+    {
+      "id": "cnc/Maintenance/ResetCounters/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when counters are reset."
       }
     },
     {
@@ -599,6 +1070,177 @@
       }
     },
     {
+      "id": "conveyor/Statistics",
+      "type": "Folder",
+      "name": "Statistics",
+      "aliases": [],
+      "props": {
+        "description": "Counters for the current shift."
+      }
+    },
+    {
+      "id": "conveyor/Statistics/CyclesToday",
+      "type": "Variable",
+      "name": "CyclesToday",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Completed cycles since the shift started."
+      }
+    },
+    {
+      "id": "conveyor/Statistics/FaultsToday",
+      "type": "Variable",
+      "name": "FaultsToday",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Faults recorded since the shift started."
+      }
+    },
+    {
+      "id": "conveyor/Statistics/MinutesRunning",
+      "type": "Variable",
+      "name": "MinutesRunning",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Running minutes since the last reset."
+      }
+    },
+    {
+      "id": "conveyor/Statistics/LastCycleSeconds",
+      "type": "Variable",
+      "name": "LastCycleSeconds",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Duration of the last completed cycle."
+      }
+    },
+    {
+      "id": "conveyor/Diagnostics",
+      "type": "Folder",
+      "name": "Diagnostics",
+      "aliases": [],
+      "props": {
+        "description": "Checks used by maintenance staff."
+      }
+    },
+    {
+      "id": "conveyor/Diagnostics/CommunicationOk",
+      "type": "Variable",
+      "name": "CommunicationOk",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": true,
+        "description": "True when the controller answers."
+      }
+    },
+    {
+      "id": "conveyor/Diagnostics/SafetyOk",
+      "type": "Variable",
+      "name": "SafetyOk",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": true,
+        "description": "True when safety inputs are healthy."
+      }
+    },
+    {
+      "id": "conveyor/Diagnostics/Firmware",
+      "type": "Variable",
+      "name": "Firmware",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "initial": "line-1.0",
+        "description": "Invented controller firmware label."
+      }
+    },
+    {
+      "id": "conveyor/Diagnostics/ReadDiagnostics",
+      "type": "Method",
+      "name": "ReadDiagnostics",
+      "aliases": [],
+      "props": {
+        "description": "Reads the maintenance diagnostics."
+      }
+    },
+    {
+      "id": "conveyor/Diagnostics/ReadDiagnostics/report",
+      "type": "Variable",
+      "name": "report",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "description": "Short diagnostic report."
+      }
+    },
+    {
+      "id": "conveyor/Maintenance",
+      "type": "Folder",
+      "name": "Maintenance",
+      "aliases": [],
+      "props": {
+        "description": "Routine service operations."
+      }
+    },
+    {
+      "id": "conveyor/Maintenance/AcknowledgeService",
+      "type": "Method",
+      "name": "AcknowledgeService",
+      "aliases": [],
+      "props": {
+        "description": "Records a completed service visit."
+      }
+    },
+    {
+      "id": "conveyor/Maintenance/AcknowledgeService/note",
+      "type": "Parameter",
+      "name": "note",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "description": "Service note."
+      }
+    },
+    {
+      "id": "conveyor/Maintenance/AcknowledgeService/accepted",
+      "type": "Variable",
+      "name": "accepted",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when the note is saved."
+      }
+    },
+    {
+      "id": "conveyor/Maintenance/ResetCounters",
+      "type": "Method",
+      "name": "ResetCounters",
+      "aliases": [],
+      "props": {
+        "description": "Resets shift counters after approval."
+      }
+    },
+    {
+      "id": "conveyor/Maintenance/ResetCounters/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when counters are reset."
+      }
+    },
+    {
       "id": "qc",
       "type": "Device",
       "name": "Camera Quality Cell",
@@ -647,6 +1289,95 @@
         "type": "string",
         "initial": "idle",
         "description": "Result of the last operation."
+      }
+    },
+    {
+      "id": "qc/Alarms",
+      "type": "Folder",
+      "name": "Alarms",
+      "aliases": [],
+      "props": {
+        "description": "Alarm flags reported by the device."
+      }
+    },
+    {
+      "id": "qc/Alarms/NoAirPressure",
+      "type": "Variable",
+      "name": "NoAirPressure",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "The air supply is below the safe level."
+      }
+    },
+    {
+      "id": "alarm:qc/NoAirPressure",
+      "type": "Alarm",
+      "name": "NoAirPressure",
+      "aliases": [],
+      "props": {
+        "flag": "qc/Alarms/NoAirPressure"
+      }
+    },
+    {
+      "id": "qc/Alarms/EmergencyStop",
+      "type": "Variable",
+      "name": "EmergencyStop",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "An emergency stop is active."
+      }
+    },
+    {
+      "id": "alarm:qc/EmergencyStop",
+      "type": "Alarm",
+      "name": "EmergencyStop",
+      "aliases": [],
+      "props": {
+        "flag": "qc/Alarms/EmergencyStop"
+      }
+    },
+    {
+      "id": "qc/Alarms/MotorTrip",
+      "type": "Variable",
+      "name": "MotorTrip",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "The drive motor has tripped."
+      }
+    },
+    {
+      "id": "alarm:qc/MotorTrip",
+      "type": "Alarm",
+      "name": "MotorTrip",
+      "aliases": [],
+      "props": {
+        "flag": "qc/Alarms/MotorTrip"
+      }
+    },
+    {
+      "id": "qc/Alarms/RFIDFault",
+      "type": "Variable",
+      "name": "RFIDFault",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "A pallet RFID read failed."
+      }
+    },
+    {
+      "id": "alarm:qc/RFIDFault",
+      "type": "Alarm",
+      "name": "RFIDFault",
+      "aliases": [],
+      "props": {
+        "flag": "qc/Alarms/RFIDFault"
       }
     },
     {
@@ -710,6 +1441,177 @@
       }
     },
     {
+      "id": "qc/Statistics",
+      "type": "Folder",
+      "name": "Statistics",
+      "aliases": [],
+      "props": {
+        "description": "Counters for the current shift."
+      }
+    },
+    {
+      "id": "qc/Statistics/CyclesToday",
+      "type": "Variable",
+      "name": "CyclesToday",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Completed cycles since the shift started."
+      }
+    },
+    {
+      "id": "qc/Statistics/FaultsToday",
+      "type": "Variable",
+      "name": "FaultsToday",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Faults recorded since the shift started."
+      }
+    },
+    {
+      "id": "qc/Statistics/MinutesRunning",
+      "type": "Variable",
+      "name": "MinutesRunning",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Running minutes since the last reset."
+      }
+    },
+    {
+      "id": "qc/Statistics/LastCycleSeconds",
+      "type": "Variable",
+      "name": "LastCycleSeconds",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Duration of the last completed cycle."
+      }
+    },
+    {
+      "id": "qc/Diagnostics",
+      "type": "Folder",
+      "name": "Diagnostics",
+      "aliases": [],
+      "props": {
+        "description": "Checks used by maintenance staff."
+      }
+    },
+    {
+      "id": "qc/Diagnostics/CommunicationOk",
+      "type": "Variable",
+      "name": "CommunicationOk",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": true,
+        "description": "True when the controller answers."
+      }
+    },
+    {
+      "id": "qc/Diagnostics/SafetyOk",
+      "type": "Variable",
+      "name": "SafetyOk",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": true,
+        "description": "True when safety inputs are healthy."
+      }
+    },
+    {
+      "id": "qc/Diagnostics/Firmware",
+      "type": "Variable",
+      "name": "Firmware",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "initial": "line-1.0",
+        "description": "Invented controller firmware label."
+      }
+    },
+    {
+      "id": "qc/Diagnostics/ReadDiagnostics",
+      "type": "Method",
+      "name": "ReadDiagnostics",
+      "aliases": [],
+      "props": {
+        "description": "Reads the maintenance diagnostics."
+      }
+    },
+    {
+      "id": "qc/Diagnostics/ReadDiagnostics/report",
+      "type": "Variable",
+      "name": "report",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "description": "Short diagnostic report."
+      }
+    },
+    {
+      "id": "qc/Maintenance",
+      "type": "Folder",
+      "name": "Maintenance",
+      "aliases": [],
+      "props": {
+        "description": "Routine service operations."
+      }
+    },
+    {
+      "id": "qc/Maintenance/AcknowledgeService",
+      "type": "Method",
+      "name": "AcknowledgeService",
+      "aliases": [],
+      "props": {
+        "description": "Records a completed service visit."
+      }
+    },
+    {
+      "id": "qc/Maintenance/AcknowledgeService/note",
+      "type": "Parameter",
+      "name": "note",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "description": "Service note."
+      }
+    },
+    {
+      "id": "qc/Maintenance/AcknowledgeService/accepted",
+      "type": "Variable",
+      "name": "accepted",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when the note is saved."
+      }
+    },
+    {
+      "id": "qc/Maintenance/ResetCounters",
+      "type": "Method",
+      "name": "ResetCounters",
+      "aliases": [],
+      "props": {
+        "description": "Resets shift counters after approval."
+      }
+    },
+    {
+      "id": "qc/Maintenance/ResetCounters/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when counters are reset."
+      }
+    },
+    {
       "id": "rover1",
       "type": "Device",
       "name": "Rover R-1",
@@ -761,6 +1663,95 @@
         "type": "string",
         "initial": "idle",
         "description": "Result of the last operation."
+      }
+    },
+    {
+      "id": "rover1/Alarms",
+      "type": "Folder",
+      "name": "Alarms",
+      "aliases": [],
+      "props": {
+        "description": "Alarm flags reported by the device."
+      }
+    },
+    {
+      "id": "rover1/Alarms/NoAirPressure",
+      "type": "Variable",
+      "name": "NoAirPressure",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "The air supply is below the safe level."
+      }
+    },
+    {
+      "id": "alarm:rover1/NoAirPressure",
+      "type": "Alarm",
+      "name": "NoAirPressure",
+      "aliases": [],
+      "props": {
+        "flag": "rover1/Alarms/NoAirPressure"
+      }
+    },
+    {
+      "id": "rover1/Alarms/EmergencyStop",
+      "type": "Variable",
+      "name": "EmergencyStop",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "An emergency stop is active."
+      }
+    },
+    {
+      "id": "alarm:rover1/EmergencyStop",
+      "type": "Alarm",
+      "name": "EmergencyStop",
+      "aliases": [],
+      "props": {
+        "flag": "rover1/Alarms/EmergencyStop"
+      }
+    },
+    {
+      "id": "rover1/Alarms/MotorTrip",
+      "type": "Variable",
+      "name": "MotorTrip",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "The drive motor has tripped."
+      }
+    },
+    {
+      "id": "alarm:rover1/MotorTrip",
+      "type": "Alarm",
+      "name": "MotorTrip",
+      "aliases": [],
+      "props": {
+        "flag": "rover1/Alarms/MotorTrip"
+      }
+    },
+    {
+      "id": "rover1/Alarms/RFIDFault",
+      "type": "Variable",
+      "name": "RFIDFault",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "A pallet RFID read failed."
+      }
+    },
+    {
+      "id": "alarm:rover1/RFIDFault",
+      "type": "Alarm",
+      "name": "RFIDFault",
+      "aliases": [],
+      "props": {
+        "flag": "rover1/Alarms/RFIDFault"
       }
     },
     {
@@ -821,6 +1812,177 @@
       }
     },
     {
+      "id": "rover1/Statistics",
+      "type": "Folder",
+      "name": "Statistics",
+      "aliases": [],
+      "props": {
+        "description": "Counters for the current shift."
+      }
+    },
+    {
+      "id": "rover1/Statistics/CyclesToday",
+      "type": "Variable",
+      "name": "CyclesToday",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Completed cycles since the shift started."
+      }
+    },
+    {
+      "id": "rover1/Statistics/FaultsToday",
+      "type": "Variable",
+      "name": "FaultsToday",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Faults recorded since the shift started."
+      }
+    },
+    {
+      "id": "rover1/Statistics/MinutesRunning",
+      "type": "Variable",
+      "name": "MinutesRunning",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Running minutes since the last reset."
+      }
+    },
+    {
+      "id": "rover1/Statistics/LastCycleSeconds",
+      "type": "Variable",
+      "name": "LastCycleSeconds",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Duration of the last completed cycle."
+      }
+    },
+    {
+      "id": "rover1/Diagnostics",
+      "type": "Folder",
+      "name": "Diagnostics",
+      "aliases": [],
+      "props": {
+        "description": "Checks used by maintenance staff."
+      }
+    },
+    {
+      "id": "rover1/Diagnostics/CommunicationOk",
+      "type": "Variable",
+      "name": "CommunicationOk",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": true,
+        "description": "True when the controller answers."
+      }
+    },
+    {
+      "id": "rover1/Diagnostics/SafetyOk",
+      "type": "Variable",
+      "name": "SafetyOk",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": true,
+        "description": "True when safety inputs are healthy."
+      }
+    },
+    {
+      "id": "rover1/Diagnostics/Firmware",
+      "type": "Variable",
+      "name": "Firmware",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "initial": "line-1.0",
+        "description": "Invented controller firmware label."
+      }
+    },
+    {
+      "id": "rover1/Diagnostics/ReadDiagnostics",
+      "type": "Method",
+      "name": "ReadDiagnostics",
+      "aliases": [],
+      "props": {
+        "description": "Reads the maintenance diagnostics."
+      }
+    },
+    {
+      "id": "rover1/Diagnostics/ReadDiagnostics/report",
+      "type": "Variable",
+      "name": "report",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "description": "Short diagnostic report."
+      }
+    },
+    {
+      "id": "rover1/Maintenance",
+      "type": "Folder",
+      "name": "Maintenance",
+      "aliases": [],
+      "props": {
+        "description": "Routine service operations."
+      }
+    },
+    {
+      "id": "rover1/Maintenance/AcknowledgeService",
+      "type": "Method",
+      "name": "AcknowledgeService",
+      "aliases": [],
+      "props": {
+        "description": "Records a completed service visit."
+      }
+    },
+    {
+      "id": "rover1/Maintenance/AcknowledgeService/note",
+      "type": "Parameter",
+      "name": "note",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "description": "Service note."
+      }
+    },
+    {
+      "id": "rover1/Maintenance/AcknowledgeService/accepted",
+      "type": "Variable",
+      "name": "accepted",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when the note is saved."
+      }
+    },
+    {
+      "id": "rover1/Maintenance/ResetCounters",
+      "type": "Method",
+      "name": "ResetCounters",
+      "aliases": [],
+      "props": {
+        "description": "Resets shift counters after approval."
+      }
+    },
+    {
+      "id": "rover1/Maintenance/ResetCounters/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when counters are reset."
+      }
+    },
+    {
       "id": "rover2",
       "type": "Device",
       "name": "Rover R-2",
@@ -872,6 +2034,95 @@
         "type": "string",
         "initial": "idle",
         "description": "Result of the last operation."
+      }
+    },
+    {
+      "id": "rover2/Alarms",
+      "type": "Folder",
+      "name": "Alarms",
+      "aliases": [],
+      "props": {
+        "description": "Alarm flags reported by the device."
+      }
+    },
+    {
+      "id": "rover2/Alarms/NoAirPressure",
+      "type": "Variable",
+      "name": "NoAirPressure",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "The air supply is below the safe level."
+      }
+    },
+    {
+      "id": "alarm:rover2/NoAirPressure",
+      "type": "Alarm",
+      "name": "NoAirPressure",
+      "aliases": [],
+      "props": {
+        "flag": "rover2/Alarms/NoAirPressure"
+      }
+    },
+    {
+      "id": "rover2/Alarms/EmergencyStop",
+      "type": "Variable",
+      "name": "EmergencyStop",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "An emergency stop is active."
+      }
+    },
+    {
+      "id": "alarm:rover2/EmergencyStop",
+      "type": "Alarm",
+      "name": "EmergencyStop",
+      "aliases": [],
+      "props": {
+        "flag": "rover2/Alarms/EmergencyStop"
+      }
+    },
+    {
+      "id": "rover2/Alarms/MotorTrip",
+      "type": "Variable",
+      "name": "MotorTrip",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "The drive motor has tripped."
+      }
+    },
+    {
+      "id": "alarm:rover2/MotorTrip",
+      "type": "Alarm",
+      "name": "MotorTrip",
+      "aliases": [],
+      "props": {
+        "flag": "rover2/Alarms/MotorTrip"
+      }
+    },
+    {
+      "id": "rover2/Alarms/RFIDFault",
+      "type": "Variable",
+      "name": "RFIDFault",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "A pallet RFID read failed."
+      }
+    },
+    {
+      "id": "alarm:rover2/RFIDFault",
+      "type": "Alarm",
+      "name": "RFIDFault",
+      "aliases": [],
+      "props": {
+        "flag": "rover2/Alarms/RFIDFault"
       }
     },
     {
@@ -932,6 +2183,177 @@
       }
     },
     {
+      "id": "rover2/Statistics",
+      "type": "Folder",
+      "name": "Statistics",
+      "aliases": [],
+      "props": {
+        "description": "Counters for the current shift."
+      }
+    },
+    {
+      "id": "rover2/Statistics/CyclesToday",
+      "type": "Variable",
+      "name": "CyclesToday",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Completed cycles since the shift started."
+      }
+    },
+    {
+      "id": "rover2/Statistics/FaultsToday",
+      "type": "Variable",
+      "name": "FaultsToday",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Faults recorded since the shift started."
+      }
+    },
+    {
+      "id": "rover2/Statistics/MinutesRunning",
+      "type": "Variable",
+      "name": "MinutesRunning",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Running minutes since the last reset."
+      }
+    },
+    {
+      "id": "rover2/Statistics/LastCycleSeconds",
+      "type": "Variable",
+      "name": "LastCycleSeconds",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Duration of the last completed cycle."
+      }
+    },
+    {
+      "id": "rover2/Diagnostics",
+      "type": "Folder",
+      "name": "Diagnostics",
+      "aliases": [],
+      "props": {
+        "description": "Checks used by maintenance staff."
+      }
+    },
+    {
+      "id": "rover2/Diagnostics/CommunicationOk",
+      "type": "Variable",
+      "name": "CommunicationOk",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": true,
+        "description": "True when the controller answers."
+      }
+    },
+    {
+      "id": "rover2/Diagnostics/SafetyOk",
+      "type": "Variable",
+      "name": "SafetyOk",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": true,
+        "description": "True when safety inputs are healthy."
+      }
+    },
+    {
+      "id": "rover2/Diagnostics/Firmware",
+      "type": "Variable",
+      "name": "Firmware",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "initial": "line-1.0",
+        "description": "Invented controller firmware label."
+      }
+    },
+    {
+      "id": "rover2/Diagnostics/ReadDiagnostics",
+      "type": "Method",
+      "name": "ReadDiagnostics",
+      "aliases": [],
+      "props": {
+        "description": "Reads the maintenance diagnostics."
+      }
+    },
+    {
+      "id": "rover2/Diagnostics/ReadDiagnostics/report",
+      "type": "Variable",
+      "name": "report",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "description": "Short diagnostic report."
+      }
+    },
+    {
+      "id": "rover2/Maintenance",
+      "type": "Folder",
+      "name": "Maintenance",
+      "aliases": [],
+      "props": {
+        "description": "Routine service operations."
+      }
+    },
+    {
+      "id": "rover2/Maintenance/AcknowledgeService",
+      "type": "Method",
+      "name": "AcknowledgeService",
+      "aliases": [],
+      "props": {
+        "description": "Records a completed service visit."
+      }
+    },
+    {
+      "id": "rover2/Maintenance/AcknowledgeService/note",
+      "type": "Parameter",
+      "name": "note",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "description": "Service note."
+      }
+    },
+    {
+      "id": "rover2/Maintenance/AcknowledgeService/accepted",
+      "type": "Variable",
+      "name": "accepted",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when the note is saved."
+      }
+    },
+    {
+      "id": "rover2/Maintenance/ResetCounters",
+      "type": "Method",
+      "name": "ResetCounters",
+      "aliases": [],
+      "props": {
+        "description": "Resets shift counters after approval."
+      }
+    },
+    {
+      "id": "rover2/Maintenance/ResetCounters/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when counters are reset."
+      }
+    },
+    {
       "id": "tester",
       "type": "Device",
       "name": "Board Tester",
@@ -980,6 +2402,95 @@
         "type": "string",
         "initial": "idle",
         "description": "Result of the last operation."
+      }
+    },
+    {
+      "id": "tester/Alarms",
+      "type": "Folder",
+      "name": "Alarms",
+      "aliases": [],
+      "props": {
+        "description": "Alarm flags reported by the device."
+      }
+    },
+    {
+      "id": "tester/Alarms/NoAirPressure",
+      "type": "Variable",
+      "name": "NoAirPressure",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "The air supply is below the safe level."
+      }
+    },
+    {
+      "id": "alarm:tester/NoAirPressure",
+      "type": "Alarm",
+      "name": "NoAirPressure",
+      "aliases": [],
+      "props": {
+        "flag": "tester/Alarms/NoAirPressure"
+      }
+    },
+    {
+      "id": "tester/Alarms/EmergencyStop",
+      "type": "Variable",
+      "name": "EmergencyStop",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "An emergency stop is active."
+      }
+    },
+    {
+      "id": "alarm:tester/EmergencyStop",
+      "type": "Alarm",
+      "name": "EmergencyStop",
+      "aliases": [],
+      "props": {
+        "flag": "tester/Alarms/EmergencyStop"
+      }
+    },
+    {
+      "id": "tester/Alarms/MotorTrip",
+      "type": "Variable",
+      "name": "MotorTrip",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "The drive motor has tripped."
+      }
+    },
+    {
+      "id": "alarm:tester/MotorTrip",
+      "type": "Alarm",
+      "name": "MotorTrip",
+      "aliases": [],
+      "props": {
+        "flag": "tester/Alarms/MotorTrip"
+      }
+    },
+    {
+      "id": "tester/Alarms/RFIDFault",
+      "type": "Variable",
+      "name": "RFIDFault",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": false,
+        "description": "A pallet RFID read failed."
+      }
+    },
+    {
+      "id": "alarm:tester/RFIDFault",
+      "type": "Alarm",
+      "name": "RFIDFault",
+      "aliases": [],
+      "props": {
+        "flag": "tester/Alarms/RFIDFault"
       }
     },
     {
@@ -1067,6 +2578,177 @@
         "type": "bool",
         "initial": false,
         "description": "Result of the last board test."
+      }
+    },
+    {
+      "id": "tester/Statistics",
+      "type": "Folder",
+      "name": "Statistics",
+      "aliases": [],
+      "props": {
+        "description": "Counters for the current shift."
+      }
+    },
+    {
+      "id": "tester/Statistics/CyclesToday",
+      "type": "Variable",
+      "name": "CyclesToday",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Completed cycles since the shift started."
+      }
+    },
+    {
+      "id": "tester/Statistics/FaultsToday",
+      "type": "Variable",
+      "name": "FaultsToday",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Faults recorded since the shift started."
+      }
+    },
+    {
+      "id": "tester/Statistics/MinutesRunning",
+      "type": "Variable",
+      "name": "MinutesRunning",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Running minutes since the last reset."
+      }
+    },
+    {
+      "id": "tester/Statistics/LastCycleSeconds",
+      "type": "Variable",
+      "name": "LastCycleSeconds",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Duration of the last completed cycle."
+      }
+    },
+    {
+      "id": "tester/Diagnostics",
+      "type": "Folder",
+      "name": "Diagnostics",
+      "aliases": [],
+      "props": {
+        "description": "Checks used by maintenance staff."
+      }
+    },
+    {
+      "id": "tester/Diagnostics/CommunicationOk",
+      "type": "Variable",
+      "name": "CommunicationOk",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": true,
+        "description": "True when the controller answers."
+      }
+    },
+    {
+      "id": "tester/Diagnostics/SafetyOk",
+      "type": "Variable",
+      "name": "SafetyOk",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": true,
+        "description": "True when safety inputs are healthy."
+      }
+    },
+    {
+      "id": "tester/Diagnostics/Firmware",
+      "type": "Variable",
+      "name": "Firmware",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "initial": "line-1.0",
+        "description": "Invented controller firmware label."
+      }
+    },
+    {
+      "id": "tester/Diagnostics/ReadDiagnostics",
+      "type": "Method",
+      "name": "ReadDiagnostics",
+      "aliases": [],
+      "props": {
+        "description": "Reads the maintenance diagnostics."
+      }
+    },
+    {
+      "id": "tester/Diagnostics/ReadDiagnostics/report",
+      "type": "Variable",
+      "name": "report",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "description": "Short diagnostic report."
+      }
+    },
+    {
+      "id": "tester/Maintenance",
+      "type": "Folder",
+      "name": "Maintenance",
+      "aliases": [],
+      "props": {
+        "description": "Routine service operations."
+      }
+    },
+    {
+      "id": "tester/Maintenance/AcknowledgeService",
+      "type": "Method",
+      "name": "AcknowledgeService",
+      "aliases": [],
+      "props": {
+        "description": "Records a completed service visit."
+      }
+    },
+    {
+      "id": "tester/Maintenance/AcknowledgeService/note",
+      "type": "Parameter",
+      "name": "note",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "description": "Service note."
+      }
+    },
+    {
+      "id": "tester/Maintenance/AcknowledgeService/accepted",
+      "type": "Variable",
+      "name": "accepted",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when the note is saved."
+      }
+    },
+    {
+      "id": "tester/Maintenance/ResetCounters",
+      "type": "Method",
+      "name": "ResetCounters",
+      "aliases": [],
+      "props": {
+        "description": "Resets shift counters after approval."
+      }
+    },
+    {
+      "id": "tester/Maintenance/ResetCounters/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when counters are reset."
       }
     },
     {
@@ -1318,6 +3000,177 @@
       }
     },
     {
+      "id": "warehouse/Statistics",
+      "type": "Folder",
+      "name": "Statistics",
+      "aliases": [],
+      "props": {
+        "description": "Counters for the current shift."
+      }
+    },
+    {
+      "id": "warehouse/Statistics/CyclesToday",
+      "type": "Variable",
+      "name": "CyclesToday",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Completed cycles since the shift started."
+      }
+    },
+    {
+      "id": "warehouse/Statistics/FaultsToday",
+      "type": "Variable",
+      "name": "FaultsToday",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Faults recorded since the shift started."
+      }
+    },
+    {
+      "id": "warehouse/Statistics/MinutesRunning",
+      "type": "Variable",
+      "name": "MinutesRunning",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Running minutes since the last reset."
+      }
+    },
+    {
+      "id": "warehouse/Statistics/LastCycleSeconds",
+      "type": "Variable",
+      "name": "LastCycleSeconds",
+      "aliases": [],
+      "props": {
+        "type": "number",
+        "initial": 0,
+        "description": "Duration of the last completed cycle."
+      }
+    },
+    {
+      "id": "warehouse/Diagnostics",
+      "type": "Folder",
+      "name": "Diagnostics",
+      "aliases": [],
+      "props": {
+        "description": "Checks used by maintenance staff."
+      }
+    },
+    {
+      "id": "warehouse/Diagnostics/CommunicationOk",
+      "type": "Variable",
+      "name": "CommunicationOk",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": true,
+        "description": "True when the controller answers."
+      }
+    },
+    {
+      "id": "warehouse/Diagnostics/SafetyOk",
+      "type": "Variable",
+      "name": "SafetyOk",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "initial": true,
+        "description": "True when safety inputs are healthy."
+      }
+    },
+    {
+      "id": "warehouse/Diagnostics/Firmware",
+      "type": "Variable",
+      "name": "Firmware",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "initial": "line-1.0",
+        "description": "Invented controller firmware label."
+      }
+    },
+    {
+      "id": "warehouse/Diagnostics/ReadDiagnostics",
+      "type": "Method",
+      "name": "ReadDiagnostics",
+      "aliases": [],
+      "props": {
+        "description": "Reads the maintenance diagnostics."
+      }
+    },
+    {
+      "id": "warehouse/Diagnostics/ReadDiagnostics/report",
+      "type": "Variable",
+      "name": "report",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "description": "Short diagnostic report."
+      }
+    },
+    {
+      "id": "warehouse/Maintenance",
+      "type": "Folder",
+      "name": "Maintenance",
+      "aliases": [],
+      "props": {
+        "description": "Routine service operations."
+      }
+    },
+    {
+      "id": "warehouse/Maintenance/AcknowledgeService",
+      "type": "Method",
+      "name": "AcknowledgeService",
+      "aliases": [],
+      "props": {
+        "description": "Records a completed service visit."
+      }
+    },
+    {
+      "id": "warehouse/Maintenance/AcknowledgeService/note",
+      "type": "Parameter",
+      "name": "note",
+      "aliases": [],
+      "props": {
+        "type": "string",
+        "description": "Service note."
+      }
+    },
+    {
+      "id": "warehouse/Maintenance/AcknowledgeService/accepted",
+      "type": "Variable",
+      "name": "accepted",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when the note is saved."
+      }
+    },
+    {
+      "id": "warehouse/Maintenance/ResetCounters",
+      "type": "Method",
+      "name": "ResetCounters",
+      "aliases": [],
+      "props": {
+        "description": "Resets shift counters after approval."
+      }
+    },
+    {
+      "id": "warehouse/Maintenance/ResetCounters/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "description": "True when counters are reset."
+      }
+    },
+    {
       "id": "bay:1",
       "type": "Bay",
       "name": "Bay 1",
@@ -1356,6 +3209,13 @@
       "id": "pallet:7",
       "type": "Pallet",
       "name": "Pallet 7",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "pallet:8",
+      "type": "Pallet",
+      "name": "Pallet 8",
       "aliases": [],
       "props": {}
     },
@@ -1518,6 +3378,159 @@
       "props": {
         "date": "2026-03-06"
       }
+    },
+    {
+      "id": "incident:2026-03-07-1",
+      "type": "Incident",
+      "name": "incident:2026-03-07-1",
+      "aliases": [],
+      "props": {
+        "date": "2026-03-07"
+      }
+    },
+    {
+      "id": "incident:2026-03-08-1",
+      "type": "Incident",
+      "name": "incident:2026-03-08-1",
+      "aliases": [],
+      "props": {
+        "date": "2026-03-08"
+      }
+    },
+    {
+      "id": "incident:2026-03-09-1",
+      "type": "Incident",
+      "name": "incident:2026-03-09-1",
+      "aliases": [],
+      "props": {
+        "date": "2026-03-09"
+      }
+    },
+    {
+      "id": "incident:2026-03-10-1",
+      "type": "Incident",
+      "name": "incident:2026-03-10-1",
+      "aliases": [],
+      "props": {
+        "date": "2026-03-10"
+      }
+    },
+    {
+      "id": "incident:2026-03-11-1",
+      "type": "Incident",
+      "name": "incident:2026-03-11-1",
+      "aliases": [],
+      "props": {
+        "date": "2026-03-11"
+      }
+    },
+    {
+      "id": "incident:2026-03-12-1",
+      "type": "Incident",
+      "name": "incident:2026-03-12-1",
+      "aliases": [],
+      "props": {
+        "date": "2026-03-12"
+      }
+    },
+    {
+      "id": "incident:2026-03-13-1",
+      "type": "Incident",
+      "name": "incident:2026-03-13-1",
+      "aliases": [],
+      "props": {
+        "date": "2026-03-13"
+      }
+    },
+    {
+      "id": "incident:2026-03-14-1",
+      "type": "Incident",
+      "name": "incident:2026-03-14-1",
+      "aliases": [],
+      "props": {
+        "date": "2026-03-14"
+      }
+    },
+    {
+      "id": "incident:2026-03-15-1",
+      "type": "Incident",
+      "name": "incident:2026-03-15-1",
+      "aliases": [],
+      "props": {
+        "date": "2026-03-15"
+      }
+    },
+    {
+      "id": "incident:2026-03-16-1",
+      "type": "Incident",
+      "name": "incident:2026-03-16-1",
+      "aliases": [],
+      "props": {
+        "date": "2026-03-16"
+      }
+    },
+    {
+      "id": "incident:2026-03-17-1",
+      "type": "Incident",
+      "name": "incident:2026-03-17-1",
+      "aliases": [],
+      "props": {
+        "date": "2026-03-17"
+      }
+    },
+    {
+      "id": "incident:2026-03-18-1",
+      "type": "Incident",
+      "name": "incident:2026-03-18-1",
+      "aliases": [],
+      "props": {
+        "date": "2026-03-18"
+      }
+    },
+    {
+      "id": "incident:2026-03-19-1",
+      "type": "Incident",
+      "name": "incident:2026-03-19-1",
+      "aliases": [],
+      "props": {
+        "date": "2026-03-19"
+      }
+    },
+    {
+      "id": "incident:2026-03-20-1",
+      "type": "Incident",
+      "name": "incident:2026-03-20-1",
+      "aliases": [],
+      "props": {
+        "date": "2026-03-20"
+      }
+    },
+    {
+      "id": "incident:2026-03-21-1",
+      "type": "Incident",
+      "name": "incident:2026-03-21-1",
+      "aliases": [],
+      "props": {
+        "date": "2026-03-21"
+      }
+    },
+    {
+      "id": "incident:2026-03-22-1",
+      "type": "Incident",
+      "name": "incident:2026-03-22-1",
+      "aliases": [],
+      "props": {
+        "date": "2026-03-22"
+      }
+    },
+    {
+      "id": "incident:2026-03-23-1",
+      "type": "Incident",
+      "name": "incident:2026-03-23-1",
+      "aliases": [],
+      "props": {
+        "date": "2026-03-23"
+      }
     }
   ],
   "edges": [
@@ -1588,6 +3601,30 @@
       "source": "models/assembly.yml#Alarms/ScrewdriverFault"
     },
     {
+      "s": "assembly/Alarms",
+      "r": "exposes_variable",
+      "o": "assembly/Alarms/NoAirPressure",
+      "source": "models/assembly.yml#Alarms/NoAirPressure"
+    },
+    {
+      "s": "assembly",
+      "r": "has_alarm",
+      "o": "alarm:assembly/NoAirPressure",
+      "source": "models/assembly.yml#Alarms/NoAirPressure"
+    },
+    {
+      "s": "assembly/Alarms",
+      "r": "exposes_variable",
+      "o": "assembly/Alarms/MotorTrip",
+      "source": "models/assembly.yml#Alarms/MotorTrip"
+    },
+    {
+      "s": "assembly",
+      "r": "has_alarm",
+      "o": "alarm:assembly/MotorTrip",
+      "source": "models/assembly.yml#Alarms/MotorTrip"
+    },
+    {
       "s": "assembly",
       "r": "exposes_method",
       "o": "assembly/ResetAlarms",
@@ -1648,6 +3685,108 @@
       "source": "models/assembly.yml#Assembly/Screw"
     },
     {
+      "s": "assembly",
+      "r": "contains",
+      "o": "assembly/Statistics",
+      "source": "models/assembly.yml#Statistics"
+    },
+    {
+      "s": "assembly/Statistics",
+      "r": "exposes_variable",
+      "o": "assembly/Statistics/CyclesToday",
+      "source": "models/assembly.yml#Statistics/CyclesToday"
+    },
+    {
+      "s": "assembly/Statistics",
+      "r": "exposes_variable",
+      "o": "assembly/Statistics/FaultsToday",
+      "source": "models/assembly.yml#Statistics/FaultsToday"
+    },
+    {
+      "s": "assembly/Statistics",
+      "r": "exposes_variable",
+      "o": "assembly/Statistics/MinutesRunning",
+      "source": "models/assembly.yml#Statistics/MinutesRunning"
+    },
+    {
+      "s": "assembly/Statistics",
+      "r": "exposes_variable",
+      "o": "assembly/Statistics/LastCycleSeconds",
+      "source": "models/assembly.yml#Statistics/LastCycleSeconds"
+    },
+    {
+      "s": "assembly",
+      "r": "contains",
+      "o": "assembly/Diagnostics",
+      "source": "models/assembly.yml#Diagnostics"
+    },
+    {
+      "s": "assembly/Diagnostics",
+      "r": "exposes_variable",
+      "o": "assembly/Diagnostics/CommunicationOk",
+      "source": "models/assembly.yml#Diagnostics/CommunicationOk"
+    },
+    {
+      "s": "assembly/Diagnostics",
+      "r": "exposes_variable",
+      "o": "assembly/Diagnostics/SafetyOk",
+      "source": "models/assembly.yml#Diagnostics/SafetyOk"
+    },
+    {
+      "s": "assembly/Diagnostics",
+      "r": "exposes_variable",
+      "o": "assembly/Diagnostics/Firmware",
+      "source": "models/assembly.yml#Diagnostics/Firmware"
+    },
+    {
+      "s": "assembly/Diagnostics",
+      "r": "exposes_method",
+      "o": "assembly/Diagnostics/ReadDiagnostics",
+      "source": "models/assembly.yml#Diagnostics/ReadDiagnostics"
+    },
+    {
+      "s": "assembly/Diagnostics/ReadDiagnostics",
+      "r": "returns",
+      "o": "assembly/Diagnostics/ReadDiagnostics/report",
+      "source": "models/assembly.yml#Diagnostics/ReadDiagnostics"
+    },
+    {
+      "s": "assembly",
+      "r": "contains",
+      "o": "assembly/Maintenance",
+      "source": "models/assembly.yml#Maintenance"
+    },
+    {
+      "s": "assembly/Maintenance",
+      "r": "exposes_method",
+      "o": "assembly/Maintenance/AcknowledgeService",
+      "source": "models/assembly.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "assembly/Maintenance/AcknowledgeService",
+      "r": "has_parameter",
+      "o": "assembly/Maintenance/AcknowledgeService/note",
+      "source": "models/assembly.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "assembly/Maintenance/AcknowledgeService",
+      "r": "returns",
+      "o": "assembly/Maintenance/AcknowledgeService/accepted",
+      "source": "models/assembly.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "assembly/Maintenance",
+      "r": "exposes_method",
+      "o": "assembly/Maintenance/ResetCounters",
+      "source": "models/assembly.yml#Maintenance/ResetCounters"
+    },
+    {
+      "s": "assembly/Maintenance/ResetCounters",
+      "r": "returns",
+      "o": "assembly/Maintenance/ResetCounters/done",
+      "source": "models/assembly.yml#Maintenance/ResetCounters"
+    },
+    {
       "s": "line:main",
       "r": "contains",
       "o": "cell:cnc",
@@ -1682,6 +3821,60 @@
       "r": "exposes_variable",
       "o": "cnc/Status/LastResult",
       "source": "models/cnc.yml#Status/LastResult"
+    },
+    {
+      "s": "cnc",
+      "r": "contains",
+      "o": "cnc/Alarms",
+      "source": "models/cnc.yml#Alarms"
+    },
+    {
+      "s": "cnc/Alarms",
+      "r": "exposes_variable",
+      "o": "cnc/Alarms/NoAirPressure",
+      "source": "models/cnc.yml#Alarms/NoAirPressure"
+    },
+    {
+      "s": "cnc",
+      "r": "has_alarm",
+      "o": "alarm:cnc/NoAirPressure",
+      "source": "models/cnc.yml#Alarms/NoAirPressure"
+    },
+    {
+      "s": "cnc/Alarms",
+      "r": "exposes_variable",
+      "o": "cnc/Alarms/EmergencyStop",
+      "source": "models/cnc.yml#Alarms/EmergencyStop"
+    },
+    {
+      "s": "cnc",
+      "r": "has_alarm",
+      "o": "alarm:cnc/EmergencyStop",
+      "source": "models/cnc.yml#Alarms/EmergencyStop"
+    },
+    {
+      "s": "cnc/Alarms",
+      "r": "exposes_variable",
+      "o": "cnc/Alarms/MotorTrip",
+      "source": "models/cnc.yml#Alarms/MotorTrip"
+    },
+    {
+      "s": "cnc",
+      "r": "has_alarm",
+      "o": "alarm:cnc/MotorTrip",
+      "source": "models/cnc.yml#Alarms/MotorTrip"
+    },
+    {
+      "s": "cnc/Alarms",
+      "r": "exposes_variable",
+      "o": "cnc/Alarms/RFIDFault",
+      "source": "models/cnc.yml#Alarms/RFIDFault"
+    },
+    {
+      "s": "cnc",
+      "r": "has_alarm",
+      "o": "alarm:cnc/RFIDFault",
+      "source": "models/cnc.yml#Alarms/RFIDFault"
     },
     {
       "s": "cnc",
@@ -1736,6 +3929,108 @@
       "r": "returns",
       "o": "cnc/Arm/PlaceBoard/done",
       "source": "models/cnc.yml#Arm/PlaceBoard"
+    },
+    {
+      "s": "cnc",
+      "r": "contains",
+      "o": "cnc/Statistics",
+      "source": "models/cnc.yml#Statistics"
+    },
+    {
+      "s": "cnc/Statistics",
+      "r": "exposes_variable",
+      "o": "cnc/Statistics/CyclesToday",
+      "source": "models/cnc.yml#Statistics/CyclesToday"
+    },
+    {
+      "s": "cnc/Statistics",
+      "r": "exposes_variable",
+      "o": "cnc/Statistics/FaultsToday",
+      "source": "models/cnc.yml#Statistics/FaultsToday"
+    },
+    {
+      "s": "cnc/Statistics",
+      "r": "exposes_variable",
+      "o": "cnc/Statistics/MinutesRunning",
+      "source": "models/cnc.yml#Statistics/MinutesRunning"
+    },
+    {
+      "s": "cnc/Statistics",
+      "r": "exposes_variable",
+      "o": "cnc/Statistics/LastCycleSeconds",
+      "source": "models/cnc.yml#Statistics/LastCycleSeconds"
+    },
+    {
+      "s": "cnc",
+      "r": "contains",
+      "o": "cnc/Diagnostics",
+      "source": "models/cnc.yml#Diagnostics"
+    },
+    {
+      "s": "cnc/Diagnostics",
+      "r": "exposes_variable",
+      "o": "cnc/Diagnostics/CommunicationOk",
+      "source": "models/cnc.yml#Diagnostics/CommunicationOk"
+    },
+    {
+      "s": "cnc/Diagnostics",
+      "r": "exposes_variable",
+      "o": "cnc/Diagnostics/SafetyOk",
+      "source": "models/cnc.yml#Diagnostics/SafetyOk"
+    },
+    {
+      "s": "cnc/Diagnostics",
+      "r": "exposes_variable",
+      "o": "cnc/Diagnostics/Firmware",
+      "source": "models/cnc.yml#Diagnostics/Firmware"
+    },
+    {
+      "s": "cnc/Diagnostics",
+      "r": "exposes_method",
+      "o": "cnc/Diagnostics/ReadDiagnostics",
+      "source": "models/cnc.yml#Diagnostics/ReadDiagnostics"
+    },
+    {
+      "s": "cnc/Diagnostics/ReadDiagnostics",
+      "r": "returns",
+      "o": "cnc/Diagnostics/ReadDiagnostics/report",
+      "source": "models/cnc.yml#Diagnostics/ReadDiagnostics"
+    },
+    {
+      "s": "cnc",
+      "r": "contains",
+      "o": "cnc/Maintenance",
+      "source": "models/cnc.yml#Maintenance"
+    },
+    {
+      "s": "cnc/Maintenance",
+      "r": "exposes_method",
+      "o": "cnc/Maintenance/AcknowledgeService",
+      "source": "models/cnc.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "cnc/Maintenance/AcknowledgeService",
+      "r": "has_parameter",
+      "o": "cnc/Maintenance/AcknowledgeService/note",
+      "source": "models/cnc.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "cnc/Maintenance/AcknowledgeService",
+      "r": "returns",
+      "o": "cnc/Maintenance/AcknowledgeService/accepted",
+      "source": "models/cnc.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "cnc/Maintenance",
+      "r": "exposes_method",
+      "o": "cnc/Maintenance/ResetCounters",
+      "source": "models/cnc.yml#Maintenance/ResetCounters"
+    },
+    {
+      "s": "cnc/Maintenance/ResetCounters",
+      "r": "returns",
+      "o": "cnc/Maintenance/ResetCounters/done",
+      "source": "models/cnc.yml#Maintenance/ResetCounters"
     },
     {
       "s": "line:main",
@@ -1870,6 +4165,108 @@
       "source": "models/conveyor.yml#MovePallet"
     },
     {
+      "s": "conveyor",
+      "r": "contains",
+      "o": "conveyor/Statistics",
+      "source": "models/conveyor.yml#Statistics"
+    },
+    {
+      "s": "conveyor/Statistics",
+      "r": "exposes_variable",
+      "o": "conveyor/Statistics/CyclesToday",
+      "source": "models/conveyor.yml#Statistics/CyclesToday"
+    },
+    {
+      "s": "conveyor/Statistics",
+      "r": "exposes_variable",
+      "o": "conveyor/Statistics/FaultsToday",
+      "source": "models/conveyor.yml#Statistics/FaultsToday"
+    },
+    {
+      "s": "conveyor/Statistics",
+      "r": "exposes_variable",
+      "o": "conveyor/Statistics/MinutesRunning",
+      "source": "models/conveyor.yml#Statistics/MinutesRunning"
+    },
+    {
+      "s": "conveyor/Statistics",
+      "r": "exposes_variable",
+      "o": "conveyor/Statistics/LastCycleSeconds",
+      "source": "models/conveyor.yml#Statistics/LastCycleSeconds"
+    },
+    {
+      "s": "conveyor",
+      "r": "contains",
+      "o": "conveyor/Diagnostics",
+      "source": "models/conveyor.yml#Diagnostics"
+    },
+    {
+      "s": "conveyor/Diagnostics",
+      "r": "exposes_variable",
+      "o": "conveyor/Diagnostics/CommunicationOk",
+      "source": "models/conveyor.yml#Diagnostics/CommunicationOk"
+    },
+    {
+      "s": "conveyor/Diagnostics",
+      "r": "exposes_variable",
+      "o": "conveyor/Diagnostics/SafetyOk",
+      "source": "models/conveyor.yml#Diagnostics/SafetyOk"
+    },
+    {
+      "s": "conveyor/Diagnostics",
+      "r": "exposes_variable",
+      "o": "conveyor/Diagnostics/Firmware",
+      "source": "models/conveyor.yml#Diagnostics/Firmware"
+    },
+    {
+      "s": "conveyor/Diagnostics",
+      "r": "exposes_method",
+      "o": "conveyor/Diagnostics/ReadDiagnostics",
+      "source": "models/conveyor.yml#Diagnostics/ReadDiagnostics"
+    },
+    {
+      "s": "conveyor/Diagnostics/ReadDiagnostics",
+      "r": "returns",
+      "o": "conveyor/Diagnostics/ReadDiagnostics/report",
+      "source": "models/conveyor.yml#Diagnostics/ReadDiagnostics"
+    },
+    {
+      "s": "conveyor",
+      "r": "contains",
+      "o": "conveyor/Maintenance",
+      "source": "models/conveyor.yml#Maintenance"
+    },
+    {
+      "s": "conveyor/Maintenance",
+      "r": "exposes_method",
+      "o": "conveyor/Maintenance/AcknowledgeService",
+      "source": "models/conveyor.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "conveyor/Maintenance/AcknowledgeService",
+      "r": "has_parameter",
+      "o": "conveyor/Maintenance/AcknowledgeService/note",
+      "source": "models/conveyor.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "conveyor/Maintenance/AcknowledgeService",
+      "r": "returns",
+      "o": "conveyor/Maintenance/AcknowledgeService/accepted",
+      "source": "models/conveyor.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "conveyor/Maintenance",
+      "r": "exposes_method",
+      "o": "conveyor/Maintenance/ResetCounters",
+      "source": "models/conveyor.yml#Maintenance/ResetCounters"
+    },
+    {
+      "s": "conveyor/Maintenance/ResetCounters",
+      "r": "returns",
+      "o": "conveyor/Maintenance/ResetCounters/done",
+      "source": "models/conveyor.yml#Maintenance/ResetCounters"
+    },
+    {
       "s": "line:main",
       "r": "contains",
       "o": "cell:qc",
@@ -1908,6 +4305,60 @@
     {
       "s": "qc",
       "r": "contains",
+      "o": "qc/Alarms",
+      "source": "models/qc.yml#Alarms"
+    },
+    {
+      "s": "qc/Alarms",
+      "r": "exposes_variable",
+      "o": "qc/Alarms/NoAirPressure",
+      "source": "models/qc.yml#Alarms/NoAirPressure"
+    },
+    {
+      "s": "qc",
+      "r": "has_alarm",
+      "o": "alarm:qc/NoAirPressure",
+      "source": "models/qc.yml#Alarms/NoAirPressure"
+    },
+    {
+      "s": "qc/Alarms",
+      "r": "exposes_variable",
+      "o": "qc/Alarms/EmergencyStop",
+      "source": "models/qc.yml#Alarms/EmergencyStop"
+    },
+    {
+      "s": "qc",
+      "r": "has_alarm",
+      "o": "alarm:qc/EmergencyStop",
+      "source": "models/qc.yml#Alarms/EmergencyStop"
+    },
+    {
+      "s": "qc/Alarms",
+      "r": "exposes_variable",
+      "o": "qc/Alarms/MotorTrip",
+      "source": "models/qc.yml#Alarms/MotorTrip"
+    },
+    {
+      "s": "qc",
+      "r": "has_alarm",
+      "o": "alarm:qc/MotorTrip",
+      "source": "models/qc.yml#Alarms/MotorTrip"
+    },
+    {
+      "s": "qc/Alarms",
+      "r": "exposes_variable",
+      "o": "qc/Alarms/RFIDFault",
+      "source": "models/qc.yml#Alarms/RFIDFault"
+    },
+    {
+      "s": "qc",
+      "r": "has_alarm",
+      "o": "alarm:qc/RFIDFault",
+      "source": "models/qc.yml#Alarms/RFIDFault"
+    },
+    {
+      "s": "qc",
+      "r": "contains",
       "o": "qc/Inspection",
       "source": "models/qc.yml#Inspection"
     },
@@ -1940,6 +4391,108 @@
       "r": "exposes_variable",
       "o": "qc/Inspection/ChecksTotal",
       "source": "models/qc.yml#Inspection/ChecksTotal"
+    },
+    {
+      "s": "qc",
+      "r": "contains",
+      "o": "qc/Statistics",
+      "source": "models/qc.yml#Statistics"
+    },
+    {
+      "s": "qc/Statistics",
+      "r": "exposes_variable",
+      "o": "qc/Statistics/CyclesToday",
+      "source": "models/qc.yml#Statistics/CyclesToday"
+    },
+    {
+      "s": "qc/Statistics",
+      "r": "exposes_variable",
+      "o": "qc/Statistics/FaultsToday",
+      "source": "models/qc.yml#Statistics/FaultsToday"
+    },
+    {
+      "s": "qc/Statistics",
+      "r": "exposes_variable",
+      "o": "qc/Statistics/MinutesRunning",
+      "source": "models/qc.yml#Statistics/MinutesRunning"
+    },
+    {
+      "s": "qc/Statistics",
+      "r": "exposes_variable",
+      "o": "qc/Statistics/LastCycleSeconds",
+      "source": "models/qc.yml#Statistics/LastCycleSeconds"
+    },
+    {
+      "s": "qc",
+      "r": "contains",
+      "o": "qc/Diagnostics",
+      "source": "models/qc.yml#Diagnostics"
+    },
+    {
+      "s": "qc/Diagnostics",
+      "r": "exposes_variable",
+      "o": "qc/Diagnostics/CommunicationOk",
+      "source": "models/qc.yml#Diagnostics/CommunicationOk"
+    },
+    {
+      "s": "qc/Diagnostics",
+      "r": "exposes_variable",
+      "o": "qc/Diagnostics/SafetyOk",
+      "source": "models/qc.yml#Diagnostics/SafetyOk"
+    },
+    {
+      "s": "qc/Diagnostics",
+      "r": "exposes_variable",
+      "o": "qc/Diagnostics/Firmware",
+      "source": "models/qc.yml#Diagnostics/Firmware"
+    },
+    {
+      "s": "qc/Diagnostics",
+      "r": "exposes_method",
+      "o": "qc/Diagnostics/ReadDiagnostics",
+      "source": "models/qc.yml#Diagnostics/ReadDiagnostics"
+    },
+    {
+      "s": "qc/Diagnostics/ReadDiagnostics",
+      "r": "returns",
+      "o": "qc/Diagnostics/ReadDiagnostics/report",
+      "source": "models/qc.yml#Diagnostics/ReadDiagnostics"
+    },
+    {
+      "s": "qc",
+      "r": "contains",
+      "o": "qc/Maintenance",
+      "source": "models/qc.yml#Maintenance"
+    },
+    {
+      "s": "qc/Maintenance",
+      "r": "exposes_method",
+      "o": "qc/Maintenance/AcknowledgeService",
+      "source": "models/qc.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "qc/Maintenance/AcknowledgeService",
+      "r": "has_parameter",
+      "o": "qc/Maintenance/AcknowledgeService/note",
+      "source": "models/qc.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "qc/Maintenance/AcknowledgeService",
+      "r": "returns",
+      "o": "qc/Maintenance/AcknowledgeService/accepted",
+      "source": "models/qc.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "qc/Maintenance",
+      "r": "exposes_method",
+      "o": "qc/Maintenance/ResetCounters",
+      "source": "models/qc.yml#Maintenance/ResetCounters"
+    },
+    {
+      "s": "qc/Maintenance/ResetCounters",
+      "r": "returns",
+      "o": "qc/Maintenance/ResetCounters/done",
+      "source": "models/qc.yml#Maintenance/ResetCounters"
     },
     {
       "s": "line:main",
@@ -1980,6 +4533,60 @@
     {
       "s": "rover1",
       "r": "contains",
+      "o": "rover1/Alarms",
+      "source": "models/rover1.yml#Alarms"
+    },
+    {
+      "s": "rover1/Alarms",
+      "r": "exposes_variable",
+      "o": "rover1/Alarms/NoAirPressure",
+      "source": "models/rover1.yml#Alarms/NoAirPressure"
+    },
+    {
+      "s": "rover1",
+      "r": "has_alarm",
+      "o": "alarm:rover1/NoAirPressure",
+      "source": "models/rover1.yml#Alarms/NoAirPressure"
+    },
+    {
+      "s": "rover1/Alarms",
+      "r": "exposes_variable",
+      "o": "rover1/Alarms/EmergencyStop",
+      "source": "models/rover1.yml#Alarms/EmergencyStop"
+    },
+    {
+      "s": "rover1",
+      "r": "has_alarm",
+      "o": "alarm:rover1/EmergencyStop",
+      "source": "models/rover1.yml#Alarms/EmergencyStop"
+    },
+    {
+      "s": "rover1/Alarms",
+      "r": "exposes_variable",
+      "o": "rover1/Alarms/MotorTrip",
+      "source": "models/rover1.yml#Alarms/MotorTrip"
+    },
+    {
+      "s": "rover1",
+      "r": "has_alarm",
+      "o": "alarm:rover1/MotorTrip",
+      "source": "models/rover1.yml#Alarms/MotorTrip"
+    },
+    {
+      "s": "rover1/Alarms",
+      "r": "exposes_variable",
+      "o": "rover1/Alarms/RFIDFault",
+      "source": "models/rover1.yml#Alarms/RFIDFault"
+    },
+    {
+      "s": "rover1",
+      "r": "has_alarm",
+      "o": "alarm:rover1/RFIDFault",
+      "source": "models/rover1.yml#Alarms/RFIDFault"
+    },
+    {
+      "s": "rover1",
+      "r": "contains",
       "o": "rover1/Motion",
       "source": "models/rover1.yml#Motion"
     },
@@ -2012,6 +4619,108 @@
       "r": "returns",
       "o": "rover1/Motion/StopMission/stopped",
       "source": "models/rover1.yml#Motion/StopMission"
+    },
+    {
+      "s": "rover1",
+      "r": "contains",
+      "o": "rover1/Statistics",
+      "source": "models/rover1.yml#Statistics"
+    },
+    {
+      "s": "rover1/Statistics",
+      "r": "exposes_variable",
+      "o": "rover1/Statistics/CyclesToday",
+      "source": "models/rover1.yml#Statistics/CyclesToday"
+    },
+    {
+      "s": "rover1/Statistics",
+      "r": "exposes_variable",
+      "o": "rover1/Statistics/FaultsToday",
+      "source": "models/rover1.yml#Statistics/FaultsToday"
+    },
+    {
+      "s": "rover1/Statistics",
+      "r": "exposes_variable",
+      "o": "rover1/Statistics/MinutesRunning",
+      "source": "models/rover1.yml#Statistics/MinutesRunning"
+    },
+    {
+      "s": "rover1/Statistics",
+      "r": "exposes_variable",
+      "o": "rover1/Statistics/LastCycleSeconds",
+      "source": "models/rover1.yml#Statistics/LastCycleSeconds"
+    },
+    {
+      "s": "rover1",
+      "r": "contains",
+      "o": "rover1/Diagnostics",
+      "source": "models/rover1.yml#Diagnostics"
+    },
+    {
+      "s": "rover1/Diagnostics",
+      "r": "exposes_variable",
+      "o": "rover1/Diagnostics/CommunicationOk",
+      "source": "models/rover1.yml#Diagnostics/CommunicationOk"
+    },
+    {
+      "s": "rover1/Diagnostics",
+      "r": "exposes_variable",
+      "o": "rover1/Diagnostics/SafetyOk",
+      "source": "models/rover1.yml#Diagnostics/SafetyOk"
+    },
+    {
+      "s": "rover1/Diagnostics",
+      "r": "exposes_variable",
+      "o": "rover1/Diagnostics/Firmware",
+      "source": "models/rover1.yml#Diagnostics/Firmware"
+    },
+    {
+      "s": "rover1/Diagnostics",
+      "r": "exposes_method",
+      "o": "rover1/Diagnostics/ReadDiagnostics",
+      "source": "models/rover1.yml#Diagnostics/ReadDiagnostics"
+    },
+    {
+      "s": "rover1/Diagnostics/ReadDiagnostics",
+      "r": "returns",
+      "o": "rover1/Diagnostics/ReadDiagnostics/report",
+      "source": "models/rover1.yml#Diagnostics/ReadDiagnostics"
+    },
+    {
+      "s": "rover1",
+      "r": "contains",
+      "o": "rover1/Maintenance",
+      "source": "models/rover1.yml#Maintenance"
+    },
+    {
+      "s": "rover1/Maintenance",
+      "r": "exposes_method",
+      "o": "rover1/Maintenance/AcknowledgeService",
+      "source": "models/rover1.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "rover1/Maintenance/AcknowledgeService",
+      "r": "has_parameter",
+      "o": "rover1/Maintenance/AcknowledgeService/note",
+      "source": "models/rover1.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "rover1/Maintenance/AcknowledgeService",
+      "r": "returns",
+      "o": "rover1/Maintenance/AcknowledgeService/accepted",
+      "source": "models/rover1.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "rover1/Maintenance",
+      "r": "exposes_method",
+      "o": "rover1/Maintenance/ResetCounters",
+      "source": "models/rover1.yml#Maintenance/ResetCounters"
+    },
+    {
+      "s": "rover1/Maintenance/ResetCounters",
+      "r": "returns",
+      "o": "rover1/Maintenance/ResetCounters/done",
+      "source": "models/rover1.yml#Maintenance/ResetCounters"
     },
     {
       "s": "line:main",
@@ -2052,6 +4761,60 @@
     {
       "s": "rover2",
       "r": "contains",
+      "o": "rover2/Alarms",
+      "source": "models/rover2.yml#Alarms"
+    },
+    {
+      "s": "rover2/Alarms",
+      "r": "exposes_variable",
+      "o": "rover2/Alarms/NoAirPressure",
+      "source": "models/rover2.yml#Alarms/NoAirPressure"
+    },
+    {
+      "s": "rover2",
+      "r": "has_alarm",
+      "o": "alarm:rover2/NoAirPressure",
+      "source": "models/rover2.yml#Alarms/NoAirPressure"
+    },
+    {
+      "s": "rover2/Alarms",
+      "r": "exposes_variable",
+      "o": "rover2/Alarms/EmergencyStop",
+      "source": "models/rover2.yml#Alarms/EmergencyStop"
+    },
+    {
+      "s": "rover2",
+      "r": "has_alarm",
+      "o": "alarm:rover2/EmergencyStop",
+      "source": "models/rover2.yml#Alarms/EmergencyStop"
+    },
+    {
+      "s": "rover2/Alarms",
+      "r": "exposes_variable",
+      "o": "rover2/Alarms/MotorTrip",
+      "source": "models/rover2.yml#Alarms/MotorTrip"
+    },
+    {
+      "s": "rover2",
+      "r": "has_alarm",
+      "o": "alarm:rover2/MotorTrip",
+      "source": "models/rover2.yml#Alarms/MotorTrip"
+    },
+    {
+      "s": "rover2/Alarms",
+      "r": "exposes_variable",
+      "o": "rover2/Alarms/RFIDFault",
+      "source": "models/rover2.yml#Alarms/RFIDFault"
+    },
+    {
+      "s": "rover2",
+      "r": "has_alarm",
+      "o": "alarm:rover2/RFIDFault",
+      "source": "models/rover2.yml#Alarms/RFIDFault"
+    },
+    {
+      "s": "rover2",
+      "r": "contains",
       "o": "rover2/Motion",
       "source": "models/rover2.yml#Motion"
     },
@@ -2084,6 +4847,108 @@
       "r": "returns",
       "o": "rover2/Motion/StopMission/stopped",
       "source": "models/rover2.yml#Motion/StopMission"
+    },
+    {
+      "s": "rover2",
+      "r": "contains",
+      "o": "rover2/Statistics",
+      "source": "models/rover2.yml#Statistics"
+    },
+    {
+      "s": "rover2/Statistics",
+      "r": "exposes_variable",
+      "o": "rover2/Statistics/CyclesToday",
+      "source": "models/rover2.yml#Statistics/CyclesToday"
+    },
+    {
+      "s": "rover2/Statistics",
+      "r": "exposes_variable",
+      "o": "rover2/Statistics/FaultsToday",
+      "source": "models/rover2.yml#Statistics/FaultsToday"
+    },
+    {
+      "s": "rover2/Statistics",
+      "r": "exposes_variable",
+      "o": "rover2/Statistics/MinutesRunning",
+      "source": "models/rover2.yml#Statistics/MinutesRunning"
+    },
+    {
+      "s": "rover2/Statistics",
+      "r": "exposes_variable",
+      "o": "rover2/Statistics/LastCycleSeconds",
+      "source": "models/rover2.yml#Statistics/LastCycleSeconds"
+    },
+    {
+      "s": "rover2",
+      "r": "contains",
+      "o": "rover2/Diagnostics",
+      "source": "models/rover2.yml#Diagnostics"
+    },
+    {
+      "s": "rover2/Diagnostics",
+      "r": "exposes_variable",
+      "o": "rover2/Diagnostics/CommunicationOk",
+      "source": "models/rover2.yml#Diagnostics/CommunicationOk"
+    },
+    {
+      "s": "rover2/Diagnostics",
+      "r": "exposes_variable",
+      "o": "rover2/Diagnostics/SafetyOk",
+      "source": "models/rover2.yml#Diagnostics/SafetyOk"
+    },
+    {
+      "s": "rover2/Diagnostics",
+      "r": "exposes_variable",
+      "o": "rover2/Diagnostics/Firmware",
+      "source": "models/rover2.yml#Diagnostics/Firmware"
+    },
+    {
+      "s": "rover2/Diagnostics",
+      "r": "exposes_method",
+      "o": "rover2/Diagnostics/ReadDiagnostics",
+      "source": "models/rover2.yml#Diagnostics/ReadDiagnostics"
+    },
+    {
+      "s": "rover2/Diagnostics/ReadDiagnostics",
+      "r": "returns",
+      "o": "rover2/Diagnostics/ReadDiagnostics/report",
+      "source": "models/rover2.yml#Diagnostics/ReadDiagnostics"
+    },
+    {
+      "s": "rover2",
+      "r": "contains",
+      "o": "rover2/Maintenance",
+      "source": "models/rover2.yml#Maintenance"
+    },
+    {
+      "s": "rover2/Maintenance",
+      "r": "exposes_method",
+      "o": "rover2/Maintenance/AcknowledgeService",
+      "source": "models/rover2.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "rover2/Maintenance/AcknowledgeService",
+      "r": "has_parameter",
+      "o": "rover2/Maintenance/AcknowledgeService/note",
+      "source": "models/rover2.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "rover2/Maintenance/AcknowledgeService",
+      "r": "returns",
+      "o": "rover2/Maintenance/AcknowledgeService/accepted",
+      "source": "models/rover2.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "rover2/Maintenance",
+      "r": "exposes_method",
+      "o": "rover2/Maintenance/ResetCounters",
+      "source": "models/rover2.yml#Maintenance/ResetCounters"
+    },
+    {
+      "s": "rover2/Maintenance/ResetCounters",
+      "r": "returns",
+      "o": "rover2/Maintenance/ResetCounters/done",
+      "source": "models/rover2.yml#Maintenance/ResetCounters"
     },
     {
       "s": "line:main",
@@ -2120,6 +4985,60 @@
       "r": "exposes_variable",
       "o": "tester/Status/LastResult",
       "source": "models/tester.yml#Status/LastResult"
+    },
+    {
+      "s": "tester",
+      "r": "contains",
+      "o": "tester/Alarms",
+      "source": "models/tester.yml#Alarms"
+    },
+    {
+      "s": "tester/Alarms",
+      "r": "exposes_variable",
+      "o": "tester/Alarms/NoAirPressure",
+      "source": "models/tester.yml#Alarms/NoAirPressure"
+    },
+    {
+      "s": "tester",
+      "r": "has_alarm",
+      "o": "alarm:tester/NoAirPressure",
+      "source": "models/tester.yml#Alarms/NoAirPressure"
+    },
+    {
+      "s": "tester/Alarms",
+      "r": "exposes_variable",
+      "o": "tester/Alarms/EmergencyStop",
+      "source": "models/tester.yml#Alarms/EmergencyStop"
+    },
+    {
+      "s": "tester",
+      "r": "has_alarm",
+      "o": "alarm:tester/EmergencyStop",
+      "source": "models/tester.yml#Alarms/EmergencyStop"
+    },
+    {
+      "s": "tester/Alarms",
+      "r": "exposes_variable",
+      "o": "tester/Alarms/MotorTrip",
+      "source": "models/tester.yml#Alarms/MotorTrip"
+    },
+    {
+      "s": "tester",
+      "r": "has_alarm",
+      "o": "alarm:tester/MotorTrip",
+      "source": "models/tester.yml#Alarms/MotorTrip"
+    },
+    {
+      "s": "tester/Alarms",
+      "r": "exposes_variable",
+      "o": "tester/Alarms/RFIDFault",
+      "source": "models/tester.yml#Alarms/RFIDFault"
+    },
+    {
+      "s": "tester",
+      "r": "has_alarm",
+      "o": "alarm:tester/RFIDFault",
+      "source": "models/tester.yml#Alarms/RFIDFault"
     },
     {
       "s": "tester",
@@ -2174,6 +5093,108 @@
       "r": "exposes_variable",
       "o": "tester/Boards/TestPassed",
       "source": "models/tester.yml#Boards/TestPassed"
+    },
+    {
+      "s": "tester",
+      "r": "contains",
+      "o": "tester/Statistics",
+      "source": "models/tester.yml#Statistics"
+    },
+    {
+      "s": "tester/Statistics",
+      "r": "exposes_variable",
+      "o": "tester/Statistics/CyclesToday",
+      "source": "models/tester.yml#Statistics/CyclesToday"
+    },
+    {
+      "s": "tester/Statistics",
+      "r": "exposes_variable",
+      "o": "tester/Statistics/FaultsToday",
+      "source": "models/tester.yml#Statistics/FaultsToday"
+    },
+    {
+      "s": "tester/Statistics",
+      "r": "exposes_variable",
+      "o": "tester/Statistics/MinutesRunning",
+      "source": "models/tester.yml#Statistics/MinutesRunning"
+    },
+    {
+      "s": "tester/Statistics",
+      "r": "exposes_variable",
+      "o": "tester/Statistics/LastCycleSeconds",
+      "source": "models/tester.yml#Statistics/LastCycleSeconds"
+    },
+    {
+      "s": "tester",
+      "r": "contains",
+      "o": "tester/Diagnostics",
+      "source": "models/tester.yml#Diagnostics"
+    },
+    {
+      "s": "tester/Diagnostics",
+      "r": "exposes_variable",
+      "o": "tester/Diagnostics/CommunicationOk",
+      "source": "models/tester.yml#Diagnostics/CommunicationOk"
+    },
+    {
+      "s": "tester/Diagnostics",
+      "r": "exposes_variable",
+      "o": "tester/Diagnostics/SafetyOk",
+      "source": "models/tester.yml#Diagnostics/SafetyOk"
+    },
+    {
+      "s": "tester/Diagnostics",
+      "r": "exposes_variable",
+      "o": "tester/Diagnostics/Firmware",
+      "source": "models/tester.yml#Diagnostics/Firmware"
+    },
+    {
+      "s": "tester/Diagnostics",
+      "r": "exposes_method",
+      "o": "tester/Diagnostics/ReadDiagnostics",
+      "source": "models/tester.yml#Diagnostics/ReadDiagnostics"
+    },
+    {
+      "s": "tester/Diagnostics/ReadDiagnostics",
+      "r": "returns",
+      "o": "tester/Diagnostics/ReadDiagnostics/report",
+      "source": "models/tester.yml#Diagnostics/ReadDiagnostics"
+    },
+    {
+      "s": "tester",
+      "r": "contains",
+      "o": "tester/Maintenance",
+      "source": "models/tester.yml#Maintenance"
+    },
+    {
+      "s": "tester/Maintenance",
+      "r": "exposes_method",
+      "o": "tester/Maintenance/AcknowledgeService",
+      "source": "models/tester.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "tester/Maintenance/AcknowledgeService",
+      "r": "has_parameter",
+      "o": "tester/Maintenance/AcknowledgeService/note",
+      "source": "models/tester.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "tester/Maintenance/AcknowledgeService",
+      "r": "returns",
+      "o": "tester/Maintenance/AcknowledgeService/accepted",
+      "source": "models/tester.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "tester/Maintenance",
+      "r": "exposes_method",
+      "o": "tester/Maintenance/ResetCounters",
+      "source": "models/tester.yml#Maintenance/ResetCounters"
+    },
+    {
+      "s": "tester/Maintenance/ResetCounters",
+      "r": "returns",
+      "o": "tester/Maintenance/ResetCounters/done",
+      "source": "models/tester.yml#Maintenance/ResetCounters"
     },
     {
       "s": "line:main",
@@ -2330,6 +5351,108 @@
       "r": "returns",
       "o": "warehouse/SendBack/done",
       "source": "models/warehouse.yml#SendBack"
+    },
+    {
+      "s": "warehouse",
+      "r": "contains",
+      "o": "warehouse/Statistics",
+      "source": "models/warehouse.yml#Statistics"
+    },
+    {
+      "s": "warehouse/Statistics",
+      "r": "exposes_variable",
+      "o": "warehouse/Statistics/CyclesToday",
+      "source": "models/warehouse.yml#Statistics/CyclesToday"
+    },
+    {
+      "s": "warehouse/Statistics",
+      "r": "exposes_variable",
+      "o": "warehouse/Statistics/FaultsToday",
+      "source": "models/warehouse.yml#Statistics/FaultsToday"
+    },
+    {
+      "s": "warehouse/Statistics",
+      "r": "exposes_variable",
+      "o": "warehouse/Statistics/MinutesRunning",
+      "source": "models/warehouse.yml#Statistics/MinutesRunning"
+    },
+    {
+      "s": "warehouse/Statistics",
+      "r": "exposes_variable",
+      "o": "warehouse/Statistics/LastCycleSeconds",
+      "source": "models/warehouse.yml#Statistics/LastCycleSeconds"
+    },
+    {
+      "s": "warehouse",
+      "r": "contains",
+      "o": "warehouse/Diagnostics",
+      "source": "models/warehouse.yml#Diagnostics"
+    },
+    {
+      "s": "warehouse/Diagnostics",
+      "r": "exposes_variable",
+      "o": "warehouse/Diagnostics/CommunicationOk",
+      "source": "models/warehouse.yml#Diagnostics/CommunicationOk"
+    },
+    {
+      "s": "warehouse/Diagnostics",
+      "r": "exposes_variable",
+      "o": "warehouse/Diagnostics/SafetyOk",
+      "source": "models/warehouse.yml#Diagnostics/SafetyOk"
+    },
+    {
+      "s": "warehouse/Diagnostics",
+      "r": "exposes_variable",
+      "o": "warehouse/Diagnostics/Firmware",
+      "source": "models/warehouse.yml#Diagnostics/Firmware"
+    },
+    {
+      "s": "warehouse/Diagnostics",
+      "r": "exposes_method",
+      "o": "warehouse/Diagnostics/ReadDiagnostics",
+      "source": "models/warehouse.yml#Diagnostics/ReadDiagnostics"
+    },
+    {
+      "s": "warehouse/Diagnostics/ReadDiagnostics",
+      "r": "returns",
+      "o": "warehouse/Diagnostics/ReadDiagnostics/report",
+      "source": "models/warehouse.yml#Diagnostics/ReadDiagnostics"
+    },
+    {
+      "s": "warehouse",
+      "r": "contains",
+      "o": "warehouse/Maintenance",
+      "source": "models/warehouse.yml#Maintenance"
+    },
+    {
+      "s": "warehouse/Maintenance",
+      "r": "exposes_method",
+      "o": "warehouse/Maintenance/AcknowledgeService",
+      "source": "models/warehouse.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "warehouse/Maintenance/AcknowledgeService",
+      "r": "has_parameter",
+      "o": "warehouse/Maintenance/AcknowledgeService/note",
+      "source": "models/warehouse.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "warehouse/Maintenance/AcknowledgeService",
+      "r": "returns",
+      "o": "warehouse/Maintenance/AcknowledgeService/accepted",
+      "source": "models/warehouse.yml#Maintenance/AcknowledgeService"
+    },
+    {
+      "s": "warehouse/Maintenance",
+      "r": "exposes_method",
+      "o": "warehouse/Maintenance/ResetCounters",
+      "source": "models/warehouse.yml#Maintenance/ResetCounters"
+    },
+    {
+      "s": "warehouse/Maintenance/ResetCounters",
+      "r": "returns",
+      "o": "warehouse/Maintenance/ResetCounters/done",
+      "source": "models/warehouse.yml#Maintenance/ResetCounters"
     },
     {
       "s": "conveyor",
@@ -2684,6 +5807,372 @@
       "r": "raised",
       "o": "alarm:conveyor/MotorTrip",
       "source": "incident-ambiguous"
+    },
+    {
+      "s": "conveyor",
+      "r": "serves_bay",
+      "o": "bay:3",
+      "source": "line-alternatives"
+    },
+    {
+      "s": "conveyor",
+      "r": "serves_bay",
+      "o": "bay:4",
+      "source": "line-alternatives"
+    },
+    {
+      "s": "warehouse",
+      "r": "serves_bay",
+      "o": "bay:1",
+      "source": "line-alternatives"
+    },
+    {
+      "s": "conveyor",
+      "r": "moves",
+      "o": "pallet:8",
+      "source": "line-alternatives"
+    },
+    {
+      "s": "rover1",
+      "r": "moves",
+      "o": "item:tray",
+      "source": "line-alternatives"
+    },
+    {
+      "s": "rover2",
+      "r": "moves",
+      "o": "item:board",
+      "source": "line-alternatives"
+    },
+    {
+      "s": "tester",
+      "r": "moves",
+      "o": "item:cover",
+      "source": "line-alternatives"
+    },
+    {
+      "s": "cnc",
+      "r": "moves",
+      "o": "item:cover-top",
+      "source": "line-alternatives"
+    },
+    {
+      "s": "assembly",
+      "r": "moves",
+      "o": "item:board",
+      "source": "line-alternatives"
+    },
+    {
+      "s": "qc",
+      "r": "moves",
+      "o": "item:cover",
+      "source": "line-alternatives"
+    },
+    {
+      "s": "incident:2026-03-07-1",
+      "r": "incident_on",
+      "o": "warehouse",
+      "source": "incident-2026-03-07-1"
+    },
+    {
+      "s": "incident:2026-03-07-1",
+      "r": "raised",
+      "o": "alarm:warehouse/NoAirPressure",
+      "source": "incident-2026-03-07-1"
+    },
+    {
+      "s": "incident:2026-03-07-1",
+      "r": "fixed_by_method",
+      "o": "warehouse/ResetAlarms",
+      "source": "incident-2026-03-07-1"
+    },
+    {
+      "s": "incident:2026-03-08-1",
+      "r": "incident_on",
+      "o": "rover1",
+      "source": "incident-2026-03-08-1"
+    },
+    {
+      "s": "incident:2026-03-08-1",
+      "r": "raised",
+      "o": "alarm:conveyor/MotorTrip",
+      "source": "incident-2026-03-08-1"
+    },
+    {
+      "s": "incident:2026-03-08-1",
+      "r": "fixed_by_method",
+      "o": "rover1/Motion/StopMission",
+      "source": "incident-2026-03-08-1"
+    },
+    {
+      "s": "incident:2026-03-09-1",
+      "r": "incident_on",
+      "o": "rover2",
+      "source": "incident-2026-03-09-1"
+    },
+    {
+      "s": "incident:2026-03-09-1",
+      "r": "raised",
+      "o": "alarm:rover2/EmergencyStop",
+      "source": "incident-2026-03-09-1"
+    },
+    {
+      "s": "incident:2026-03-09-1",
+      "r": "fixed_by_method",
+      "o": "rover2/Motion/StopMission",
+      "source": "incident-2026-03-09-1"
+    },
+    {
+      "s": "incident:2026-03-10-1",
+      "r": "incident_on",
+      "o": "tester",
+      "source": "incident-2026-03-10-1"
+    },
+    {
+      "s": "incident:2026-03-10-1",
+      "r": "raised",
+      "o": "alarm:tester/NoAirPressure",
+      "source": "incident-2026-03-10-1"
+    },
+    {
+      "s": "incident:2026-03-10-1",
+      "r": "fixed_by_method",
+      "o": "tester/Boards/BoardOut",
+      "source": "incident-2026-03-10-1"
+    },
+    {
+      "s": "incident:2026-03-11-1",
+      "r": "incident_on",
+      "o": "cnc",
+      "source": "incident-2026-03-11-1"
+    },
+    {
+      "s": "incident:2026-03-11-1",
+      "r": "raised",
+      "o": "alarm:cnc/EmergencyStop",
+      "source": "incident-2026-03-11-1"
+    },
+    {
+      "s": "incident:2026-03-11-1",
+      "r": "fixed_by_method",
+      "o": "cnc/Arm/PlaceBoard",
+      "source": "incident-2026-03-11-1"
+    },
+    {
+      "s": "incident:2026-03-12-1",
+      "r": "incident_on",
+      "o": "assembly",
+      "source": "incident-2026-03-12-1"
+    },
+    {
+      "s": "incident:2026-03-12-1",
+      "r": "raised",
+      "o": "alarm:assembly/ScrewdriverFault",
+      "source": "incident-2026-03-12-1"
+    },
+    {
+      "s": "incident:2026-03-12-1",
+      "r": "fixed_by_method",
+      "o": "assembly/ResetAlarms",
+      "source": "incident-2026-03-12-1"
+    },
+    {
+      "s": "incident:2026-03-13-1",
+      "r": "incident_on",
+      "o": "qc",
+      "source": "incident-2026-03-13-1"
+    },
+    {
+      "s": "incident:2026-03-13-1",
+      "r": "raised",
+      "o": "alarm:conveyor/MotorTrip",
+      "source": "incident-2026-03-13-1"
+    },
+    {
+      "s": "incident:2026-03-13-1",
+      "r": "fixed_by_method",
+      "o": "qc/Inspection/CheckPallet",
+      "source": "incident-2026-03-13-1"
+    },
+    {
+      "s": "incident:2026-03-14-1",
+      "r": "incident_on",
+      "o": "warehouse",
+      "source": "incident-2026-03-14-1"
+    },
+    {
+      "s": "incident:2026-03-14-1",
+      "r": "raised",
+      "o": "alarm:warehouse/EmergencyStop",
+      "source": "incident-2026-03-14-1"
+    },
+    {
+      "s": "incident:2026-03-14-1",
+      "r": "fixed_by_method",
+      "o": "warehouse/ResetAlarms",
+      "source": "incident-2026-03-14-1"
+    },
+    {
+      "s": "incident:2026-03-15-1",
+      "r": "incident_on",
+      "o": "rover1",
+      "source": "incident-2026-03-15-1"
+    },
+    {
+      "s": "incident:2026-03-15-1",
+      "r": "raised",
+      "o": "alarm:rover1/NoAirPressure",
+      "source": "incident-2026-03-15-1"
+    },
+    {
+      "s": "incident:2026-03-15-1",
+      "r": "fixed_by_method",
+      "o": "rover1/Motion/StopMission",
+      "source": "incident-2026-03-15-1"
+    },
+    {
+      "s": "incident:2026-03-16-1",
+      "r": "incident_on",
+      "o": "rover2",
+      "source": "incident-2026-03-16-1"
+    },
+    {
+      "s": "incident:2026-03-16-1",
+      "r": "raised",
+      "o": "alarm:conveyor/RFIDFault",
+      "source": "incident-2026-03-16-1"
+    },
+    {
+      "s": "incident:2026-03-16-1",
+      "r": "fixed_by_method",
+      "o": "rover2/Motion/StopMission",
+      "source": "incident-2026-03-16-1"
+    },
+    {
+      "s": "incident:2026-03-17-1",
+      "r": "incident_on",
+      "o": "tester",
+      "source": "incident-2026-03-17-1"
+    },
+    {
+      "s": "incident:2026-03-17-1",
+      "r": "raised",
+      "o": "alarm:tester/EmergencyStop",
+      "source": "incident-2026-03-17-1"
+    },
+    {
+      "s": "incident:2026-03-17-1",
+      "r": "fixed_by_method",
+      "o": "tester/Boards/BoardOut",
+      "source": "incident-2026-03-17-1"
+    },
+    {
+      "s": "incident:2026-03-18-1",
+      "r": "incident_on",
+      "o": "cnc",
+      "source": "incident-2026-03-18-1"
+    },
+    {
+      "s": "incident:2026-03-18-1",
+      "r": "raised",
+      "o": "alarm:conveyor/MotorTrip",
+      "source": "incident-2026-03-18-1"
+    },
+    {
+      "s": "incident:2026-03-18-1",
+      "r": "fixed_by_method",
+      "o": "cnc/Arm/PlaceBoard",
+      "source": "incident-2026-03-18-1"
+    },
+    {
+      "s": "incident:2026-03-19-1",
+      "r": "incident_on",
+      "o": "assembly",
+      "source": "incident-2026-03-19-1"
+    },
+    {
+      "s": "incident:2026-03-19-1",
+      "r": "raised",
+      "o": "alarm:assembly/EmergencyStop",
+      "source": "incident-2026-03-19-1"
+    },
+    {
+      "s": "incident:2026-03-19-1",
+      "r": "fixed_by_method",
+      "o": "assembly/ResetAlarms",
+      "source": "incident-2026-03-19-1"
+    },
+    {
+      "s": "incident:2026-03-20-1",
+      "r": "incident_on",
+      "o": "qc",
+      "source": "incident-2026-03-20-1"
+    },
+    {
+      "s": "incident:2026-03-20-1",
+      "r": "raised",
+      "o": "alarm:qc/NoAirPressure",
+      "source": "incident-2026-03-20-1"
+    },
+    {
+      "s": "incident:2026-03-20-1",
+      "r": "fixed_by_method",
+      "o": "qc/Inspection/CheckPallet",
+      "source": "incident-2026-03-20-1"
+    },
+    {
+      "s": "incident:2026-03-21-1",
+      "r": "incident_on",
+      "o": "warehouse",
+      "source": "incident-2026-03-21-1"
+    },
+    {
+      "s": "incident:2026-03-21-1",
+      "r": "raised",
+      "o": "alarm:conveyor/MotorTrip",
+      "source": "incident-2026-03-21-1"
+    },
+    {
+      "s": "incident:2026-03-21-1",
+      "r": "fixed_by_method",
+      "o": "warehouse/ResetAlarms",
+      "source": "incident-2026-03-21-1"
+    },
+    {
+      "s": "incident:2026-03-22-1",
+      "r": "incident_on",
+      "o": "rover1",
+      "source": "incident-2026-03-22-1"
+    },
+    {
+      "s": "incident:2026-03-22-1",
+      "r": "raised",
+      "o": "alarm:conveyor/RFIDFault",
+      "source": "incident-2026-03-22-1"
+    },
+    {
+      "s": "incident:2026-03-22-1",
+      "r": "fixed_by_method",
+      "o": "rover1/Motion/StopMission",
+      "source": "incident-2026-03-22-1"
+    },
+    {
+      "s": "incident:2026-03-23-1",
+      "r": "incident_on",
+      "o": "rover2",
+      "source": "incident-2026-03-23-1"
+    },
+    {
+      "s": "incident:2026-03-23-1",
+      "r": "raised",
+      "o": "alarm:rover2/NoAirPressure",
+      "source": "incident-2026-03-23-1"
+    },
+    {
+      "s": "incident:2026-03-23-1",
+      "r": "fixed_by_method",
+      "o": "rover2/Motion/StopMission",
+      "source": "incident-2026-03-23-1"
     }
   ],
   "ambiguous": {

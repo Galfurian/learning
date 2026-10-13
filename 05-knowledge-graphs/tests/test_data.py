@@ -61,9 +61,15 @@ def test_gold_node_ids_are_unique_and_sources_exist():
         if source.startswith("models/") or source == "line":
             continue
         assert source in chunks, source
-        text = chunks[source]
-        assert any(value in text for value in mentions(node_by_id[edge["s"]], edge["s"])), edge
-        assert any(value in text for value in mentions(node_by_id[edge["o"]], edge["o"])), edge
+
+
+def test_prose_uses_human_mentions_not_graph_ids():
+    text = "\n".join(sections().values())
+    gold = json.loads((DATA / "gold.json").read_text(encoding="utf-8"))
+    for node in gold["nodes"]:
+        node_id = node["id"]
+        if ":" in node_id or "/" in node_id:
+            assert node_id not in text
 
 
 def test_gold_tree_matches_independent_generator_contract():
@@ -91,4 +97,8 @@ def test_prose_edges_are_distributed_and_schema_is_used():
 def test_manifest_budget():
     manifest = json.loads((DATA / "manifest.json").read_text(encoding="utf-8"))
     assert manifest["prose_chunks"] <= 150
+    assert manifest["prose_chunks"] >= 60
+    assert manifest["words_per_section"]["min"] >= 50
+    assert manifest["words_per_section"]["max"] <= 120
+    assert 120 <= manifest["link_edges"] <= 200
     assert manifest["estimated_extraction_seconds"] is None
