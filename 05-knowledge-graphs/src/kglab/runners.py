@@ -9,7 +9,7 @@ from typing import Any
 import yaml
 
 from . import ui
-from .benchmark import diagnose, stages_text
+from .benchmark import diagnose, missing_gold_edges, stages_text
 from .builder import BuildReport
 from .client import OllamaError, ollama_url
 from .corpus import DEV_QUESTIONS, HOLDOUT_QUESTIONS, MODELS_DIR
@@ -292,6 +292,7 @@ def graph_rows(questions: list[Question], world: World, graph: Graph, linker, pl
 def row(run: GraphRun, gold: Graph, graph: Graph, report: BuildReport | None) -> dict[str, Any]:
     q = run.question
     s = answer_scores(run.nodes, q.gold_answers)
+    missing = missing_gold_edges(q, gold, graph) if q.answerable else []
     return {
         "id": q.id, "type": q.type, "answerable": q.answerable,
         "plan_path": list(run.plan.path) if run.plan else None,
@@ -301,6 +302,9 @@ def row(run: GraphRun, gold: Graph, graph: Graph, report: BuildReport | None) ->
         "nodes": run.nodes, "gold_answers": list(q.gold_answers),
         "precision": s.precision, "recall": s.recall,
         "answer": run.answer.text, "answer_ok": run.answer.score.ok if run.answer.score else None,
+        "missing_edges": [[e.s, e.r, e.o, e.source] for e in missing],
+        "dropped_relations": sorted({(cid, m.relation) for cid, m, _ in (report.dropped if report else [])
+                                     if cid in {e.source for e in missing}}),
         "stage": diagnose(run, gold, graph, report),
     }
 
