@@ -24,14 +24,22 @@ MANIFEST = ROOT / "manifest.json"
 SEED = 5
 
 
-def variable(name: str, kind: str, initial: Any, description: str) -> dict[str, Any]:
-    return {"variable": name, "type": kind, "initial": initial, "description": description}
+def variable(name: str, kind: str, initial: Any, description: str, *,
+             display_name: str | None = None) -> dict[str, Any]:
+    node = {"variable": name, "type": kind, "initial": initial, "description": description}
+    if display_name:
+        node["display"] = display_name
+    return node
 
 
 def method(name: str, description: str, parameters: list[dict[str, str]] | None = None,
-           returns: list[dict[str, str]] | None = None) -> dict[str, Any]:
-    return {"method": name, "description": description,
+           returns: list[dict[str, str]] | None = None, *,
+           display_name: str | None = None) -> dict[str, Any]:
+    node = {"method": name, "description": description,
             "parameters": parameters or [], "returns": returns or []}
+    if display_name:
+        node["display"] = display_name
+    return node
 
 
 def folder(name: str, description: str, children: list[dict[str, Any]]) -> dict[str, Any]:
@@ -40,25 +48,26 @@ def folder(name: str, description: str, children: list[dict[str, Any]]) -> dict[
 
 def status() -> dict[str, Any]:
     return folder("Status", "Current device state.", [
-        variable("Busy", "bool", False, "True while the current operation runs."),
-        variable("CurrentMission", "string", "", "Name of the active mission."),
-        variable("LastResult", "string", "idle", "Result of the last operation."),
+        variable("Busy", "bool", False, "True while the current operation runs.", display_name="Busy flag"),
+        variable("CurrentMission", "string", "", "Name of the active mission.", display_name="Current mission"),
+        variable("LastResult", "string", "idle", "Result of the last operation.", display_name="Last result"),
     ])
 
 
 def alarm_folder() -> dict[str, Any]:
     return folder("Alarms", "Alarm flags reported by the device.", [
-        variable("NoAirPressure", "bool", False, "The air supply is below the safe level."),
-        variable("EmergencyStop", "bool", False, "An emergency stop is active."),
-        variable("MotorTrip", "bool", False, "The drive motor has tripped."),
-        variable("RFIDFault", "bool", False, "A pallet RFID read failed."),
+        variable("NoAirPressure", "bool", False, "The air supply is below the safe level.", display_name="Low air pressure"),
+        variable("EmergencyStop", "bool", False, "An emergency stop is active.", display_name="Emergency stop"),
+        variable("MotorTrip", "bool", False, "The drive motor has tripped.", display_name="Motor trip"),
+        variable("RFIDFault", "bool", False, "A pallet RFID read failed.", display_name="RFID reader fault"),
     ])
 
 
 def reset_method() -> dict[str, Any]:
     return method("ResetAlarms", "Clears alarms after the cause is safe.",
                    [{"name": "mask", "type": "string", "description": "Alarm group to clear."}],
-                   [{"name": "done", "type": "bool", "description": "True when the reset is accepted."}])
+                   [{"name": "done", "type": "bool", "description": "True when the reset is accepted."}],
+                   display_name="Reset alarms")
 
 
 def common_diagnostics() -> list[dict[str, Any]]:
@@ -67,21 +76,24 @@ def common_diagnostics() -> list[dict[str, Any]]:
             variable("CyclesToday", "number", 0, "Completed cycles since the shift started."),
             variable("FaultsToday", "number", 0, "Faults recorded since the shift started."),
             variable("MinutesRunning", "number", 0, "Running minutes since the last reset."),
-            variable("LastCycleSeconds", "number", 0, "Duration of the last completed cycle."),
+            variable("LastCycleSeconds", "number", 0, "Duration of the last completed cycle.", display_name="Last cycle time"),
         ]),
         folder("Diagnostics", "Checks used by maintenance staff.", [
-            variable("CommunicationOk", "bool", True, "True when the controller answers."),
+            variable("CommunicationOk", "bool", True, "True when the controller answers.", display_name="Communication healthy"),
             variable("SafetyOk", "bool", True, "True when safety inputs are healthy."),
             variable("Firmware", "string", "line-1.0", "Invented controller firmware label."),
             method("ReadDiagnostics", "Reads the maintenance diagnostics.", returns=[
-                {"name": "report", "type": "string", "description": "Short diagnostic report."}]),
+                {"name": "report", "type": "string", "description": "Short diagnostic report."}],
+                   display_name="Read diagnostics"),
         ]),
         folder("Maintenance", "Routine service operations.", [
             method("AcknowledgeService", "Records a completed service visit.",
                    [{"name": "note", "type": "string", "description": "Service note."}],
-                   [{"name": "accepted", "type": "bool", "description": "True when the note is saved."}]),
+                   [{"name": "accepted", "type": "bool", "description": "True when the note is saved."}],
+                   display_name="Acknowledge service"),
             method("ResetCounters", "Resets shift counters after approval.", returns=[
-                {"name": "done", "type": "bool", "description": "True when counters are reset."}]),
+                {"name": "done", "type": "bool", "description": "True when counters are reset."}],
+                   display_name="Reset counters"),
         ]),
     ]
 
@@ -92,75 +104,91 @@ def models() -> list[dict[str, Any]]:
          "nodes": [status(), alarm_folder(), reset_method(), method("MovePallet", "Moves one pallet to a bay.",
              [{"name": "pallet", "type": "string", "description": "Pallet identifier."},
               {"name": "bay", "type": "string", "description": "Destination bay."}],
-             [{"name": "accepted", "type": "bool", "description": "True when the move is queued."}])]},
+             [{"name": "accepted", "type": "bool", "description": "True when the move is queued."}],
+             display_name="Move pallet")]},
         {"device": "warehouse", "name": "Vertical Warehouse", "kind": "vertical warehouse", "cell": "warehouse",
          "nodes": [status(), folder("Inventory", "Trays and stock state.", [
-             variable("TrayInBay", "string", "", "Tray currently at the operator bay."),
-             variable("StockReady", "bool", True, "True when the requested tray can be handled."),
+             variable("TrayInBay", "string", "", "Tray currently at the operator bay.", display_name="Tray in bay"),
+             variable("StockReady", "bool", True, "True when the requested tray can be handled.", display_name="Stock ready"),
          ]), alarm_folder(), reset_method(), method("ExtractTray", "Brings a tray to the operator bay.",
              [{"name": "tray", "type": "string", "description": "Tray identifier."}],
-             [{"name": "accepted", "type": "bool", "description": "True when extraction is queued."}]),
+             [{"name": "accepted", "type": "bool", "description": "True when extraction is queued."}],
+             display_name="Extract tray"),
          method("SendBack", "Returns the tray from the operator bay.", returns=[
-             {"name": "done", "type": "bool", "description": "True when return is accepted."}])]},
+             {"name": "done", "type": "bool", "description": "True when return is accepted."}],
+             display_name="Send back")]},
         {"device": "rover1", "name": "Rover R-1", "kind": "mobile robot", "cell": "transport",
          "nodes": [status(), folder("Motion", "Motion commands.", [
              method("StartMission", "Starts a named delivery mission.",
                     [{"name": "mission", "type": "string", "description": "Mission identifier."}],
-                    [{"name": "submitted", "type": "bool", "description": "True when accepted."}]),
+                    [{"name": "submitted", "type": "bool", "description": "True when accepted."}],
+                    display_name="Start mission"),
              method("StopMission", "Stops the active delivery mission.", returns=[
-                 {"name": "stopped", "type": "bool", "description": "True when stopped."}]),
+                 {"name": "stopped", "type": "bool", "description": "True when stopped."}],
+                 display_name="Stop mission"),
          ])]},
         {"device": "rover2", "name": "Rover R-2", "kind": "mobile robot", "cell": "transport",
          "nodes": [status(), folder("Motion", "Motion commands.", [
              method("StartMission", "Starts a named delivery mission.",
                     [{"name": "mission", "type": "string", "description": "Mission identifier."}],
-                    [{"name": "submitted", "type": "bool", "description": "True when accepted."}]),
+                    [{"name": "submitted", "type": "bool", "description": "True when accepted."}],
+                    display_name="Start mission"),
              method("StopMission", "Stops the active delivery mission.", returns=[
-                 {"name": "stopped", "type": "bool", "description": "True when stopped."}]),
+                 {"name": "stopped", "type": "bool", "description": "True when stopped."}],
+                 display_name="Stop mission"),
          ])]},
         {"device": "tester", "name": "Board Tester", "kind": "test cell", "cell": "test",
          "nodes": [status(), folder("Boards", "Board transfer and test operations.", [
              method("BoardIn", "Accepts a board at the input bay.", returns=[
-                 {"name": "accepted", "type": "bool", "description": "True when accepted."}]),
+                 {"name": "accepted", "type": "bool", "description": "True when accepted."}],
+                 display_name="Board in"),
              method("RunTest", "Runs the board test.",
                     [{"name": "serial", "type": "string", "description": "Board serial number."}],
-                    [{"name": "started", "type": "bool", "description": "True when the test starts."}]),
+                    [{"name": "started", "type": "bool", "description": "True when the test starts."}],
+                    display_name="Run test"),
              method("BoardOut", "Releases a tested board.", returns=[
-                 {"name": "done", "type": "bool", "description": "True when released."}]),
-             variable("TestPassed", "bool", False, "Result of the last board test."),
+                 {"name": "done", "type": "bool", "description": "True when released."}],
+                 display_name="Board out"),
+             variable("TestPassed", "bool", False, "Result of the last board test.", display_name="Test passed"),
          ])]},
         {"device": "cnc", "name": "Engraving Cell", "kind": "CNC and arm", "cell": "cnc",
          "nodes": [status(), folder("Arm", "Arm and spindle operations.", [
-             variable("AtPallet", "bool", False, "True when the arm is at the pallet."),
+             variable("AtPallet", "bool", False, "True when the arm is at the pallet.", display_name="At pallet"),
              method("PickBoard", "Picks a board from the pallet.", returns=[
-                 {"name": "done", "type": "bool", "description": "True when picked."}]),
+                 {"name": "done", "type": "bool", "description": "True when picked."}],
+                 display_name="Pick board"),
              method("Engrave", "Engraves the board identifier.",
                     [{"name": "serial", "type": "string", "description": "Board serial number."}],
-                    [{"name": "done", "type": "bool", "description": "True when engraving is complete."}]),
+                    [{"name": "done", "type": "bool", "description": "True when engraving is complete."}],
+                    display_name="Engrave board"),
              method("PlaceBoard", "Places the board on the pallet.", returns=[
-                 {"name": "done", "type": "bool", "description": "True when placed."}]),
+                 {"name": "done", "type": "bool", "description": "True when placed."}],
+                 display_name="Place board"),
          ])]},
         {"device": "assembly", "name": "Assembly Cell", "kind": "assembly PLC and arms", "cell": "assembly",
          "nodes": [status(), folder("Alarms", "Assembly alarm flags.", [
-             variable("EmergencyStop", "bool", False, "An emergency stop is active."),
-             variable("ScrewdriverFault", "bool", False, "The screwdriver reports a fault."),
-             variable("NoAirPressure", "bool", False, "The air supply is below the safe level."),
-             variable("MotorTrip", "bool", False, "The assembly drive has tripped."),
+             variable("EmergencyStop", "bool", False, "An emergency stop is active.", display_name="Emergency stop"),
+             variable("ScrewdriverFault", "bool", False, "The screwdriver reports a fault.", display_name="Screwdriver fault"),
+             variable("NoAirPressure", "bool", False, "The air supply is below the safe level.", display_name="Low air pressure"),
+             variable("MotorTrip", "bool", False, "The assembly drive has tripped.", display_name="Motor trip"),
          ]), reset_method(), folder("Assembly", "Assembly operations.", [
              method("Assemble", "Fits the covers to the board.",
                     [{"name": "board", "type": "string", "description": "Board identifier."}],
-                    [{"name": "done", "type": "bool", "description": "True when assembled."}]),
+                    [{"name": "done", "type": "bool", "description": "True when assembled."}],
+                    display_name="Assemble board"),
              method("Screw", "Runs the screwdriver program.",
                     [{"name": "program", "type": "string", "description": "Screwdriver program."}],
-                    [{"name": "done", "type": "bool", "description": "True when complete."}]),
+                    [{"name": "done", "type": "bool", "description": "True when complete."}],
+                    display_name="Run screwdriver"),
          ])]},
         {"device": "qc", "name": "Camera Quality Cell", "kind": "camera quality control", "cell": "qc",
          "nodes": [status(), folder("Inspection", "Pallet inspection operations.", [
              method("CheckPallet", "Checks the assembled pallet.",
                     [{"name": "pallet", "type": "string", "description": "Pallet identifier."}],
-                    [{"name": "passed", "type": "bool", "description": "True when all checks pass."}]),
-             variable("Passed", "bool", False, "Result of the last pallet inspection."),
-             variable("ChecksTotal", "number", 0, "Number of completed inspections."),
+                    [{"name": "passed", "type": "bool", "description": "True when all checks pass."}],
+                    display_name="Check pallet"),
+             variable("Passed", "bool", False, "Result of the last pallet inspection.", display_name="Inspection passed"),
+             variable("ChecksTotal", "number", 0, "Number of completed inspections.", display_name="Checks total"),
              ])]},
     ]
     for model in result:
@@ -209,7 +237,8 @@ def model_graph(model: dict[str, Any]) -> tuple[list[dict[str, Any]], list[dict[
                      "description": node.get("description", "")}
         else:
             props = {"description": node.get("description", "")}
-        nodes.append({"id": node_id, "type": kind, "name": display(node), "aliases": [], "props": props})
+        aliases = [node["display"]] if node.get("display") else []
+        nodes.append({"id": node_id, "type": kind, "name": display(node), "aliases": aliases, "props": props})
         source = f"{model_file}#{node_id[len(device) + 1:]}"
         if kind == "Folder":
             edges.append({"s": parent, "r": "contains", "o": node_id, "source": source})
@@ -217,7 +246,7 @@ def model_graph(model: dict[str, Any]) -> tuple[list[dict[str, Any]], list[dict[
             edges.append({"s": parent, "r": "exposes_variable", "o": node_id, "source": source})
             if parent.endswith("/Alarms"):
                 alarm_id = f"alarm:{device}/{node['variable']}"
-                nodes.append({"id": alarm_id, "type": "Alarm", "name": str(node["variable"]), "aliases": [], "props": {"flag": node_id}})
+                nodes.append({"id": alarm_id, "type": "Alarm", "name": str(node["variable"]), "aliases": aliases, "props": {"flag": node_id}})
                 edges.append({"s": device, "r": "has_alarm", "o": alarm_id, "source": source})
         else:
             edges.append({"s": parent, "r": "exposes_method", "o": node_id, "source": source})

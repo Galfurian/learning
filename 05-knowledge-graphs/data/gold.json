@@ -78,7 +78,9 @@
       "id": "assembly/Status/Busy",
       "type": "Variable",
       "name": "Busy",
-      "aliases": [],
+      "aliases": [
+        "Busy flag"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -89,7 +91,9 @@
       "id": "assembly/Status/CurrentMission",
       "type": "Variable",
       "name": "CurrentMission",
-      "aliases": [],
+      "aliases": [
+        "Current mission"
+      ],
       "props": {
         "type": "string",
         "initial": "",
@@ -100,7 +104,9 @@
       "id": "assembly/Status/LastResult",
       "type": "Variable",
       "name": "LastResult",
-      "aliases": [],
+      "aliases": [
+        "Last result"
+      ],
       "props": {
         "type": "string",
         "initial": "idle",
@@ -120,7 +126,9 @@
       "id": "assembly/Alarms/EmergencyStop",
       "type": "Variable",
       "name": "EmergencyStop",
-      "aliases": [],
+      "aliases": [
+        "Emergency stop"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -131,7 +139,9 @@
       "id": "alarm:assembly/EmergencyStop",
       "type": "Alarm",
       "name": "EmergencyStop",
-      "aliases": [],
+      "aliases": [
+        "Emergency stop"
+      ],
       "props": {
         "flag": "assembly/Alarms/EmergencyStop"
       }
@@ -140,7 +150,9 @@
       "id": "assembly/Alarms/ScrewdriverFault",
       "type": "Variable",
       "name": "ScrewdriverFault",
-      "aliases": [],
+      "aliases": [
+        "Screwdriver fault"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -151,7 +163,9 @@
       "id": "alarm:assembly/ScrewdriverFault",
       "type": "Alarm",
       "name": "ScrewdriverFault",
-      "aliases": [],
+      "aliases": [
+        "Screwdriver fault"
+      ],
       "props": {
         "flag": "assembly/Alarms/ScrewdriverFault"
       }
@@ -160,7 +174,9 @@
       "id": "assembly/Alarms/NoAirPressure",
       "type": "Variable",
       "name": "NoAirPressure",
-      "aliases": [],
+      "aliases": [
+        "Low air pressure"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -171,7 +187,9 @@
       "id": "alarm:assembly/NoAirPressure",
       "type": "Alarm",
       "name": "NoAirPressure",
-      "aliases": [],
+      "aliases": [
+        "Low air pressure"
+      ],
       "props": {
         "flag": "assembly/Alarms/NoAirPressure"
       }
@@ -180,7 +198,9 @@
       "id": "assembly/Alarms/MotorTrip",
       "type": "Variable",
       "name": "MotorTrip",
-      "aliases": [],
+      "aliases": [
+        "Motor trip"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -191,7 +211,9 @@
       "id": "alarm:assembly/MotorTrip",
       "type": "Alarm",
       "name": "MotorTrip",
-      "aliases": [],
+      "aliases": [
+        "Motor trip"
+      ],
       "props": {
         "flag": "assembly/Alarms/MotorTrip"
       }
@@ -200,7 +222,9 @@
       "id": "assembly/ResetAlarms",
       "type": "Method",
       "name": "ResetAlarms",
-      "aliases": [],
+      "aliases": [
+        "Reset alarms"
+      ],
       "props": {
         "description": "Clears alarms after the cause is safe."
       }
@@ -238,7 +262,9 @@
       "id": "assembly/Assembly/Assemble",
       "type": "Method",
       "name": "Assemble",
-      "aliases": [],
+      "aliases": [
+        "Assemble board"
+      ],
       "props": {
         "description": "Fits the covers to the board."
       }
@@ -267,7 +293,9 @@
       "id": "assembly/Assembly/Screw",
       "type": "Method",
       "name": "Screw",
-      "aliases": [],
+      "aliases": [
+        "Run screwdriver"
+      ],
       "props": {
         "description": "Runs the screwdriver program."
       }
@@ -338,7 +366,9 @@
       "id": "assembly/Statistics/LastCycleSeconds",
       "type": "Variable",
       "name": "LastCycleSeconds",
-      "aliases": [],
+      "aliases": [
+        "Last cycle time"
+      ],
       "props": {
         "type": "number",
         "initial": 0,
@@ -358,7 +388,9 @@
       "id": "assembly/Diagnostics/CommunicationOk",
       "type": "Variable",
       "name": "CommunicationOk",
-      "aliases": [],
+      "aliases": [
+        "Communication healthy"
+      ],
       "props": {
         "type": "bool",
         "initial": true,
@@ -391,7 +423,9 @@
       "id": "assembly/Diagnostics/ReadDiagnostics",
       "type": "Method",
       "name": "ReadDiagnostics",
-      "aliases": [],
+      "aliases": [
+        "Read diagnostics"
+      ],
       "props": {
         "description": "Reads the maintenance diagnostics."
       }
@@ -419,7 +453,9 @@
       "id": "assembly/Maintenance/AcknowledgeService",
       "type": "Method",
       "name": "AcknowledgeService",
-      "aliases": [],
+      "aliases": [
+        "Acknowledge service"
+      ],
       "props": {
         "description": "Records a completed service visit."
       }
@@ -448,7 +484,9 @@
       "id": "assembly/Maintenance/ResetCounters",
       "type": "Method",
       "name": "ResetCounters",
-      "aliases": [],
+      "aliases": [
+        "Reset counters"
+      ],
       "props": {
         "description": "Resets shift counters after approval."
       }
@@ -485,7 +523,9 @@
       "id": "cnc/Status/Busy",
       "type": "Variable",
       "name": "Busy",
-      "aliases": [],
+      "aliases": [
+        "Busy flag"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -496,7 +536,9 @@
       "id": "cnc/Status/CurrentMission",
       "type": "Variable",
       "name": "CurrentMission",
-      "aliases": [],
+      "aliases": [
+        "Current mission"
+      ],
       "props": {
         "type": "string",
         "initial": "",
@@ -507,7 +549,9 @@
       "id": "cnc/Status/LastResult",
       "type": "Variable",
       "name": "LastResult",
-      "aliases": [],
+      "aliases": [
+        "Last result"
+      ],
       "props": {
         "type": "string",
         "initial": "idle",
@@ -527,7 +571,9 @@
       "id": "cnc/Alarms/NoAirPressure",
       "type": "Variable",
       "name": "NoAirPressure",
-      "aliases": [],
+      "aliases": [
+        "Low air pressure"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -538,7 +584,9 @@
       "id": "alarm:cnc/NoAirPressure",
       "type": "Alarm",
       "name": "NoAirPressure",
-      "aliases": [],
+      "aliases": [
+        "Low air pressure"
+      ],
       "props": {
         "flag": "cnc/Alarms/NoAirPressure"
       }
@@ -547,7 +595,9 @@
       "id": "cnc/Alarms/EmergencyStop",
       "type": "Variable",
       "name": "EmergencyStop",
-      "aliases": [],
+      "aliases": [
+        "Emergency stop"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -558,7 +608,9 @@
       "id": "alarm:cnc/EmergencyStop",
       "type": "Alarm",
       "name": "EmergencyStop",
-      "aliases": [],
+      "aliases": [
+        "Emergency stop"
+      ],
       "props": {
         "flag": "cnc/Alarms/EmergencyStop"
       }
@@ -567,7 +619,9 @@
       "id": "cnc/Alarms/MotorTrip",
       "type": "Variable",
       "name": "MotorTrip",
-      "aliases": [],
+      "aliases": [
+        "Motor trip"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -578,7 +632,9 @@
       "id": "alarm:cnc/MotorTrip",
       "type": "Alarm",
       "name": "MotorTrip",
-      "aliases": [],
+      "aliases": [
+        "Motor trip"
+      ],
       "props": {
         "flag": "cnc/Alarms/MotorTrip"
       }
@@ -587,7 +643,9 @@
       "id": "cnc/Alarms/RFIDFault",
       "type": "Variable",
       "name": "RFIDFault",
-      "aliases": [],
+      "aliases": [
+        "RFID reader fault"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -598,7 +656,9 @@
       "id": "alarm:cnc/RFIDFault",
       "type": "Alarm",
       "name": "RFIDFault",
-      "aliases": [],
+      "aliases": [
+        "RFID reader fault"
+      ],
       "props": {
         "flag": "cnc/Alarms/RFIDFault"
       }
@@ -616,7 +676,9 @@
       "id": "cnc/Arm/AtPallet",
       "type": "Variable",
       "name": "AtPallet",
-      "aliases": [],
+      "aliases": [
+        "At pallet"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -627,7 +689,9 @@
       "id": "cnc/Arm/PickBoard",
       "type": "Method",
       "name": "PickBoard",
-      "aliases": [],
+      "aliases": [
+        "Pick board"
+      ],
       "props": {
         "description": "Picks a board from the pallet."
       }
@@ -646,7 +710,9 @@
       "id": "cnc/Arm/Engrave",
       "type": "Method",
       "name": "Engrave",
-      "aliases": [],
+      "aliases": [
+        "Engrave board"
+      ],
       "props": {
         "description": "Engraves the board identifier."
       }
@@ -675,7 +741,9 @@
       "id": "cnc/Arm/PlaceBoard",
       "type": "Method",
       "name": "PlaceBoard",
-      "aliases": [],
+      "aliases": [
+        "Place board"
+      ],
       "props": {
         "description": "Places the board on the pallet."
       }
@@ -736,7 +804,9 @@
       "id": "cnc/Statistics/LastCycleSeconds",
       "type": "Variable",
       "name": "LastCycleSeconds",
-      "aliases": [],
+      "aliases": [
+        "Last cycle time"
+      ],
       "props": {
         "type": "number",
         "initial": 0,
@@ -756,7 +826,9 @@
       "id": "cnc/Diagnostics/CommunicationOk",
       "type": "Variable",
       "name": "CommunicationOk",
-      "aliases": [],
+      "aliases": [
+        "Communication healthy"
+      ],
       "props": {
         "type": "bool",
         "initial": true,
@@ -789,7 +861,9 @@
       "id": "cnc/Diagnostics/ReadDiagnostics",
       "type": "Method",
       "name": "ReadDiagnostics",
-      "aliases": [],
+      "aliases": [
+        "Read diagnostics"
+      ],
       "props": {
         "description": "Reads the maintenance diagnostics."
       }
@@ -817,7 +891,9 @@
       "id": "cnc/Maintenance/AcknowledgeService",
       "type": "Method",
       "name": "AcknowledgeService",
-      "aliases": [],
+      "aliases": [
+        "Acknowledge service"
+      ],
       "props": {
         "description": "Records a completed service visit."
       }
@@ -846,7 +922,9 @@
       "id": "cnc/Maintenance/ResetCounters",
       "type": "Method",
       "name": "ResetCounters",
-      "aliases": [],
+      "aliases": [
+        "Reset counters"
+      ],
       "props": {
         "description": "Resets shift counters after approval."
       }
@@ -883,7 +961,9 @@
       "id": "conveyor/Status/Busy",
       "type": "Variable",
       "name": "Busy",
-      "aliases": [],
+      "aliases": [
+        "Busy flag"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -894,7 +974,9 @@
       "id": "conveyor/Status/CurrentMission",
       "type": "Variable",
       "name": "CurrentMission",
-      "aliases": [],
+      "aliases": [
+        "Current mission"
+      ],
       "props": {
         "type": "string",
         "initial": "",
@@ -905,7 +987,9 @@
       "id": "conveyor/Status/LastResult",
       "type": "Variable",
       "name": "LastResult",
-      "aliases": [],
+      "aliases": [
+        "Last result"
+      ],
       "props": {
         "type": "string",
         "initial": "idle",
@@ -925,7 +1009,9 @@
       "id": "conveyor/Alarms/NoAirPressure",
       "type": "Variable",
       "name": "NoAirPressure",
-      "aliases": [],
+      "aliases": [
+        "Low air pressure"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -936,7 +1022,9 @@
       "id": "alarm:conveyor/NoAirPressure",
       "type": "Alarm",
       "name": "NoAirPressure",
-      "aliases": [],
+      "aliases": [
+        "Low air pressure"
+      ],
       "props": {
         "flag": "conveyor/Alarms/NoAirPressure"
       }
@@ -945,7 +1033,9 @@
       "id": "conveyor/Alarms/EmergencyStop",
       "type": "Variable",
       "name": "EmergencyStop",
-      "aliases": [],
+      "aliases": [
+        "Emergency stop"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -956,7 +1046,9 @@
       "id": "alarm:conveyor/EmergencyStop",
       "type": "Alarm",
       "name": "EmergencyStop",
-      "aliases": [],
+      "aliases": [
+        "Emergency stop"
+      ],
       "props": {
         "flag": "conveyor/Alarms/EmergencyStop"
       }
@@ -965,7 +1057,9 @@
       "id": "conveyor/Alarms/MotorTrip",
       "type": "Variable",
       "name": "MotorTrip",
-      "aliases": [],
+      "aliases": [
+        "Motor trip"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -976,7 +1070,9 @@
       "id": "alarm:conveyor/MotorTrip",
       "type": "Alarm",
       "name": "MotorTrip",
-      "aliases": [],
+      "aliases": [
+        "Motor trip"
+      ],
       "props": {
         "flag": "conveyor/Alarms/MotorTrip"
       }
@@ -985,7 +1081,9 @@
       "id": "conveyor/Alarms/RFIDFault",
       "type": "Variable",
       "name": "RFIDFault",
-      "aliases": [],
+      "aliases": [
+        "RFID reader fault"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -996,7 +1094,9 @@
       "id": "alarm:conveyor/RFIDFault",
       "type": "Alarm",
       "name": "RFIDFault",
-      "aliases": [],
+      "aliases": [
+        "RFID reader fault"
+      ],
       "props": {
         "flag": "conveyor/Alarms/RFIDFault"
       }
@@ -1005,7 +1105,9 @@
       "id": "conveyor/ResetAlarms",
       "type": "Method",
       "name": "ResetAlarms",
-      "aliases": [],
+      "aliases": [
+        "Reset alarms"
+      ],
       "props": {
         "description": "Clears alarms after the cause is safe."
       }
@@ -1034,7 +1136,9 @@
       "id": "conveyor/MovePallet",
       "type": "Method",
       "name": "MovePallet",
-      "aliases": [],
+      "aliases": [
+        "Move pallet"
+      ],
       "props": {
         "description": "Moves one pallet to a bay."
       }
@@ -1115,7 +1219,9 @@
       "id": "conveyor/Statistics/LastCycleSeconds",
       "type": "Variable",
       "name": "LastCycleSeconds",
-      "aliases": [],
+      "aliases": [
+        "Last cycle time"
+      ],
       "props": {
         "type": "number",
         "initial": 0,
@@ -1135,7 +1241,9 @@
       "id": "conveyor/Diagnostics/CommunicationOk",
       "type": "Variable",
       "name": "CommunicationOk",
-      "aliases": [],
+      "aliases": [
+        "Communication healthy"
+      ],
       "props": {
         "type": "bool",
         "initial": true,
@@ -1168,7 +1276,9 @@
       "id": "conveyor/Diagnostics/ReadDiagnostics",
       "type": "Method",
       "name": "ReadDiagnostics",
-      "aliases": [],
+      "aliases": [
+        "Read diagnostics"
+      ],
       "props": {
         "description": "Reads the maintenance diagnostics."
       }
@@ -1196,7 +1306,9 @@
       "id": "conveyor/Maintenance/AcknowledgeService",
       "type": "Method",
       "name": "AcknowledgeService",
-      "aliases": [],
+      "aliases": [
+        "Acknowledge service"
+      ],
       "props": {
         "description": "Records a completed service visit."
       }
@@ -1225,7 +1337,9 @@
       "id": "conveyor/Maintenance/ResetCounters",
       "type": "Method",
       "name": "ResetCounters",
-      "aliases": [],
+      "aliases": [
+        "Reset counters"
+      ],
       "props": {
         "description": "Resets shift counters after approval."
       }
@@ -1262,7 +1376,9 @@
       "id": "qc/Status/Busy",
       "type": "Variable",
       "name": "Busy",
-      "aliases": [],
+      "aliases": [
+        "Busy flag"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -1273,7 +1389,9 @@
       "id": "qc/Status/CurrentMission",
       "type": "Variable",
       "name": "CurrentMission",
-      "aliases": [],
+      "aliases": [
+        "Current mission"
+      ],
       "props": {
         "type": "string",
         "initial": "",
@@ -1284,7 +1402,9 @@
       "id": "qc/Status/LastResult",
       "type": "Variable",
       "name": "LastResult",
-      "aliases": [],
+      "aliases": [
+        "Last result"
+      ],
       "props": {
         "type": "string",
         "initial": "idle",
@@ -1304,7 +1424,9 @@
       "id": "qc/Alarms/NoAirPressure",
       "type": "Variable",
       "name": "NoAirPressure",
-      "aliases": [],
+      "aliases": [
+        "Low air pressure"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -1315,7 +1437,9 @@
       "id": "alarm:qc/NoAirPressure",
       "type": "Alarm",
       "name": "NoAirPressure",
-      "aliases": [],
+      "aliases": [
+        "Low air pressure"
+      ],
       "props": {
         "flag": "qc/Alarms/NoAirPressure"
       }
@@ -1324,7 +1448,9 @@
       "id": "qc/Alarms/EmergencyStop",
       "type": "Variable",
       "name": "EmergencyStop",
-      "aliases": [],
+      "aliases": [
+        "Emergency stop"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -1335,7 +1461,9 @@
       "id": "alarm:qc/EmergencyStop",
       "type": "Alarm",
       "name": "EmergencyStop",
-      "aliases": [],
+      "aliases": [
+        "Emergency stop"
+      ],
       "props": {
         "flag": "qc/Alarms/EmergencyStop"
       }
@@ -1344,7 +1472,9 @@
       "id": "qc/Alarms/MotorTrip",
       "type": "Variable",
       "name": "MotorTrip",
-      "aliases": [],
+      "aliases": [
+        "Motor trip"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -1355,7 +1485,9 @@
       "id": "alarm:qc/MotorTrip",
       "type": "Alarm",
       "name": "MotorTrip",
-      "aliases": [],
+      "aliases": [
+        "Motor trip"
+      ],
       "props": {
         "flag": "qc/Alarms/MotorTrip"
       }
@@ -1364,7 +1496,9 @@
       "id": "qc/Alarms/RFIDFault",
       "type": "Variable",
       "name": "RFIDFault",
-      "aliases": [],
+      "aliases": [
+        "RFID reader fault"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -1375,7 +1509,9 @@
       "id": "alarm:qc/RFIDFault",
       "type": "Alarm",
       "name": "RFIDFault",
-      "aliases": [],
+      "aliases": [
+        "RFID reader fault"
+      ],
       "props": {
         "flag": "qc/Alarms/RFIDFault"
       }
@@ -1393,7 +1529,9 @@
       "id": "qc/Inspection/CheckPallet",
       "type": "Method",
       "name": "CheckPallet",
-      "aliases": [],
+      "aliases": [
+        "Check pallet"
+      ],
       "props": {
         "description": "Checks the assembled pallet."
       }
@@ -1422,7 +1560,9 @@
       "id": "qc/Inspection/Passed",
       "type": "Variable",
       "name": "Passed",
-      "aliases": [],
+      "aliases": [
+        "Inspection passed"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -1433,7 +1573,9 @@
       "id": "qc/Inspection/ChecksTotal",
       "type": "Variable",
       "name": "ChecksTotal",
-      "aliases": [],
+      "aliases": [
+        "Checks total"
+      ],
       "props": {
         "type": "number",
         "initial": 0,
@@ -1486,7 +1628,9 @@
       "id": "qc/Statistics/LastCycleSeconds",
       "type": "Variable",
       "name": "LastCycleSeconds",
-      "aliases": [],
+      "aliases": [
+        "Last cycle time"
+      ],
       "props": {
         "type": "number",
         "initial": 0,
@@ -1506,7 +1650,9 @@
       "id": "qc/Diagnostics/CommunicationOk",
       "type": "Variable",
       "name": "CommunicationOk",
-      "aliases": [],
+      "aliases": [
+        "Communication healthy"
+      ],
       "props": {
         "type": "bool",
         "initial": true,
@@ -1539,7 +1685,9 @@
       "id": "qc/Diagnostics/ReadDiagnostics",
       "type": "Method",
       "name": "ReadDiagnostics",
-      "aliases": [],
+      "aliases": [
+        "Read diagnostics"
+      ],
       "props": {
         "description": "Reads the maintenance diagnostics."
       }
@@ -1567,7 +1715,9 @@
       "id": "qc/Maintenance/AcknowledgeService",
       "type": "Method",
       "name": "AcknowledgeService",
-      "aliases": [],
+      "aliases": [
+        "Acknowledge service"
+      ],
       "props": {
         "description": "Records a completed service visit."
       }
@@ -1596,7 +1746,9 @@
       "id": "qc/Maintenance/ResetCounters",
       "type": "Method",
       "name": "ResetCounters",
-      "aliases": [],
+      "aliases": [
+        "Reset counters"
+      ],
       "props": {
         "description": "Resets shift counters after approval."
       }
@@ -1636,7 +1788,9 @@
       "id": "rover1/Status/Busy",
       "type": "Variable",
       "name": "Busy",
-      "aliases": [],
+      "aliases": [
+        "Busy flag"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -1647,7 +1801,9 @@
       "id": "rover1/Status/CurrentMission",
       "type": "Variable",
       "name": "CurrentMission",
-      "aliases": [],
+      "aliases": [
+        "Current mission"
+      ],
       "props": {
         "type": "string",
         "initial": "",
@@ -1658,7 +1814,9 @@
       "id": "rover1/Status/LastResult",
       "type": "Variable",
       "name": "LastResult",
-      "aliases": [],
+      "aliases": [
+        "Last result"
+      ],
       "props": {
         "type": "string",
         "initial": "idle",
@@ -1678,7 +1836,9 @@
       "id": "rover1/Alarms/NoAirPressure",
       "type": "Variable",
       "name": "NoAirPressure",
-      "aliases": [],
+      "aliases": [
+        "Low air pressure"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -1689,7 +1849,9 @@
       "id": "alarm:rover1/NoAirPressure",
       "type": "Alarm",
       "name": "NoAirPressure",
-      "aliases": [],
+      "aliases": [
+        "Low air pressure"
+      ],
       "props": {
         "flag": "rover1/Alarms/NoAirPressure"
       }
@@ -1698,7 +1860,9 @@
       "id": "rover1/Alarms/EmergencyStop",
       "type": "Variable",
       "name": "EmergencyStop",
-      "aliases": [],
+      "aliases": [
+        "Emergency stop"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -1709,7 +1873,9 @@
       "id": "alarm:rover1/EmergencyStop",
       "type": "Alarm",
       "name": "EmergencyStop",
-      "aliases": [],
+      "aliases": [
+        "Emergency stop"
+      ],
       "props": {
         "flag": "rover1/Alarms/EmergencyStop"
       }
@@ -1718,7 +1884,9 @@
       "id": "rover1/Alarms/MotorTrip",
       "type": "Variable",
       "name": "MotorTrip",
-      "aliases": [],
+      "aliases": [
+        "Motor trip"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -1729,7 +1897,9 @@
       "id": "alarm:rover1/MotorTrip",
       "type": "Alarm",
       "name": "MotorTrip",
-      "aliases": [],
+      "aliases": [
+        "Motor trip"
+      ],
       "props": {
         "flag": "rover1/Alarms/MotorTrip"
       }
@@ -1738,7 +1908,9 @@
       "id": "rover1/Alarms/RFIDFault",
       "type": "Variable",
       "name": "RFIDFault",
-      "aliases": [],
+      "aliases": [
+        "RFID reader fault"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -1749,7 +1921,9 @@
       "id": "alarm:rover1/RFIDFault",
       "type": "Alarm",
       "name": "RFIDFault",
-      "aliases": [],
+      "aliases": [
+        "RFID reader fault"
+      ],
       "props": {
         "flag": "rover1/Alarms/RFIDFault"
       }
@@ -1767,7 +1941,9 @@
       "id": "rover1/Motion/StartMission",
       "type": "Method",
       "name": "StartMission",
-      "aliases": [],
+      "aliases": [
+        "Start mission"
+      ],
       "props": {
         "description": "Starts a named delivery mission."
       }
@@ -1796,7 +1972,9 @@
       "id": "rover1/Motion/StopMission",
       "type": "Method",
       "name": "StopMission",
-      "aliases": [],
+      "aliases": [
+        "Stop mission"
+      ],
       "props": {
         "description": "Stops the active delivery mission."
       }
@@ -1857,7 +2035,9 @@
       "id": "rover1/Statistics/LastCycleSeconds",
       "type": "Variable",
       "name": "LastCycleSeconds",
-      "aliases": [],
+      "aliases": [
+        "Last cycle time"
+      ],
       "props": {
         "type": "number",
         "initial": 0,
@@ -1877,7 +2057,9 @@
       "id": "rover1/Diagnostics/CommunicationOk",
       "type": "Variable",
       "name": "CommunicationOk",
-      "aliases": [],
+      "aliases": [
+        "Communication healthy"
+      ],
       "props": {
         "type": "bool",
         "initial": true,
@@ -1910,7 +2092,9 @@
       "id": "rover1/Diagnostics/ReadDiagnostics",
       "type": "Method",
       "name": "ReadDiagnostics",
-      "aliases": [],
+      "aliases": [
+        "Read diagnostics"
+      ],
       "props": {
         "description": "Reads the maintenance diagnostics."
       }
@@ -1938,7 +2122,9 @@
       "id": "rover1/Maintenance/AcknowledgeService",
       "type": "Method",
       "name": "AcknowledgeService",
-      "aliases": [],
+      "aliases": [
+        "Acknowledge service"
+      ],
       "props": {
         "description": "Records a completed service visit."
       }
@@ -1967,7 +2153,9 @@
       "id": "rover1/Maintenance/ResetCounters",
       "type": "Method",
       "name": "ResetCounters",
-      "aliases": [],
+      "aliases": [
+        "Reset counters"
+      ],
       "props": {
         "description": "Resets shift counters after approval."
       }
@@ -2007,7 +2195,9 @@
       "id": "rover2/Status/Busy",
       "type": "Variable",
       "name": "Busy",
-      "aliases": [],
+      "aliases": [
+        "Busy flag"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -2018,7 +2208,9 @@
       "id": "rover2/Status/CurrentMission",
       "type": "Variable",
       "name": "CurrentMission",
-      "aliases": [],
+      "aliases": [
+        "Current mission"
+      ],
       "props": {
         "type": "string",
         "initial": "",
@@ -2029,7 +2221,9 @@
       "id": "rover2/Status/LastResult",
       "type": "Variable",
       "name": "LastResult",
-      "aliases": [],
+      "aliases": [
+        "Last result"
+      ],
       "props": {
         "type": "string",
         "initial": "idle",
@@ -2049,7 +2243,9 @@
       "id": "rover2/Alarms/NoAirPressure",
       "type": "Variable",
       "name": "NoAirPressure",
-      "aliases": [],
+      "aliases": [
+        "Low air pressure"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -2060,7 +2256,9 @@
       "id": "alarm:rover2/NoAirPressure",
       "type": "Alarm",
       "name": "NoAirPressure",
-      "aliases": [],
+      "aliases": [
+        "Low air pressure"
+      ],
       "props": {
         "flag": "rover2/Alarms/NoAirPressure"
       }
@@ -2069,7 +2267,9 @@
       "id": "rover2/Alarms/EmergencyStop",
       "type": "Variable",
       "name": "EmergencyStop",
-      "aliases": [],
+      "aliases": [
+        "Emergency stop"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -2080,7 +2280,9 @@
       "id": "alarm:rover2/EmergencyStop",
       "type": "Alarm",
       "name": "EmergencyStop",
-      "aliases": [],
+      "aliases": [
+        "Emergency stop"
+      ],
       "props": {
         "flag": "rover2/Alarms/EmergencyStop"
       }
@@ -2089,7 +2291,9 @@
       "id": "rover2/Alarms/MotorTrip",
       "type": "Variable",
       "name": "MotorTrip",
-      "aliases": [],
+      "aliases": [
+        "Motor trip"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -2100,7 +2304,9 @@
       "id": "alarm:rover2/MotorTrip",
       "type": "Alarm",
       "name": "MotorTrip",
-      "aliases": [],
+      "aliases": [
+        "Motor trip"
+      ],
       "props": {
         "flag": "rover2/Alarms/MotorTrip"
       }
@@ -2109,7 +2315,9 @@
       "id": "rover2/Alarms/RFIDFault",
       "type": "Variable",
       "name": "RFIDFault",
-      "aliases": [],
+      "aliases": [
+        "RFID reader fault"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -2120,7 +2328,9 @@
       "id": "alarm:rover2/RFIDFault",
       "type": "Alarm",
       "name": "RFIDFault",
-      "aliases": [],
+      "aliases": [
+        "RFID reader fault"
+      ],
       "props": {
         "flag": "rover2/Alarms/RFIDFault"
       }
@@ -2138,7 +2348,9 @@
       "id": "rover2/Motion/StartMission",
       "type": "Method",
       "name": "StartMission",
-      "aliases": [],
+      "aliases": [
+        "Start mission"
+      ],
       "props": {
         "description": "Starts a named delivery mission."
       }
@@ -2167,7 +2379,9 @@
       "id": "rover2/Motion/StopMission",
       "type": "Method",
       "name": "StopMission",
-      "aliases": [],
+      "aliases": [
+        "Stop mission"
+      ],
       "props": {
         "description": "Stops the active delivery mission."
       }
@@ -2228,7 +2442,9 @@
       "id": "rover2/Statistics/LastCycleSeconds",
       "type": "Variable",
       "name": "LastCycleSeconds",
-      "aliases": [],
+      "aliases": [
+        "Last cycle time"
+      ],
       "props": {
         "type": "number",
         "initial": 0,
@@ -2248,7 +2464,9 @@
       "id": "rover2/Diagnostics/CommunicationOk",
       "type": "Variable",
       "name": "CommunicationOk",
-      "aliases": [],
+      "aliases": [
+        "Communication healthy"
+      ],
       "props": {
         "type": "bool",
         "initial": true,
@@ -2281,7 +2499,9 @@
       "id": "rover2/Diagnostics/ReadDiagnostics",
       "type": "Method",
       "name": "ReadDiagnostics",
-      "aliases": [],
+      "aliases": [
+        "Read diagnostics"
+      ],
       "props": {
         "description": "Reads the maintenance diagnostics."
       }
@@ -2309,7 +2529,9 @@
       "id": "rover2/Maintenance/AcknowledgeService",
       "type": "Method",
       "name": "AcknowledgeService",
-      "aliases": [],
+      "aliases": [
+        "Acknowledge service"
+      ],
       "props": {
         "description": "Records a completed service visit."
       }
@@ -2338,7 +2560,9 @@
       "id": "rover2/Maintenance/ResetCounters",
       "type": "Method",
       "name": "ResetCounters",
-      "aliases": [],
+      "aliases": [
+        "Reset counters"
+      ],
       "props": {
         "description": "Resets shift counters after approval."
       }
@@ -2375,7 +2599,9 @@
       "id": "tester/Status/Busy",
       "type": "Variable",
       "name": "Busy",
-      "aliases": [],
+      "aliases": [
+        "Busy flag"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -2386,7 +2612,9 @@
       "id": "tester/Status/CurrentMission",
       "type": "Variable",
       "name": "CurrentMission",
-      "aliases": [],
+      "aliases": [
+        "Current mission"
+      ],
       "props": {
         "type": "string",
         "initial": "",
@@ -2397,7 +2625,9 @@
       "id": "tester/Status/LastResult",
       "type": "Variable",
       "name": "LastResult",
-      "aliases": [],
+      "aliases": [
+        "Last result"
+      ],
       "props": {
         "type": "string",
         "initial": "idle",
@@ -2417,7 +2647,9 @@
       "id": "tester/Alarms/NoAirPressure",
       "type": "Variable",
       "name": "NoAirPressure",
-      "aliases": [],
+      "aliases": [
+        "Low air pressure"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -2428,7 +2660,9 @@
       "id": "alarm:tester/NoAirPressure",
       "type": "Alarm",
       "name": "NoAirPressure",
-      "aliases": [],
+      "aliases": [
+        "Low air pressure"
+      ],
       "props": {
         "flag": "tester/Alarms/NoAirPressure"
       }
@@ -2437,7 +2671,9 @@
       "id": "tester/Alarms/EmergencyStop",
       "type": "Variable",
       "name": "EmergencyStop",
-      "aliases": [],
+      "aliases": [
+        "Emergency stop"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -2448,7 +2684,9 @@
       "id": "alarm:tester/EmergencyStop",
       "type": "Alarm",
       "name": "EmergencyStop",
-      "aliases": [],
+      "aliases": [
+        "Emergency stop"
+      ],
       "props": {
         "flag": "tester/Alarms/EmergencyStop"
       }
@@ -2457,7 +2695,9 @@
       "id": "tester/Alarms/MotorTrip",
       "type": "Variable",
       "name": "MotorTrip",
-      "aliases": [],
+      "aliases": [
+        "Motor trip"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -2468,7 +2708,9 @@
       "id": "alarm:tester/MotorTrip",
       "type": "Alarm",
       "name": "MotorTrip",
-      "aliases": [],
+      "aliases": [
+        "Motor trip"
+      ],
       "props": {
         "flag": "tester/Alarms/MotorTrip"
       }
@@ -2477,7 +2719,9 @@
       "id": "tester/Alarms/RFIDFault",
       "type": "Variable",
       "name": "RFIDFault",
-      "aliases": [],
+      "aliases": [
+        "RFID reader fault"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -2488,7 +2732,9 @@
       "id": "alarm:tester/RFIDFault",
       "type": "Alarm",
       "name": "RFIDFault",
-      "aliases": [],
+      "aliases": [
+        "RFID reader fault"
+      ],
       "props": {
         "flag": "tester/Alarms/RFIDFault"
       }
@@ -2506,7 +2752,9 @@
       "id": "tester/Boards/BoardIn",
       "type": "Method",
       "name": "BoardIn",
-      "aliases": [],
+      "aliases": [
+        "Board in"
+      ],
       "props": {
         "description": "Accepts a board at the input bay."
       }
@@ -2525,7 +2773,9 @@
       "id": "tester/Boards/RunTest",
       "type": "Method",
       "name": "RunTest",
-      "aliases": [],
+      "aliases": [
+        "Run test"
+      ],
       "props": {
         "description": "Runs the board test."
       }
@@ -2554,7 +2804,9 @@
       "id": "tester/Boards/BoardOut",
       "type": "Method",
       "name": "BoardOut",
-      "aliases": [],
+      "aliases": [
+        "Board out"
+      ],
       "props": {
         "description": "Releases a tested board."
       }
@@ -2573,7 +2825,9 @@
       "id": "tester/Boards/TestPassed",
       "type": "Variable",
       "name": "TestPassed",
-      "aliases": [],
+      "aliases": [
+        "Test passed"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -2626,7 +2880,9 @@
       "id": "tester/Statistics/LastCycleSeconds",
       "type": "Variable",
       "name": "LastCycleSeconds",
-      "aliases": [],
+      "aliases": [
+        "Last cycle time"
+      ],
       "props": {
         "type": "number",
         "initial": 0,
@@ -2646,7 +2902,9 @@
       "id": "tester/Diagnostics/CommunicationOk",
       "type": "Variable",
       "name": "CommunicationOk",
-      "aliases": [],
+      "aliases": [
+        "Communication healthy"
+      ],
       "props": {
         "type": "bool",
         "initial": true,
@@ -2679,7 +2937,9 @@
       "id": "tester/Diagnostics/ReadDiagnostics",
       "type": "Method",
       "name": "ReadDiagnostics",
-      "aliases": [],
+      "aliases": [
+        "Read diagnostics"
+      ],
       "props": {
         "description": "Reads the maintenance diagnostics."
       }
@@ -2707,7 +2967,9 @@
       "id": "tester/Maintenance/AcknowledgeService",
       "type": "Method",
       "name": "AcknowledgeService",
-      "aliases": [],
+      "aliases": [
+        "Acknowledge service"
+      ],
       "props": {
         "description": "Records a completed service visit."
       }
@@ -2736,7 +2998,9 @@
       "id": "tester/Maintenance/ResetCounters",
       "type": "Method",
       "name": "ResetCounters",
-      "aliases": [],
+      "aliases": [
+        "Reset counters"
+      ],
       "props": {
         "description": "Resets shift counters after approval."
       }
@@ -2773,7 +3037,9 @@
       "id": "warehouse/Status/Busy",
       "type": "Variable",
       "name": "Busy",
-      "aliases": [],
+      "aliases": [
+        "Busy flag"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -2784,7 +3050,9 @@
       "id": "warehouse/Status/CurrentMission",
       "type": "Variable",
       "name": "CurrentMission",
-      "aliases": [],
+      "aliases": [
+        "Current mission"
+      ],
       "props": {
         "type": "string",
         "initial": "",
@@ -2795,7 +3063,9 @@
       "id": "warehouse/Status/LastResult",
       "type": "Variable",
       "name": "LastResult",
-      "aliases": [],
+      "aliases": [
+        "Last result"
+      ],
       "props": {
         "type": "string",
         "initial": "idle",
@@ -2815,7 +3085,9 @@
       "id": "warehouse/Inventory/TrayInBay",
       "type": "Variable",
       "name": "TrayInBay",
-      "aliases": [],
+      "aliases": [
+        "Tray in bay"
+      ],
       "props": {
         "type": "string",
         "initial": "",
@@ -2826,7 +3098,9 @@
       "id": "warehouse/Inventory/StockReady",
       "type": "Variable",
       "name": "StockReady",
-      "aliases": [],
+      "aliases": [
+        "Stock ready"
+      ],
       "props": {
         "type": "bool",
         "initial": true,
@@ -2846,7 +3120,9 @@
       "id": "warehouse/Alarms/NoAirPressure",
       "type": "Variable",
       "name": "NoAirPressure",
-      "aliases": [],
+      "aliases": [
+        "Low air pressure"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -2857,7 +3133,9 @@
       "id": "alarm:warehouse/NoAirPressure",
       "type": "Alarm",
       "name": "NoAirPressure",
-      "aliases": [],
+      "aliases": [
+        "Low air pressure"
+      ],
       "props": {
         "flag": "warehouse/Alarms/NoAirPressure"
       }
@@ -2866,7 +3144,9 @@
       "id": "warehouse/Alarms/EmergencyStop",
       "type": "Variable",
       "name": "EmergencyStop",
-      "aliases": [],
+      "aliases": [
+        "Emergency stop"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -2877,7 +3157,9 @@
       "id": "alarm:warehouse/EmergencyStop",
       "type": "Alarm",
       "name": "EmergencyStop",
-      "aliases": [],
+      "aliases": [
+        "Emergency stop"
+      ],
       "props": {
         "flag": "warehouse/Alarms/EmergencyStop"
       }
@@ -2886,7 +3168,9 @@
       "id": "warehouse/Alarms/MotorTrip",
       "type": "Variable",
       "name": "MotorTrip",
-      "aliases": [],
+      "aliases": [
+        "Motor trip"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -2897,7 +3181,9 @@
       "id": "alarm:warehouse/MotorTrip",
       "type": "Alarm",
       "name": "MotorTrip",
-      "aliases": [],
+      "aliases": [
+        "Motor trip"
+      ],
       "props": {
         "flag": "warehouse/Alarms/MotorTrip"
       }
@@ -2906,7 +3192,9 @@
       "id": "warehouse/Alarms/RFIDFault",
       "type": "Variable",
       "name": "RFIDFault",
-      "aliases": [],
+      "aliases": [
+        "RFID reader fault"
+      ],
       "props": {
         "type": "bool",
         "initial": false,
@@ -2917,7 +3205,9 @@
       "id": "alarm:warehouse/RFIDFault",
       "type": "Alarm",
       "name": "RFIDFault",
-      "aliases": [],
+      "aliases": [
+        "RFID reader fault"
+      ],
       "props": {
         "flag": "warehouse/Alarms/RFIDFault"
       }
@@ -2926,7 +3216,9 @@
       "id": "warehouse/ResetAlarms",
       "type": "Method",
       "name": "ResetAlarms",
-      "aliases": [],
+      "aliases": [
+        "Reset alarms"
+      ],
       "props": {
         "description": "Clears alarms after the cause is safe."
       }
@@ -2955,7 +3247,9 @@
       "id": "warehouse/ExtractTray",
       "type": "Method",
       "name": "ExtractTray",
-      "aliases": [],
+      "aliases": [
+        "Extract tray"
+      ],
       "props": {
         "description": "Brings a tray to the operator bay."
       }
@@ -2984,7 +3278,9 @@
       "id": "warehouse/SendBack",
       "type": "Method",
       "name": "SendBack",
-      "aliases": [],
+      "aliases": [
+        "Send back"
+      ],
       "props": {
         "description": "Returns the tray from the operator bay."
       }
@@ -3045,7 +3341,9 @@
       "id": "warehouse/Statistics/LastCycleSeconds",
       "type": "Variable",
       "name": "LastCycleSeconds",
-      "aliases": [],
+      "aliases": [
+        "Last cycle time"
+      ],
       "props": {
         "type": "number",
         "initial": 0,
@@ -3065,7 +3363,9 @@
       "id": "warehouse/Diagnostics/CommunicationOk",
       "type": "Variable",
       "name": "CommunicationOk",
-      "aliases": [],
+      "aliases": [
+        "Communication healthy"
+      ],
       "props": {
         "type": "bool",
         "initial": true,
@@ -3098,7 +3398,9 @@
       "id": "warehouse/Diagnostics/ReadDiagnostics",
       "type": "Method",
       "name": "ReadDiagnostics",
-      "aliases": [],
+      "aliases": [
+        "Read diagnostics"
+      ],
       "props": {
         "description": "Reads the maintenance diagnostics."
       }
@@ -3126,7 +3428,9 @@
       "id": "warehouse/Maintenance/AcknowledgeService",
       "type": "Method",
       "name": "AcknowledgeService",
-      "aliases": [],
+      "aliases": [
+        "Acknowledge service"
+      ],
       "props": {
         "description": "Records a completed service visit."
       }
@@ -3155,7 +3459,9 @@
       "id": "warehouse/Maintenance/ResetCounters",
       "type": "Method",
       "name": "ResetCounters",
-      "aliases": [],
+      "aliases": [
+        "Reset counters"
+      ],
       "props": {
         "description": "Resets shift counters after approval."
       }

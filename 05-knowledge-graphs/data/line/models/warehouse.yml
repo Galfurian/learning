@@ -10,14 +10,17 @@ nodes:
     type: bool
     initial: false
     description: True while the current operation runs.
+    display: Busy flag
   - variable: CurrentMission
     type: string
     initial: ''
     description: Name of the active mission.
+    display: Current mission
   - variable: LastResult
     type: string
     initial: idle
     description: Result of the last operation.
+    display: Last result
 - folder: Inventory
   description: Trays and stock state.
   children:
@@ -25,10 +28,12 @@ nodes:
     type: string
     initial: ''
     description: Tray currently at the operator bay.
+    display: Tray in bay
   - variable: StockReady
     type: bool
     initial: true
     description: True when the requested tray can be handled.
+    display: Stock ready
 - folder: Alarms
   description: Alarm flags reported by the device.
   children:
@@ -36,18 +41,22 @@ nodes:
     type: bool
     initial: false
     description: The air supply is below the safe level.
+    display: Low air pressure
   - variable: EmergencyStop
     type: bool
     initial: false
     description: An emergency stop is active.
+    display: Emergency stop
   - variable: MotorTrip
     type: bool
     initial: false
     description: The drive motor has tripped.
+    display: Motor trip
   - variable: RFIDFault
     type: bool
     initial: false
     description: A pallet RFID read failed.
+    display: RFID reader fault
 - method: ResetAlarms
   description: Clears alarms after the cause is safe.
   parameters:
@@ -58,6 +67,7 @@ nodes:
   - name: done
     type: bool
     description: True when the reset is accepted.
+  display: Reset alarms
 - method: ExtractTray
   description: Brings a tray to the operator bay.
   parameters:
@@ -68,6 +78,7 @@ nodes:
   - name: accepted
     type: bool
     description: True when extraction is queued.
+  display: Extract tray
 - method: SendBack
   description: Returns the tray from the operator bay.
   parameters: []
@@ -75,6 +86,7 @@ nodes:
   - name: done
     type: bool
     description: True when return is accepted.
+  display: Send back
 - folder: Statistics
   description: Counters for the current shift.
   children:
@@ -94,6 +106,7 @@ nodes:
     type: number
     initial: 0
     description: Duration of the last completed cycle.
+    display: Last cycle time
 - folder: Diagnostics
   description: Checks used by maintenance staff.
   children:
@@ -101,6 +114,7 @@ nodes:
     type: bool
     initial: true
     description: True when the controller answers.
+    display: Communication healthy
   - variable: SafetyOk
     type: bool
     initial: true
@@ -116,6 +130,7 @@ nodes:
     - name: report
       type: string
       description: Short diagnostic report.
+    display: Read diagnostics
 - folder: Maintenance
   description: Routine service operations.
   children:
@@ -129,6 +144,7 @@ nodes:
     - name: accepted
       type: bool
       description: True when the note is saved.
+    display: Acknowledge service
   - method: ResetCounters
     description: Resets shift counters after approval.
     parameters: []
@@ -136,3 +152,4 @@ nodes:
     - name: done
       type: bool
       description: True when counters are reset.
+    display: Reset counters

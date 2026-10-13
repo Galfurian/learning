@@ -131,6 +131,39 @@ def test_gold_tree_matches_independent_generator_contract():
     }
     assert parsed.triples() == gold_tree
 
+    tree_ids = {node_id for triple in gold_tree for node_id in (triple[0], triple[2])}
+    gold_nodes = {node["id"]: node for node in gold["nodes"]}
+    for node_id in tree_ids:
+        actual = parsed.nodes[node_id]
+        expected = gold_nodes[node_id]
+        assert actual.type == expected["type"]
+        assert actual.name == expected["name"]
+        assert actual.props == expected["props"]
+        if actual.type in {"Variable", "Method", "Alarm"}:
+            assert actual.aliases == expected["aliases"]
+
+
+def test_every_alarm_flag_has_the_same_display_alias_in_gold():
+    gold = json.loads((DATA / "gold.json").read_text(encoding="utf-8"))
+    gold_nodes = {node["id"]: node for node in gold["nodes"]}
+
+    def alarm_variables(items):
+        for item in items or []:
+            if item.get("folder") == "Alarms":
+                yield from (child for child in item.get("children", []) if "variable" in child)
+            elif item.get("folder"):
+                yield from alarm_variables(item.get("children", []))
+
+    flags = 0
+    for path in sorted((DATA / "line" / "models").glob("*.yml")):
+        model = yaml.safe_load(path.read_text(encoding="utf-8"))
+        for item in alarm_variables(model["nodes"]):
+            flags += 1
+            assert item.get("display"), (path, item)
+            alarm = gold_nodes[f"alarm:{model['device']}/{item['variable']}"]
+            assert alarm["aliases"] == [item["display"]]
+    assert flags >= 30
+
 
 def test_prose_edges_are_distributed_and_schema_is_used():
     gold = json.loads((DATA / "gold.json").read_text(encoding="utf-8"))
