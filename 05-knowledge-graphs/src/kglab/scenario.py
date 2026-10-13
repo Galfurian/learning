@@ -41,6 +41,7 @@ class Scenario:
     glossary_types: tuple[str, ...]
     owner_pattern: str              # regex; group 1 of a node id is the id of the node that owns it
     owned_types: tuple[str, ...]    # types named with their owner in a fact: "Busy of Rover R-1"
+    owner_type: str                 # the type that owns the others (a device): it scopes ambiguous names
     relations: dict[str, Relation]
     data_model: dict[str, Any]
     extraction: dict[str, Any]
@@ -66,13 +67,18 @@ def parse_scenario(data: dict[str, Any], folder: Path) -> Scenario:
         if unknown:
             raise ValueError(f"relation {name}: unknown node types {unknown}")
         relations[name] = rel
-    unknown = [t for t in data.get("glossary_types", []) if t not in types]
+    unknown = [t for t in [*data.get("glossary_types", []), *data.get("owned_types", []),
+                           *([data["owner_type"]] if "owner_type" in data else []),
+                           *data["data_model"].get("types", {}).values()] if t not in types]
     if unknown:
-        raise ValueError(f"glossary_types: unknown node types {unknown}")
+        raise ValueError(f"unknown node types {unknown}")
+    unknown = [r for r in data["data_model"].get("relations", {}).values() if r not in relations]
+    if unknown:
+        raise ValueError(f"data_model.relations: unknown relations {unknown}")
     return Scenario(
         name=data["name"], folder=folder, paths=dict(data["paths"]), node_types=types,
         glossary_types=tuple(data.get("glossary_types", [])), owner_pattern=data["owner_pattern"],
-        owned_types=tuple(data.get("owned_types", [])),
+        owned_types=tuple(data.get("owned_types", [])), owner_type=data.get("owner_type", types[0]),
         relations=relations, data_model=dict(data["data_model"]), extraction=dict(data["extraction"]),
         generation=dict(data["generation"]), planner_rules=list(data.get("planner_rules", [])),
     )

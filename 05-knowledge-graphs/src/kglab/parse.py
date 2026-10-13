@@ -21,6 +21,8 @@ if FORMAT.get("format") != "opcua-yaml":
     raise ValueError(f"parse.py reads the 'opcua-yaml' data model format, not {FORMAT.get('format')!r}")
 LINE = FORMAT["root"]
 ALARM_FOLDER = FORMAT["alarm_folder"]
+T = FORMAT["types"]          # node type of each YAML element: device, cell, folder, variable, ...
+R = FORMAT["relations"]      # relation name of each tree edge: contains, exposes_variable, ...
 
 
 def cell_id(key: str) -> str:
@@ -42,52 +44,52 @@ def parse_model(data: dict[str, Any], file: str, graph: Graph | None = None) -> 
     device = data["device"]
     graph.add_node(Node(LINE, FORMAT["root_type"], FORMAT["root_name"]))
     # Short names come from the asset register (the `aliases` key), not from the OPC-UA tree.
-    graph.add_node(Node(device, "Device", data.get("name", device), list(data.get("aliases", [])),
+    graph.add_node(Node(device, T["device"], data.get("name", device), list(data.get("aliases", [])),
                         props={"kind": data.get("kind", "")}))
     if data.get("cell"):
         cell = cell_id(data["cell"])
-        graph.add_node(Node(cell, "Cell", data["cell"]))
-        graph.add_triple(LINE, "contains", cell, f"{file}#")
-        graph.add_triple(cell, "contains", device, f"{file}#")
+        graph.add_node(Node(cell, T["cell"], data["cell"]))
+        graph.add_triple(LINE, R["contains"], cell, f"{file}#")
+        graph.add_triple(cell, R["contains"], device, f"{file}#")
     else:
-        graph.add_triple(LINE, "contains", device, f"{file}#")
+        graph.add_triple(LINE, R["contains"], device, f"{file}#")
 
     def walk(items: list[dict[str, Any]], parent: str, path: list[str], in_alarms: bool) -> None:
         for item in items or []:
             if "folder" in item:
                 name = item["folder"]
                 node = f"{parent}/{name}"
-                graph.add_node(Node(node, "Folder", name, props={"description": item.get("description", "")}))
-                graph.add_triple(parent, "contains", node, f"{file}#{'/'.join(path + [name])}")
+                graph.add_node(Node(node, T["folder"], name, props={"description": item.get("description", "")}))
+                graph.add_triple(parent, R["contains"], node, f"{file}#{'/'.join(path + [name])}")
                 walk(item.get("children", []), node, path + [name], name == ALARM_FOLDER)
             elif "variable" in item:
                 name = item["variable"]
                 node = f"{parent}/{name}"
                 where = f"{file}#{'/'.join(path + [name])}"
-                graph.add_node(Node(node, "Variable", name, display(item), props={
+                graph.add_node(Node(node, T["variable"], name, display(item), props={
                     "type": item.get("type", ""), "initial": item.get("initial"),
                     "description": item.get("description", "")}))
-                graph.add_triple(parent, "exposes_variable", node, where)
+                graph.add_triple(parent, R["exposes_variable"], node, where)
                 if in_alarms:
                     alarm = alarm_id(device, name)
-                    graph.add_node(Node(alarm, "Alarm", name, display(item), props={"flag": node}))
-                    graph.add_triple(device, "has_alarm", alarm, where)
+                    graph.add_node(Node(alarm, T["alarm"], name, display(item), props={"flag": node}))
+                    graph.add_triple(device, R["has_alarm"], alarm, where)
             elif "method" in item:
                 name = item["method"]
                 node = f"{parent}/{name}"
                 where = f"{file}#{'/'.join(path + [name])}"
-                graph.add_node(Node(node, "Method", name, display(item), props={"description": item.get("description", "")}))
-                graph.add_triple(parent, "exposes_method", node, where)
+                graph.add_node(Node(node, T["method"], name, display(item), props={"description": item.get("description", "")}))
+                graph.add_triple(parent, R["exposes_method"], node, where)
                 for p in item.get("parameters", []) or []:
                     pid = f"{node}/{p['name']}"
-                    graph.add_node(Node(pid, "Parameter", p["name"], props={
+                    graph.add_node(Node(pid, T["parameter"], p["name"], props={
                         "type": p.get("type", ""), "description": p.get("description", "")}))
-                    graph.add_triple(node, "has_parameter", pid, where)
+                    graph.add_triple(node, R["has_parameter"], pid, where)
                 for r in item.get("returns", []) or []:
                     rid = f"{node}/{r['name']}"
-                    graph.add_node(Node(rid, "Variable", r["name"], props={
+                    graph.add_node(Node(rid, T["variable"], r["name"], props={
                         "type": r.get("type", ""), "description": r.get("description", "")}))
-                    graph.add_triple(node, "returns", rid, where)
+                    graph.add_triple(node, R["returns"], rid, where)
             else:
                 raise ValueError(f"{file}: item under {parent} is not a folder, variable or method: {item!r}")
 

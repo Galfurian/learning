@@ -403,6 +403,7 @@ def run_demo_rows(questions: list[Question], world: World, args) -> None:
 
 
 ROWS_DIR = Path(__file__).resolve().parents[2] / ".cache" / "rows"
+ROWS_VERSION = 2   # bump when row() changes its keys
 
 
 def run_diagnosis(diagnose_row: Callable[[dict], str], file: str) -> None:
@@ -410,7 +411,9 @@ def run_diagnosis(diagnose_row: Callable[[dict], str], file: str) -> None:
                generation=True, extraction=True)
     args = p.parse_args()
     world = World(args.extract_model)
-    path = ROWS_DIR / f"dev-built-{args.extract_model.replace(':', '_')}.json"
+    # The rows depend on both models and on the row format: all three are in the file name.
+    name = f"dev-built-{args.extract_model}-{args.model}-v{ROWS_VERSION}".replace(":", "_").replace("/", "_")
+    path = ROWS_DIR / f"{name}.json"
     if args.inspect:
         ui.show_note(f"rows file: {path} ({'present' if path.exists() else 'missing: the first run writes it'})")
         return

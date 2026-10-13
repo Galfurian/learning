@@ -48,7 +48,7 @@ class Linker:
         self.catalog = catalog
         self.ambiguous = ambiguous or {}
         self.by_type: dict[tuple[str, ...], Resolver] = {}
-        self.devices = Resolver(catalog, types=("Device",), ambiguous=self.ambiguous)
+        self.devices = Resolver(catalog, types=(SCENARIO.owner_type,), ambiguous=self.ambiguous)
 
     def _resolver(self, types: tuple[str, ...]) -> Resolver:
         if types not in self.by_type:

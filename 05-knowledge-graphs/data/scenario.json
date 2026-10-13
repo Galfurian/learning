@@ -229,7 +229,24 @@
   "root_name": "the line",
   "cell_prefix": "cell:",
   "alarm_folder": "Alarms",
-  "alarm_prefix": "alarm:"
+  "alarm_prefix": "alarm:",
+  "types": {
+   "device": "Device",
+   "cell": "Cell",
+   "folder": "Folder",
+   "variable": "Variable",
+   "method": "Method",
+   "parameter": "Parameter",
+   "alarm": "Alarm"
+  },
+  "relations": {
+   "contains": "contains",
+   "exposes_variable": "exposes_variable",
+   "exposes_method": "exposes_method",
+   "has_parameter": "has_parameter",
+   "returns": "returns",
+   "has_alarm": "has_alarm"
+  }
  },
  "extraction": {
   "documents": "the notes of a production line",
@@ -485,5 +502,6 @@
   "Parameter",
   "Alarm",
   "Condition"
- ]
+ ],
+ "owner_type": "Device"
 }
