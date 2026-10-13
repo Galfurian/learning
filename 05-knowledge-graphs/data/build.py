@@ -238,78 +238,74 @@ def prose() -> tuple[dict[str, list[dict[str, Any]]], list[dict[str, str]]]:
     links: list[dict[str, str]] = []
 
     def add(file: str, chunk: str, text: str, edges: list[tuple[str, str, str]]) -> None:
-        while len(text.split()) < 50:
-            text += " Record the result in the shift log before the next handover."
         notes.setdefault(file, []).append({"id": chunk, "title": chunk.replace("-", " ").title(), "text": text})
         for s, r, o in edges:
             links.append({"s": s, "r": r, "o": o, "source": chunk})
 
-    add("conveyor.md", "conveyor-route", "The Loop Conveyor serves bay 1 and bay 2. MovePallet moves pallet 7 to bay 1, then to bay 2. The conveyor requires the line-ready condition, observed by the Busy flag in its Status folder. A full loop takes about four minutes at the standard speed.", [
+    add("conveyor.md", "conveyor-route", "The Loop Conveyor serves bay 1 and bay 2. MovePallet moves pallet 7 to bay 1, then to bay 2. The line-ready condition is checked from the Busy flag in the Status folder before motion starts. A full loop takes about four minutes at the standard speed.", [
         ("conveyor", "serves_bay", "bay:1"), ("conveyor", "serves_bay", "bay:2"), ("conveyor", "moves", "pallet:7"), ("conveyor/MovePallet", "requires", "cond:conveyor/ready"), ("cond:conveyor/ready", "observed_by", "conveyor/Status/Busy")])
     add("conveyor.md", "conveyor-alarms", "The low air pressure alarm of the Loop Conveyor stops the Assembly Cell, and its motor trip alarm stops the Camera Quality Cell. The ResetAlarms method clears both alarms after the guard is closed. Call the line supervisor if an alarm returns twice in one shift.", [
         ("alarm:conveyor/NoAirPressure", "stops", "assembly"), ("alarm:conveyor/MotorTrip", "stops", "qc")])
-    add("warehouse.md", "warehouse-operations", "The Vertical Warehouse serves bay 5. ExtractTray requires the warehouse to be idle, observed by the Busy flag in the Status folder, and moves a tray to the operator bay. SendBack also moves a tray. Wait ten seconds after the lift stops before opening the bay door.", [
+    add("warehouse.md", "warehouse-operations", "The Vertical Warehouse serves bay 5. ExtractTray requires the warehouse to be idle; the Busy flag in the Status folder tells the controller when that condition holds. The method moves a tray to the operator bay. SendBack also moves a tray. Wait ten seconds after the lift stops before opening the bay door.", [
         ("warehouse", "serves_bay", "bay:5"), ("warehouse/ExtractTray", "requires", "cond:warehouse/idle"), ("cond:warehouse/idle", "observed_by", "warehouse/Status/Busy"), ("warehouse", "moves", "item:tray")])
-    add("warehouse.md", "warehouse-reset", "The warehouse alarm reset uses ResetAlarms. Its operation needs the stock-ready condition, observed by the StockReady flag in Inventory, and returns a completion flag. The operator must check that no person is inside the lift before starting a tray cycle.", [
+    add("warehouse.md", "warehouse-reset", "The warehouse alarm reset uses ResetAlarms. Its operation needs the stock-ready condition; the StockReady flag in Inventory tells the operator when it holds, and the method returns a completion flag. The operator must check that no person is inside the lift before starting a tray cycle.", [
         ("warehouse/ResetAlarms", "requires", "cond:warehouse/stock-ready"), ("cond:warehouse/stock-ready", "observed_by", "warehouse/Inventory/StockReady")])
-    add("rovers.md", "rovers-missions", "Rover R-1, also called the first rover, serves bay 5 and moves a board from the warehouse to pallet 7. StartMission requires the rover to be idle, observed by the Busy flag in the Status folder of R-1. Rover R-2 serves bay 5 too, but it does not serve bay 3. Charge either rover for twenty minutes after four missions.", [
+    add("rovers.md", "rovers-missions", "Rover R-1, also called the first rover, serves bay 5 and moves a board from the warehouse to pallet 7. StartMission requires the rover to be idle; the Busy flag in the Status folder of R-1 reports that condition. Rover R-2 serves bay 5 too, but it does not serve bay 3. Charge either rover for twenty minutes after four missions.", [
         ("rover1", "serves_bay", "bay:5"), ("rover1", "moves", "item:board"), ("rover1/Motion/StartMission", "requires", "cond:rover/idle"), ("cond:rover/idle", "observed_by", "rover1/Status/Busy"), ("rover2", "serves_bay", "bay:5")])
     add("rovers.md", "rovers-confirm", "The delivery mission is confirmed by the LastResult flag in the Status folder of R-1. The second rover, also called R-2, can move a cover to pallet 7. It then waits for bay 5 before returning to the charging point. Do not swap the two mission names in the supervisor configuration.", [
         ("rover1/Status/LastResult", "confirms", "mission:rover/deliver-board"), ("rover2", "moves", "item:cover")])
-    add("tester.md", "tester-route", "The Board Tester serves bay 2 and moves a board to the Engraving Cell. BoardIn requires the tester to be ready, observed by the Busy flag in its Status folder. The input clamp takes six seconds to close and must be empty before a new board arrives.", [
+    add("tester.md", "tester-route", "The Board Tester serves bay 2 and moves a board to the Engraving Cell. BoardIn requires the tester to be ready; the Busy flag in its Status folder reports that condition. The input clamp takes six seconds to close and must be empty before a new board arrives.", [
         ("tester", "serves_bay", "bay:2"), ("tester", "moves", "item:board"), ("tester/Boards/BoardIn", "requires", "cond:tester/ready"), ("cond:tester/ready", "observed_by", "tester/Status/Busy")])
     add("tester.md", "tester-result", "The board test mission is confirmed by the TestPassed flag in the Boards folder. RunTest returns a submitted result before the measurements finish. A failed test keeps the board at the output station until a technician records the reason.", [
         ("tester/Boards/TestPassed", "confirms", "mission:tester/board-test")])
-    add("cnc.md", "cnc-route", "The Engraving Cell serves bay 3 and moves a board. PickBoard requires the CNC cell to be idle, observed by the Busy flag in its Status folder. The arm must approach from the marked side, and the spindle needs a thirty-second warm-up before engraving.", [
+    add("cnc.md", "cnc-route", "The Engraving Cell serves bay 3 and moves a board. PickBoard requires the CNC cell to be idle; the Busy flag in its Status folder reports that condition. The arm must approach from the marked side, and the spindle needs a thirty-second warm-up before engraving.", [
         ("cnc", "serves_bay", "bay:3"), ("cnc", "moves", "item:board"), ("cnc/Arm/PickBoard", "requires", "cond:cnc/idle"), ("cond:cnc/idle", "observed_by", "cnc/Status/Busy")])
     add("cnc.md", "cnc-confirm", "The engraving mission is confirmed by the LastResult flag in the Status folder of the Engraving Cell. PlaceBoard moves the board to pallet 7. Inspect the engraving depth every fifty boards and stop the cell if the depth is outside the work instruction.", [
         ("cnc/Status/LastResult", "confirms", "mission:cnc/engrave-board"), ("cnc", "moves", "item:board")])
-    add("assembly.md", "assembly-route", "The Assembly Cell serves bay 4 and moves a top cover and a bottom cover onto pallet 7. Assemble requires the cell to be idle, observed by the Busy flag in its Status folder. The two arms must report home before the pallet enters the fixture.", [
+    add("assembly.md", "assembly-route", "The Assembly Cell serves bay 4 and moves a top cover and a bottom cover onto pallet 7. Assemble requires the cell to be idle; the Busy flag in its Status folder reports that condition. The two arms must report home before the pallet enters the fixture.", [
         ("assembly", "serves_bay", "bay:4"), ("assembly", "moves", "item:cover-top"), ("assembly", "moves", "item:cover-bottom"), ("assembly/Assembly/Assemble", "requires", "cond:assembly/idle"), ("cond:assembly/idle", "observed_by", "assembly/Status/Busy")])
-    add("assembly.md", "assembly-confirm", "The assembly mission is confirmed by the LastResult flag in the Status folder. Screw requires the screwdriver to be ready, observed by the Busy flag while the program runs. Replace the bit after two hundred cycles and record the program number in the shift log.", [
+    add("assembly.md", "assembly-confirm", "The assembly mission is confirmed by the LastResult flag in the Status folder. Screw requires the screwdriver to be ready; the Busy flag changes while the program runs. Replace the bit after two hundred cycles and record the program number in the shift log.", [
         ("assembly/Status/LastResult", "confirms", "mission:assembly/fit-covers"), ("assembly/Assembly/Screw", "requires", "cond:assembly/screwdriver-ready"), ("cond:assembly/screwdriver-ready", "observed_by", "assembly/Status/Busy")])
-    add("qc.md", "qc-route", "The Camera Quality Cell serves bay 5. CheckPallet requires the inspection cell to be idle, observed by the Busy flag in its Status folder, and confirms the pallet inspection through the Passed flag in Inspection. The camera takes twelve seconds to scan one pallet.", [
+    add("qc.md", "qc-route", "The Camera Quality Cell serves bay 5. CheckPallet requires the inspection cell to be idle; the Busy flag in its Status folder reports that condition. The method confirms the pallet inspection through the Passed flag in Inspection. The camera takes twelve seconds to scan one pallet.", [
         ("qc", "serves_bay", "bay:5"), ("qc/Inspection/CheckPallet", "requires", "cond:qc/idle"), ("cond:qc/idle", "observed_by", "qc/Status/Busy"), ("qc/Inspection/Passed", "confirms", "mission:qc/inspect-pallet")])
     add("qc.md", "qc-result", "The pallet inspection is confirmed by the Passed flag in the Inspection folder. The camera cell moves the board to the finished pallet record. If the result is false, keep the pallet in bay 5 and ask quality staff to review the images before releasing it.", [
         ("qc/Inspection/Passed", "confirms", "mission:qc/inspect-pallet"), ("qc", "moves", "item:board")])
-    add("line.md", "line-route", "The route is bay 1, then bay 2, bay 3, bay 4, and bay 5. The conveyor next step is bay 2; bay 2 next step is bay 3; bay 3 next step is bay 4; bay 4 next step is bay 5. A pallet must not skip a bay because the barcode reader checks the route at every stop.", [
+    add("line.md", "line-route", "The route is bay 1, then bay 2, bay 3, bay 4, and bay 5. The conveyor hands the pallet to bay 2; bay 2 hands it to bay 3; bay 3 hands it to bay 4; bay 4 hands it to bay 5. A pallet must not skip a bay because the barcode reader checks the route at every stop.", [
         ("bay:1", "next_step", "bay:2"), ("bay:2", "next_step", "bay:3"), ("bay:3", "next_step", "bay:4"), ("bay:4", "next_step", "bay:5")])
     add("line.md", "line-stops", "An emergency stop in the Assembly Cell stops the conveyor. An emergency stop on the conveyor stops the warehouse. The low air pressure alarm of the conveyor stops the Assembly Cell. The alarm lamp stays on until the cause is removed and the reset method is accepted.", [
         ("alarm:assembly/EmergencyStop", "stops", "conveyor"), ("alarm:conveyor/EmergencyStop", "stops", "warehouse"), ("alarm:conveyor/NoAirPressure", "stops", "assembly")])
-    add("incidents.md", "incident-rover-alias", "On 4 March, the first rover raised an RFID reader fault on the loop conveyor while moving a board. The incident was on Rover R-1, and StopMission on that rover fixed it.", [
+    add("incidents.md", "incident-rover-alias", "On 4 March, the first rover raised an RFID reader fault on the loop conveyor while moving a board. Rover R-1 was the affected unit, and StopMission on that rover fixed the interruption before the pallet was returned.", [
         ("incident:2026-03-04-1", "incident_on", "rover1"), ("incident:2026-03-04-1", "raised", "alarm:conveyor/RFIDFault"), ("incident:2026-03-04-1", "fixed_by_method", "rover1/Motion/StopMission")])
-    add("incidents.md", "incident-rover-second", "On 5 March, R-2 reported a screwdriver fault in the Assembly Cell. The incident was on the second rover, and StopMission on that rover fixed it.", [
+    add("incidents.md", "incident-rover-second", "On 5 March, R-2 reported a screwdriver fault in the Assembly Cell. The second rover was the affected unit, and StopMission on that rover fixed the interruption after the operator checked the fixture.", [
         ("incident:2026-03-05-1", "incident_on", "rover2"), ("incident:2026-03-05-1", "raised", "alarm:assembly/ScrewdriverFault"), ("incident:2026-03-05-1", "fixed_by_method", "rover2/Motion/StopMission")])
-    add("incidents.md", "incident-ambiguous", "On 6 March, the rover raised a motor trip alarm on the conveyor. The operator stopped the line and recorded the event for the morning review.", [
+    add("incidents.md", "incident-ambiguous", "On 6 March during the night shift, the rover raised a motor trip alarm on the conveyor. The operator stopped the line, moved the pallet to a safe position, and recorded the event for the morning review. The log names no rover, so the supervisor checked both transport units before the next mission was released.", [
         ("incident:2026-03-06-1", "raised", "alarm:conveyor/MotorTrip")])
 
-    # These sections add operational detail that is useful context but is not
-    # part of the fixed graph schema.  They also make the extraction cost
-    # realistic without adding copied industrial documentation.
-    operating_notes = [
-        ("conveyor.md", "Loop Conveyor", "The conveyor operator", "pallets, photo eyes and the guard circuit"),
-        ("warehouse.md", "Vertical Warehouse", "The warehouse operator", "trays, the lift and the operator bay"),
-        ("rovers.md", "Rover R-1", "The transport operator", "missions, charging and the safety scanner"),
-        ("tester.md", "Board Tester", "The test operator", "board clamps, serial numbers and test recipes"),
-        ("cnc.md", "Engraving Cell", "The CNC operator", "the spindle, the arm and engraving depth"),
-        ("assembly.md", "Assembly Cell", "The assembly operator", "the two arms, covers and the screwdriver"),
-        ("qc.md", "Camera Quality Cell", "The quality operator", "the camera, lighting and inspection results"),
-        ("rovers.md", "Rover R-2", "The transport operator", "the second rover, charging and return paths"),
-    ]
-    for number, (file, device_name, actor, detail) in enumerate(operating_notes, start=1):
-        for part in range(1, 6):
-            chunk = f"{file.removesuffix('.md')}-detail-{number}-{part}"
-            text = (
-                f"{device_name} operating note {part}: {actor} checks {detail} before the first cycle. "
-                "The measured value is written in the shift log and the next operator confirms it at handover. "
-                "A normal cycle may pause for inspection when the line is busy, but the operator must not bypass a guard, "
-                "ignore a warning, or restart equipment while a person is inside the work area."
-            )
-            add(file, chunk, text, [])
-
-    add("line.md", "line-alternatives", "The Loop Conveyor also serves bay 3 and bay 4 for maintenance returns. It moves pallet 8 during a return cycle. The Vertical Warehouse serves bay 1 when a replenishment tray is needed. R-1 moves a tray, while R-2 moves a board. The Board Tester moves a cover for a fixture check. The Engraving Cell moves a top cover, the Assembly Cell moves a board, and the Camera Quality Cell moves a cover after inspection.", [
-        ("conveyor", "serves_bay", "bay:3"), ("conveyor", "serves_bay", "bay:4"), ("warehouse", "serves_bay", "bay:1"),
-        ("conveyor", "moves", "pallet:8"), ("rover1", "moves", "item:tray"), ("rover2", "moves", "item:board"), ("tester", "moves", "item:cover"),
+    # These are short operator and integrator notes.  Most carry one extra
+    # link; the four explicit distractors carry none but contain useful values.
+    add("conveyor.md", "conveyor-return-bays", "During a maintenance return, the Loop Conveyor handles bay 3 and bay 4. Pallet 8 is used for the empty-fixture check. The return operator reads the belt speed twice before releasing the pallet. A guard reset does not start motion by itself, and the supervisor must authorise the next cycle.", [
+        ("conveyor", "serves_bay", "bay:3"), ("conveyor", "serves_bay", "bay:4"), ("conveyor", "moves", "pallet:8")])
+    add("warehouse.md", "warehouse-replenishment", "A replenishment tray enters the Vertical Warehouse through bay 1. The operator checks the tray label, closes the lift door, and waits for the position display to settle. The warehouse can hold ten trays. A missing label is a stock problem, not a motion fault, so the operator records it before calling maintenance.", [
+        ("warehouse", "serves_bay", "bay:1")])
+    add("rovers.md", "rover1-return-route", "R-1 can collect a spare tray from the warehouse and return it to bay 1. It leaves the charging point only after the safety scanner is clear. The supervisor checks the mission name against the pallet label. If the scanner stays blocked, the rover waits; it does not push the pallet or enter the inspection cell.", [
+        ("rover1", "moves", "item:tray"), ("rover1", "serves_bay", "bay:1")])
+    add("rovers.md", "rover2-fixture-route", "R-2 carries a board to the fixture station at bay 4 during a recovery cycle. The operator confirms the fixture is empty before sending the rover. A second trip is allowed only after the first result is recorded. The route is deliberately different from the normal delivery route, which makes the two rover notes easy to confuse.", [
+        ("rover2", "moves", "item:board"), ("rover2", "serves_bay", "bay:4")])
+    add("tester.md", "tester-fixture-return", "The Board Tester uses bay 3 for a fixture return. A technician removes the reference board, checks its serial number, and closes the clamp. The test recipe has a five-second settle time and a twenty-second measurement window. A board with a missing serial stays at the input station until the record is corrected.", [
+        ("tester", "serves_bay", "bay:3")])
+    add("cnc.md", "cnc-recovery-route", "The Engraving Cell can receive a recovery board at bay 2. The arm waits at its marked pose while the operator checks the spindle guard. Engraving a recovery board uses the same serial rule as normal production, but the result is recorded in a separate shift note. The cell must be empty before the next pallet arrives.", [
+        ("cnc", "serves_bay", "bay:2")])
+    add("assembly.md", "assembly-rework-route", "A rework pallet may return to bay 5 beside the Assembly Cell. The operator removes the top cover before opening the fixture. The screwdriver program is selected from the job card, and the two arms remain in their home poses during the check. Rework parts are counted separately from first-pass parts.", [
+        ("assembly", "serves_bay", "bay:5")])
+    add("qc.md", "qc-recheck-route", "The Camera Quality Cell can recheck a pallet at bay 4. The quality operator cleans the lens, confirms the lighting reference, and repeats the inspection once. A second failure sends the pallet to manual review. The image archive keeps the serial number and the shift name, but it does not change the production route.", [
+        ("qc", "serves_bay", "bay:4")])
+    add("conveyor.md", "conveyor-distractor", "The Loop Conveyor uses a nominal speed of 18 metres per minute and a two-second pause at each stop. The drive cabinet is inspected at the start of every shift. A loose cover can cause vibration without raising an alarm. The operator records the sound and calls maintenance if it continues after cleaning.", [])
+    add("warehouse.md", "warehouse-distractor", "The Vertical Warehouse checks tray height before a lift cycle. The normal lift time is forty seconds, and the operator bay light remains on for ten seconds after arrival. Keep hands outside the shutter. A tray that feels unusually heavy is isolated for a stock check rather than forced into position.", [])
+    add("tester.md", "tester-distractor", "The Board Tester stores a result for thirty days. Its reference board is checked at the start of each morning shift and replaced after one hundred cycles. The test operator wears an antistatic strap. A clean clamp improves repeatability, but cleaning never replaces the scheduled calibration.", [])
+    add("qc.md", "qc-distractor", "The Camera Quality Cell uses two lights and one fixed lens. The reference image is renewed every Monday or after a lens change. Keep reflective tools outside the field of view. A clean image does not prove that a pallet passed; the operator must read the recorded result and follow the review rule.", [])
+    add("line.md", "line-alternatives", "The Loop Conveyor moves pallet 8 during a return cycle. R-1 moves a tray to bay 1, while R-2 moves a board to bay 4. The Board Tester moves a cover during a fixture check. The operator records the return reason before the pallet enters the next bay.", [
+        ("conveyor", "moves", "pallet:8"), ("rover1", "moves", "item:tray"), ("rover2", "moves", "item:board"), ("tester", "moves", "item:cover")])
+    add("line.md", "line-alternatives-finish", "The Engraving Cell moves a top cover during a recovery job. The Assembly Cell moves a board into its fixture, and the Camera Quality Cell moves a cover after inspection. Each movement is recorded against the pallet number. A recovery route may return to bay 4, but it must rejoin the normal route before quality inspection.", [
         ("cnc", "moves", "item:cover-top"), ("assembly", "moves", "item:board"), ("qc", "moves", "item:cover")])
 
     extra_incidents = [
@@ -336,9 +332,14 @@ def prose() -> tuple[dict[str, list[dict[str, Any]]], list[dict[str, str]]]:
         "a motor trip alarm on the conveyor": "MotorTrip", "an RFID reader fault": "RFIDFault",
         "a screwdriver fault alarm": "ScrewdriverFault",
     }
-    for incident_id, date, actor, display_name, device, alarm_text, fixed_method, method_name in extra_incidents:
+    for number, (incident_id, date, actor, display_name, device, alarm_text, fixed_method, method_name) in enumerate(extra_incidents):
         chunk = f"incident-{incident_id}"
-        text = f"On {date}, {actor} reported {alarm_text}. The incident was on {display_name}; {method_name} fixed it after the area was checked. The supervisor recorded the shift, the affected pallet, and the follow-up action."
+        if number % 3 == 0:
+            text = f"On {date}, {actor} reported {alarm_text} during pallet run {number + 1}. The technician checked the area and sent {method_name} to {display_name}. The supervisor recorded the affected pallet and returned the line to service after a {number + 2}-minute check."
+        elif number % 3 == 1:
+            text = f"The line returned to service after {method_name} stopped equipment for case {number + 1}. On {date}, {display_name} had reported {alarm_text}, and {actor} checked the guard before restarting. The shift record names the pallet, the response time, and the follow-up inspection for shift {number + 1}."
+        else:
+            text = f"During the {date} handover, {actor} described {alarm_text} on {display_name}. The technician isolated area {number + 1}, used {method_name}, and checked the next pallet by hand. No product was released until the supervisor signed follow-up record {number + 1}."
         alarm_device = "assembly" if alarm_text == "a screwdriver fault alarm" else "conveyor" if "conveyor" in alarm_text or "RFID" in alarm_text else device
         add("incidents.md", chunk, text, [
             (f"incident:{incident_id}", "incident_on", device),

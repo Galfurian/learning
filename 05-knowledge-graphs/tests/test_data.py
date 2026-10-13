@@ -29,6 +29,10 @@ def sections() -> dict[str, str]:
     return out
 
 
+def sentences(text: str) -> list[str]:
+    return [part.strip() for part in re.split(r"(?<=[.!?])\s+", text) if part.strip()]
+
+
 def mentions(node: dict, node_id: str) -> set[str]:
     values = {node_id, node.get("name", ""), *node.get("aliases", [])}
     if ":" in node_id:
@@ -72,6 +76,34 @@ def test_prose_uses_human_mentions_not_graph_ids():
             assert node_id not in text
 
 
+def test_prose_sections_are_distinct_and_have_real_content():
+    chunks = sections()
+    sentence_sets = {chunk_id: sentences(text) for chunk_id, text in chunks.items()}
+    for chunk_id, values in sentence_sets.items():
+        assert len(values) == len(set(values)), chunk_id
+    ids = sorted(sentence_sets)
+    for number, left_id in enumerate(ids):
+        for right_id in ids[number + 1:]:
+            assert len(set(sentence_sets[left_id]) & set(sentence_sets[right_id])) <= 1, (left_id, right_id)
+
+    gold = json.loads((DATA / "gold.json").read_text(encoding="utf-8"))
+    edge_counts = {chunk_id: 0 for chunk_id in chunks}
+    for edge in gold["edges"]:
+        if edge["source"] in edge_counts:
+            edge_counts[edge["source"]] += 1
+    empty = [chunk_id for chunk_id, count in edge_counts.items() if count == 0]
+    assert len(empty) <= len(chunks) * 0.10, empty
+    assert max(edge_counts.values()) <= 6
+
+
+def test_prose_does_not_leak_schema_vocabulary():
+    forbidden = {"serves_bay", "next_step", "observed_by", "fixed_by_method", "incident_on",
+                 "next step", "observed by", "the incident was on"}
+    for chunk_id, text in sections().items():
+        lowered = text.lower()
+        assert not any(term in lowered for term in forbidden), chunk_id
+
+
 def test_gold_tree_matches_independent_generator_contract():
     gold = json.loads((DATA / "gold.json").read_text(encoding="utf-8"))
     parsed = load_models(DATA / "line" / "models")
@@ -97,8 +129,8 @@ def test_prose_edges_are_distributed_and_schema_is_used():
 def test_manifest_budget():
     manifest = json.loads((DATA / "manifest.json").read_text(encoding="utf-8"))
     assert manifest["prose_chunks"] <= 150
-    assert manifest["prose_chunks"] >= 60
-    assert manifest["words_per_section"]["min"] >= 50
+    assert 40 <= manifest["prose_chunks"] <= 60
+    assert manifest["words_per_section"]["min"] >= 30
     assert manifest["words_per_section"]["max"] <= 120
     assert 120 <= manifest["link_edges"] <= 200
     assert manifest["estimated_extraction_seconds"] is None

@@ -2,28 +2,16 @@
 
 ## Qc Route {#qc-route}
 
-The Camera Quality Cell serves bay 5. CheckPallet requires the inspection cell to be idle, observed by the Busy flag in its Status folder, and confirms the pallet inspection through the Passed flag in Inspection. The camera takes twelve seconds to scan one pallet. Record the result in the shift log before the next handover.
+The Camera Quality Cell serves bay 5. CheckPallet requires the inspection cell to be idle; the Busy flag in its Status folder reports that condition. The method confirms the pallet inspection through the Passed flag in Inspection. The camera takes twelve seconds to scan one pallet.
 
 ## Qc Result {#qc-result}
 
-The pallet inspection is confirmed by the Passed flag in the Inspection folder. The camera cell moves the board to the finished pallet record. If the result is false, keep the pallet in bay 5 and ask quality staff to review the images before releasing it. Record the result in the shift log before the next handover.
+The pallet inspection is confirmed by the Passed flag in the Inspection folder. The camera cell moves the board to the finished pallet record. If the result is false, keep the pallet in bay 5 and ask quality staff to review the images before releasing it.
 
-## Qc Detail 7 1 {#qc-detail-7-1}
+## Qc Recheck Route {#qc-recheck-route}
 
-Camera Quality Cell operating note 1: The quality operator checks the camera, lighting and inspection results before the first cycle. The measured value is written in the shift log and the next operator confirms it at handover. A normal cycle may pause for inspection when the line is busy, but the operator must not bypass a guard, ignore a warning, or restart equipment while a person is inside the work area.
+The Camera Quality Cell can recheck a pallet at bay 4. The quality operator cleans the lens, confirms the lighting reference, and repeats the inspection once. A second failure sends the pallet to manual review. The image archive keeps the serial number and the shift name, but it does not change the production route.
 
-## Qc Detail 7 2 {#qc-detail-7-2}
+## Qc Distractor {#qc-distractor}
 
-Camera Quality Cell operating note 2: The quality operator checks the camera, lighting and inspection results before the first cycle. The measured value is written in the shift log and the next operator confirms it at handover. A normal cycle may pause for inspection when the line is busy, but the operator must not bypass a guard, ignore a warning, or restart equipment while a person is inside the work area.
-
-## Qc Detail 7 3 {#qc-detail-7-3}
-
-Camera Quality Cell operating note 3: The quality operator checks the camera, lighting and inspection results before the first cycle. The measured value is written in the shift log and the next operator confirms it at handover. A normal cycle may pause for inspection when the line is busy, but the operator must not bypass a guard, ignore a warning, or restart equipment while a person is inside the work area.
-
-## Qc Detail 7 4 {#qc-detail-7-4}
-
-Camera Quality Cell operating note 4: The quality operator checks the camera, lighting and inspection results before the first cycle. The measured value is written in the shift log and the next operator confirms it at handover. A normal cycle may pause for inspection when the line is busy, but the operator must not bypass a guard, ignore a warning, or restart equipment while a person is inside the work area.
-
-## Qc Detail 7 5 {#qc-detail-7-5}
-
-Camera Quality Cell operating note 5: The quality operator checks the camera, lighting and inspection results before the first cycle. The measured value is written in the shift log and the next operator confirms it at handover. A normal cycle may pause for inspection when the line is busy, but the operator must not bypass a guard, ignore a warning, or restart equipment while a person is inside the work area.
+The Camera Quality Cell uses two lights and one fixed lens. The reference image is renewed every Monday or after a lens change. Keep reflective tools outside the field of view. A clean image does not prove that a pallet passed; the operator must read the recorded result and follow the review rule.

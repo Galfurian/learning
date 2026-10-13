@@ -43,42 +43,42 @@
     },
     {
       "path": "line/notes/conveyor.md",
-      "sections": 7,
+      "sections": 4,
       "mode": "extract"
     },
     {
       "path": "line/notes/warehouse.md",
-      "sections": 7,
+      "sections": 4,
       "mode": "extract"
     },
     {
       "path": "line/notes/rovers.md",
-      "sections": 12,
+      "sections": 4,
       "mode": "extract"
     },
     {
       "path": "line/notes/tester.md",
-      "sections": 7,
+      "sections": 4,
       "mode": "extract"
     },
     {
       "path": "line/notes/cnc.md",
-      "sections": 7,
+      "sections": 3,
       "mode": "extract"
     },
     {
       "path": "line/notes/assembly.md",
-      "sections": 7,
+      "sections": 3,
       "mode": "extract"
     },
     {
       "path": "line/notes/qc.md",
-      "sections": 7,
+      "sections": 4,
       "mode": "extract"
     },
     {
       "path": "line/notes/line.md",
-      "sections": 3,
+      "sections": 4,
       "mode": "extract"
     },
     {
@@ -87,14 +87,14 @@
       "mode": "extract"
     }
   ],
-  "prose_chunks": 77,
+  "prose_chunks": 50,
   "chunk_size": 120,
   "overlap": 0,
   "words_per_section": {
-    "min": 50,
-    "mean": 64.1,
-    "max": 75
+    "min": 33,
+    "mean": 47.8,
+    "max": 61
   },
-  "link_edges": 120,
+  "link_edges": 129,
   "estimated_extraction_seconds": null
 }

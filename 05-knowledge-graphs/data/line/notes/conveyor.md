@@ -2,28 +2,16 @@
 
 ## Conveyor Route {#conveyor-route}
 
-The Loop Conveyor serves bay 1 and bay 2. MovePallet moves pallet 7 to bay 1, then to bay 2. The conveyor requires the line-ready condition, observed by the Busy flag in its Status folder. A full loop takes about four minutes at the standard speed. Record the result in the shift log before the next handover.
+The Loop Conveyor serves bay 1 and bay 2. MovePallet moves pallet 7 to bay 1, then to bay 2. The line-ready condition is checked from the Busy flag in the Status folder before motion starts. A full loop takes about four minutes at the standard speed.
 
 ## Conveyor Alarms {#conveyor-alarms}
 
-The low air pressure alarm of the Loop Conveyor stops the Assembly Cell, and its motor trip alarm stops the Camera Quality Cell. The ResetAlarms method clears both alarms after the guard is closed. Call the line supervisor if an alarm returns twice in one shift. Record the result in the shift log before the next handover.
+The low air pressure alarm of the Loop Conveyor stops the Assembly Cell, and its motor trip alarm stops the Camera Quality Cell. The ResetAlarms method clears both alarms after the guard is closed. Call the line supervisor if an alarm returns twice in one shift.
 
-## Conveyor Detail 1 1 {#conveyor-detail-1-1}
+## Conveyor Return Bays {#conveyor-return-bays}
 
-Loop Conveyor operating note 1: The conveyor operator checks pallets, photo eyes and the guard circuit before the first cycle. The measured value is written in the shift log and the next operator confirms it at handover. A normal cycle may pause for inspection when the line is busy, but the operator must not bypass a guard, ignore a warning, or restart equipment while a person is inside the work area.
+During a maintenance return, the Loop Conveyor handles bay 3 and bay 4. Pallet 8 is used for the empty-fixture check. The return operator reads the belt speed twice before releasing the pallet. A guard reset does not start motion by itself, and the supervisor must authorise the next cycle.
 
-## Conveyor Detail 1 2 {#conveyor-detail-1-2}
+## Conveyor Distractor {#conveyor-distractor}
 
-Loop Conveyor operating note 2: The conveyor operator checks pallets, photo eyes and the guard circuit before the first cycle. The measured value is written in the shift log and the next operator confirms it at handover. A normal cycle may pause for inspection when the line is busy, but the operator must not bypass a guard, ignore a warning, or restart equipment while a person is inside the work area.
-
-## Conveyor Detail 1 3 {#conveyor-detail-1-3}
-
-Loop Conveyor operating note 3: The conveyor operator checks pallets, photo eyes and the guard circuit before the first cycle. The measured value is written in the shift log and the next operator confirms it at handover. A normal cycle may pause for inspection when the line is busy, but the operator must not bypass a guard, ignore a warning, or restart equipment while a person is inside the work area.
-
-## Conveyor Detail 1 4 {#conveyor-detail-1-4}
-
-Loop Conveyor operating note 4: The conveyor operator checks pallets, photo eyes and the guard circuit before the first cycle. The measured value is written in the shift log and the next operator confirms it at handover. A normal cycle may pause for inspection when the line is busy, but the operator must not bypass a guard, ignore a warning, or restart equipment while a person is inside the work area.
-
-## Conveyor Detail 1 5 {#conveyor-detail-1-5}
-
-Loop Conveyor operating note 5: The conveyor operator checks pallets, photo eyes and the guard circuit before the first cycle. The measured value is written in the shift log and the next operator confirms it at handover. A normal cycle may pause for inspection when the line is busy, but the operator must not bypass a guard, ignore a warning, or restart equipment while a person is inside the work area.
+The Loop Conveyor uses a nominal speed of 18 metres per minute and a two-second pause at each stop. The drive cabinet is inspected at the start of every shift. A loose cover can cause vibration without raising an alarm. The operator records the sound and calls maintenance if it continues after cleaning.

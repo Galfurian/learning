@@ -2,28 +2,16 @@
 
 ## Tester Route {#tester-route}
 
-The Board Tester serves bay 2 and moves a board to the Engraving Cell. BoardIn requires the tester to be ready, observed by the Busy flag in its Status folder. The input clamp takes six seconds to close and must be empty before a new board arrives. Record the result in the shift log before the next handover.
+The Board Tester serves bay 2 and moves a board to the Engraving Cell. BoardIn requires the tester to be ready; the Busy flag in its Status folder reports that condition. The input clamp takes six seconds to close and must be empty before a new board arrives.
 
 ## Tester Result {#tester-result}
 
-The board test mission is confirmed by the TestPassed flag in the Boards folder. RunTest returns a submitted result before the measurements finish. A failed test keeps the board at the output station until a technician records the reason. Record the result in the shift log before the next handover.
+The board test mission is confirmed by the TestPassed flag in the Boards folder. RunTest returns a submitted result before the measurements finish. A failed test keeps the board at the output station until a technician records the reason.
 
-## Tester Detail 4 1 {#tester-detail-4-1}
+## Tester Fixture Return {#tester-fixture-return}
 
-Board Tester operating note 1: The test operator checks board clamps, serial numbers and test recipes before the first cycle. The measured value is written in the shift log and the next operator confirms it at handover. A normal cycle may pause for inspection when the line is busy, but the operator must not bypass a guard, ignore a warning, or restart equipment while a person is inside the work area.
+The Board Tester uses bay 3 for a fixture return. A technician removes the reference board, checks its serial number, and closes the clamp. The test recipe has a five-second settle time and a twenty-second measurement window. A board with a missing serial stays at the input station until the record is corrected.
 
-## Tester Detail 4 2 {#tester-detail-4-2}
+## Tester Distractor {#tester-distractor}
 
-Board Tester operating note 2: The test operator checks board clamps, serial numbers and test recipes before the first cycle. The measured value is written in the shift log and the next operator confirms it at handover. A normal cycle may pause for inspection when the line is busy, but the operator must not bypass a guard, ignore a warning, or restart equipment while a person is inside the work area.
-
-## Tester Detail 4 3 {#tester-detail-4-3}
-
-Board Tester operating note 3: The test operator checks board clamps, serial numbers and test recipes before the first cycle. The measured value is written in the shift log and the next operator confirms it at handover. A normal cycle may pause for inspection when the line is busy, but the operator must not bypass a guard, ignore a warning, or restart equipment while a person is inside the work area.
-
-## Tester Detail 4 4 {#tester-detail-4-4}
-
-Board Tester operating note 4: The test operator checks board clamps, serial numbers and test recipes before the first cycle. The measured value is written in the shift log and the next operator confirms it at handover. A normal cycle may pause for inspection when the line is busy, but the operator must not bypass a guard, ignore a warning, or restart equipment while a person is inside the work area.
-
-## Tester Detail 4 5 {#tester-detail-4-5}
-
-Board Tester operating note 5: The test operator checks board clamps, serial numbers and test recipes before the first cycle. The measured value is written in the shift log and the next operator confirms it at handover. A normal cycle may pause for inspection when the line is busy, but the operator must not bypass a guard, ignore a warning, or restart equipment while a person is inside the work area.
+The Board Tester stores a result for thirty days. Its reference board is checked at the start of each morning shift and replaced after one hundred cycles. The test operator wears an antistatic strap. A clean clamp improves repeatability, but cleaning never replaces the scheduled calibration.

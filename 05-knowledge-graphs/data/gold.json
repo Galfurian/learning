@@ -5812,19 +5812,73 @@
       "s": "conveyor",
       "r": "serves_bay",
       "o": "bay:3",
-      "source": "line-alternatives"
+      "source": "conveyor-return-bays"
     },
     {
       "s": "conveyor",
       "r": "serves_bay",
       "o": "bay:4",
-      "source": "line-alternatives"
+      "source": "conveyor-return-bays"
+    },
+    {
+      "s": "conveyor",
+      "r": "moves",
+      "o": "pallet:8",
+      "source": "conveyor-return-bays"
     },
     {
       "s": "warehouse",
       "r": "serves_bay",
       "o": "bay:1",
-      "source": "line-alternatives"
+      "source": "warehouse-replenishment"
+    },
+    {
+      "s": "rover1",
+      "r": "moves",
+      "o": "item:tray",
+      "source": "rover1-return-route"
+    },
+    {
+      "s": "rover1",
+      "r": "serves_bay",
+      "o": "bay:1",
+      "source": "rover1-return-route"
+    },
+    {
+      "s": "rover2",
+      "r": "moves",
+      "o": "item:board",
+      "source": "rover2-fixture-route"
+    },
+    {
+      "s": "rover2",
+      "r": "serves_bay",
+      "o": "bay:4",
+      "source": "rover2-fixture-route"
+    },
+    {
+      "s": "tester",
+      "r": "serves_bay",
+      "o": "bay:3",
+      "source": "tester-fixture-return"
+    },
+    {
+      "s": "cnc",
+      "r": "serves_bay",
+      "o": "bay:2",
+      "source": "cnc-recovery-route"
+    },
+    {
+      "s": "assembly",
+      "r": "serves_bay",
+      "o": "bay:5",
+      "source": "assembly-rework-route"
+    },
+    {
+      "s": "qc",
+      "r": "serves_bay",
+      "o": "bay:4",
+      "source": "qc-recheck-route"
     },
     {
       "s": "conveyor",
@@ -5854,19 +5908,19 @@
       "s": "cnc",
       "r": "moves",
       "o": "item:cover-top",
-      "source": "line-alternatives"
+      "source": "line-alternatives-finish"
     },
     {
       "s": "assembly",
       "r": "moves",
       "o": "item:board",
-      "source": "line-alternatives"
+      "source": "line-alternatives-finish"
     },
     {
       "s": "qc",
       "r": "moves",
       "o": "item:cover",
-      "source": "line-alternatives"
+      "source": "line-alternatives-finish"
     },
     {
       "s": "incident:2026-03-07-1",
