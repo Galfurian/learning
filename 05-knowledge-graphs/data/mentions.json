@@ -1,0 +1,1594 @@
+[
+ {
+  "mention": "assembly mission",
+  "chunk": "assembly-confirm",
+  "node": "mission:assembly/fit-covers"
+ },
+ {
+  "mention": "Busy flag",
+  "chunk": "assembly-confirm",
+  "node": "assembly/Status/Busy"
+ },
+ {
+  "mention": "LastResult",
+  "chunk": "assembly-confirm",
+  "node": "assembly/Status/LastResult"
+ },
+ {
+  "mention": "Screw",
+  "chunk": "assembly-confirm",
+  "node": "assembly/Assembly/Screw"
+ },
+ {
+  "mention": "screwdriver to be ready",
+  "chunk": "assembly-confirm",
+  "node": "cond:assembly/screwdriver-ready"
+ },
+ {
+  "mention": "the screwdriver to be ready",
+  "chunk": "assembly-confirm",
+  "node": "cond:assembly/screwdriver-ready"
+ },
+ {
+  "mention": "Assembly Cell",
+  "chunk": "assembly-rework-route",
+  "node": "assembly"
+ },
+ {
+  "mention": "Bay 5",
+  "chunk": "assembly-rework-route",
+  "node": "bay:5"
+ },
+ {
+  "mention": "cover",
+  "chunk": "assembly-rework-route",
+  "node": "item:cover"
+ },
+ {
+  "mention": "top cover",
+  "chunk": "assembly-rework-route",
+  "node": "item:cover-top"
+ },
+ {
+  "mention": "a bottom cover",
+  "chunk": "assembly-route",
+  "node": "item:cover-bottom"
+ },
+ {
+  "mention": "a top cover",
+  "chunk": "assembly-route",
+  "node": "item:cover-top"
+ },
+ {
+  "mention": "Assemble",
+  "chunk": "assembly-route",
+  "node": "assembly/Assembly/Assemble"
+ },
+ {
+  "mention": "Assembly Cell",
+  "chunk": "assembly-route",
+  "node": "assembly"
+ },
+ {
+  "mention": "Bay 4",
+  "chunk": "assembly-route",
+  "node": "bay:4"
+ },
+ {
+  "mention": "bottom cover",
+  "chunk": "assembly-route",
+  "node": "item:cover-bottom"
+ },
+ {
+  "mention": "Busy flag",
+  "chunk": "assembly-route",
+  "node": "assembly/Status/Busy"
+ },
+ {
+  "mention": "cell to be idle",
+  "chunk": "assembly-route",
+  "node": "cond:assembly/idle"
+ },
+ {
+  "mention": "cover",
+  "chunk": "assembly-route",
+  "node": "item:cover"
+ },
+ {
+  "mention": "Pallet 7",
+  "chunk": "assembly-route",
+  "node": "pallet:7"
+ },
+ {
+  "mention": "the cell",
+  "chunk": "assembly-route",
+  "node": "assembly"
+ },
+ {
+  "mention": "the cell to be idle",
+  "chunk": "assembly-route",
+  "node": "cond:assembly/idle"
+ },
+ {
+  "mention": "top cover",
+  "chunk": "assembly-route",
+  "node": "item:cover-top"
+ },
+ {
+  "mention": "board",
+  "chunk": "cnc-confirm",
+  "node": "item:board"
+ },
+ {
+  "mention": "Boards",
+  "chunk": "cnc-confirm",
+  "node": "item:board"
+ },
+ {
+  "mention": "Engraving Cell",
+  "chunk": "cnc-confirm",
+  "node": "cnc"
+ },
+ {
+  "mention": "engraving mission",
+  "chunk": "cnc-confirm",
+  "node": "mission:cnc/engrave-board"
+ },
+ {
+  "mention": "LastResult",
+  "chunk": "cnc-confirm",
+  "node": "cnc/Status/LastResult"
+ },
+ {
+  "mention": "Pallet 7",
+  "chunk": "cnc-confirm",
+  "node": "pallet:7"
+ },
+ {
+  "mention": "PlaceBoard",
+  "chunk": "cnc-confirm",
+  "node": "cnc/Arm/PlaceBoard"
+ },
+ {
+  "mention": "a recovery board",
+  "chunk": "cnc-recovery-route",
+  "node": "item:board"
+ },
+ {
+  "mention": "Bay 2",
+  "chunk": "cnc-recovery-route",
+  "node": "bay:2"
+ },
+ {
+  "mention": "board",
+  "chunk": "cnc-recovery-route",
+  "node": "item:board"
+ },
+ {
+  "mention": "Engraving Cell",
+  "chunk": "cnc-recovery-route",
+  "node": "cnc"
+ },
+ {
+  "mention": "a board",
+  "chunk": "cnc-route",
+  "node": "item:board"
+ },
+ {
+  "mention": "Bay 3",
+  "chunk": "cnc-route",
+  "node": "bay:3"
+ },
+ {
+  "mention": "board",
+  "chunk": "cnc-route",
+  "node": "item:board"
+ },
+ {
+  "mention": "Busy flag",
+  "chunk": "cnc-route",
+  "node": "cnc/Status/Busy"
+ },
+ {
+  "mention": "CNC cell to be idle",
+  "chunk": "cnc-route",
+  "node": "cond:cnc/idle"
+ },
+ {
+  "mention": "Engraving Cell",
+  "chunk": "cnc-route",
+  "node": "cnc"
+ },
+ {
+  "mention": "PickBoard",
+  "chunk": "cnc-route",
+  "node": "cnc/Arm/PickBoard"
+ },
+ {
+  "mention": "the CNC cell",
+  "chunk": "cnc-route",
+  "node": "cnc"
+ },
+ {
+  "mention": "the CNC cell to be idle",
+  "chunk": "cnc-route",
+  "node": "cond:cnc/idle"
+ },
+ {
+  "mention": "Assembly Cell",
+  "chunk": "conveyor-alarms",
+  "node": "assembly"
+ },
+ {
+  "mention": "Camera Quality Cell",
+  "chunk": "conveyor-alarms",
+  "node": "qc"
+ },
+ {
+  "mention": "its motor trip alarm",
+  "chunk": "conveyor-alarms",
+  "node": "alarm:conveyor/MotorTrip"
+ },
+ {
+  "mention": "Loop Conveyor",
+  "chunk": "conveyor-alarms",
+  "node": "conveyor"
+ },
+ {
+  "mention": "Low air pressure",
+  "chunk": "conveyor-alarms",
+  "node": "alarm:conveyor/NoAirPressure"
+ },
+ {
+  "mention": "Motor trip",
+  "chunk": "conveyor-alarms",
+  "node": "alarm:conveyor/MotorTrip"
+ },
+ {
+  "mention": "the low air pressure alarm",
+  "chunk": "conveyor-alarms",
+  "node": "alarm:conveyor/NoAirPressure"
+ },
+ {
+  "mention": "The ResetAlarms method",
+  "chunk": "conveyor-alarms",
+  "node": "conveyor/ResetAlarms"
+ },
+ {
+  "mention": "cover",
+  "chunk": "conveyor-distractor",
+  "node": "item:cover"
+ },
+ {
+  "mention": "Loop Conveyor",
+  "chunk": "conveyor-distractor",
+  "node": "conveyor"
+ },
+ {
+  "mention": "Bay 3",
+  "chunk": "conveyor-return-bays",
+  "node": "bay:3"
+ },
+ {
+  "mention": "Bay 4",
+  "chunk": "conveyor-return-bays",
+  "node": "bay:4"
+ },
+ {
+  "mention": "Loop Conveyor",
+  "chunk": "conveyor-return-bays",
+  "node": "conveyor"
+ },
+ {
+  "mention": "Pallet 8",
+  "chunk": "conveyor-return-bays",
+  "node": "pallet:8"
+ },
+ {
+  "mention": "Bay 1",
+  "chunk": "conveyor-route",
+  "node": "bay:1"
+ },
+ {
+  "mention": "Bay 2",
+  "chunk": "conveyor-route",
+  "node": "bay:2"
+ },
+ {
+  "mention": "Busy flag",
+  "chunk": "conveyor-route",
+  "node": "conveyor/Status/Busy"
+ },
+ {
+  "mention": "line-ready condition",
+  "chunk": "conveyor-route",
+  "node": "cond:conveyor/ready"
+ },
+ {
+  "mention": "Loop Conveyor",
+  "chunk": "conveyor-route",
+  "node": "conveyor"
+ },
+ {
+  "mention": "MovePallet",
+  "chunk": "conveyor-route",
+  "node": "conveyor/MovePallet"
+ },
+ {
+  "mention": "Pallet 7",
+  "chunk": "conveyor-route",
+  "node": "pallet:7"
+ },
+ {
+  "mention": "the line-ready condition",
+  "chunk": "conveyor-route",
+  "node": "cond:conveyor/ready"
+ },
+ {
+  "mention": "7 March",
+  "chunk": "incident-2026-03-07-1",
+  "node": "incident:2026-03-07-1"
+ },
+ {
+  "mention": "a low air pressure alarm",
+  "chunk": "incident-2026-03-07-1",
+  "node": "alarm:warehouse/NoAirPressure"
+ },
+ {
+  "mention": "Low air pressure",
+  "chunk": "incident-2026-03-07-1",
+  "node": "alarm:warehouse/NoAirPressure"
+ },
+ {
+  "mention": "ResetAlarms",
+  "chunk": "incident-2026-03-07-1",
+  "node": "warehouse/ResetAlarms"
+ },
+ {
+  "mention": "Vertical Warehouse",
+  "chunk": "incident-2026-03-07-1",
+  "node": "warehouse"
+ },
+ {
+  "mention": "8 March",
+  "chunk": "incident-2026-03-08-1",
+  "node": "incident:2026-03-08-1"
+ },
+ {
+  "mention": "a motor trip alarm on the conveyor",
+  "chunk": "incident-2026-03-08-1",
+  "node": "alarm:conveyor/MotorTrip"
+ },
+ {
+  "mention": "Motor trip",
+  "chunk": "incident-2026-03-08-1",
+  "node": "alarm:conveyor/MotorTrip"
+ },
+ {
+  "mention": "R-1",
+  "chunk": "incident-2026-03-08-1",
+  "node": "rover1"
+ },
+ {
+  "mention": "Rover R-1",
+  "chunk": "incident-2026-03-08-1",
+  "node": "rover1"
+ },
+ {
+  "mention": "StopMission",
+  "chunk": "incident-2026-03-08-1",
+  "node": "rover1/Motion/StopMission"
+ },
+ {
+  "mention": "the first rover",
+  "chunk": "incident-2026-03-08-1",
+  "node": "rover1"
+ },
+ {
+  "mention": "9 March",
+  "chunk": "incident-2026-03-09-1",
+  "node": "incident:2026-03-09-1"
+ },
+ {
+  "mention": "an emergency stop alarm",
+  "chunk": "incident-2026-03-09-1",
+  "node": "alarm:rover2/EmergencyStop"
+ },
+ {
+  "mention": "Emergency stop",
+  "chunk": "incident-2026-03-09-1",
+  "node": "alarm:rover2/EmergencyStop"
+ },
+ {
+  "mention": "R-2",
+  "chunk": "incident-2026-03-09-1",
+  "node": "rover2"
+ },
+ {
+  "mention": "Rover R-2",
+  "chunk": "incident-2026-03-09-1",
+  "node": "rover2"
+ },
+ {
+  "mention": "StopMission",
+  "chunk": "incident-2026-03-09-1",
+  "node": "rover2/Motion/StopMission"
+ },
+ {
+  "mention": "10 March",
+  "chunk": "incident-2026-03-10-1",
+  "node": "incident:2026-03-10-1"
+ },
+ {
+  "mention": "a low air pressure alarm",
+  "chunk": "incident-2026-03-10-1",
+  "node": "alarm:tester/NoAirPressure"
+ },
+ {
+  "mention": "board",
+  "chunk": "incident-2026-03-10-1",
+  "node": "item:board"
+ },
+ {
+  "mention": "Board Tester",
+  "chunk": "incident-2026-03-10-1",
+  "node": "tester"
+ },
+ {
+  "mention": "BoardOut",
+  "chunk": "incident-2026-03-10-1",
+  "node": "tester/Boards/BoardOut"
+ },
+ {
+  "mention": "Low air pressure",
+  "chunk": "incident-2026-03-10-1",
+  "node": "alarm:tester/NoAirPressure"
+ },
+ {
+  "mention": "11 March",
+  "chunk": "incident-2026-03-11-1",
+  "node": "incident:2026-03-11-1"
+ },
+ {
+  "mention": "an emergency stop alarm",
+  "chunk": "incident-2026-03-11-1",
+  "node": "alarm:cnc/EmergencyStop"
+ },
+ {
+  "mention": "Emergency stop",
+  "chunk": "incident-2026-03-11-1",
+  "node": "alarm:cnc/EmergencyStop"
+ },
+ {
+  "mention": "Engraving Cell",
+  "chunk": "incident-2026-03-11-1",
+  "node": "cnc"
+ },
+ {
+  "mention": "PlaceBoard",
+  "chunk": "incident-2026-03-11-1",
+  "node": "cnc/Arm/PlaceBoard"
+ },
+ {
+  "mention": "12 March",
+  "chunk": "incident-2026-03-12-1",
+  "node": "incident:2026-03-12-1"
+ },
+ {
+  "mention": "a screwdriver fault alarm",
+  "chunk": "incident-2026-03-12-1",
+  "node": "alarm:assembly/ScrewdriverFault"
+ },
+ {
+  "mention": "Assembly Cell",
+  "chunk": "incident-2026-03-12-1",
+  "node": "assembly"
+ },
+ {
+  "mention": "ResetAlarms",
+  "chunk": "incident-2026-03-12-1",
+  "node": "assembly/ResetAlarms"
+ },
+ {
+  "mention": "Screwdriver fault",
+  "chunk": "incident-2026-03-12-1",
+  "node": "alarm:assembly/ScrewdriverFault"
+ },
+ {
+  "mention": "13 March",
+  "chunk": "incident-2026-03-13-1",
+  "node": "incident:2026-03-13-1"
+ },
+ {
+  "mention": "a motor trip alarm on the conveyor",
+  "chunk": "incident-2026-03-13-1",
+  "node": "alarm:conveyor/MotorTrip"
+ },
+ {
+  "mention": "Camera Quality Cell",
+  "chunk": "incident-2026-03-13-1",
+  "node": "qc"
+ },
+ {
+  "mention": "CheckPallet",
+  "chunk": "incident-2026-03-13-1",
+  "node": "qc/Inspection/CheckPallet"
+ },
+ {
+  "mention": "Motor trip",
+  "chunk": "incident-2026-03-13-1",
+  "node": "alarm:conveyor/MotorTrip"
+ },
+ {
+  "mention": "14 March",
+  "chunk": "incident-2026-03-14-1",
+  "node": "incident:2026-03-14-1"
+ },
+ {
+  "mention": "an emergency stop alarm",
+  "chunk": "incident-2026-03-14-1",
+  "node": "alarm:warehouse/EmergencyStop"
+ },
+ {
+  "mention": "Emergency stop",
+  "chunk": "incident-2026-03-14-1",
+  "node": "alarm:warehouse/EmergencyStop"
+ },
+ {
+  "mention": "ResetAlarms",
+  "chunk": "incident-2026-03-14-1",
+  "node": "warehouse/ResetAlarms"
+ },
+ {
+  "mention": "Vertical Warehouse",
+  "chunk": "incident-2026-03-14-1",
+  "node": "warehouse"
+ },
+ {
+  "mention": "15 March",
+  "chunk": "incident-2026-03-15-1",
+  "node": "incident:2026-03-15-1"
+ },
+ {
+  "mention": "a low air pressure alarm",
+  "chunk": "incident-2026-03-15-1",
+  "node": "alarm:rover1/NoAirPressure"
+ },
+ {
+  "mention": "Low air pressure",
+  "chunk": "incident-2026-03-15-1",
+  "node": "alarm:rover1/NoAirPressure"
+ },
+ {
+  "mention": "R-1",
+  "chunk": "incident-2026-03-15-1",
+  "node": "rover1"
+ },
+ {
+  "mention": "Rover R-1",
+  "chunk": "incident-2026-03-15-1",
+  "node": "rover1"
+ },
+ {
+  "mention": "StopMission",
+  "chunk": "incident-2026-03-15-1",
+  "node": "rover1/Motion/StopMission"
+ },
+ {
+  "mention": "the first rover",
+  "chunk": "incident-2026-03-15-1",
+  "node": "rover1"
+ },
+ {
+  "mention": "16 March",
+  "chunk": "incident-2026-03-16-1",
+  "node": "incident:2026-03-16-1"
+ },
+ {
+  "mention": "an RFID reader fault",
+  "chunk": "incident-2026-03-16-1",
+  "node": "alarm:conveyor/RFIDFault"
+ },
+ {
+  "mention": "R-2",
+  "chunk": "incident-2026-03-16-1",
+  "node": "rover2"
+ },
+ {
+  "mention": "RFID reader fault",
+  "chunk": "incident-2026-03-16-1",
+  "node": "alarm:conveyor/RFIDFault"
+ },
+ {
+  "mention": "Rover R-2",
+  "chunk": "incident-2026-03-16-1",
+  "node": "rover2"
+ },
+ {
+  "mention": "StopMission",
+  "chunk": "incident-2026-03-16-1",
+  "node": "rover2/Motion/StopMission"
+ },
+ {
+  "mention": "17 March",
+  "chunk": "incident-2026-03-17-1",
+  "node": "incident:2026-03-17-1"
+ },
+ {
+  "mention": "an emergency stop alarm",
+  "chunk": "incident-2026-03-17-1",
+  "node": "alarm:tester/EmergencyStop"
+ },
+ {
+  "mention": "board",
+  "chunk": "incident-2026-03-17-1",
+  "node": "item:board"
+ },
+ {
+  "mention": "Board Tester",
+  "chunk": "incident-2026-03-17-1",
+  "node": "tester"
+ },
+ {
+  "mention": "BoardOut",
+  "chunk": "incident-2026-03-17-1",
+  "node": "tester/Boards/BoardOut"
+ },
+ {
+  "mention": "Emergency stop",
+  "chunk": "incident-2026-03-17-1",
+  "node": "alarm:tester/EmergencyStop"
+ },
+ {
+  "mention": "18 March",
+  "chunk": "incident-2026-03-18-1",
+  "node": "incident:2026-03-18-1"
+ },
+ {
+  "mention": "a motor trip alarm on the conveyor",
+  "chunk": "incident-2026-03-18-1",
+  "node": "alarm:conveyor/MotorTrip"
+ },
+ {
+  "mention": "Engraving Cell",
+  "chunk": "incident-2026-03-18-1",
+  "node": "cnc"
+ },
+ {
+  "mention": "Motor trip",
+  "chunk": "incident-2026-03-18-1",
+  "node": "alarm:conveyor/MotorTrip"
+ },
+ {
+  "mention": "PlaceBoard",
+  "chunk": "incident-2026-03-18-1",
+  "node": "cnc/Arm/PlaceBoard"
+ },
+ {
+  "mention": "19 March",
+  "chunk": "incident-2026-03-19-1",
+  "node": "incident:2026-03-19-1"
+ },
+ {
+  "mention": "an emergency stop alarm",
+  "chunk": "incident-2026-03-19-1",
+  "node": "alarm:assembly/EmergencyStop"
+ },
+ {
+  "mention": "Assembly Cell",
+  "chunk": "incident-2026-03-19-1",
+  "node": "assembly"
+ },
+ {
+  "mention": "Emergency stop",
+  "chunk": "incident-2026-03-19-1",
+  "node": "alarm:assembly/EmergencyStop"
+ },
+ {
+  "mention": "ResetAlarms",
+  "chunk": "incident-2026-03-19-1",
+  "node": "assembly/ResetAlarms"
+ },
+ {
+  "mention": "20 March",
+  "chunk": "incident-2026-03-20-1",
+  "node": "incident:2026-03-20-1"
+ },
+ {
+  "mention": "a low air pressure alarm",
+  "chunk": "incident-2026-03-20-1",
+  "node": "alarm:qc/NoAirPressure"
+ },
+ {
+  "mention": "Camera Quality Cell",
+  "chunk": "incident-2026-03-20-1",
+  "node": "qc"
+ },
+ {
+  "mention": "CheckPallet",
+  "chunk": "incident-2026-03-20-1",
+  "node": "qc/Inspection/CheckPallet"
+ },
+ {
+  "mention": "Low air pressure",
+  "chunk": "incident-2026-03-20-1",
+  "node": "alarm:qc/NoAirPressure"
+ },
+ {
+  "mention": "21 March",
+  "chunk": "incident-2026-03-21-1",
+  "node": "incident:2026-03-21-1"
+ },
+ {
+  "mention": "a motor trip alarm on the conveyor",
+  "chunk": "incident-2026-03-21-1",
+  "node": "alarm:conveyor/MotorTrip"
+ },
+ {
+  "mention": "Motor trip",
+  "chunk": "incident-2026-03-21-1",
+  "node": "alarm:conveyor/MotorTrip"
+ },
+ {
+  "mention": "ResetAlarms",
+  "chunk": "incident-2026-03-21-1",
+  "node": "warehouse/ResetAlarms"
+ },
+ {
+  "mention": "Vertical Warehouse",
+  "chunk": "incident-2026-03-21-1",
+  "node": "warehouse"
+ },
+ {
+  "mention": "22 March",
+  "chunk": "incident-2026-03-22-1",
+  "node": "incident:2026-03-22-1"
+ },
+ {
+  "mention": "an RFID reader fault",
+  "chunk": "incident-2026-03-22-1",
+  "node": "alarm:conveyor/RFIDFault"
+ },
+ {
+  "mention": "R-1",
+  "chunk": "incident-2026-03-22-1",
+  "node": "rover1"
+ },
+ {
+  "mention": "RFID reader fault",
+  "chunk": "incident-2026-03-22-1",
+  "node": "alarm:conveyor/RFIDFault"
+ },
+ {
+  "mention": "Rover R-1",
+  "chunk": "incident-2026-03-22-1",
+  "node": "rover1"
+ },
+ {
+  "mention": "StopMission",
+  "chunk": "incident-2026-03-22-1",
+  "node": "rover1/Motion/StopMission"
+ },
+ {
+  "mention": "the first rover",
+  "chunk": "incident-2026-03-22-1",
+  "node": "rover1"
+ },
+ {
+  "mention": "23 March",
+  "chunk": "incident-2026-03-23-1",
+  "node": "incident:2026-03-23-1"
+ },
+ {
+  "mention": "a low air pressure alarm",
+  "chunk": "incident-2026-03-23-1",
+  "node": "alarm:rover2/NoAirPressure"
+ },
+ {
+  "mention": "Low air pressure",
+  "chunk": "incident-2026-03-23-1",
+  "node": "alarm:rover2/NoAirPressure"
+ },
+ {
+  "mention": "R-2",
+  "chunk": "incident-2026-03-23-1",
+  "node": "rover2"
+ },
+ {
+  "mention": "Rover R-2",
+  "chunk": "incident-2026-03-23-1",
+  "node": "rover2"
+ },
+ {
+  "mention": "StopMission",
+  "chunk": "incident-2026-03-23-1",
+  "node": "rover2/Motion/StopMission"
+ },
+ {
+  "mention": "6 March",
+  "chunk": "incident-ambiguous",
+  "node": "incident:2026-03-06-1"
+ },
+ {
+  "mention": "a motor trip alarm on the conveyor",
+  "chunk": "incident-ambiguous",
+  "node": "alarm:conveyor/MotorTrip"
+ },
+ {
+  "mention": "both transport units",
+  "chunk": "incident-ambiguous",
+  "node": "<ambiguous>",
+  "candidates": [
+   "rover1",
+   "rover2"
+  ]
+ },
+ {
+  "mention": "Motor trip",
+  "chunk": "incident-ambiguous",
+  "node": "alarm:conveyor/MotorTrip"
+ },
+ {
+  "mention": "the rover",
+  "chunk": "incident-ambiguous",
+  "node": "<ambiguous>",
+  "candidates": [
+   "rover1",
+   "rover2"
+  ]
+ },
+ {
+  "mention": "4 March",
+  "chunk": "incident-rover-alias",
+  "node": "incident:2026-03-04-1"
+ },
+ {
+  "mention": "a board",
+  "chunk": "incident-rover-alias",
+  "node": "item:board"
+ },
+ {
+  "mention": "an RFID reader fault",
+  "chunk": "incident-rover-alias",
+  "node": "alarm:conveyor/RFIDFault"
+ },
+ {
+  "mention": "board",
+  "chunk": "incident-rover-alias",
+  "node": "item:board"
+ },
+ {
+  "mention": "Loop Conveyor",
+  "chunk": "incident-rover-alias",
+  "node": "conveyor"
+ },
+ {
+  "mention": "R-1",
+  "chunk": "incident-rover-alias",
+  "node": "rover1"
+ },
+ {
+  "mention": "RFID reader fault",
+  "chunk": "incident-rover-alias",
+  "node": "alarm:conveyor/RFIDFault"
+ },
+ {
+  "mention": "Rover R-1",
+  "chunk": "incident-rover-alias",
+  "node": "rover1"
+ },
+ {
+  "mention": "StopMission",
+  "chunk": "incident-rover-alias",
+  "node": "rover1/Motion/StopMission"
+ },
+ {
+  "mention": "the first rover",
+  "chunk": "incident-rover-alias",
+  "node": "rover1"
+ },
+ {
+  "mention": "5 March",
+  "chunk": "incident-rover-second",
+  "node": "incident:2026-03-05-1"
+ },
+ {
+  "mention": "a screwdriver fault",
+  "chunk": "incident-rover-second",
+  "node": "alarm:assembly/ScrewdriverFault"
+ },
+ {
+  "mention": "Assembly Cell",
+  "chunk": "incident-rover-second",
+  "node": "assembly"
+ },
+ {
+  "mention": "R-2",
+  "chunk": "incident-rover-second",
+  "node": "rover2"
+ },
+ {
+  "mention": "Screwdriver fault",
+  "chunk": "incident-rover-second",
+  "node": "alarm:assembly/ScrewdriverFault"
+ },
+ {
+  "mention": "StopMission",
+  "chunk": "incident-rover-second",
+  "node": "rover2/Motion/StopMission"
+ },
+ {
+  "mention": "the second rover",
+  "chunk": "incident-rover-second",
+  "node": "rover2"
+ },
+ {
+  "mention": "a board",
+  "chunk": "line-alternatives",
+  "node": "item:board"
+ },
+ {
+  "mention": "a cover",
+  "chunk": "line-alternatives",
+  "node": "item:cover"
+ },
+ {
+  "mention": "a tray",
+  "chunk": "line-alternatives",
+  "node": "item:tray"
+ },
+ {
+  "mention": "Bay 1",
+  "chunk": "line-alternatives",
+  "node": "bay:1"
+ },
+ {
+  "mention": "Bay 4",
+  "chunk": "line-alternatives",
+  "node": "bay:4"
+ },
+ {
+  "mention": "board",
+  "chunk": "line-alternatives",
+  "node": "item:board"
+ },
+ {
+  "mention": "Board Tester",
+  "chunk": "line-alternatives",
+  "node": "tester"
+ },
+ {
+  "mention": "cover",
+  "chunk": "line-alternatives",
+  "node": "item:cover"
+ },
+ {
+  "mention": "Loop Conveyor",
+  "chunk": "line-alternatives",
+  "node": "conveyor"
+ },
+ {
+  "mention": "Pallet 8",
+  "chunk": "line-alternatives",
+  "node": "pallet:8"
+ },
+ {
+  "mention": "R-1",
+  "chunk": "line-alternatives",
+  "node": "rover1"
+ },
+ {
+  "mention": "R-2",
+  "chunk": "line-alternatives",
+  "node": "rover2"
+ },
+ {
+  "mention": "tray",
+  "chunk": "line-alternatives",
+  "node": "item:tray"
+ },
+ {
+  "mention": "a board",
+  "chunk": "line-alternatives-finish",
+  "node": "item:board"
+ },
+ {
+  "mention": "a cover",
+  "chunk": "line-alternatives-finish",
+  "node": "item:cover"
+ },
+ {
+  "mention": "a top cover",
+  "chunk": "line-alternatives-finish",
+  "node": "item:cover-top"
+ },
+ {
+  "mention": "Assembly Cell",
+  "chunk": "line-alternatives-finish",
+  "node": "assembly"
+ },
+ {
+  "mention": "Bay 4",
+  "chunk": "line-alternatives-finish",
+  "node": "bay:4"
+ },
+ {
+  "mention": "board",
+  "chunk": "line-alternatives-finish",
+  "node": "item:board"
+ },
+ {
+  "mention": "Camera Quality Cell",
+  "chunk": "line-alternatives-finish",
+  "node": "qc"
+ },
+ {
+  "mention": "cover",
+  "chunk": "line-alternatives-finish",
+  "node": "item:cover"
+ },
+ {
+  "mention": "Engraving Cell",
+  "chunk": "line-alternatives-finish",
+  "node": "cnc"
+ },
+ {
+  "mention": "top cover",
+  "chunk": "line-alternatives-finish",
+  "node": "item:cover-top"
+ },
+ {
+  "mention": "Bay 1",
+  "chunk": "line-route",
+  "node": "bay:1"
+ },
+ {
+  "mention": "Bay 2",
+  "chunk": "line-route",
+  "node": "bay:2"
+ },
+ {
+  "mention": "Bay 3",
+  "chunk": "line-route",
+  "node": "bay:3"
+ },
+ {
+  "mention": "Bay 4",
+  "chunk": "line-route",
+  "node": "bay:4"
+ },
+ {
+  "mention": "Bay 5",
+  "chunk": "line-route",
+  "node": "bay:5"
+ },
+ {
+  "mention": "An emergency stop",
+  "chunk": "line-stops",
+  "node": "alarm:assembly/EmergencyStop"
+ },
+ {
+  "mention": "An emergency stop on the conveyor",
+  "chunk": "line-stops",
+  "node": "alarm:conveyor/EmergencyStop"
+ },
+ {
+  "mention": "Assembly Cell",
+  "chunk": "line-stops",
+  "node": "assembly"
+ },
+ {
+  "mention": "Emergency stop",
+  "chunk": "line-stops",
+  "node": "alarm:assembly/EmergencyStop"
+ },
+ {
+  "mention": "Emergency stop",
+  "chunk": "line-stops",
+  "node": "alarm:conveyor/EmergencyStop"
+ },
+ {
+  "mention": "Low air pressure",
+  "chunk": "line-stops",
+  "node": "alarm:conveyor/NoAirPressure"
+ },
+ {
+  "mention": "the conveyor",
+  "chunk": "line-stops",
+  "node": "conveyor"
+ },
+ {
+  "mention": "The low air pressure alarm of the conveyor",
+  "chunk": "line-stops",
+  "node": "alarm:conveyor/NoAirPressure"
+ },
+ {
+  "mention": "the warehouse",
+  "chunk": "line-stops",
+  "node": "warehouse"
+ },
+ {
+  "mention": "Camera Quality Cell",
+  "chunk": "qc-distractor",
+  "node": "qc"
+ },
+ {
+  "mention": "Bay 4",
+  "chunk": "qc-recheck-route",
+  "node": "bay:4"
+ },
+ {
+  "mention": "Camera Quality Cell",
+  "chunk": "qc-recheck-route",
+  "node": "qc"
+ },
+ {
+  "mention": "Bay 5",
+  "chunk": "qc-result",
+  "node": "bay:5"
+ },
+ {
+  "mention": "board",
+  "chunk": "qc-result",
+  "node": "item:board"
+ },
+ {
+  "mention": "camera cell",
+  "chunk": "qc-result",
+  "node": "qc"
+ },
+ {
+  "mention": "pallet inspection",
+  "chunk": "qc-result",
+  "node": "mission:qc/inspect-pallet"
+ },
+ {
+  "mention": "Passed",
+  "chunk": "qc-result",
+  "node": "qc/Inspection/Passed"
+ },
+ {
+  "mention": "Bay 5",
+  "chunk": "qc-route",
+  "node": "bay:5"
+ },
+ {
+  "mention": "Busy flag",
+  "chunk": "qc-route",
+  "node": "qc/Status/Busy"
+ },
+ {
+  "mention": "Camera Quality Cell",
+  "chunk": "qc-route",
+  "node": "qc"
+ },
+ {
+  "mention": "CheckPallet",
+  "chunk": "qc-route",
+  "node": "qc/Inspection/CheckPallet"
+ },
+ {
+  "mention": "inspection cell to be idle",
+  "chunk": "qc-route",
+  "node": "cond:qc/idle"
+ },
+ {
+  "mention": "pallet inspection",
+  "chunk": "qc-route",
+  "node": "mission:qc/inspect-pallet"
+ },
+ {
+  "mention": "Passed",
+  "chunk": "qc-route",
+  "node": "qc/Inspection/Passed"
+ },
+ {
+  "mention": "the inspection cell to be idle",
+  "chunk": "qc-route",
+  "node": "cond:qc/idle"
+ },
+ {
+  "mention": "a spare tray",
+  "chunk": "rover1-return-route",
+  "node": "item:tray"
+ },
+ {
+  "mention": "Bay 1",
+  "chunk": "rover1-return-route",
+  "node": "bay:1"
+ },
+ {
+  "mention": "R-1",
+  "chunk": "rover1-return-route",
+  "node": "rover1"
+ },
+ {
+  "mention": "spare tray",
+  "chunk": "rover1-return-route",
+  "node": "item:tray"
+ },
+ {
+  "mention": "tray",
+  "chunk": "rover1-return-route",
+  "node": "item:tray"
+ },
+ {
+  "mention": "a board",
+  "chunk": "rover2-fixture-route",
+  "node": "item:board"
+ },
+ {
+  "mention": "Bay 4",
+  "chunk": "rover2-fixture-route",
+  "node": "bay:4"
+ },
+ {
+  "mention": "board",
+  "chunk": "rover2-fixture-route",
+  "node": "item:board"
+ },
+ {
+  "mention": "R-2",
+  "chunk": "rover2-fixture-route",
+  "node": "rover2"
+ },
+ {
+  "mention": "a cover",
+  "chunk": "rovers-confirm",
+  "node": "item:cover"
+ },
+ {
+  "mention": "Bay 5",
+  "chunk": "rovers-confirm",
+  "node": "bay:5"
+ },
+ {
+  "mention": "cover",
+  "chunk": "rovers-confirm",
+  "node": "item:cover"
+ },
+ {
+  "mention": "delivery mission",
+  "chunk": "rovers-confirm",
+  "node": "mission:rover/deliver-board"
+ },
+ {
+  "mention": "LastResult",
+  "chunk": "rovers-confirm",
+  "node": "rover1/Status/LastResult"
+ },
+ {
+  "mention": "Pallet 7",
+  "chunk": "rovers-confirm",
+  "node": "pallet:7"
+ },
+ {
+  "mention": "R-1",
+  "chunk": "rovers-confirm",
+  "node": "rover1"
+ },
+ {
+  "mention": "R-2",
+  "chunk": "rovers-confirm",
+  "node": "rover2"
+ },
+ {
+  "mention": "the second rover",
+  "chunk": "rovers-confirm",
+  "node": "rover2"
+ },
+ {
+  "mention": "a board",
+  "chunk": "rovers-missions",
+  "node": "item:board"
+ },
+ {
+  "mention": "Bay 3",
+  "chunk": "rovers-missions",
+  "node": "bay:3"
+ },
+ {
+  "mention": "Bay 5",
+  "chunk": "rovers-missions",
+  "node": "bay:5"
+ },
+ {
+  "mention": "board",
+  "chunk": "rovers-missions",
+  "node": "item:board"
+ },
+ {
+  "mention": "Busy flag",
+  "chunk": "rovers-missions",
+  "node": "rover1/Status/Busy"
+ },
+ {
+  "mention": "either rover",
+  "chunk": "rovers-missions",
+  "node": "<ambiguous>",
+  "candidates": [
+   "rover1",
+   "rover2"
+  ]
+ },
+ {
+  "mention": "Pallet 7",
+  "chunk": "rovers-missions",
+  "node": "pallet:7"
+ },
+ {
+  "mention": "R-1",
+  "chunk": "rovers-missions",
+  "node": "rover1"
+ },
+ {
+  "mention": "R-2",
+  "chunk": "rovers-missions",
+  "node": "rover2"
+ },
+ {
+  "mention": "Rover R-1",
+  "chunk": "rovers-missions",
+  "node": "rover1"
+ },
+ {
+  "mention": "Rover R-2",
+  "chunk": "rovers-missions",
+  "node": "rover2"
+ },
+ {
+  "mention": "rover to be idle",
+  "chunk": "rovers-missions",
+  "node": "cond:rover/idle"
+ },
+ {
+  "mention": "StartMission",
+  "chunk": "rovers-missions",
+  "node": "rover1/Motion/StartMission"
+ },
+ {
+  "mention": "the first rover",
+  "chunk": "rovers-missions",
+  "node": "rover1"
+ },
+ {
+  "mention": "the rover to be idle",
+  "chunk": "rovers-missions",
+  "node": "cond:rover/idle"
+ },
+ {
+  "mention": "board",
+  "chunk": "tester-distractor",
+  "node": "item:board"
+ },
+ {
+  "mention": "Board Tester",
+  "chunk": "tester-distractor",
+  "node": "tester"
+ },
+ {
+  "mention": "a board",
+  "chunk": "tester-fixture-return",
+  "node": "item:board"
+ },
+ {
+  "mention": "Bay 3",
+  "chunk": "tester-fixture-return",
+  "node": "bay:3"
+ },
+ {
+  "mention": "board",
+  "chunk": "tester-fixture-return",
+  "node": "item:board"
+ },
+ {
+  "mention": "Board Tester",
+  "chunk": "tester-fixture-return",
+  "node": "tester"
+ },
+ {
+  "mention": "board",
+  "chunk": "tester-result",
+  "node": "item:board"
+ },
+ {
+  "mention": "board test mission",
+  "chunk": "tester-result",
+  "node": "mission:tester/board-test"
+ },
+ {
+  "mention": "Boards",
+  "chunk": "tester-result",
+  "node": "item:board"
+ },
+ {
+  "mention": "RunTest",
+  "chunk": "tester-result",
+  "node": "tester/Boards/RunTest"
+ },
+ {
+  "mention": "test mission",
+  "chunk": "tester-result",
+  "node": "mission:tester/board-test"
+ },
+ {
+  "mention": "TestPassed",
+  "chunk": "tester-result",
+  "node": "tester/Boards/TestPassed"
+ },
+ {
+  "mention": "a board",
+  "chunk": "tester-route",
+  "node": "item:board"
+ },
+ {
+  "mention": "Bay 2",
+  "chunk": "tester-route",
+  "node": "bay:2"
+ },
+ {
+  "mention": "board",
+  "chunk": "tester-route",
+  "node": "item:board"
+ },
+ {
+  "mention": "Board Tester",
+  "chunk": "tester-route",
+  "node": "tester"
+ },
+ {
+  "mention": "BoardIn",
+  "chunk": "tester-route",
+  "node": "tester/Boards/BoardIn"
+ },
+ {
+  "mention": "Busy flag",
+  "chunk": "tester-route",
+  "node": "tester/Status/Busy"
+ },
+ {
+  "mention": "Engraving Cell",
+  "chunk": "tester-route",
+  "node": "cnc"
+ },
+ {
+  "mention": "tester to be ready",
+  "chunk": "tester-route",
+  "node": "cond:tester/ready"
+ },
+ {
+  "mention": "the tester to be ready",
+  "chunk": "tester-route",
+  "node": "cond:tester/ready"
+ },
+ {
+  "mention": "a tray",
+  "chunk": "warehouse-distractor",
+  "node": "item:tray"
+ },
+ {
+  "mention": "tray",
+  "chunk": "warehouse-distractor",
+  "node": "item:tray"
+ },
+ {
+  "mention": "Vertical Warehouse",
+  "chunk": "warehouse-distractor",
+  "node": "warehouse"
+ },
+ {
+  "mention": "a tray",
+  "chunk": "warehouse-operations",
+  "node": "item:tray"
+ },
+ {
+  "mention": "Bay 5",
+  "chunk": "warehouse-operations",
+  "node": "bay:5"
+ },
+ {
+  "mention": "Busy flag",
+  "chunk": "warehouse-operations",
+  "node": "warehouse/Status/Busy"
+ },
+ {
+  "mention": "ExtractTray",
+  "chunk": "warehouse-operations",
+  "node": "warehouse/ExtractTray"
+ },
+ {
+  "mention": "SendBack",
+  "chunk": "warehouse-operations",
+  "node": "warehouse/SendBack"
+ },
+ {
+  "mention": "the warehouse to be idle",
+  "chunk": "warehouse-operations",
+  "node": "cond:warehouse/idle"
+ },
+ {
+  "mention": "tray",
+  "chunk": "warehouse-operations",
+  "node": "item:tray"
+ },
+ {
+  "mention": "Vertical Warehouse",
+  "chunk": "warehouse-operations",
+  "node": "warehouse"
+ },
+ {
+  "mention": "warehouse to be idle",
+  "chunk": "warehouse-operations",
+  "node": "cond:warehouse/idle"
+ },
+ {
+  "mention": "a replenishment tray",
+  "chunk": "warehouse-replenishment",
+  "node": "item:tray"
+ },
+ {
+  "mention": "Bay 1",
+  "chunk": "warehouse-replenishment",
+  "node": "bay:1"
+ },
+ {
+  "mention": "replenishment tray",
+  "chunk": "warehouse-replenishment",
+  "node": "item:tray"
+ },
+ {
+  "mention": "tray",
+  "chunk": "warehouse-replenishment",
+  "node": "item:tray"
+ },
+ {
+  "mention": "Vertical Warehouse",
+  "chunk": "warehouse-replenishment",
+  "node": "warehouse"
+ },
+ {
+  "mention": "a tray",
+  "chunk": "warehouse-reset",
+  "node": "item:tray"
+ },
+ {
+  "mention": "completion flag",
+  "chunk": "warehouse-reset",
+  "node": "warehouse/ResetAlarms/done"
+ },
+ {
+  "mention": "ResetAlarms",
+  "chunk": "warehouse-reset",
+  "node": "warehouse/ResetAlarms"
+ },
+ {
+  "mention": "stock-ready condition",
+  "chunk": "warehouse-reset",
+  "node": "cond:warehouse/stock-ready"
+ },
+ {
+  "mention": "StockReady",
+  "chunk": "warehouse-reset",
+  "node": "warehouse/Inventory/StockReady"
+ },
+ {
+  "mention": "the stock-ready condition",
+  "chunk": "warehouse-reset",
+  "node": "cond:warehouse/stock-ready"
+ },
+ {
+  "mention": "the warehouse",
+  "chunk": "warehouse-reset",
+  "node": "warehouse"
+ },
+ {
+  "mention": "the warehouse alarm reset",
+  "chunk": "warehouse-reset",
+  "node": "warehouse/ResetAlarms"
+ },
+ {
+  "mention": "tray",
+  "chunk": "warehouse-reset",
+  "node": "item:tray"
+ }
+]

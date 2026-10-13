@@ -121,6 +121,34 @@ def test_glossary_mentions_are_present_in_link_sources():
             assert any(mention.lower() in text for mention in mentions), (edge, node)
 
 
+def test_exercise_mentions_are_present_in_their_chunks():
+    mentions = json.loads((DATA / "mentions.json").read_text(encoding="utf-8"))
+    chunks = sections()
+    gold = json.loads((DATA / "gold.json").read_text(encoding="utf-8"))
+    node_ids = {node["id"] for node in gold["nodes"]}
+    keys = {(item["mention"].casefold(), item["chunk"], item["node"]) for item in mentions}
+    assert len(keys) == len(mentions)
+    assert mentions
+    for item in mentions:
+        assert item["chunk"] in chunks
+        assert item["mention"].casefold() in chunks[item["chunk"]].casefold(), item
+        if item["node"] == "<ambiguous>":
+            assert item.get("candidates") == ["rover1", "rover2"]
+        else:
+            assert item["node"] in node_ids, item
+
+
+def test_each_prose_edge_endpoint_has_a_surface_mention():
+    mentions = json.loads((DATA / "mentions.json").read_text(encoding="utf-8"))
+    covered = {(item["chunk"], item["node"]) for item in mentions}
+    gold = json.loads((DATA / "gold.json").read_text(encoding="utf-8"))
+    for edge in gold["edges"]:
+        if edge["source"].startswith("models/") or edge["source"] == "line":
+            continue
+        assert (edge["source"], edge["s"]) in covered
+        assert (edge["source"], edge["o"]) in covered
+
+
 def test_gold_tree_matches_independent_generator_contract():
     gold = json.loads((DATA / "gold.json").read_text(encoding="utf-8"))
     parsed = load_models(DATA / "line" / "models")

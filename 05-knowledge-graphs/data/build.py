@@ -21,6 +21,7 @@ MODELS = ROOT / "line" / "models"
 NOTES = ROOT / "line" / "notes"
 GOLD = ROOT / "gold.json"
 MANIFEST = ROOT / "manifest.json"
+MENTIONS = ROOT / "mentions.json"
 SEED = 5
 
 
@@ -379,6 +380,154 @@ def prose() -> tuple[dict[str, list[dict[str, Any]]], list[dict[str, str]]]:
     return notes, links
 
 
+def _contains(text: str, phrase: str) -> bool:
+    return bool(phrase) and re.search(rf"(?<![A-Za-z0-9]){re.escape(phrase)}(?![A-Za-z0-9])", text, re.I) is not None
+
+
+def mention_data(notes: dict[str, list[dict[str, Any]]], links: list[dict[str, str]],
+                 nodes: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """Record the surface forms that the resolution exercise must handle.
+
+    Link endpoints provide the scoped reading of repeated names such as
+    ``Busy flag`` and ``Low air pressure``.  Unique node names and aliases
+    cover the named entities in the remaining prose.  The small explicit list
+    contains operator paraphrases that are deliberately not aliases.
+    """
+    node_by_id = {node["id"]: node for node in nodes}
+    text_by_chunk = {
+        section["id"]: section["text"]
+        for sections in notes.values()
+        for section in sections
+    }
+    entries: dict[tuple[str, str, str], dict[str, Any]] = {}
+
+    def add(chunk: str, mention: str, node: str, candidates: list[str] | None = None) -> None:
+        if chunk not in text_by_chunk or not _contains(text_by_chunk[chunk], mention):
+            return
+        item: dict[str, Any] = {"mention": mention, "chunk": chunk, "node": node}
+        if node == "<ambiguous>":
+            item["candidates"] = sorted(candidates or [])
+        entries[(mention.casefold(), chunk, node)] = item
+
+    # Every link is a supervised occurrence.  Prefer the longest name or
+    # alias in the source chunk, so "Busy flag" wins over the bare "Busy".
+    for edge in links:
+        chunk = edge["source"]
+        text = text_by_chunk[chunk]
+        for endpoint in (edge["s"], edge["o"]):
+            node = node_by_id[endpoint]
+            forms = [node.get("name", ""), *node.get("aliases", [])]
+            forms = sorted({form for form in forms if form and _contains(text, form)}, key=len, reverse=True)
+            if forms:
+                add(chunk, forms[0], endpoint)
+
+    # Names and aliases that identify one node globally are safe to collect
+    # from all chunks.  Repeated forms remain scoped to the link occurrences.
+    target_types = {"Device", "Bay", "Pallet", "Item", "Mission", "Incident", "Alarm", "Method", "Variable"}
+    surface_nodes: dict[str, set[str]] = {}
+    for node in nodes:
+        if node["type"] not in target_types:
+            continue
+        for form in [node.get("name", ""), *node.get("aliases", [])]:
+            if form:
+                surface_nodes.setdefault(form.casefold(), set()).add(node["id"])
+    surface_text: dict[str, str] = {}
+    for node in nodes:
+        for form in [node.get("name", ""), *node.get("aliases", [])]:
+            if form:
+                surface_text.setdefault(form.casefold(), form)
+    for folded, node_ids in surface_nodes.items():
+        if len(node_ids) != 1:
+            continue
+        surface = surface_text[folded]
+        node_id = next(iter(node_ids))
+        for chunk, text in text_by_chunk.items():
+            if _contains(text, surface):
+                add(chunk, surface, node_id)
+
+    # Full operator phrases are useful even when their meaningful part is an
+    # alias.  Some intentionally do not match a node alias exactly.
+    extra: list[tuple[str, str, str]] = [
+        ("assembly-route", "the cell", "assembly"),
+        ("cnc-route", "the CNC cell", "cnc"),
+        ("qc-result", "camera cell", "qc"),
+        ("line-stops", "the conveyor", "conveyor"),
+        ("line-stops", "the warehouse", "warehouse"),
+        ("warehouse-reset", "the warehouse", "warehouse"),
+        ("incident-ambiguous", "the rover", "<ambiguous>"),
+        ("incident-ambiguous", "both transport units", "<ambiguous>"),
+        ("rovers-missions", "either rover", "<ambiguous>"),
+        ("conveyor-route", "the line-ready condition", "cond:conveyor/ready"),
+        ("warehouse-operations", "the warehouse to be idle", "cond:warehouse/idle"),
+        ("warehouse-reset", "the stock-ready condition", "cond:warehouse/stock-ready"),
+        ("rovers-missions", "the rover to be idle", "cond:rover/idle"),
+        ("tester-route", "the tester to be ready", "cond:tester/ready"),
+        ("cnc-route", "the CNC cell to be idle", "cond:cnc/idle"),
+        ("assembly-route", "the cell to be idle", "cond:assembly/idle"),
+        ("assembly-confirm", "the screwdriver to be ready", "cond:assembly/screwdriver-ready"),
+        ("qc-route", "the inspection cell to be idle", "cond:qc/idle"),
+        ("conveyor-alarms", "the low air pressure alarm", "alarm:conveyor/NoAirPressure"),
+        ("conveyor-alarms", "its motor trip alarm", "alarm:conveyor/MotorTrip"),
+        ("line-stops", "An emergency stop", "alarm:assembly/EmergencyStop"),
+        ("line-stops", "An emergency stop on the conveyor", "alarm:conveyor/EmergencyStop"),
+        ("line-stops", "The low air pressure alarm of the conveyor", "alarm:conveyor/NoAirPressure"),
+        ("incident-rover-alias", "an RFID reader fault", "alarm:conveyor/RFIDFault"),
+        ("incident-rover-second", "a screwdriver fault", "alarm:assembly/ScrewdriverFault"),
+        ("warehouse-reset", "the warehouse alarm reset", "warehouse/ResetAlarms"),
+        ("warehouse-reset", "completion flag", "warehouse/ResetAlarms/done"),
+        ("conveyor-alarms", "The ResetAlarms method", "conveyor/ResetAlarms"),
+        ("warehouse-reset", "ResetAlarms", "warehouse/ResetAlarms"),
+    ]
+    item_phrases = [
+        ("a board", "item:board"), ("a recovery board", "item:board"),
+        ("a replenishment tray", "item:tray"), ("a spare tray", "item:tray"),
+        ("a tray", "item:tray"), ("a cover", "item:cover"),
+        ("a top cover", "item:cover-top"), ("a bottom cover", "item:cover-bottom"),
+    ]
+    for chunk, text in text_by_chunk.items():
+        for phrase, node in item_phrases:
+            if _contains(text, phrase):
+                extra.append((chunk, phrase, node))
+
+    alarm_by_phrase = {
+        "a low air pressure alarm": {
+            "incident-2026-03-07-1": "alarm:warehouse/NoAirPressure",
+            "incident-2026-03-10-1": "alarm:tester/NoAirPressure",
+            "incident-2026-03-15-1": "alarm:rover1/NoAirPressure",
+            "incident-2026-03-20-1": "alarm:qc/NoAirPressure",
+            "incident-2026-03-23-1": "alarm:rover2/NoAirPressure",
+        },
+        "a motor trip alarm on the conveyor": {
+            "incident-ambiguous": "alarm:conveyor/MotorTrip",
+            "incident-2026-03-08-1": "alarm:conveyor/MotorTrip",
+            "incident-2026-03-13-1": "alarm:conveyor/MotorTrip",
+            "incident-2026-03-18-1": "alarm:conveyor/MotorTrip",
+            "incident-2026-03-21-1": "alarm:conveyor/MotorTrip",
+        },
+        "an emergency stop alarm": {
+            "incident-2026-03-09-1": "alarm:rover2/EmergencyStop",
+            "incident-2026-03-11-1": "alarm:cnc/EmergencyStop",
+            "incident-2026-03-14-1": "alarm:warehouse/EmergencyStop",
+            "incident-2026-03-17-1": "alarm:tester/EmergencyStop",
+            "incident-2026-03-19-1": "alarm:assembly/EmergencyStop",
+        },
+        "a screwdriver fault alarm": {
+            "incident-2026-03-12-1": "alarm:assembly/ScrewdriverFault",
+        },
+        "an RFID reader fault": {
+            "incident-2026-03-16-1": "alarm:conveyor/RFIDFault",
+            "incident-2026-03-22-1": "alarm:conveyor/RFIDFault",
+        },
+    }
+    for phrase, cases in alarm_by_phrase.items():
+        for chunk, node in cases.items():
+            extra.append((chunk, phrase, node))
+    for chunk, phrase, node in extra:
+        add(chunk, phrase, node,
+            ["rover1", "rover2"] if node == "<ambiguous>" else None)
+    return sorted(entries.values(), key=lambda item: (item["chunk"], item["mention"].casefold(), item["node"]))
+
+
 def write_model(model: dict[str, Any]) -> None:
     MODELS.mkdir(parents=True, exist_ok=True)
     path = MODELS / f"{model['device']}.yml"
@@ -465,6 +614,7 @@ def main() -> None:
             lines += [f"## {section['title']} {{#{section['id']}}}", "", section["text"], ""]
         path.write_text("\n".join(lines), encoding="utf-8")
     all_edges.extend(links)
+    MENTIONS.write_text(json.dumps(mention_data(notes, links, all_nodes), indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 
     # Alias metadata is part of the node, while the deliberately ambiguous alias is separate.
     ambiguous = {"the rover": ["rover1", "rover2"]}
