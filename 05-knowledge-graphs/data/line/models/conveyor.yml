@@ -1,5 +1,9 @@
 device: conveyor
 name: Loop Conveyor
+aliases:
+- the conveyor
+- the loop
+- the loop conveyor
 kind: pallet conveyor
 cell: conveyor
 nodes:

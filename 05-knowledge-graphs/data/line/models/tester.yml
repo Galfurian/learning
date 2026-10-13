@@ -1,5 +1,7 @@
 device: tester
 name: Board Tester
+aliases:
+- the tester
 kind: test cell
 cell: test
 nodes:

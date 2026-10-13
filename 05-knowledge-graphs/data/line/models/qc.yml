@@ -1,5 +1,7 @@
 device: qc
 name: Camera Quality Cell
+aliases:
+- the camera cell
 kind: camera quality control
 cell: qc
 nodes:

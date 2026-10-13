@@ -60,7 +60,9 @@
       "id": "assembly",
       "type": "Device",
       "name": "Assembly Cell",
-      "aliases": [],
+      "aliases": [
+        "the assembly cell"
+      ],
       "props": {
         "kind": "assembly PLC and arms"
       }
@@ -505,7 +507,9 @@
       "id": "cnc",
       "type": "Device",
       "name": "Engraving Cell",
-      "aliases": [],
+      "aliases": [
+        "the CNC cell"
+      ],
       "props": {
         "kind": "CNC and arm"
       }
@@ -943,7 +947,11 @@
       "id": "conveyor",
       "type": "Device",
       "name": "Loop Conveyor",
-      "aliases": [],
+      "aliases": [
+        "the conveyor",
+        "the loop",
+        "the loop conveyor"
+      ],
       "props": {
         "kind": "pallet conveyor"
       }
@@ -1358,7 +1366,9 @@
       "id": "qc",
       "type": "Device",
       "name": "Camera Quality Cell",
-      "aliases": [],
+      "aliases": [
+        "the camera cell"
+      ],
       "props": {
         "kind": "camera quality control"
       }
@@ -2581,7 +2591,9 @@
       "id": "tester",
       "type": "Device",
       "name": "Board Tester",
-      "aliases": [],
+      "aliases": [
+        "the tester"
+      ],
       "props": {
         "kind": "test cell"
       }
@@ -3019,7 +3031,9 @@
       "id": "warehouse",
       "type": "Device",
       "name": "Vertical Warehouse",
-      "aliases": [],
+      "aliases": [
+        "the warehouse"
+      ],
       "props": {
         "kind": "vertical warehouse"
       }

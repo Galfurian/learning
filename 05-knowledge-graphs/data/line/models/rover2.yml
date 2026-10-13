@@ -1,5 +1,8 @@
 device: rover2
 name: Rover R-2
+aliases:
+- the second rover
+- R-2
 kind: mobile robot
 cell: transport
 nodes:

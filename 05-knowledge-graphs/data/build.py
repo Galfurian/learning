@@ -102,13 +102,13 @@ def common_diagnostics() -> list[dict[str, Any]]:
 
 def models() -> list[dict[str, Any]]:
     result = [
-        {"device": "conveyor", "name": "Loop Conveyor", "kind": "pallet conveyor", "cell": "conveyor",
+        {"device": "conveyor", "name": "Loop Conveyor", "aliases": ["the conveyor", "the loop", "the loop conveyor"], "kind": "pallet conveyor", "cell": "conveyor",
          "nodes": [status(), alarm_folder(), reset_method(), method("MovePallet", "Moves one pallet to a bay.",
              [{"name": "pallet", "type": "string", "description": "Pallet identifier."},
               {"name": "bay", "type": "string", "description": "Destination bay."}],
              [{"name": "accepted", "type": "bool", "description": "True when the move is queued."}],
              display_name="Move pallet")]},
-        {"device": "warehouse", "name": "Vertical Warehouse", "kind": "vertical warehouse", "cell": "warehouse",
+        {"device": "warehouse", "name": "Vertical Warehouse", "aliases": ["the warehouse"], "kind": "vertical warehouse", "cell": "warehouse",
          "nodes": [status(), folder("Inventory", "Trays and stock state.", [
              variable("TrayInBay", "string", "", "Tray currently at the operator bay.", display_name="Tray in bay"),
              variable("StockReady", "bool", True, "True when the requested tray can be handled.", display_name="Stock ready"),
@@ -119,7 +119,7 @@ def models() -> list[dict[str, Any]]:
          method("SendBack", "Returns the tray from the operator bay.", returns=[
              {"name": "done", "type": "bool", "description": "True when return is accepted."}],
              display_name="Send back")]},
-        {"device": "rover1", "name": "Rover R-1", "kind": "mobile robot", "cell": "transport",
+        {"device": "rover1", "name": "Rover R-1", "aliases": ["the first rover", "R-1"], "kind": "mobile robot", "cell": "transport",
          "nodes": [status(), folder("Motion", "Motion commands.", [
              method("StartMission", "Starts a named delivery mission.",
                     [{"name": "mission", "type": "string", "description": "Mission identifier."}],
@@ -129,7 +129,7 @@ def models() -> list[dict[str, Any]]:
                  {"name": "stopped", "type": "bool", "description": "True when stopped."}],
                  display_name="Stop mission"),
          ])]},
-        {"device": "rover2", "name": "Rover R-2", "kind": "mobile robot", "cell": "transport",
+        {"device": "rover2", "name": "Rover R-2", "aliases": ["the second rover", "R-2"], "kind": "mobile robot", "cell": "transport",
          "nodes": [status(), folder("Motion", "Motion commands.", [
              method("StartMission", "Starts a named delivery mission.",
                     [{"name": "mission", "type": "string", "description": "Mission identifier."}],
@@ -139,7 +139,7 @@ def models() -> list[dict[str, Any]]:
                  {"name": "stopped", "type": "bool", "description": "True when stopped."}],
                  display_name="Stop mission"),
          ])]},
-        {"device": "tester", "name": "Board Tester", "kind": "test cell", "cell": "test",
+        {"device": "tester", "name": "Board Tester", "aliases": ["the tester"], "kind": "test cell", "cell": "test",
          "nodes": [status(), folder("Boards", "Board transfer and test operations.", [
              method("BoardIn", "Accepts a board at the input bay.", returns=[
                  {"name": "accepted", "type": "bool", "description": "True when accepted."}],
@@ -153,7 +153,7 @@ def models() -> list[dict[str, Any]]:
                  display_name="Board out"),
              variable("TestPassed", "bool", False, "Result of the last board test.", display_name="Test passed"),
          ])]},
-        {"device": "cnc", "name": "Engraving Cell", "kind": "CNC and arm", "cell": "cnc",
+        {"device": "cnc", "name": "Engraving Cell", "aliases": ["the CNC cell"], "kind": "CNC and arm", "cell": "cnc",
          "nodes": [status(), folder("Arm", "Arm and spindle operations.", [
              variable("AtPallet", "bool", False, "True when the arm is at the pallet.", display_name="At pallet"),
              method("PickBoard", "Picks a board from the pallet.", returns=[
@@ -167,7 +167,7 @@ def models() -> list[dict[str, Any]]:
                  {"name": "done", "type": "bool", "description": "True when placed."}],
                  display_name="Place board"),
          ])]},
-        {"device": "assembly", "name": "Assembly Cell", "kind": "assembly PLC and arms", "cell": "assembly",
+        {"device": "assembly", "name": "Assembly Cell", "aliases": ["the assembly cell"], "kind": "assembly PLC and arms", "cell": "assembly",
          "nodes": [status(), folder("Alarms", "Assembly alarm flags.", [
              variable("EmergencyStop", "bool", False, "An emergency stop is active.", display_name="Emergency stop"),
              variable("ScrewdriverFault", "bool", False, "The screwdriver reports a fault.", display_name="Screwdriver fault"),
@@ -183,7 +183,7 @@ def models() -> list[dict[str, Any]]:
                     [{"name": "done", "type": "bool", "description": "True when complete."}],
                     display_name="Run screwdriver"),
          ])]},
-        {"device": "qc", "name": "Camera Quality Cell", "kind": "camera quality control", "cell": "qc",
+        {"device": "qc", "name": "Camera Quality Cell", "aliases": ["the camera cell"], "kind": "camera quality control", "cell": "qc",
          "nodes": [status(), folder("Inspection", "Pallet inspection operations.", [
              method("CheckPallet", "Checks the assembled pallet.",
                     [{"name": "pallet", "type": "string", "description": "Pallet identifier."}],
@@ -221,8 +221,7 @@ def display(node: dict[str, Any]) -> str:
 def model_graph(model: dict[str, Any]) -> tuple[list[dict[str, Any]], list[dict[str, str]]]:
     device = model["device"]
     nodes = [{"id": device, "type": "Device", "name": model["name"],
-              "aliases": (["the first rover", "R-1"] if device == "rover1" else
-                          ["the second rover", "R-2"] if device == "rover2" else []), "props": {"kind": model["kind"]}}]
+              "aliases": list(model.get("aliases", [])), "props": {"kind": model["kind"]}}]
     edges: list[dict[str, str]] = []
     model_file = f"models/{device}.yml"
     if model.get("cell"):

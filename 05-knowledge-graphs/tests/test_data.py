@@ -52,6 +52,9 @@ def test_models_are_valid_yaml():
         assert data["device"] == path.stem
         assert data["nodes"]
         assert data["name"]
+        assert data.get("aliases")
+        assert "the rover" not in data["aliases"]
+        assert "either rover" not in data["aliases"]
 
 
 def test_gold_node_ids_are_unique_and_sources_exist():
@@ -186,7 +189,7 @@ def test_gold_tree_matches_independent_generator_contract():
         assert actual.type == expected["type"]
         assert actual.name == expected["name"]
         assert actual.props == expected["props"]
-        if actual.type in {"Variable", "Method", "Alarm"}:
+        if actual.type in {"Device", "Variable", "Method", "Alarm"}:
             assert actual.aliases == expected["aliases"]
 
 

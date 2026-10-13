@@ -1,5 +1,7 @@
 device: assembly
 name: Assembly Cell
+aliases:
+- the assembly cell
 kind: assembly PLC and arms
 cell: assembly
 nodes:

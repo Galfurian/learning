@@ -1,5 +1,8 @@
 device: rover1
 name: Rover R-1
+aliases:
+- the first rover
+- R-1
 kind: mobile robot
 cell: transport
 nodes:

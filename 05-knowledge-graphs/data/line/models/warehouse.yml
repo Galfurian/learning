@@ -1,5 +1,7 @@
 device: warehouse
 name: Vertical Warehouse
+aliases:
+- the warehouse
 kind: vertical warehouse
 cell: warehouse
 nodes:

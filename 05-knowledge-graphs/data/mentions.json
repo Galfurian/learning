@@ -45,6 +45,11 @@
   "node": "item:cover"
  },
  {
+  "mention": "the assembly cell",
+  "chunk": "assembly-rework-route",
+  "node": "assembly"
+ },
+ {
   "mention": "top cover",
   "chunk": "assembly-rework-route",
   "node": "item:cover-top"
@@ -98,6 +103,11 @@
   "mention": "Pallet 7",
   "chunk": "assembly-route",
   "node": "pallet:7"
+ },
+ {
+  "mention": "the assembly cell",
+  "chunk": "assembly-route",
+  "node": "assembly"
  },
  {
   "mention": "the cell",
@@ -245,6 +255,21 @@
   "node": "alarm:conveyor/MotorTrip"
  },
  {
+  "mention": "the assembly cell",
+  "chunk": "conveyor-alarms",
+  "node": "assembly"
+ },
+ {
+  "mention": "the loop",
+  "chunk": "conveyor-alarms",
+  "node": "conveyor"
+ },
+ {
+  "mention": "the loop conveyor",
+  "chunk": "conveyor-alarms",
+  "node": "conveyor"
+ },
+ {
   "mention": "the low air pressure alarm",
   "chunk": "conveyor-alarms",
   "node": "alarm:conveyor/NoAirPressure"
@@ -261,6 +286,16 @@
  },
  {
   "mention": "Loop Conveyor",
+  "chunk": "conveyor-distractor",
+  "node": "conveyor"
+ },
+ {
+  "mention": "the loop",
+  "chunk": "conveyor-distractor",
+  "node": "conveyor"
+ },
+ {
+  "mention": "the loop conveyor",
   "chunk": "conveyor-distractor",
   "node": "conveyor"
  },
@@ -283,6 +318,16 @@
   "mention": "Pallet 8",
   "chunk": "conveyor-return-bays",
   "node": "pallet:8"
+ },
+ {
+  "mention": "the loop",
+  "chunk": "conveyor-return-bays",
+  "node": "conveyor"
+ },
+ {
+  "mention": "the loop conveyor",
+  "chunk": "conveyor-return-bays",
+  "node": "conveyor"
  },
  {
   "mention": "Bay 1",
@@ -325,6 +370,16 @@
   "node": "cond:conveyor/ready"
  },
  {
+  "mention": "the loop",
+  "chunk": "conveyor-route",
+  "node": "conveyor"
+ },
+ {
+  "mention": "the loop conveyor",
+  "chunk": "conveyor-route",
+  "node": "conveyor"
+ },
+ {
   "mention": "7 March",
   "chunk": "incident-2026-03-07-1",
   "node": "incident:2026-03-07-1"
@@ -343,6 +398,11 @@
   "mention": "ResetAlarms",
   "chunk": "incident-2026-03-07-1",
   "node": "warehouse/ResetAlarms"
+ },
+ {
+  "mention": "the warehouse",
+  "chunk": "incident-2026-03-07-1",
+  "node": "warehouse"
  },
  {
   "mention": "Vertical Warehouse",
@@ -378,6 +438,11 @@
   "mention": "StopMission",
   "chunk": "incident-2026-03-08-1",
   "node": "rover1/Motion/StopMission"
+ },
+ {
+  "mention": "the conveyor",
+  "chunk": "incident-2026-03-08-1",
+  "node": "conveyor"
  },
  {
   "mention": "the first rover",
@@ -520,6 +585,11 @@
   "node": "alarm:conveyor/MotorTrip"
  },
  {
+  "mention": "the conveyor",
+  "chunk": "incident-2026-03-13-1",
+  "node": "conveyor"
+ },
+ {
   "mention": "14 March",
   "chunk": "incident-2026-03-14-1",
   "node": "incident:2026-03-14-1"
@@ -538,6 +608,11 @@
   "mention": "ResetAlarms",
   "chunk": "incident-2026-03-14-1",
   "node": "warehouse/ResetAlarms"
+ },
+ {
+  "mention": "the warehouse",
+  "chunk": "incident-2026-03-14-1",
+  "node": "warehouse"
  },
  {
   "mention": "Vertical Warehouse",
@@ -665,6 +740,11 @@
   "node": "cnc/Arm/PlaceBoard"
  },
  {
+  "mention": "the conveyor",
+  "chunk": "incident-2026-03-18-1",
+  "node": "conveyor"
+ },
+ {
   "mention": "19 March",
   "chunk": "incident-2026-03-19-1",
   "node": "incident:2026-03-19-1"
@@ -733,6 +813,16 @@
   "mention": "ResetAlarms",
   "chunk": "incident-2026-03-21-1",
   "node": "warehouse/ResetAlarms"
+ },
+ {
+  "mention": "the conveyor",
+  "chunk": "incident-2026-03-21-1",
+  "node": "conveyor"
+ },
+ {
+  "mention": "the warehouse",
+  "chunk": "incident-2026-03-21-1",
+  "node": "warehouse"
  },
  {
   "mention": "Vertical Warehouse",
@@ -829,6 +919,11 @@
   "node": "alarm:conveyor/MotorTrip"
  },
  {
+  "mention": "the conveyor",
+  "chunk": "incident-ambiguous",
+  "node": "conveyor"
+ },
+ {
   "mention": "the rover",
   "chunk": "incident-ambiguous",
   "node": "<ambiguous>",
@@ -888,6 +983,16 @@
   "node": "rover1"
  },
  {
+  "mention": "the loop",
+  "chunk": "incident-rover-alias",
+  "node": "conveyor"
+ },
+ {
+  "mention": "the loop conveyor",
+  "chunk": "incident-rover-alias",
+  "node": "conveyor"
+ },
+ {
   "mention": "5 March",
   "chunk": "incident-rover-second",
   "node": "incident:2026-03-05-1"
@@ -916,6 +1021,11 @@
   "mention": "StopMission",
   "chunk": "incident-rover-second",
   "node": "rover2/Motion/StopMission"
+ },
+ {
+  "mention": "the assembly cell",
+  "chunk": "incident-rover-second",
+  "node": "assembly"
  },
  {
   "mention": "the second rover",
@@ -983,6 +1093,16 @@
   "node": "rover2"
  },
  {
+  "mention": "the loop",
+  "chunk": "line-alternatives",
+  "node": "conveyor"
+ },
+ {
+  "mention": "the loop conveyor",
+  "chunk": "line-alternatives",
+  "node": "conveyor"
+ },
+ {
   "mention": "tray",
   "chunk": "line-alternatives",
   "node": "item:tray"
@@ -1033,6 +1153,11 @@
   "node": "cnc"
  },
  {
+  "mention": "the assembly cell",
+  "chunk": "line-alternatives-finish",
+  "node": "assembly"
+ },
+ {
   "mention": "top cover",
   "chunk": "line-alternatives-finish",
   "node": "item:cover-top"
@@ -1063,6 +1188,11 @@
   "node": "bay:5"
  },
  {
+  "mention": "the conveyor",
+  "chunk": "line-route",
+  "node": "conveyor"
+ },
+ {
   "mention": "An emergency stop",
   "chunk": "line-stops",
   "node": "alarm:assembly/EmergencyStop"
@@ -1091,6 +1221,11 @@
   "mention": "Low air pressure",
   "chunk": "line-stops",
   "node": "alarm:conveyor/NoAirPressure"
+ },
+ {
+  "mention": "the assembly cell",
+  "chunk": "line-stops",
+  "node": "assembly"
  },
  {
   "mention": "the conveyor",
@@ -1146,6 +1281,11 @@
   "mention": "Passed",
   "chunk": "qc-result",
   "node": "qc/Inspection/Passed"
+ },
+ {
+  "mention": "the camera cell",
+  "chunk": "qc-result",
+  "node": "qc"
  },
  {
   "mention": "Bay 5",
@@ -1206,6 +1346,11 @@
   "mention": "spare tray",
   "chunk": "rover1-return-route",
   "node": "item:tray"
+ },
+ {
+  "mention": "the warehouse",
+  "chunk": "rover1-return-route",
+  "node": "warehouse"
  },
  {
   "mention": "tray",
@@ -1357,6 +1502,11 @@
   "node": "cond:rover/idle"
  },
  {
+  "mention": "the warehouse",
+  "chunk": "rovers-missions",
+  "node": "warehouse"
+ },
+ {
   "mention": "board",
   "chunk": "tester-distractor",
   "node": "item:board"
@@ -1457,6 +1607,11 @@
   "node": "cond:tester/ready"
  },
  {
+  "mention": "the tester",
+  "chunk": "tester-route",
+  "node": "tester"
+ },
+ {
   "mention": "the tester to be ready",
   "chunk": "tester-route",
   "node": "cond:tester/ready"
@@ -1502,6 +1657,11 @@
   "node": "warehouse/SendBack"
  },
  {
+  "mention": "the warehouse",
+  "chunk": "warehouse-operations",
+  "node": "warehouse"
+ },
+ {
   "mention": "the warehouse to be idle",
   "chunk": "warehouse-operations",
   "node": "cond:warehouse/idle"
@@ -1535,6 +1695,11 @@
   "mention": "replenishment tray",
   "chunk": "warehouse-replenishment",
   "node": "item:tray"
+ },
+ {
+  "mention": "the warehouse",
+  "chunk": "warehouse-replenishment",
+  "node": "warehouse"
  },
  {
   "mention": "tray",

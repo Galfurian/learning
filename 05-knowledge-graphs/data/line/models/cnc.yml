@@ -1,5 +1,7 @@
 device: cnc
 name: Engraving Cell
+aliases:
+- the CNC cell
 kind: CNC and arm
 cell: cnc
 nodes:
