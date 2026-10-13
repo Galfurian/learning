@@ -100,7 +100,15 @@ EXTRACTION -> RESOLUTION -> PLAN -> LINKING -> GENERATION -> NONE
 An operational label, as in unit 04: the first stage that fails hides the
 later ones.
 
-## 9. When not to use a graph
+## 9. Dev against holdout
+
+On the dev set the gold graph answered 27 of 40 and chunk RAG 17. On the
+holdout (20 new questions) the gold graph answered 5 and chunk RAG 9. The
+27 planner rules gave the right path for 37 of 40 dev questions and for 4
+of 20 holdout questions; the LLM planner for 12 of 40 and 7 of 20. Rules
+fitted on the dev wording did not transfer.
+
+## 10. When not to use a graph
 
 - One fact in one chunk: chunk RAG answers it, with no extraction cost.
 - The schema is a decision: a question about a relation the schema does not
@@ -111,7 +119,7 @@ A graph database (Neo4j) or RDF with SPARQL adds storage, indexes and a
 query language for millions of edges. Here the graph has a few hundred
 edges, and a loop over dicts shows every step.
 
-## 10. Toward context graphs (unit 06)
+## 11. Toward context graphs (unit 06)
 
 This graph says what is connected. It does not say who decided what, when,
 and why: incidents have dates, and every edge has a source, but there are no
