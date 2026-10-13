@@ -115,7 +115,7 @@ class LLMPlanner:
         parts = ["plan", self.model, *(m["content"] for m in msgs)]
         raw = self.cache.get(parts) if self.cache else None
         if raw is None:
-            raw = chat(self.model, msgs, format=plan_schema(), tracer=self.tracer).content
+            raw = chat(self.model, msgs, format=plan_schema(), max_tokens=256, tracer=self.tracer).content
             if self.cache:
                 self.cache.put(parts, raw)
         return parse_plan(raw)

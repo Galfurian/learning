@@ -126,7 +126,7 @@ def extract(title: str, text: str, *, model: str = DEFAULT_CHAT_MODEL, constrain
     parts = ["extract", model, str(constrained), *(m["content"] for m in msgs)]
     stored = cache.get(parts) if cache else None
     if stored is None:
-        result = chat(model, msgs, format=json_schema(constrained=constrained), tracer=tracer)
+        result = chat(model, msgs, format=json_schema(constrained=constrained), max_tokens=1024, tracer=tracer)
         stored = {"raw": result.content, "seconds": result.seconds}
         if cache:
             cache.put(parts, stored)

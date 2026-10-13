@@ -108,6 +108,7 @@ def chat_body(
     num_ctx: int | None = None,
     tools: list[dict[str, Any]] | None = None,
     format: dict[str, Any] | None = None,
+    max_tokens: int | None = None,
 ) -> dict[str, Any]:
     body: dict[str, Any] = {"model": model, "messages": messages, "stream": False, "think": think}
     if tools:
@@ -115,8 +116,13 @@ def chat_body(
     if format:
         # A JSON schema: Ollama constrains the output to match it.
         body["format"] = format
+    options = {}
     if num_ctx:
-        body["options"] = {"num_ctx": num_ctx}
+        options["num_ctx"] = num_ctx
+    if max_tokens:
+        options["num_predict"] = max_tokens   # a small model can loop; this ends the request
+    if options:
+        body["options"] = options
     return body
 
 
@@ -136,9 +142,10 @@ def chat(
     num_ctx: int | None = None,
     tools: list[dict[str, Any]] | None = None,
     format: dict[str, Any] | None = None,
+    max_tokens: int | None = None,
     tracer: Tracer | None = None,
 ) -> ChatResult:
-    body = chat_body(model, messages, think=think, num_ctx=num_ctx, tools=tools, format=format)
+    body = chat_body(model, messages, think=think, num_ctx=num_ctx, tools=tools, format=format, max_tokens=max_tokens)
     started = time.perf_counter()
     raw = post(f"{ollama_url()}/api/chat", body)
     seconds = time.perf_counter() - started

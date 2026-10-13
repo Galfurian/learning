@@ -25,6 +25,7 @@ from .resolve import Resolution
 from .scenario import SCENARIO
 
 ALL_TYPES = SCENARIO.node_types
+MAX_ANSWER_TOKENS = 400
 
 
 @dataclass
@@ -73,7 +74,8 @@ def query(graph: Graph, plan: Plan | None, starts: Sequence[str]) -> tuple[list[
 
 def generate(question: Question, context: Context, graph: Graph, *, model: str = DEFAULT_CHAT_MODEL,
              think: bool = False, tracer: Tracer | None = None) -> Answer:
-    result = chat(model, build_messages(question.question, context), think=think, tracer=tracer)
+    result = chat(model, build_messages(question.question, context), think=think, max_tokens=MAX_ANSWER_TOKENS,
+                  tracer=tracer)
     return Answer(result.content, check_citations(result.content, context.ids),
                   score_answer(result.content, question, graph), result.seconds)
 
