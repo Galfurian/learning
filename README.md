@@ -43,6 +43,7 @@ Reusable setup or concepts that may be needed by several units belong in the rep
 | [03](./03-rag/) | RAG with local models | Chunk, embed and retrieve invented manuals, build the context, generate grounded answers, and measure every step |
 | [04](./04-reranking/) | Reranking | Put a cross-encoder or a decision model between retrieval and generation, and measure quality, depth and cost |
 | [05](./05-knowledge-graphs/) | Knowledge graphs | Parse a data model into a tree, extract the links between devices from prose, follow relation paths, and measure each stage |
+| [07](./07-events-historian/) | Events and historian | Record the value changes of a line over OPC-UA, derive events with versioned rules, and answer with cited evidence |
 
 ## Conventions
 

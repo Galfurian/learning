@@ -1,0 +1,178 @@
+{
+ "machines": {
+  "conveyor": {
+   "server": "example_conveyor",
+   "signals": {
+    "destination.bay1_1": "example:conveyor.destination.bay1_1",
+    "destination.bay2_1": "example:conveyor.destination.bay2_1",
+    "destination.bay2_2": "example:conveyor.destination.bay2_2",
+    "destination.bay2_3": "example:conveyor.destination.bay2_3",
+    "destination.bay3_1": "example:conveyor.destination.bay3_1",
+    "destination.bay4_1": "example:conveyor.destination.bay4_1",
+    "destination.bay4_2": "example:conveyor.destination.bay4_2",
+    "destination.bay4_3": "example:conveyor.destination.bay4_3",
+    "destination.bay5": "example:conveyor.destination.bay5",
+    "destination_ok.bay1_1": "example:conveyor.destination_ok.bay1_1",
+    "destination_ok.bay2_3": "example:conveyor.destination_ok.bay2_3",
+    "destination_ok.bay3_1": "example:conveyor.destination_ok.bay3_1",
+    "destination_ok.bay4_2": "example:conveyor.destination_ok.bay4_2",
+    "destination_ok.bay4_3": "example:conveyor.destination_ok.bay4_3",
+    "destination_ok.bay5": "example:conveyor.destination_ok.bay5",
+    "segment1.item0": "example:conveyor.segment1.item0",
+    "segment1.item1": "example:conveyor.segment1.item1",
+    "segment1.item2": "example:conveyor.segment1.item2",
+    "segment1.item3": "example:conveyor.segment1.item3",
+    "segment2.item0": "example:conveyor.segment2.item0",
+    "segment2.item1": "example:conveyor.segment2.item1",
+    "segment2.item2": "example:conveyor.segment2.item2",
+    "segment2.item3": "example:conveyor.segment2.item3",
+    "segment3.item0": "example:conveyor.segment3.item0",
+    "segment3.item1": "example:conveyor.segment3.item1",
+    "segment3.item2": "example:conveyor.segment3.item2",
+    "segment3.item3": "example:conveyor.segment3.item3",
+    "segment4.item0": "example:conveyor.segment4.item0",
+    "segment4.item1": "example:conveyor.segment4.item1",
+    "segment4.item2": "example:conveyor.segment4.item2",
+    "segment4.item3": "example:conveyor.segment4.item3",
+    "segment5.item0": "example:conveyor.segment5.item0",
+    "segment5.item1": "example:conveyor.segment5.item1",
+    "segment5.item2": "example:conveyor.segment5.item2",
+    "segment5.item3": "example:conveyor.segment5.item3",
+    "segment6.item0": "example:conveyor.segment6.item0",
+    "segment6.item1": "example:conveyor.segment6.item1",
+    "segment6.item2": "example:conveyor.segment6.item2",
+    "segment6.item3": "example:conveyor.segment6.item3",
+    "segment7.item0": "example:conveyor.segment7.item0",
+    "segment7.item1": "example:conveyor.segment7.item1",
+    "segment7.item2": "example:conveyor.segment7.item2",
+    "segment7.item3": "example:conveyor.segment7.item3",
+    "segment8.item0": "example:conveyor.segment8.item0",
+    "segment8.item1": "example:conveyor.segment8.item1",
+    "segment8.item2": "example:conveyor.segment8.item2",
+    "segment8.item3": "example:conveyor.segment8.item3"
+   }
+  },
+  "robot_a": {
+   "server": "example_robot_a",
+   "signals": {
+    "mission": "example:robot_a.mission",
+    "busy": "example:robot_a.busy",
+    "last_result": "example:robot_a.last_result",
+    "mission_count": "example:robot_a.mission_count"
+   }
+  },
+  "robot_b": {
+   "server": "example_robot_b",
+   "signals": {
+    "mission": "example:robot_b.mission",
+    "busy": "example:robot_b.busy",
+    "last_result": "example:robot_b.last_result",
+    "mission_count": "example:robot_b.mission_count"
+   }
+  },
+  "tester": {
+   "server": "example_tester",
+   "signals": {
+    "mission": "example:tester.mission",
+    "busy": "example:tester.busy",
+    "last_result": "example:tester.last_result"
+   }
+  },
+  "qc_station": {
+   "server": "example_qc_station",
+   "signals": {
+    "mission": "example:qc_station.mission",
+    "busy": "example:qc_station.busy",
+    "last_result": "example:qc_station.last_result",
+    "checks_total": "example:qc_station.checks_total",
+    "faults_total": "example:qc_station.faults_total"
+   }
+  },
+  "assembly_cell": {
+   "server": "example_assembly_cell",
+   "signals": {
+    "operation_running": "example:assembly_cell.operation_running",
+    "operation_done": "example:assembly_cell.operation_done",
+    "cell_initialized": "example:assembly_cell.cell_initialized",
+    "robot1_running": "example:assembly_cell.robot1_running",
+    "robot2_running": "example:assembly_cell.robot2_running",
+    "pick_area": "example:assembly_cell.pick_area",
+    "place_area": "example:assembly_cell.place_area"
+   }
+  },
+  "mill_cell": {
+   "server": "example_mill_cell",
+   "signals": {
+    "alarm_message": "example:mill_cell.alarm_message",
+    "alarm_status": "example:mill_cell.alarm_status",
+    "robot_program_running": "example:mill_cell.robot_program_running",
+    "spindle_speed": "example:mill_cell.spindle_speed"
+   }
+  },
+  "storage": {
+   "server": "example_storage",
+   "signals": {
+    "tray_in_bay": "example:storage.tray_in_bay",
+    "bay_busy": "example:storage.bay_busy",
+    "bay_ready": "example:storage.bay_ready",
+    "queue_size": "example:storage.queue_size"
+   }
+  },
+  "screwdriver": {
+   "server": "example_screwdriver",
+   "signals": {
+    "busy": "example:screwdriver.busy",
+    "screw_ok": "example:screwdriver.screw_ok",
+    "end_program": "example:screwdriver.end_program"
+   }
+  }
+ },
+ "values": {
+  "robot_a.mission": {
+   "EX_go_to_storage": "go_to_storage",
+   "EX_fetch_cover_top_from_storage": "fetch_cover_top_from_storage",
+   "EX_fetch_cover_bottom_from_storage": "fetch_cover_bottom_from_storage",
+   "EX_fetch_board_from_storage": "fetch_board_from_storage",
+   "EX_go_to_load_bay": "go_to_load_bay",
+   "EX_place_board_on_pallet": "place_board_on_pallet",
+   "EX_place_cover_top_on_pallet": "place_cover_top_on_pallet",
+   "EX_place_cover_bottom_on_pallet": "place_cover_bottom_on_pallet",
+   "EX_go_home": "go_home",
+   "EX_go_to_qc_bay": "go_to_qc_bay",
+   "EX_take_cover_top_from_pallet": "take_cover_top_from_pallet",
+   "EX_take_cover_bottom_from_pallet": "take_cover_bottom_from_pallet",
+   "EX_go_to_bin": "go_to_bin",
+   "EX_drop_covers_in_bin": "drop_covers_in_bin",
+   "EX_shift_right": "shift_right"
+  },
+  "robot_b.mission": {
+   "EX_go_to_storage": "go_to_storage",
+   "EX_fetch_cover_top_from_storage": "fetch_cover_top_from_storage",
+   "EX_fetch_cover_bottom_from_storage": "fetch_cover_bottom_from_storage",
+   "EX_fetch_board_from_storage": "fetch_board_from_storage",
+   "EX_go_to_load_bay": "go_to_load_bay",
+   "EX_place_board_on_pallet": "place_board_on_pallet",
+   "EX_place_cover_top_on_pallet": "place_cover_top_on_pallet",
+   "EX_place_cover_bottom_on_pallet": "place_cover_bottom_on_pallet",
+   "EX_go_home": "go_home",
+   "EX_go_to_qc_bay": "go_to_qc_bay",
+   "EX_take_cover_top_from_pallet": "take_cover_top_from_pallet",
+   "EX_take_cover_bottom_from_pallet": "take_cover_bottom_from_pallet",
+   "EX_go_to_bin": "go_to_bin",
+   "EX_drop_covers_in_bin": "drop_covers_in_bin",
+   "EX_shift_right": "shift_right"
+  },
+  "tester.mission": {
+   "EX_board_in": "board_in",
+   "EX_testing": "testing_board",
+   "EX_board_out": "board_out"
+  },
+  "qc_station.mission": {
+   "EX_check": "check_object"
+  },
+  "mill_cell.alarm_message": {
+   "9001": "vice_open",
+   "9002": "door_open"
+  }
+ }
+}

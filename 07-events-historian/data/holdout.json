@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "recording": "holdout",
+  "case_version": "2",
+  "correlation_version": "2",
+  "questions": [
+    {
+      "id": "h01",
+      "text": "What happened to pallet 18 after its failed QC check?",
+      "type": "what-happened",
+      "recording": "holdout",
+      "gold_case": "p18#1",
+      "gold_event_ids": ["e846", "e1324", "e1326", "e1328", "e1330", "e1332", "e1334"],
+      "gold_activities": ["check_failed", "mission_started", "mission_started", "mission_started", "mission_started", "mission_started", "mission_started"],
+      "gold_answer": "The QC check failed. robot_a removed both covers, took them to the bin, and returned home; these pallet links are inferred.",
+      "expect": {"all": [["failed", "failure"], ["robot_a"], ["bin"]], "none": [["passed", "success"], ["robot_b"]]},
+      "abstain": false,
+      "needs_recording": true
+    },
+    {
+      "id": "h02",
+      "text": "Which robot performed the rework for pallet 18?",
+      "type": "who",
+      "recording": "holdout",
+      "gold_case": "p18#1",
+      "gold_event_ids": ["e1326", "e1328", "e1332"],
+      "gold_activities": ["mission_started", "mission_started", "mission_started"],
+      "gold_answer": "robot_a performed the rework. The link to pallet 18 is inferred.",
+      "expect": {"all": [["robot_a"], ["rework"], ["pallet"]], "none": [["robot_b"]]},
+      "abstain": false,
+      "needs_recording": true
+    },
+    {
+      "id": "h03",
+      "text": "Why did pallet 18 go to the rework bin?",
+      "type": "why",
+      "recording": "holdout",
+      "gold_case": "p18#1",
+      "gold_event_ids": ["e846", "e1332"],
+      "gold_activities": ["check_failed", "mission_started"],
+      "gold_answer": "The rework rule links the failed QC check to the later bin mission; the pallet link is inferred.",
+      "expect": {"all": [["rework"], ["failed", "failure"], ["bin"]], "none": [["passed", "success"]]},
+      "abstain": false,
+      "needs_recording": true
+    },
+    {
+      "id": "h04",
+      "text": "When did pallet 18 leave the QC bay?",
+      "type": "when",
+      "recording": "holdout",
+      "gold_case": "p18#1",
+      "gold_event_ids": ["e848", "e854"],
+      "gold_activities": ["destination_cleared", "destination_cleared"],
+      "gold_answer": "The final QC-bay position was cleared at about 711 seconds in the trace.",
+      "expect": {"all": [["QC bay", "QC-bay", "quality-control bay", "quality bay"], ["711", "712"], ["cleared", "released", "left"]], "none": []},
+      "abstain": false,
+      "needs_recording": true
+    },
+    {
+      "id": "h05",
+      "text": "Did pallet 19 reach the assigned bay 1?",
+      "type": "abstain",
+      "recording": "holdout",
+      "gold_case": "p19#1",
+      "gold_event_ids": ["e1339"],
+      "gold_activities": ["destination_assigned"],
+      "gold_answer": "The recording shows an assignment but no movement evidence for that stop.",
+      "expect": {"all": [], "none": []},
+      "abstain": true,
+      "needs_recording": true
+    },
+    {
+      "id": "h06",
+      "text": "What is the result of the later QC check with no result signal?",
+      "type": "abstain",
+      "recording": "holdout",
+      "gold_case": "p19#1",
+      "gold_event_ids": [],
+      "gold_activities": ["check_result_unknown"],
+      "gold_answer": "The check has no safe pallet correlation and no result signal.",
+      "expect": {"all": [], "none": []},
+      "abstain": true,
+      "needs_recording": true
+    },
+    {
+      "id": "h07",
+      "text": "Why did pallet 18 go to the assembly bay?",
+      "type": "why-no-rule",
+      "recording": "holdout",
+      "gold_case": "p18#1",
+      "gold_event_ids": ["e887"],
+      "gold_activities": ["destination_assigned"],
+      "gold_answer": "The recording shows the assembly-bay assignment, but it does not show why.",
+      "expect": {"all": [["assembly bay", "assembly-bay"], ["not show", "does not say", "no rule", "not explain", "unknown", "not in the recording"]], "none": [["because the check"]]},
+      "abstain": false,
+      "needs_recording": true
+    }
+  ]
+}

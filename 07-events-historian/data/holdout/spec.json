@@ -1,0 +1,13 @@
+{
+  "version": "holdout-transform-v1",
+  "source_recording": "lab-session",
+  "output": ".cache/recordings/holdout-<manifest-key>.jsonl",
+  "operations": [
+    "permute pallet ids 7, 8, 9 to 17, 18, 19 in conveyor signals",
+    "swap robot_a and robot_b logical signals",
+    "make pallet 18 fail QC and copy the rework episode at a later trace time",
+    "add a QC check for pallet 19 with no result signal",
+    "add a pallet 19 bay 1 assignment without FIFO movement"
+  ],
+  "write_policy": "The source is read locally. The generated recording is git-ignored."
+}

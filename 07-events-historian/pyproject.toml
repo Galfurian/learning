@@ -1,0 +1,25 @@
+[project]
+name = "learning-events-historian"
+version = "0.1.0"
+description = "From OPC-UA value changes to cited evidence: collector, historian, events, cases, chains"
+requires-python = ">=3.11"
+dependencies = [
+  "asyncua>=1.1,<3",
+  "rich>=14,<15",
+]
+
+[dependency-groups]
+dev = ["pytest>=8,<9"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/evlab"]
+
+[tool.uv]
+package = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
