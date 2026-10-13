@@ -13,17 +13,22 @@ import yaml
 
 from .corpus import MODELS_DIR, Chunk
 from .graph import Graph, Node
+from .scenario import SCENARIO
 
-LINE = "line:main"
-ALARM_FOLDER = "Alarms"
+# The "opcua-yaml" format, with its names from the scenario.
+FORMAT = SCENARIO.data_model
+if FORMAT.get("format") != "opcua-yaml":
+    raise ValueError(f"parse.py reads the 'opcua-yaml' data model format, not {FORMAT.get('format')!r}")
+LINE = FORMAT["root"]
+ALARM_FOLDER = FORMAT["alarm_folder"]
 
 
 def cell_id(key: str) -> str:
-    return f"cell:{key}"
+    return f"{FORMAT['cell_prefix']}{key}"
 
 
 def alarm_id(device: str, name: str) -> str:
-    return f"alarm:{device}/{name}"
+    return f"{FORMAT['alarm_prefix']}{device}/{name}"
 
 
 def display(item: dict[str, Any]) -> list[str]:
@@ -35,7 +40,7 @@ def parse_model(data: dict[str, Any], file: str, graph: Graph | None = None) -> 
     """Add one device's tree to `graph` (a new graph if None)."""
     graph = graph if graph is not None else Graph()
     device = data["device"]
-    graph.add_node(Node(LINE, "Line", "the line"))
+    graph.add_node(Node(LINE, FORMAT["root_type"], FORMAT["root_name"]))
     graph.add_node(Node(device, "Device", data.get("name", device), props={"kind": data.get("kind", "")}))
     if data.get("cell"):
         cell = cell_id(data["cell"])

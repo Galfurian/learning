@@ -1,0 +1,465 @@
+{
+ "name": "lab-line",
+ "description": "An invented production line: eight devices around a pallet conveyor loop. Modeled on the shape of a lab line, with no data from it.",
+ "paths": {
+  "models": "line/models",
+  "notes": "line/notes",
+  "gold": "gold.json",
+  "manifest": "manifest.json",
+  "dev": "dev.json",
+  "holdout": "holdout.json",
+  "mentions": "mentions.json"
+ },
+ "node_types": [
+  "Line",
+  "Cell",
+  "Device",
+  "Folder",
+  "Variable",
+  "Method",
+  "Parameter",
+  "Alarm",
+  "Condition",
+  "Bay",
+  "Pallet",
+  "Item",
+  "Mission",
+  "Incident"
+ ],
+ "glossary_types": [
+  "Bay",
+  "Item",
+  "Pallet",
+  "Mission",
+  "Condition",
+  "Incident"
+ ],
+ "owner_pattern": "^(?:alarm:|cond:)?([^/:]+)",
+ "relations": {
+  "contains": {
+   "kind": "tree",
+   "subject": [
+    "Line",
+    "Cell",
+    "Device",
+    "Folder"
+   ],
+   "object": [
+    "Cell",
+    "Device",
+    "Folder"
+   ],
+   "meaning": "the line, a cell, a device or a folder holds it"
+  },
+  "exposes_variable": {
+   "kind": "tree",
+   "subject": [
+    "Device",
+    "Folder"
+   ],
+   "object": [
+    "Variable"
+   ],
+   "meaning": "the device or folder exposes that variable"
+  },
+  "exposes_method": {
+   "kind": "tree",
+   "subject": [
+    "Device",
+    "Folder"
+   ],
+   "object": [
+    "Method"
+   ],
+   "meaning": "the device or folder exposes that method"
+  },
+  "has_parameter": {
+   "kind": "tree",
+   "subject": [
+    "Method"
+   ],
+   "object": [
+    "Parameter"
+   ],
+   "meaning": "the method takes that input parameter"
+  },
+  "returns": {
+   "kind": "tree",
+   "subject": [
+    "Method"
+   ],
+   "object": [
+    "Variable"
+   ],
+   "meaning": "the method returns that variable"
+  },
+  "has_alarm": {
+   "kind": "tree",
+   "subject": [
+    "Device"
+   ],
+   "object": [
+    "Alarm"
+   ],
+   "meaning": "the device can raise that alarm"
+  },
+  "serves_bay": {
+   "kind": "link",
+   "subject": [
+    "Device"
+   ],
+   "object": [
+    "Bay"
+   ],
+   "meaning": "the device loads or unloads pallets at that conveyor bay"
+  },
+  "next_step": {
+   "kind": "link",
+   "subject": [
+    "Bay"
+   ],
+   "object": [
+    "Bay"
+   ],
+   "meaning": "on the route, pallets go from the first bay to the second"
+  },
+  "moves": {
+   "kind": "link",
+   "subject": [
+    "Device"
+   ],
+   "object": [
+    "Item",
+    "Pallet"
+   ],
+   "meaning": "the device carries or handles that item or pallet"
+  },
+  "stops": {
+   "kind": "link",
+   "subject": [
+    "Alarm"
+   ],
+   "object": [
+    "Device"
+   ],
+   "meaning": "when the alarm is active, the device stops"
+  },
+  "confirms": {
+   "kind": "link",
+   "subject": [
+    "Variable"
+   ],
+   "object": [
+    "Mission",
+    "Method"
+   ],
+   "meaning": "the variable reports the result of that mission or method"
+  },
+  "requires": {
+   "kind": "link",
+   "subject": [
+    "Method"
+   ],
+   "object": [
+    "Condition"
+   ],
+   "meaning": "the method runs only when the condition is true"
+  },
+  "observed_by": {
+   "kind": "link",
+   "subject": [
+    "Condition"
+   ],
+   "object": [
+    "Variable"
+   ],
+   "meaning": "the variable tells whether the condition is true"
+  },
+  "incident_on": {
+   "kind": "link",
+   "subject": [
+    "Incident"
+   ],
+   "object": [
+    "Device"
+   ],
+   "meaning": "the incident happened on that device"
+  },
+  "raised": {
+   "kind": "link",
+   "subject": [
+    "Incident"
+   ],
+   "object": [
+    "Alarm"
+   ],
+   "meaning": "the incident raised that alarm"
+  },
+  "fixed_by_method": {
+   "kind": "link",
+   "subject": [
+    "Incident"
+   ],
+   "object": [
+    "Method"
+   ],
+   "meaning": "calling that method fixed the incident"
+  }
+ },
+ "data_model": {
+  "format": "opcua-yaml",
+  "root": "line:main",
+  "root_type": "Line",
+  "root_name": "the line",
+  "cell_prefix": "cell:",
+  "alarm_folder": "Alarms",
+  "alarm_prefix": "alarm:"
+ },
+ "extraction": {
+  "documents": "the notes of a production line",
+  "hints": [
+   "In an incident report, the subject of incident_on, raised and fixed_by_method is \"the incident\"."
+  ],
+  "example": "Example text: \"The Press P-4 feeds bay 9. Before Stamp runs, the press must be cold; the Hot flag\ntells. P-4 does not serve bay 8.\"\nExample triples: Press P-4 serves_bay bay 9; Stamp requires the press must be cold;\nthe press must be cold observed_by Hot flag. (Nothing for bay 8: the text denies it.)"
+ },
+ "generation": {
+  "domain": "a production line",
+  "documents_label": "Line documents",
+  "refusal": "Not in the line documents."
+ },
+ "planner_rules": [
+  {
+   "name": "count-serve-bay",
+   "pattern": "how many devices serve (?P<x>bay \\d+)",
+   "path": [
+    "^serves_bay"
+   ],
+   "op": "count"
+  },
+  {
+   "name": "count-stop",
+   "pattern": "how many alarms stop (?P<x>.+?)\\?",
+   "path": [
+    "^stops"
+   ],
+   "op": "count"
+  },
+  {
+   "name": "who-serves-bay",
+   "pattern": "which devices serve (?P<x>bay \\d+)",
+   "path": [
+    "^serves_bay"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "bays-of",
+   "pattern": "which bays does (?P<x>.+?) serve",
+   "path": [
+    "serves_bay"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "share-bay",
+   "pattern": "from (?P<x>.+?), which devices share",
+   "path": [
+    "serves_bay",
+    "^serves_bay"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "same-item",
+   "pattern": "handle the kind of item carried by (?P<x>.+?)\\?",
+   "path": [
+    "moves",
+    "^moves"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "items-of",
+   "pattern": "(?:which items can|what can) (?P<x>.+?) (?:move|carry)",
+   "path": [
+    "moves"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "who-moves",
+   "pattern": "which devices move (?:a |an |the )?(?P<x>.+?)\\?",
+   "path": [
+    "^moves"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "four-hops",
+   "pattern": "four route hops from (?P<x>bay \\d+)",
+   "path": [
+    "next_step",
+    "next_step",
+    "next_step",
+    "next_step"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "two-hops",
+   "pattern": "follows (?P<x>bay \\d+) after two",
+   "path": [
+    "next_step",
+    "next_step"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "next-bay",
+   "pattern": "follows (?P<x>bay \\d+)",
+   "path": [
+    "next_step"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "alarm-stops",
+   "pattern": "which alarm stops (?P<x>.+?)\\?",
+   "path": [
+    "^stops"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "stopped-by",
+   "pattern": "stopped by (?:the )?(?P<x>.+?)\\?",
+   "path": [
+    "stops"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "incident-device-vars",
+   "pattern": "exposed by the device involved in the (?P<x>.+?)\\?",
+   "path": [
+    "incident_on",
+    "contains",
+    "exposes_variable"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "incident-alarm-device",
+   "pattern": "alarm raised in the (?P<x>.+?)\\?",
+   "path": [
+    "raised",
+    "^has_alarm"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "incident-device",
+   "pattern": "which device was named by the (?P<x>.+?)\\?",
+   "path": [
+    "incident_on"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "incident-alarm",
+   "pattern": "which alarm did .+? report on (?P<x>\\d+ \\w+)",
+   "path": [
+    "raised"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "confirmed-by-status",
+   "pattern": "mission is confirmed by (?:the |a variable in )?(?P<x>.+?)'s",
+   "path": [
+    "contains",
+    "exposes_variable",
+    "confirms"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "observe-conditions",
+   "pattern": "observe the (?P<x>.+?) method conditions",
+   "path": [
+    "contains",
+    "exposes_method",
+    "requires",
+    "observed_by"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "conditions-vars",
+   "pattern": "conditions required by (?P<x>.+?) methods",
+   "path": [
+    "exposes_method",
+    "requires",
+    "observed_by"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "tells-may-run",
+   "pattern": "tells .+? whether (?P<x>\\w+) may run",
+   "path": [
+    "requires",
+    "observed_by"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "requires",
+   "pattern": "which condition does (?P<x>\\w+) require",
+   "path": [
+    "requires"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "owner-alarm",
+   "pattern": "which device owns the (?P<x>.+?)\\?",
+   "path": [
+    "^has_alarm"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "returns",
+   "pattern": "what .+? does the (?P<x>.+?) return",
+   "path": [
+    "returns"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "parameters",
+   "pattern": "which input names does (?P<x>\\w+) accept",
+   "path": [
+    "has_parameter"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "folder-of",
+   "pattern": "which folder exposes the (?P<x>.+?)\\?",
+   "path": [
+    "^exposes_variable"
+   ],
+   "op": "list"
+  },
+  {
+   "name": "cell-devices",
+   "pattern": "which devices belong to the (?P<x>.+?)\\?",
+   "path": [
+    "contains"
+   ],
+   "op": "list"
+  }
+ ]
+}

@@ -1,4 +1,4 @@
-"""Adapted from unit 04 (04-reranking/src/reranklab/corpus.py): the prose notes of the line.
+"""Adapted from unit 04 (04-reranking/src/reranklab/corpus.py): the prose notes of the scenario.
 
 One `##` section is one chunk, and its `{#id}` anchor is the chunk id. The
 gold graph and the questions point at these ids, so they must not change
@@ -9,16 +9,14 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
-from .cache import UNIT_ROOT
+from .scenario import SCENARIO
 
-DATA_DIR = UNIT_ROOT / "data"
-LINE_DIR = DATA_DIR / "line"
-MODELS_DIR = LINE_DIR / "models"
-NOTES_DIR = LINE_DIR / "notes"
-GOLD_GRAPH = DATA_DIR / "gold.json"
-MANIFEST = DATA_DIR / "manifest.json"
-DEV_QUESTIONS = DATA_DIR / "dev.json"
-HOLDOUT_QUESTIONS = DATA_DIR / "holdout.json"
+MODELS_DIR = SCENARIO.path("models")
+NOTES_DIR = SCENARIO.path("notes")
+GOLD_GRAPH = SCENARIO.path("gold")
+MANIFEST = SCENARIO.path("manifest")
+DEV_QUESTIONS = SCENARIO.path("dev")
+HOLDOUT_QUESTIONS = SCENARIO.path("holdout")
 
 HEADING = re.compile(r"^## (?P<title>.+?)\s*(?:\{#(?P<id>[a-z0-9-]+)\})?\s*$")
 

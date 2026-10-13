@@ -17,9 +17,11 @@ from dataclasses import dataclass, field
 from .corpus import Chunk
 from .evalset import Question
 from .graph import Edge, Graph
+from .scenario import SCENARIO
 
 DEFAULT_BUDGET = 1500
-REFUSAL = "Not in the line documents."
+REFUSAL = SCENARIO.generation["refusal"]
+DOCUMENTS = SCENARIO.generation["documents_label"]
 
 
 def estimate_tokens(text: str) -> int:
@@ -85,7 +87,7 @@ def facts_context(graph: Graph, edges: Sequence[Edge], budget: int = DEFAULT_BUD
     return Context(ids, text, estimate_tokens(text), sources, dropped)
 
 
-SYSTEM_PROMPT = f"""You answer questions about a production line.
+SYSTEM_PROMPT = f"""You answer questions about {SCENARIO.generation["domain"]}.
 Use only the excerpts or facts in the user message. Each one starts with its id in square brackets.
 After every sentence that uses an excerpt or a fact, write its id in square brackets, for example [f2].
 If they do not contain the answer, reply exactly: {REFUSAL}
@@ -96,7 +98,7 @@ def build_messages(question: str, context: Context, system_prompt: str = SYSTEM_
     body = context.text or "(none)"
     return [
         {"role": "system", "content": system_prompt},
-        {"role": "user", "content": f"Line documents:\n\n{body}\n\nQuestion: {question}"},
+        {"role": "user", "content": f"{DOCUMENTS}:\n\n{body}\n\nQuestion: {question}"},
     ]
 
 

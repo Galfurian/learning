@@ -15,9 +15,8 @@ from kglab.extract import LINK_RELATIONS, extract
 from kglab.graph import load
 from kglab.metrics import triple_scores
 from kglab.parse import load_models
+from kglab.scenario import SCENARIO
 from kglab.scorecache import ScoreCache
-
-GLOSSARY_TYPES = ("Bay", "Item", "Pallet", "Mission", "Condition", "Incident")
 
 
 def main() -> None:
@@ -38,7 +37,7 @@ def main() -> None:
         fresh.append(e.seconds)
         print(f"{i:3}/{len(chunks)} {c.id:32} {e.seconds:5.1f}s mentions={len(e.triples)} invalid={len(e.invalid)}", flush=True)
     tree = load_models()
-    glossary = [n for n in gold.nodes.values() if n.type in GLOSSARY_TYPES]
+    glossary = [n for n in gold.nodes.values() if n.type in SCENARIO.glossary_types]
     built, report = build(tree, glossary, chunks, extractions, ambiguous=ambiguous)
     ids = {c.id for c in chunks}
     gold_links = {(e.s, e.r, e.o) for e in gold.edges if e.r in LINK_RELATIONS and e.source in ids}

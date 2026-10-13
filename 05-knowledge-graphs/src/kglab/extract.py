@@ -16,28 +16,30 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from .client import DEFAULT_CHAT_MODEL, Tracer, chat
+from .scenario import SCENARIO
 from .scorecache import ScoreCache
 
-# relation -> (subject type, object type, meaning)
+# relation -> (subject types, object types, meaning), the "link" relations of the scenario
 LINK_RELATIONS: dict[str, tuple[str, str, str]] = {
-    "serves_bay": ("Device", "Bay", "the device loads or unloads pallets at that conveyor bay"),
-    "next_step": ("Bay", "Bay", "on the route, pallets go from the first bay to the second"),
-    "moves": ("Device", "Item or Pallet", "the device carries or handles that item or pallet"),
-    "stops": ("Alarm", "Device", "when the alarm is active, the device stops"),
-    "confirms": ("Variable", "Mission or Method", "the variable reports the result of that mission or method"),
-    "requires": ("Method", "Condition", "the method runs only when the condition is true"),
-    "observed_by": ("Condition", "Variable", "the variable tells whether the condition is true"),
-    "incident_on": ("Incident", "Device", "the incident happened on that device"),
-    "raised": ("Incident", "Alarm", "the incident raised that alarm"),
-    "fixed_by_method": ("Incident", "Method", "calling that method fixed the incident"),
+    name: (" or ".join(r.subject), " or ".join(r.object), r.meaning) for name, r in SCENARIO.kind("link").items()
 }
 
-SYSTEM_PROMPT = """You extract facts from the notes of a production line.
-Return only facts that the text states. Do not infer. Do not return a fact that the text denies.
-Use only these relations (subject -> object):
-{relations}
-Write subject and object as they appear in the text, short (a name, not a sentence).
-If the text states no such fact, return an empty list."""
+
+def system_prompt() -> str:
+    """The rules, the scenario's relations, its hints and its example."""
+    x = SCENARIO.extraction
+    lines = [
+        f"You extract facts from {x['documents']}.",
+        "Return only facts that the text states. Do not infer. Do not return a fact that the text denies.",
+        "Use only these relations (subject -> object):",
+        relations_text(),
+        "Write subject and object as they appear in the text, short (a name, not a sentence).",
+        *x.get("hints", []),
+        "If the text states no such fact, return an empty list.",
+    ]
+    if x.get("example"):
+        lines += ["", x["example"]]
+    return "\n".join(lines)
 
 
 def relations_text() -> str:
@@ -71,7 +73,7 @@ def json_schema(*, constrained: bool = True) -> dict[str, Any]:
 
 def messages(title: str, text: str) -> list[dict[str, str]]:
     return [
-        {"role": "system", "content": SYSTEM_PROMPT.format(relations=relations_text())},
+        {"role": "system", "content": system_prompt()},
         {"role": "user", "content": f"Section: {title}\n\n{text}"},
     ]
 

@@ -12,7 +12,7 @@ data models and the extracted links (C).
 from collections.abc import Sequence
 from dataclasses import dataclass, field
 
-from .builder import Linker, expected_types
+from .builder import Linker
 from .client import DEFAULT_CHAT_MODEL, Tracer, chat
 from .corpus import Chunk
 from .evalset import Question
@@ -22,9 +22,9 @@ from .graph import Edge, Graph, follow, follow_edges
 from .metrics import AMBIGUOUS
 from .planner import Plan
 from .resolve import Resolution
+from .scenario import SCENARIO
 
-ALL_TYPES = ("Line", "Cell", "Device", "Folder", "Variable", "Method", "Parameter", "Alarm", "Condition",
-             "Bay", "Pallet", "Item", "Mission", "Incident")
+ALL_TYPES = SCENARIO.node_types
 
 
 @dataclass
@@ -50,24 +50,14 @@ class GraphRun:
         return [r.node for r in self.starts if r.node not in (None, AMBIGUOUS)]
 
 
-# relation -> (subject types, object types) of the tree relations; the link relations are in extract.py.
-TREE_SIGNATURES = {
-    "contains": (("Line", "Cell", "Device", "Folder"), ("Cell", "Device", "Folder")),
-    "exposes_variable": (("Device", "Folder"), ("Variable",)),
-    "exposes_method": (("Device", "Folder"), ("Method",)),
-    "has_parameter": (("Method",), ("Parameter",)),
-    "returns": (("Method",), ("Variable",)),
-    "has_alarm": (("Device",), ("Alarm",)),
-}
-
-
 def start_types(path: Sequence[str]) -> tuple[str, ...]:
     """The node types the first relation of the path can start from."""
     if not path:
         return ALL_TYPES
-    name, backward = path[0].lstrip("^"), path[0].startswith("^")
-    subject, obj = TREE_SIGNATURES.get(name) or expected_types(name)
-    return obj if backward else subject
+    relation = SCENARIO.relations.get(path[0].lstrip("^"))
+    if relation is None:
+        return ALL_TYPES
+    return relation.object if path[0].startswith("^") else relation.subject
 
 
 def link_starts(plan: Plan, linker: Linker, question: str) -> list[Resolution]:

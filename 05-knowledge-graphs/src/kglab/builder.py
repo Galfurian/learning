@@ -16,20 +16,25 @@ from collections.abc import Iterable, Sequence
 from dataclasses import dataclass, field
 
 from .corpus import Chunk
-from .extract import LINK_RELATIONS, Extraction, Mention
+from .extract import Extraction, Mention
 from .graph import Graph, Node
 from .metrics import AMBIGUOUS
 from .resolve import Resolution, Resolver, normalize
+from .scenario import SCENARIO
 
 
 def expected_types(relation: str) -> tuple[tuple[str, ...], tuple[str, ...]]:
-    s, o, _ = LINK_RELATIONS[relation]
-    return tuple(s.split(" or ")), tuple(o.split(" or "))
+    r = SCENARIO.relations[relation]
+    return r.subject, r.object
+
+
+OWNER = re.compile(SCENARIO.owner_pattern)
 
 
 def owner(node_id: str) -> str:
-    """The device a node belongs to: "alarm:assembly/EmergencyStop" -> "assembly"."""
-    return node_id.split(":", 1)[-1].split("/")[0] if node_id.startswith(("alarm:", "cond:")) else node_id.split("/")[0]
+    """The node that owns this one, by the scenario's id pattern: "alarm:assembly/EmergencyStop" -> "assembly"."""
+    m = OWNER.match(node_id)
+    return m.group(1) if m else node_id
 
 
 def contains_words(text: str, phrase: str) -> bool:

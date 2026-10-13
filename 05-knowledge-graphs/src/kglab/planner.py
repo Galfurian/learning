@@ -23,11 +23,10 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from .client import DEFAULT_CHAT_MODEL, Tracer, chat
-from .extract import LINK_RELATIONS
+from .scenario import SCENARIO
 from .scorecache import ScoreCache
 
-TREE_RELATIONS = ("contains", "exposes_variable", "exposes_method", "has_parameter", "returns", "has_alarm")
-ALL_RELATIONS = (*TREE_RELATIONS, *LINK_RELATIONS)
+ALL_RELATIONS = tuple(SCENARIO.relations)
 
 
 @dataclass(frozen=True)
@@ -67,20 +66,12 @@ class RulePlanner:
         return None
 
 
-PLAN_PROMPT = """You turn a question about a production line into a graph query.
+PLAN_PROMPT = """You turn a question about {domain} into a graph query.
 The graph has these relations (subject -> object):
 {relations}
 Return JSON: "start" is a list of entity names copied from the question; "path" is the list of
 relations to follow from them, in order; write "^relation" to follow a relation from object to
 subject; "op" is "count" if the question asks how many, else "list"."""
-
-TREE_TEXT = """- contains: line, cell, device or folder -> what is inside it
-- exposes_variable: device or folder -> variable
-- exposes_method: device or folder -> method
-- has_parameter: method -> parameter
-- returns: method -> returned variable
-- has_alarm: device -> alarm"""
-
 
 def plan_schema() -> dict[str, Any]:
     relation = {"type": "string", "enum": [*ALL_RELATIONS, *(f"^{r}" for r in ALL_RELATIONS)]}
@@ -96,9 +87,10 @@ def plan_schema() -> dict[str, Any]:
 
 
 def plan_messages(question: str) -> list[dict[str, str]]:
-    links = "\n".join(f"- {name}: {s} -> {o}: {meaning}" for name, (s, o, meaning) in LINK_RELATIONS.items())
+    relations = "\n".join(f"- {r.name}: {' or '.join(r.subject)} -> {' or '.join(r.object)}: {r.meaning}"
+                          for r in SCENARIO.relations.values())
     return [
-        {"role": "system", "content": PLAN_PROMPT.format(relations=TREE_TEXT + "\n" + links)},
+        {"role": "system", "content": PLAN_PROMPT.format(domain=SCENARIO.generation["domain"], relations=relations)},
         {"role": "user", "content": question},
     ]
 
@@ -129,35 +121,6 @@ class LLMPlanner:
         return parse_plan(raw)
 
 
-# Written by reading the dev questions, as a developer would. The holdout
-# shows what they miss.
-DEFAULT_RULES = [
-    Rule("count-serve-bay", r"how many devices serve (?P<x>bay \d+)", ("^serves_bay",), "count"),
-    Rule("count-stop", r"how many alarms stop (?P<x>.+?)\?", ("^stops",), "count"),
-    Rule("who-serves-bay", r"which devices serve (?P<x>bay \d+)", ("^serves_bay",)),
-    Rule("bays-of", r"which bays does (?P<x>.+?) serve", ("serves_bay",)),
-    Rule("share-bay", r"from (?P<x>.+?), which devices share", ("serves_bay", "^serves_bay")),
-    Rule("same-item", r"handle the kind of item carried by (?P<x>.+?)\?", ("moves", "^moves")),
-    Rule("items-of", r"(?:which items can|what can) (?P<x>.+?) (?:move|carry)", ("moves",)),
-    Rule("who-moves", r"which devices move (?:a |an |the )?(?P<x>.+?)\?", ("^moves",)),
-    Rule("four-hops", r"four route hops from (?P<x>bay \d+)", ("next_step",) * 4),
-    Rule("two-hops", r"follows (?P<x>bay \d+) after two", ("next_step", "next_step")),
-    Rule("next-bay", r"follows (?P<x>bay \d+)", ("next_step",)),
-    Rule("alarm-stops", r"which alarm stops (?P<x>.+?)\?", ("^stops",)),
-    Rule("stopped-by", r"stopped by (?:the )?(?P<x>.+?)\?", ("stops",)),
-    Rule("incident-device-vars", r"exposed by the device involved in the (?P<x>.+?)\?",
-         ("incident_on", "contains", "exposes_variable")),
-    Rule("incident-alarm-device", r"alarm raised in the (?P<x>.+?)\?", ("raised", "^has_alarm")),
-    Rule("incident-device", r"which device was named by the (?P<x>.+?)\?", ("incident_on",)),
-    Rule("incident-alarm", r"which alarm did .+? report on (?P<x>\d+ \w+)", ("raised",)),
-    Rule("confirmed-by-status", r"mission is confirmed by (?:the |a variable in )?(?P<x>.+?)'s", ("contains", "exposes_variable", "confirms")),
-    Rule("observe-conditions", r"observe the (?P<x>.+?) method conditions", ("contains", "exposes_method", "requires", "observed_by")),
-    Rule("conditions-vars", r"conditions required by (?P<x>.+?) methods", ("exposes_method", "requires", "observed_by")),
-    Rule("tells-may-run", r"tells .+? whether (?P<x>\w+) may run", ("requires", "observed_by")),
-    Rule("requires", r"which condition does (?P<x>\w+) require", ("requires",)),
-    Rule("owner-alarm", r"which device owns the (?P<x>.+?)\?", ("^has_alarm",)),
-    Rule("returns", r"what .+? does the (?P<x>.+?) return", ("returns",)),
-    Rule("parameters", r"which input names does (?P<x>\w+) accept", ("has_parameter",)),
-    Rule("folder-of", r"which folder exposes the (?P<x>.+?)\?", ("^exposes_variable",)),
-    Rule("cell-devices", r"which devices belong to the (?P<x>.+?)\?", ("contains",)),
-]
+# The scenario's rules, written by reading its dev questions, as a developer would.
+# The holdout shows what they miss.
+DEFAULT_RULES = [Rule(r["name"], r["pattern"], tuple(r["path"]), r.get("op", "list")) for r in SCENARIO.planner_rules]
