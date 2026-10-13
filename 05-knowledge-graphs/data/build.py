@@ -613,6 +613,9 @@ def main() -> None:
         for section in sections:
             lines += [f"## {section['title']} {{#{section['id']}}}", "", section["text"], ""]
         path.write_text("\n".join(lines), encoding="utf-8")
+    # Keep repeated prose attestations: the same fact can be stated in a
+    # device note and in a line-wide summary. Graph and metrics deduplicate
+    # by (subject, relation, object), while the gold JSON keeps both sources.
     all_edges.extend(links)
     MENTIONS.write_text(json.dumps(mention_data(notes, links, all_nodes), indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 

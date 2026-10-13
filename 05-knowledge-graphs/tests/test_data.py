@@ -1,8 +1,11 @@
 import json
 import re
+from collections import defaultdict
 from pathlib import Path
 
 import yaml
+from kglab.graph import Graph, from_json
+from kglab.metrics import triple_scores
 from kglab.parse import load_models
 from kglab.scenario import SCENARIO
 from kglab.world import World
@@ -224,6 +227,34 @@ def test_prose_edges_are_distributed_and_schema_is_used():
     for relation in {"serves_bay", "moves", "requires", "observed_by", "confirms", "stops", "next_step",
                      "incident_on", "raised", "fixed_by_method"}:
         assert counts.get(relation, 0) >= 2, (relation, counts)
+
+
+def test_repeated_prose_facts_keep_sources_but_score_once():
+    gold = json.loads((DATA / "gold.json").read_text(encoding="utf-8"))
+    by_triple: dict[tuple[str, str, str], list[str]] = defaultdict(list)
+    for edge in gold["edges"]:
+        if not edge["source"].startswith("models/") and edge["source"] != "line":
+            by_triple[(edge["s"], edge["r"], edge["o"])].append(edge["source"])
+
+    expected = {
+        ("alarm:conveyor/NoAirPressure", "stops", "assembly"): ["conveyor-alarms", "line-stops"],
+        ("cnc", "moves", "item:board"): ["cnc-route", "cnc-confirm"],
+        ("conveyor", "moves", "pallet:8"): ["conveyor-return-bays", "line-alternatives"],
+        ("qc/Inspection/Passed", "confirms", "mission:qc/inspect-pallet"): ["qc-route", "qc-result"],
+        ("rover1", "moves", "item:tray"): ["rover1-return-route", "line-alternatives"],
+        ("rover2", "moves", "item:board"): ["rover2-fixture-route", "line-alternatives"],
+    }
+    assert {triple: sources for triple, sources in by_triple.items() if len(sources) > 1} == expected
+
+    graph = from_json(gold)
+    assert len(graph.edges) == len(graph.triples())
+    for triple, sources in expected.items():
+        assert len(sources) == 2
+        for source in sources:
+            candidate = Graph()
+            candidate.add_triple(*triple, source)
+            score = triple_scores(candidate.triples(), {triple})["all"]
+            assert score.tp == score.predicted == score.gold == 1
 
 
 def test_manifest_budget():
