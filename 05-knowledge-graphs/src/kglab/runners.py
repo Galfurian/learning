@@ -138,7 +138,7 @@ def run_parse(parse_model: Callable[..., Graph], file: str) -> None:
     ui.show_note(f"{len(mine.nodes)} nodes (reference {len(ref.nodes)}), {len(mine.edges)} edges "
                  f"(reference {len(ref.edges)}) · same edges: precision {s.precision:.2f}, recall {s.recall:.2f}")
     links = len(link_triples(world.gold))
-    ui.show_note(f"Links between devices in the tree: {len(link_triples(mine))}. In the gold graph: {links}. "
+    ui.show_note(f"Links in the tree: {len(link_triples(mine))}. In the gold graph: {links} (distinct). "
                  f"The data models give the tree; the links are in the prose.")
 
 

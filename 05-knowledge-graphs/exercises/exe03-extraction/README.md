@@ -1,6 +1,7 @@
 # EXE03 — Extraction: from prose to mentions
 
-**Concept:** the links between devices are only in the prose. One request
+**Concept:** the links (which bay a device serves, which alarm stops it,
+which incident happened on it) are only in the prose. One request
 per chunk asks `qwen3:1.7b` for `(subject, relation, object)` triples. The
 JSON schema in Ollama's `format` field fixes the shape of the answer and,
 by default, lists the relations as an enum. The prompt holds the relations
@@ -53,7 +54,7 @@ here. Gold has 5 links in this chunk; the graph kept 3 of them and 1 wrong.
 uv run python exercises/exe03-extraction/exe03.py
 ```
 
-Measured on the 50 chunks (123 gold links):
+Measured on the 50 chunks (123 distinct gold links):
 
 | relation          | precision | recall |
 |-------------------|-----------|--------|

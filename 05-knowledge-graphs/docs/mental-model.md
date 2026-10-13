@@ -1,7 +1,8 @@
 # Mental model: knowledge graphs
 
 Numbers come from runs on the invented line of this unit (8 data models, 50
-prose chunks, 123 gold links between devices) and its dev set (40
+prose chunks, 123 distinct gold links; 129 statements, as
+6 facts are stated in two chunks) and its dev set (40
 questions), with `qwen3:1.7b` on a CPU-only laptop.
 
 ## 1. A fact is a typed triple with a source
@@ -20,7 +21,9 @@ possible and an error traceable.
 - **Tree edges** come from the data models (`contains`, `exposes_variable`,
   `exposes_method`, `has_parameter`, `returns`, `has_alarm`). A parser reads
   them: 320 nodes, 319 edges, precision and recall 1.00, no model.
-- **Link edges** connect devices (`serves_bay`, `moves`, `stops`,
+- **Link edges** connect the tree to the rest of the line: devices to bays
+  and items, alarms to devices, methods to conditions, incidents to devices
+  and alarms (`serves_bay`, `moves`, `stops`,
   `requires`, `observed_by`, `confirms`, `next_step`, `incident_on`,
   `raised`, `fixed_by_method`). The data models have none of them: 0 of 123.
   They are only in the prose, and an LLM must extract them.

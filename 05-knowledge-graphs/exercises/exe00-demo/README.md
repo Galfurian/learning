@@ -16,7 +16,7 @@ built   the same, on the parsed tree + the links extracted from the notes
 uv run python exercises/exe00-demo/exe00.py --inspect
 ```
 
-320 tree nodes, 50 prose chunks, 123 gold links, 40 dev questions.
+320 tree nodes, 50 prose chunks, 123 distinct gold links, 40 dev questions.
 
 ### 2. One question
 

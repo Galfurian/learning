@@ -14,8 +14,8 @@ over relations; the extraction is one JSON request per chunk.
 
 An invented production line: eight devices around a pallet conveyor loop (a
 conveyor, a vertical warehouse, two mobile robots, a board tester, an
-engraving cell, an assembly cell, a camera quality cell). Its shape follows a
-real lab line: every device has an OPC-UA-like data model (folders,
+engraving cell, an assembly cell, a camera quality cell). Its shape is inspired
+by a lab line: every device has an OPC-UA-like data model (folders,
 variables, methods, alarm flags), and the documents around it are prose
 (operation notes, a line note, an incident log).
 
@@ -23,9 +23,9 @@ The data models give a **tree** (what each device contains). They never say
 which bay a robot serves, which alarm stops which cell, or which incident
 happened where: those **links** are only in the prose.
 
-Everything that is specific to the line is in `data/scenario.json`: node
-types, relations (tree or link), the data model format, the prompt texts,
-the planner rules, the paths. The code in `src/kglab/` reads the scenario;
+`data/scenario.json` defines the schema and the pipeline configuration:
+node types, relations (tree or link), the data model format, the prompt
+texts, the planner rules, and the paths of the data files under `data/`. The code in `src/kglab/` reads the scenario;
 another domain is another JSON file (`KGLAB_SCENARIO=path/to/scenario.json`).
 
 ## What you will build
@@ -129,7 +129,7 @@ Continue with [exercises/README.md](exercises/README.md).
 │   ├── build.py            # writes the line, the gold graph and the mentions (deterministic)
 │   ├── line/models/*.yml   # 8 data models (tree)
 │   ├── line/notes/*.md     # 50 prose chunks (links)
-│   ├── gold.json           # the gold graph: 366 nodes, 123 links
+│   ├── gold.json           # the gold graph: 366 nodes, 123 distinct links (129 statements)
 │   ├── mentions.json       # surface forms of the entities, for EXE04
 │   ├── dev.json            # 40 dev questions
 │   └── holdout.json        # 20 holdout questions
@@ -143,6 +143,6 @@ Continue with [exercises/README.md](exercises/README.md).
 ## The key lesson
 
 A graph can only connect the facts that its extraction kept. The data models
-give the tree for free; the links between devices are in the prose, and each
+give the tree for free; the links (bays, items, alarms, incidents) are in the prose, and each
 one passes extraction, then resolution, before a query can follow it.
 Measure each stage apart.

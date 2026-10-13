@@ -17,7 +17,7 @@ is solved again: the three pipelines on the holdout.
 | #  | Folder                                    | You write                     | Concept |
 |----|-------------------------------------------|-------------------------------|---------|
 | 00 | [exe00-demo](exe00-demo/)                 | nothing                       | chunk RAG against a graph, on the same question |
-| 01 | [exe01-tree](exe01-tree/)                 | `parse_model(data, file, graph)` | the data model gives the tree; no links between devices |
+| 01 | [exe01-tree](exe01-tree/)                 | `parse_model(data, file, graph)` | the data model gives the tree; no links |
 | 02 | [exe02-follow](exe02-follow/)             | `follow(graph, start, relations)` | a query is a relation path; the tree alone cannot answer |
 | 03 | [exe03-extraction](exe03-extraction/)     | `parse_triples(raw)`          | LLM extraction with a JSON schema; precision and recall per relation |
 | 04 | [exe04-resolution](exe04-resolution/)     | `normalize`, `resolve`        | mentions to nodes; exact, normalized, ambiguous |

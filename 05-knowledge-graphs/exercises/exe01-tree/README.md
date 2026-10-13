@@ -3,7 +3,8 @@
 **Concept:** a data model is already a graph. Every device file holds
 folders, variables, methods and alarm flags; a parser turns them into nodes
 and typed edges, with no model and no errors. The same parser also shows
-what the data model does **not** hold: any edge between two devices.
+what the data model does **not** hold: any link from the tree to the rest of the line (bays,
+items, other devices, incidents).
 
 ## Task
 
@@ -45,7 +46,7 @@ reference. Measured with the reference solution:
 
 ### 3. What is missing
 
-The last line: links between devices in the tree **0**, in the gold graph
-**123**. The data models say what each device contains. Which bay a robot
+The last line: links in the tree **0**, in the gold graph **123**
+(distinct). The data models say what each device contains. Which bay a robot
 serves, which alarm stops which cell, which incident happened where: none of
 it is in the YAML. Those links are in the prose (EXE03).
