@@ -290,7 +290,7 @@ def prose() -> tuple[dict[str, list[dict[str, Any]]], list[dict[str, str]]]:
         ("warehouse", "serves_bay", "bay:1")])
     add("rovers.md", "rover1-return-route", "R-1 can collect a spare tray from the warehouse and return it to bay 1. It leaves the charging point only after the safety scanner is clear. The supervisor checks the mission name against the pallet label. If the scanner stays blocked, the rover waits; it does not push the pallet or enter the inspection cell.", [
         ("rover1", "moves", "item:tray"), ("rover1", "serves_bay", "bay:1")])
-    add("rovers.md", "rover2-fixture-route", "R-2 carries a board to the fixture station at bay 4 during a recovery cycle. The operator confirms the fixture is empty before sending the rover. A second trip is allowed only after the first result is recorded. The route is deliberately different from the normal delivery route, which makes the two rover notes easy to confuse.", [
+    add("rovers.md", "rover2-fixture-route", "R-2 carries a board to the fixture station at bay 4 during a recovery cycle. The operator confirms the fixture is empty before sending the rover. A second trip is allowed only after the first result is recorded. The recovery route returns through bay 4 before the pallet rejoins production.", [
         ("rover2", "moves", "item:board"), ("rover2", "serves_bay", "bay:4")])
     add("tester.md", "tester-fixture-return", "The Board Tester uses bay 3 for a fixture return. A technician removes the reference board, checks its serial number, and closes the clamp. The test recipe has a five-second settle time and a twenty-second measurement window. A board with a missing serial stays at the input station until the record is corrected.", [
         ("tester", "serves_bay", "bay:3")])

@@ -92,7 +92,7 @@
   "overlap": 0,
   "words_per_section": {
     "min": 33,
-    "mean": 47.8,
+    "mean": 47.7,
     "max": 61
   },
   "link_edges": 129,
