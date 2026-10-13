@@ -1,0 +1,64 @@
+device: assembly
+name: Assembly Cell
+kind: assembly PLC and arms
+cell: cell:assembly
+nodes:
+- folder: Status
+  description: Current device state.
+  children:
+  - variable: Busy
+    type: bool
+    initial: false
+    description: True while the current operation runs.
+  - variable: CurrentMission
+    type: string
+    initial: ''
+    description: Name of the active mission.
+  - variable: LastResult
+    type: string
+    initial: idle
+    description: Result of the last operation.
+- folder: Alarms
+  description: Assembly alarm flags.
+  children:
+  - variable: EmergencyStop
+    type: bool
+    initial: false
+    description: An emergency stop is active.
+  - variable: ScrewdriverFault
+    type: bool
+    initial: false
+    description: The screwdriver reports a fault.
+- method: ResetAlarms
+  description: Clears alarms after the cause is safe.
+  parameters:
+  - name: mask
+    type: string
+    description: Alarm group to clear.
+  returns:
+  - name: done
+    type: bool
+    description: True when the reset is accepted.
+- folder: Assembly
+  description: Assembly operations.
+  children:
+  - method: Assemble
+    description: Fits the covers to the board.
+    parameters:
+    - name: board
+      type: string
+      description: Board identifier.
+    returns:
+    - name: done
+      type: bool
+      description: True when assembled.
+  - method: Screw
+    description: Runs the screwdriver program.
+    parameters:
+    - name: program
+      type: string
+      description: Screwdriver program.
+    returns:
+    - name: done
+      type: bool
+      description: True when complete.

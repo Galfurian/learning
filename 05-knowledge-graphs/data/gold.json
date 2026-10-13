@@ -1,0 +1,2584 @@
+{
+  "nodes": [
+    {
+      "id": "line:main",
+      "type": "Line",
+      "name": "Main Line",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "cell:conveyor",
+      "type": "Cell",
+      "name": "Conveyor Cell",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "cell:warehouse",
+      "type": "Cell",
+      "name": "Warehouse Cell",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "cell:transport",
+      "type": "Cell",
+      "name": "Transport Cell",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "cell:test",
+      "type": "Cell",
+      "name": "Test Cell",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "cell:cnc",
+      "type": "Cell",
+      "name": "CNC Cell",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "cell:assembly",
+      "type": "Cell",
+      "name": "Assembly Cell",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "cell:qc",
+      "type": "Cell",
+      "name": "QC Cell",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "conveyor",
+      "type": "Device",
+      "name": "Loop Conveyor",
+      "aliases": [],
+      "props": {
+        "kind": "pallet conveyor",
+        "cell": "cell:conveyor"
+      }
+    },
+    {
+      "id": "conveyor/Status",
+      "type": "Folder",
+      "name": "Status",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "conveyor/Status/Busy",
+      "type": "Variable",
+      "name": "Busy",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "conveyor/Status/CurrentMission",
+      "type": "Variable",
+      "name": "CurrentMission",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "conveyor/Status/LastResult",
+      "type": "Variable",
+      "name": "LastResult",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "conveyor/Alarms",
+      "type": "Folder",
+      "name": "Alarms",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "conveyor/Alarms/NoAirPressure",
+      "type": "Variable",
+      "name": "NoAirPressure",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "alarm:conveyor/NoAirPressure",
+      "type": "Alarm",
+      "name": "NoAirPressure",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "conveyor/Alarms/EmergencyStop",
+      "type": "Variable",
+      "name": "EmergencyStop",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "alarm:conveyor/EmergencyStop",
+      "type": "Alarm",
+      "name": "EmergencyStop",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "conveyor/Alarms/MotorTrip",
+      "type": "Variable",
+      "name": "MotorTrip",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "alarm:conveyor/MotorTrip",
+      "type": "Alarm",
+      "name": "MotorTrip",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "conveyor/Alarms/RFIDFault",
+      "type": "Variable",
+      "name": "RFIDFault",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "alarm:conveyor/RFIDFault",
+      "type": "Alarm",
+      "name": "RFIDFault",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "conveyor/ResetAlarms",
+      "type": "Method",
+      "name": "ResetAlarms",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "conveyor/ResetAlarms/mask",
+      "type": "Parameter",
+      "name": "mask",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "conveyor/ResetAlarms/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "return": true
+      }
+    },
+    {
+      "id": "conveyor/MovePallet",
+      "type": "Method",
+      "name": "MovePallet",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "conveyor/MovePallet/pallet",
+      "type": "Parameter",
+      "name": "pallet",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "conveyor/MovePallet/bay",
+      "type": "Parameter",
+      "name": "bay",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "conveyor/MovePallet/accepted",
+      "type": "Variable",
+      "name": "accepted",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "return": true
+      }
+    },
+    {
+      "id": "warehouse",
+      "type": "Device",
+      "name": "Vertical Warehouse",
+      "aliases": [],
+      "props": {
+        "kind": "vertical warehouse",
+        "cell": "cell:warehouse"
+      }
+    },
+    {
+      "id": "warehouse/Status",
+      "type": "Folder",
+      "name": "Status",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "warehouse/Status/Busy",
+      "type": "Variable",
+      "name": "Busy",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "warehouse/Status/CurrentMission",
+      "type": "Variable",
+      "name": "CurrentMission",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "warehouse/Status/LastResult",
+      "type": "Variable",
+      "name": "LastResult",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "warehouse/Inventory",
+      "type": "Folder",
+      "name": "Inventory",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "warehouse/Inventory/TrayInBay",
+      "type": "Variable",
+      "name": "TrayInBay",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "warehouse/Inventory/StockReady",
+      "type": "Variable",
+      "name": "StockReady",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "warehouse/Alarms",
+      "type": "Folder",
+      "name": "Alarms",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "warehouse/Alarms/NoAirPressure",
+      "type": "Variable",
+      "name": "NoAirPressure",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "alarm:warehouse/NoAirPressure",
+      "type": "Alarm",
+      "name": "NoAirPressure",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "warehouse/Alarms/EmergencyStop",
+      "type": "Variable",
+      "name": "EmergencyStop",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "alarm:warehouse/EmergencyStop",
+      "type": "Alarm",
+      "name": "EmergencyStop",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "warehouse/Alarms/MotorTrip",
+      "type": "Variable",
+      "name": "MotorTrip",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "alarm:warehouse/MotorTrip",
+      "type": "Alarm",
+      "name": "MotorTrip",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "warehouse/Alarms/RFIDFault",
+      "type": "Variable",
+      "name": "RFIDFault",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "alarm:warehouse/RFIDFault",
+      "type": "Alarm",
+      "name": "RFIDFault",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "warehouse/ResetAlarms",
+      "type": "Method",
+      "name": "ResetAlarms",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "warehouse/ResetAlarms/mask",
+      "type": "Parameter",
+      "name": "mask",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "warehouse/ResetAlarms/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "return": true
+      }
+    },
+    {
+      "id": "warehouse/ExtractTray",
+      "type": "Method",
+      "name": "ExtractTray",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "warehouse/ExtractTray/tray",
+      "type": "Parameter",
+      "name": "tray",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "warehouse/ExtractTray/accepted",
+      "type": "Variable",
+      "name": "accepted",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "return": true
+      }
+    },
+    {
+      "id": "warehouse/SendBack",
+      "type": "Method",
+      "name": "SendBack",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "warehouse/SendBack/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "return": true
+      }
+    },
+    {
+      "id": "rover1",
+      "type": "Device",
+      "name": "Rover R-1",
+      "aliases": [
+        "the first rover",
+        "R-1"
+      ],
+      "props": {
+        "kind": "mobile robot",
+        "cell": "cell:transport"
+      }
+    },
+    {
+      "id": "rover1/Status",
+      "type": "Folder",
+      "name": "Status",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "rover1/Status/Busy",
+      "type": "Variable",
+      "name": "Busy",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "rover1/Status/CurrentMission",
+      "type": "Variable",
+      "name": "CurrentMission",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "rover1/Status/LastResult",
+      "type": "Variable",
+      "name": "LastResult",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "rover1/Motion",
+      "type": "Folder",
+      "name": "Motion",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "rover1/Motion/StartMission",
+      "type": "Method",
+      "name": "StartMission",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "rover1/Motion/StartMission/mission",
+      "type": "Parameter",
+      "name": "mission",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "rover1/Motion/StartMission/submitted",
+      "type": "Variable",
+      "name": "submitted",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "return": true
+      }
+    },
+    {
+      "id": "rover1/Motion/StopMission",
+      "type": "Method",
+      "name": "StopMission",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "rover1/Motion/StopMission/stopped",
+      "type": "Variable",
+      "name": "stopped",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "return": true
+      }
+    },
+    {
+      "id": "rover2",
+      "type": "Device",
+      "name": "Rover R-2",
+      "aliases": [
+        "the second rover",
+        "R-2"
+      ],
+      "props": {
+        "kind": "mobile robot",
+        "cell": "cell:transport"
+      }
+    },
+    {
+      "id": "rover2/Status",
+      "type": "Folder",
+      "name": "Status",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "rover2/Status/Busy",
+      "type": "Variable",
+      "name": "Busy",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "rover2/Status/CurrentMission",
+      "type": "Variable",
+      "name": "CurrentMission",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "rover2/Status/LastResult",
+      "type": "Variable",
+      "name": "LastResult",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "rover2/Motion",
+      "type": "Folder",
+      "name": "Motion",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "rover2/Motion/StartMission",
+      "type": "Method",
+      "name": "StartMission",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "rover2/Motion/StartMission/mission",
+      "type": "Parameter",
+      "name": "mission",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "rover2/Motion/StartMission/submitted",
+      "type": "Variable",
+      "name": "submitted",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "return": true
+      }
+    },
+    {
+      "id": "rover2/Motion/StopMission",
+      "type": "Method",
+      "name": "StopMission",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "rover2/Motion/StopMission/stopped",
+      "type": "Variable",
+      "name": "stopped",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "return": true
+      }
+    },
+    {
+      "id": "tester",
+      "type": "Device",
+      "name": "Board Tester",
+      "aliases": [],
+      "props": {
+        "kind": "test cell",
+        "cell": "cell:test"
+      }
+    },
+    {
+      "id": "tester/Status",
+      "type": "Folder",
+      "name": "Status",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "tester/Status/Busy",
+      "type": "Variable",
+      "name": "Busy",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "tester/Status/CurrentMission",
+      "type": "Variable",
+      "name": "CurrentMission",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "tester/Status/LastResult",
+      "type": "Variable",
+      "name": "LastResult",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "tester/Boards",
+      "type": "Folder",
+      "name": "Boards",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "tester/Boards/BoardIn",
+      "type": "Method",
+      "name": "BoardIn",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "tester/Boards/BoardIn/accepted",
+      "type": "Variable",
+      "name": "accepted",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "return": true
+      }
+    },
+    {
+      "id": "tester/Boards/RunTest",
+      "type": "Method",
+      "name": "RunTest",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "tester/Boards/RunTest/serial",
+      "type": "Parameter",
+      "name": "serial",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "tester/Boards/RunTest/started",
+      "type": "Variable",
+      "name": "started",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "return": true
+      }
+    },
+    {
+      "id": "tester/Boards/BoardOut",
+      "type": "Method",
+      "name": "BoardOut",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "tester/Boards/BoardOut/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "return": true
+      }
+    },
+    {
+      "id": "tester/Boards/TestPassed",
+      "type": "Variable",
+      "name": "TestPassed",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "cnc",
+      "type": "Device",
+      "name": "Engraving Cell",
+      "aliases": [],
+      "props": {
+        "kind": "CNC and arm",
+        "cell": "cell:cnc"
+      }
+    },
+    {
+      "id": "cnc/Status",
+      "type": "Folder",
+      "name": "Status",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "cnc/Status/Busy",
+      "type": "Variable",
+      "name": "Busy",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "cnc/Status/CurrentMission",
+      "type": "Variable",
+      "name": "CurrentMission",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "cnc/Status/LastResult",
+      "type": "Variable",
+      "name": "LastResult",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "cnc/Arm",
+      "type": "Folder",
+      "name": "Arm",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "cnc/Arm/AtPallet",
+      "type": "Variable",
+      "name": "AtPallet",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "cnc/Arm/PickBoard",
+      "type": "Method",
+      "name": "PickBoard",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "cnc/Arm/PickBoard/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "return": true
+      }
+    },
+    {
+      "id": "cnc/Arm/Engrave",
+      "type": "Method",
+      "name": "Engrave",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "cnc/Arm/Engrave/serial",
+      "type": "Parameter",
+      "name": "serial",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "cnc/Arm/Engrave/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "return": true
+      }
+    },
+    {
+      "id": "cnc/Arm/PlaceBoard",
+      "type": "Method",
+      "name": "PlaceBoard",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "cnc/Arm/PlaceBoard/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "return": true
+      }
+    },
+    {
+      "id": "assembly",
+      "type": "Device",
+      "name": "Assembly Cell",
+      "aliases": [],
+      "props": {
+        "kind": "assembly PLC and arms",
+        "cell": "cell:assembly"
+      }
+    },
+    {
+      "id": "assembly/Status",
+      "type": "Folder",
+      "name": "Status",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "assembly/Status/Busy",
+      "type": "Variable",
+      "name": "Busy",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "assembly/Status/CurrentMission",
+      "type": "Variable",
+      "name": "CurrentMission",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "assembly/Status/LastResult",
+      "type": "Variable",
+      "name": "LastResult",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "assembly/Alarms",
+      "type": "Folder",
+      "name": "Alarms",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "assembly/Alarms/EmergencyStop",
+      "type": "Variable",
+      "name": "EmergencyStop",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "alarm:assembly/EmergencyStop",
+      "type": "Alarm",
+      "name": "EmergencyStop",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "assembly/Alarms/ScrewdriverFault",
+      "type": "Variable",
+      "name": "ScrewdriverFault",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "alarm:assembly/ScrewdriverFault",
+      "type": "Alarm",
+      "name": "ScrewdriverFault",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "assembly/ResetAlarms",
+      "type": "Method",
+      "name": "ResetAlarms",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "assembly/ResetAlarms/mask",
+      "type": "Parameter",
+      "name": "mask",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "assembly/ResetAlarms/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "return": true
+      }
+    },
+    {
+      "id": "assembly/Assembly",
+      "type": "Folder",
+      "name": "Assembly",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "assembly/Assembly/Assemble",
+      "type": "Method",
+      "name": "Assemble",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "assembly/Assembly/Assemble/board",
+      "type": "Parameter",
+      "name": "board",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "assembly/Assembly/Assemble/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "return": true
+      }
+    },
+    {
+      "id": "assembly/Assembly/Screw",
+      "type": "Method",
+      "name": "Screw",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "assembly/Assembly/Screw/program",
+      "type": "Parameter",
+      "name": "program",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "assembly/Assembly/Screw/done",
+      "type": "Variable",
+      "name": "done",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "return": true
+      }
+    },
+    {
+      "id": "qc",
+      "type": "Device",
+      "name": "Camera Quality Cell",
+      "aliases": [],
+      "props": {
+        "kind": "camera quality control",
+        "cell": "cell:qc"
+      }
+    },
+    {
+      "id": "qc/Status",
+      "type": "Folder",
+      "name": "Status",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "qc/Status/Busy",
+      "type": "Variable",
+      "name": "Busy",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "qc/Status/CurrentMission",
+      "type": "Variable",
+      "name": "CurrentMission",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "qc/Status/LastResult",
+      "type": "Variable",
+      "name": "LastResult",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "qc/Inspection",
+      "type": "Folder",
+      "name": "Inspection",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "qc/Inspection/CheckPallet",
+      "type": "Method",
+      "name": "CheckPallet",
+      "aliases": [],
+      "props": {
+        "type": null
+      }
+    },
+    {
+      "id": "qc/Inspection/CheckPallet/pallet",
+      "type": "Parameter",
+      "name": "pallet",
+      "aliases": [],
+      "props": {
+        "type": "string"
+      }
+    },
+    {
+      "id": "qc/Inspection/CheckPallet/passed",
+      "type": "Variable",
+      "name": "passed",
+      "aliases": [],
+      "props": {
+        "type": "bool",
+        "return": true
+      }
+    },
+    {
+      "id": "qc/Inspection/Passed",
+      "type": "Variable",
+      "name": "Passed",
+      "aliases": [],
+      "props": {
+        "type": "bool"
+      }
+    },
+    {
+      "id": "qc/Inspection/ChecksTotal",
+      "type": "Variable",
+      "name": "ChecksTotal",
+      "aliases": [],
+      "props": {
+        "type": "number"
+      }
+    },
+    {
+      "id": "bay:1",
+      "type": "Bay",
+      "name": "Bay 1",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "bay:2",
+      "type": "Bay",
+      "name": "Bay 2",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "bay:3",
+      "type": "Bay",
+      "name": "Bay 3",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "bay:4",
+      "type": "Bay",
+      "name": "Bay 4",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "bay:5",
+      "type": "Bay",
+      "name": "Bay 5",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "pallet:7",
+      "type": "Pallet",
+      "name": "Pallet 7",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "item:board",
+      "type": "Item",
+      "name": "Board",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "item:cover",
+      "type": "Item",
+      "name": "Cover",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "item:cover-top",
+      "type": "Item",
+      "name": "Top cover",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "item:cover-bottom",
+      "type": "Item",
+      "name": "Bottom cover",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "item:tray",
+      "type": "Item",
+      "name": "Tray",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "mission:rover/deliver-board",
+      "type": "Mission",
+      "name": "Deliver board",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "mission:tester/board-test",
+      "type": "Mission",
+      "name": "Test board",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "mission:cnc/engrave-board",
+      "type": "Mission",
+      "name": "Engrave board",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "mission:assembly/fit-covers",
+      "type": "Mission",
+      "name": "Fit covers",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "mission:qc/inspect-pallet",
+      "type": "Mission",
+      "name": "Inspect pallet",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "cond:conveyor/ready",
+      "type": "Condition",
+      "name": "Conveyor ready",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "cond:warehouse/idle",
+      "type": "Condition",
+      "name": "Warehouse idle",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "cond:warehouse/stock-ready",
+      "type": "Condition",
+      "name": "Stock ready",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "cond:rover/idle",
+      "type": "Condition",
+      "name": "Rover idle",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "cond:tester/ready",
+      "type": "Condition",
+      "name": "Tester ready",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "cond:cnc/idle",
+      "type": "Condition",
+      "name": "CNC idle",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "cond:assembly/idle",
+      "type": "Condition",
+      "name": "Assembly idle",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "cond:assembly/screwdriver-ready",
+      "type": "Condition",
+      "name": "Screwdriver ready",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "cond:qc/idle",
+      "type": "Condition",
+      "name": "QC idle",
+      "aliases": [],
+      "props": {}
+    },
+    {
+      "id": "incident:2026-03-04-1",
+      "type": "Incident",
+      "name": "incident:2026-03-04-1",
+      "aliases": [],
+      "props": {
+        "date": "2026-03-04"
+      }
+    },
+    {
+      "id": "incident:2026-03-05-1",
+      "type": "Incident",
+      "name": "incident:2026-03-05-1",
+      "aliases": [],
+      "props": {
+        "date": "2026-03-05"
+      }
+    },
+    {
+      "id": "incident:2026-03-06-1",
+      "type": "Incident",
+      "name": "incident:2026-03-06-1",
+      "aliases": [],
+      "props": {
+        "date": "2026-03-06"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "s": "line:main",
+      "r": "contains",
+      "o": "cell:conveyor",
+      "source": "line"
+    },
+    {
+      "s": "line:main",
+      "r": "contains",
+      "o": "cell:warehouse",
+      "source": "line"
+    },
+    {
+      "s": "line:main",
+      "r": "contains",
+      "o": "cell:transport",
+      "source": "line"
+    },
+    {
+      "s": "line:main",
+      "r": "contains",
+      "o": "cell:test",
+      "source": "line"
+    },
+    {
+      "s": "line:main",
+      "r": "contains",
+      "o": "cell:cnc",
+      "source": "line"
+    },
+    {
+      "s": "line:main",
+      "r": "contains",
+      "o": "cell:assembly",
+      "source": "line"
+    },
+    {
+      "s": "line:main",
+      "r": "contains",
+      "o": "cell:qc",
+      "source": "line"
+    },
+    {
+      "s": "conveyor",
+      "r": "contains",
+      "o": "conveyor/Status",
+      "source": "models/conveyor.yml#Status"
+    },
+    {
+      "s": "conveyor/Status",
+      "r": "exposes_variable",
+      "o": "conveyor/Status/Busy",
+      "source": "models/conveyor.yml#Status/Busy"
+    },
+    {
+      "s": "conveyor/Status",
+      "r": "exposes_variable",
+      "o": "conveyor/Status/CurrentMission",
+      "source": "models/conveyor.yml#Status/CurrentMission"
+    },
+    {
+      "s": "conveyor/Status",
+      "r": "exposes_variable",
+      "o": "conveyor/Status/LastResult",
+      "source": "models/conveyor.yml#Status/LastResult"
+    },
+    {
+      "s": "conveyor",
+      "r": "contains",
+      "o": "conveyor/Alarms",
+      "source": "models/conveyor.yml#Alarms"
+    },
+    {
+      "s": "conveyor/Alarms",
+      "r": "exposes_variable",
+      "o": "conveyor/Alarms/NoAirPressure",
+      "source": "models/conveyor.yml#Alarms/NoAirPressure"
+    },
+    {
+      "s": "conveyor",
+      "r": "has_alarm",
+      "o": "alarm:conveyor/NoAirPressure",
+      "source": "models/conveyor.yml#Alarms/NoAirPressure"
+    },
+    {
+      "s": "conveyor/Alarms",
+      "r": "exposes_variable",
+      "o": "conveyor/Alarms/EmergencyStop",
+      "source": "models/conveyor.yml#Alarms/EmergencyStop"
+    },
+    {
+      "s": "conveyor",
+      "r": "has_alarm",
+      "o": "alarm:conveyor/EmergencyStop",
+      "source": "models/conveyor.yml#Alarms/EmergencyStop"
+    },
+    {
+      "s": "conveyor/Alarms",
+      "r": "exposes_variable",
+      "o": "conveyor/Alarms/MotorTrip",
+      "source": "models/conveyor.yml#Alarms/MotorTrip"
+    },
+    {
+      "s": "conveyor",
+      "r": "has_alarm",
+      "o": "alarm:conveyor/MotorTrip",
+      "source": "models/conveyor.yml#Alarms/MotorTrip"
+    },
+    {
+      "s": "conveyor/Alarms",
+      "r": "exposes_variable",
+      "o": "conveyor/Alarms/RFIDFault",
+      "source": "models/conveyor.yml#Alarms/RFIDFault"
+    },
+    {
+      "s": "conveyor",
+      "r": "has_alarm",
+      "o": "alarm:conveyor/RFIDFault",
+      "source": "models/conveyor.yml#Alarms/RFIDFault"
+    },
+    {
+      "s": "conveyor",
+      "r": "exposes_method",
+      "o": "conveyor/ResetAlarms",
+      "source": "models/conveyor.yml#ResetAlarms"
+    },
+    {
+      "s": "conveyor/ResetAlarms",
+      "r": "has_parameter",
+      "o": "conveyor/ResetAlarms/mask",
+      "source": "models/conveyor.yml#ResetAlarms"
+    },
+    {
+      "s": "conveyor/ResetAlarms",
+      "r": "returns",
+      "o": "conveyor/ResetAlarms/done",
+      "source": "models/conveyor.yml#ResetAlarms"
+    },
+    {
+      "s": "conveyor",
+      "r": "exposes_method",
+      "o": "conveyor/MovePallet",
+      "source": "models/conveyor.yml#MovePallet"
+    },
+    {
+      "s": "conveyor/MovePallet",
+      "r": "has_parameter",
+      "o": "conveyor/MovePallet/pallet",
+      "source": "models/conveyor.yml#MovePallet"
+    },
+    {
+      "s": "conveyor/MovePallet",
+      "r": "has_parameter",
+      "o": "conveyor/MovePallet/bay",
+      "source": "models/conveyor.yml#MovePallet"
+    },
+    {
+      "s": "conveyor/MovePallet",
+      "r": "returns",
+      "o": "conveyor/MovePallet/accepted",
+      "source": "models/conveyor.yml#MovePallet"
+    },
+    {
+      "s": "cell:conveyor",
+      "r": "contains",
+      "o": "conveyor",
+      "source": "line"
+    },
+    {
+      "s": "warehouse",
+      "r": "contains",
+      "o": "warehouse/Status",
+      "source": "models/warehouse.yml#Status"
+    },
+    {
+      "s": "warehouse/Status",
+      "r": "exposes_variable",
+      "o": "warehouse/Status/Busy",
+      "source": "models/warehouse.yml#Status/Busy"
+    },
+    {
+      "s": "warehouse/Status",
+      "r": "exposes_variable",
+      "o": "warehouse/Status/CurrentMission",
+      "source": "models/warehouse.yml#Status/CurrentMission"
+    },
+    {
+      "s": "warehouse/Status",
+      "r": "exposes_variable",
+      "o": "warehouse/Status/LastResult",
+      "source": "models/warehouse.yml#Status/LastResult"
+    },
+    {
+      "s": "warehouse",
+      "r": "contains",
+      "o": "warehouse/Inventory",
+      "source": "models/warehouse.yml#Inventory"
+    },
+    {
+      "s": "warehouse/Inventory",
+      "r": "exposes_variable",
+      "o": "warehouse/Inventory/TrayInBay",
+      "source": "models/warehouse.yml#Inventory/TrayInBay"
+    },
+    {
+      "s": "warehouse/Inventory",
+      "r": "exposes_variable",
+      "o": "warehouse/Inventory/StockReady",
+      "source": "models/warehouse.yml#Inventory/StockReady"
+    },
+    {
+      "s": "warehouse",
+      "r": "contains",
+      "o": "warehouse/Alarms",
+      "source": "models/warehouse.yml#Alarms"
+    },
+    {
+      "s": "warehouse/Alarms",
+      "r": "exposes_variable",
+      "o": "warehouse/Alarms/NoAirPressure",
+      "source": "models/warehouse.yml#Alarms/NoAirPressure"
+    },
+    {
+      "s": "warehouse",
+      "r": "has_alarm",
+      "o": "alarm:warehouse/NoAirPressure",
+      "source": "models/warehouse.yml#Alarms/NoAirPressure"
+    },
+    {
+      "s": "warehouse/Alarms",
+      "r": "exposes_variable",
+      "o": "warehouse/Alarms/EmergencyStop",
+      "source": "models/warehouse.yml#Alarms/EmergencyStop"
+    },
+    {
+      "s": "warehouse",
+      "r": "has_alarm",
+      "o": "alarm:warehouse/EmergencyStop",
+      "source": "models/warehouse.yml#Alarms/EmergencyStop"
+    },
+    {
+      "s": "warehouse/Alarms",
+      "r": "exposes_variable",
+      "o": "warehouse/Alarms/MotorTrip",
+      "source": "models/warehouse.yml#Alarms/MotorTrip"
+    },
+    {
+      "s": "warehouse",
+      "r": "has_alarm",
+      "o": "alarm:warehouse/MotorTrip",
+      "source": "models/warehouse.yml#Alarms/MotorTrip"
+    },
+    {
+      "s": "warehouse/Alarms",
+      "r": "exposes_variable",
+      "o": "warehouse/Alarms/RFIDFault",
+      "source": "models/warehouse.yml#Alarms/RFIDFault"
+    },
+    {
+      "s": "warehouse",
+      "r": "has_alarm",
+      "o": "alarm:warehouse/RFIDFault",
+      "source": "models/warehouse.yml#Alarms/RFIDFault"
+    },
+    {
+      "s": "warehouse",
+      "r": "exposes_method",
+      "o": "warehouse/ResetAlarms",
+      "source": "models/warehouse.yml#ResetAlarms"
+    },
+    {
+      "s": "warehouse/ResetAlarms",
+      "r": "has_parameter",
+      "o": "warehouse/ResetAlarms/mask",
+      "source": "models/warehouse.yml#ResetAlarms"
+    },
+    {
+      "s": "warehouse/ResetAlarms",
+      "r": "returns",
+      "o": "warehouse/ResetAlarms/done",
+      "source": "models/warehouse.yml#ResetAlarms"
+    },
+    {
+      "s": "warehouse",
+      "r": "exposes_method",
+      "o": "warehouse/ExtractTray",
+      "source": "models/warehouse.yml#ExtractTray"
+    },
+    {
+      "s": "warehouse/ExtractTray",
+      "r": "has_parameter",
+      "o": "warehouse/ExtractTray/tray",
+      "source": "models/warehouse.yml#ExtractTray"
+    },
+    {
+      "s": "warehouse/ExtractTray",
+      "r": "returns",
+      "o": "warehouse/ExtractTray/accepted",
+      "source": "models/warehouse.yml#ExtractTray"
+    },
+    {
+      "s": "warehouse",
+      "r": "exposes_method",
+      "o": "warehouse/SendBack",
+      "source": "models/warehouse.yml#SendBack"
+    },
+    {
+      "s": "warehouse/SendBack",
+      "r": "returns",
+      "o": "warehouse/SendBack/done",
+      "source": "models/warehouse.yml#SendBack"
+    },
+    {
+      "s": "cell:warehouse",
+      "r": "contains",
+      "o": "warehouse",
+      "source": "line"
+    },
+    {
+      "s": "rover1",
+      "r": "contains",
+      "o": "rover1/Status",
+      "source": "models/rover1.yml#Status"
+    },
+    {
+      "s": "rover1/Status",
+      "r": "exposes_variable",
+      "o": "rover1/Status/Busy",
+      "source": "models/rover1.yml#Status/Busy"
+    },
+    {
+      "s": "rover1/Status",
+      "r": "exposes_variable",
+      "o": "rover1/Status/CurrentMission",
+      "source": "models/rover1.yml#Status/CurrentMission"
+    },
+    {
+      "s": "rover1/Status",
+      "r": "exposes_variable",
+      "o": "rover1/Status/LastResult",
+      "source": "models/rover1.yml#Status/LastResult"
+    },
+    {
+      "s": "rover1",
+      "r": "contains",
+      "o": "rover1/Motion",
+      "source": "models/rover1.yml#Motion"
+    },
+    {
+      "s": "rover1/Motion",
+      "r": "exposes_method",
+      "o": "rover1/Motion/StartMission",
+      "source": "models/rover1.yml#Motion/StartMission"
+    },
+    {
+      "s": "rover1/Motion/StartMission",
+      "r": "has_parameter",
+      "o": "rover1/Motion/StartMission/mission",
+      "source": "models/rover1.yml#Motion/StartMission"
+    },
+    {
+      "s": "rover1/Motion/StartMission",
+      "r": "returns",
+      "o": "rover1/Motion/StartMission/submitted",
+      "source": "models/rover1.yml#Motion/StartMission"
+    },
+    {
+      "s": "rover1/Motion",
+      "r": "exposes_method",
+      "o": "rover1/Motion/StopMission",
+      "source": "models/rover1.yml#Motion/StopMission"
+    },
+    {
+      "s": "rover1/Motion/StopMission",
+      "r": "returns",
+      "o": "rover1/Motion/StopMission/stopped",
+      "source": "models/rover1.yml#Motion/StopMission"
+    },
+    {
+      "s": "cell:transport",
+      "r": "contains",
+      "o": "rover1",
+      "source": "line"
+    },
+    {
+      "s": "rover2",
+      "r": "contains",
+      "o": "rover2/Status",
+      "source": "models/rover2.yml#Status"
+    },
+    {
+      "s": "rover2/Status",
+      "r": "exposes_variable",
+      "o": "rover2/Status/Busy",
+      "source": "models/rover2.yml#Status/Busy"
+    },
+    {
+      "s": "rover2/Status",
+      "r": "exposes_variable",
+      "o": "rover2/Status/CurrentMission",
+      "source": "models/rover2.yml#Status/CurrentMission"
+    },
+    {
+      "s": "rover2/Status",
+      "r": "exposes_variable",
+      "o": "rover2/Status/LastResult",
+      "source": "models/rover2.yml#Status/LastResult"
+    },
+    {
+      "s": "rover2",
+      "r": "contains",
+      "o": "rover2/Motion",
+      "source": "models/rover2.yml#Motion"
+    },
+    {
+      "s": "rover2/Motion",
+      "r": "exposes_method",
+      "o": "rover2/Motion/StartMission",
+      "source": "models/rover2.yml#Motion/StartMission"
+    },
+    {
+      "s": "rover2/Motion/StartMission",
+      "r": "has_parameter",
+      "o": "rover2/Motion/StartMission/mission",
+      "source": "models/rover2.yml#Motion/StartMission"
+    },
+    {
+      "s": "rover2/Motion/StartMission",
+      "r": "returns",
+      "o": "rover2/Motion/StartMission/submitted",
+      "source": "models/rover2.yml#Motion/StartMission"
+    },
+    {
+      "s": "rover2/Motion",
+      "r": "exposes_method",
+      "o": "rover2/Motion/StopMission",
+      "source": "models/rover2.yml#Motion/StopMission"
+    },
+    {
+      "s": "rover2/Motion/StopMission",
+      "r": "returns",
+      "o": "rover2/Motion/StopMission/stopped",
+      "source": "models/rover2.yml#Motion/StopMission"
+    },
+    {
+      "s": "cell:transport",
+      "r": "contains",
+      "o": "rover2",
+      "source": "line"
+    },
+    {
+      "s": "tester",
+      "r": "contains",
+      "o": "tester/Status",
+      "source": "models/tester.yml#Status"
+    },
+    {
+      "s": "tester/Status",
+      "r": "exposes_variable",
+      "o": "tester/Status/Busy",
+      "source": "models/tester.yml#Status/Busy"
+    },
+    {
+      "s": "tester/Status",
+      "r": "exposes_variable",
+      "o": "tester/Status/CurrentMission",
+      "source": "models/tester.yml#Status/CurrentMission"
+    },
+    {
+      "s": "tester/Status",
+      "r": "exposes_variable",
+      "o": "tester/Status/LastResult",
+      "source": "models/tester.yml#Status/LastResult"
+    },
+    {
+      "s": "tester",
+      "r": "contains",
+      "o": "tester/Boards",
+      "source": "models/tester.yml#Boards"
+    },
+    {
+      "s": "tester/Boards",
+      "r": "exposes_method",
+      "o": "tester/Boards/BoardIn",
+      "source": "models/tester.yml#Boards/BoardIn"
+    },
+    {
+      "s": "tester/Boards/BoardIn",
+      "r": "returns",
+      "o": "tester/Boards/BoardIn/accepted",
+      "source": "models/tester.yml#Boards/BoardIn"
+    },
+    {
+      "s": "tester/Boards",
+      "r": "exposes_method",
+      "o": "tester/Boards/RunTest",
+      "source": "models/tester.yml#Boards/RunTest"
+    },
+    {
+      "s": "tester/Boards/RunTest",
+      "r": "has_parameter",
+      "o": "tester/Boards/RunTest/serial",
+      "source": "models/tester.yml#Boards/RunTest"
+    },
+    {
+      "s": "tester/Boards/RunTest",
+      "r": "returns",
+      "o": "tester/Boards/RunTest/started",
+      "source": "models/tester.yml#Boards/RunTest"
+    },
+    {
+      "s": "tester/Boards",
+      "r": "exposes_method",
+      "o": "tester/Boards/BoardOut",
+      "source": "models/tester.yml#Boards/BoardOut"
+    },
+    {
+      "s": "tester/Boards/BoardOut",
+      "r": "returns",
+      "o": "tester/Boards/BoardOut/done",
+      "source": "models/tester.yml#Boards/BoardOut"
+    },
+    {
+      "s": "tester/Boards",
+      "r": "exposes_variable",
+      "o": "tester/Boards/TestPassed",
+      "source": "models/tester.yml#Boards/TestPassed"
+    },
+    {
+      "s": "cell:test",
+      "r": "contains",
+      "o": "tester",
+      "source": "line"
+    },
+    {
+      "s": "cnc",
+      "r": "contains",
+      "o": "cnc/Status",
+      "source": "models/cnc.yml#Status"
+    },
+    {
+      "s": "cnc/Status",
+      "r": "exposes_variable",
+      "o": "cnc/Status/Busy",
+      "source": "models/cnc.yml#Status/Busy"
+    },
+    {
+      "s": "cnc/Status",
+      "r": "exposes_variable",
+      "o": "cnc/Status/CurrentMission",
+      "source": "models/cnc.yml#Status/CurrentMission"
+    },
+    {
+      "s": "cnc/Status",
+      "r": "exposes_variable",
+      "o": "cnc/Status/LastResult",
+      "source": "models/cnc.yml#Status/LastResult"
+    },
+    {
+      "s": "cnc",
+      "r": "contains",
+      "o": "cnc/Arm",
+      "source": "models/cnc.yml#Arm"
+    },
+    {
+      "s": "cnc/Arm",
+      "r": "exposes_variable",
+      "o": "cnc/Arm/AtPallet",
+      "source": "models/cnc.yml#Arm/AtPallet"
+    },
+    {
+      "s": "cnc/Arm",
+      "r": "exposes_method",
+      "o": "cnc/Arm/PickBoard",
+      "source": "models/cnc.yml#Arm/PickBoard"
+    },
+    {
+      "s": "cnc/Arm/PickBoard",
+      "r": "returns",
+      "o": "cnc/Arm/PickBoard/done",
+      "source": "models/cnc.yml#Arm/PickBoard"
+    },
+    {
+      "s": "cnc/Arm",
+      "r": "exposes_method",
+      "o": "cnc/Arm/Engrave",
+      "source": "models/cnc.yml#Arm/Engrave"
+    },
+    {
+      "s": "cnc/Arm/Engrave",
+      "r": "has_parameter",
+      "o": "cnc/Arm/Engrave/serial",
+      "source": "models/cnc.yml#Arm/Engrave"
+    },
+    {
+      "s": "cnc/Arm/Engrave",
+      "r": "returns",
+      "o": "cnc/Arm/Engrave/done",
+      "source": "models/cnc.yml#Arm/Engrave"
+    },
+    {
+      "s": "cnc/Arm",
+      "r": "exposes_method",
+      "o": "cnc/Arm/PlaceBoard",
+      "source": "models/cnc.yml#Arm/PlaceBoard"
+    },
+    {
+      "s": "cnc/Arm/PlaceBoard",
+      "r": "returns",
+      "o": "cnc/Arm/PlaceBoard/done",
+      "source": "models/cnc.yml#Arm/PlaceBoard"
+    },
+    {
+      "s": "cell:cnc",
+      "r": "contains",
+      "o": "cnc",
+      "source": "line"
+    },
+    {
+      "s": "assembly",
+      "r": "contains",
+      "o": "assembly/Status",
+      "source": "models/assembly.yml#Status"
+    },
+    {
+      "s": "assembly/Status",
+      "r": "exposes_variable",
+      "o": "assembly/Status/Busy",
+      "source": "models/assembly.yml#Status/Busy"
+    },
+    {
+      "s": "assembly/Status",
+      "r": "exposes_variable",
+      "o": "assembly/Status/CurrentMission",
+      "source": "models/assembly.yml#Status/CurrentMission"
+    },
+    {
+      "s": "assembly/Status",
+      "r": "exposes_variable",
+      "o": "assembly/Status/LastResult",
+      "source": "models/assembly.yml#Status/LastResult"
+    },
+    {
+      "s": "assembly",
+      "r": "contains",
+      "o": "assembly/Alarms",
+      "source": "models/assembly.yml#Alarms"
+    },
+    {
+      "s": "assembly/Alarms",
+      "r": "exposes_variable",
+      "o": "assembly/Alarms/EmergencyStop",
+      "source": "models/assembly.yml#Alarms/EmergencyStop"
+    },
+    {
+      "s": "assembly",
+      "r": "has_alarm",
+      "o": "alarm:assembly/EmergencyStop",
+      "source": "models/assembly.yml#Alarms/EmergencyStop"
+    },
+    {
+      "s": "assembly/Alarms",
+      "r": "exposes_variable",
+      "o": "assembly/Alarms/ScrewdriverFault",
+      "source": "models/assembly.yml#Alarms/ScrewdriverFault"
+    },
+    {
+      "s": "assembly",
+      "r": "has_alarm",
+      "o": "alarm:assembly/ScrewdriverFault",
+      "source": "models/assembly.yml#Alarms/ScrewdriverFault"
+    },
+    {
+      "s": "assembly",
+      "r": "exposes_method",
+      "o": "assembly/ResetAlarms",
+      "source": "models/assembly.yml#ResetAlarms"
+    },
+    {
+      "s": "assembly/ResetAlarms",
+      "r": "has_parameter",
+      "o": "assembly/ResetAlarms/mask",
+      "source": "models/assembly.yml#ResetAlarms"
+    },
+    {
+      "s": "assembly/ResetAlarms",
+      "r": "returns",
+      "o": "assembly/ResetAlarms/done",
+      "source": "models/assembly.yml#ResetAlarms"
+    },
+    {
+      "s": "assembly",
+      "r": "contains",
+      "o": "assembly/Assembly",
+      "source": "models/assembly.yml#Assembly"
+    },
+    {
+      "s": "assembly/Assembly",
+      "r": "exposes_method",
+      "o": "assembly/Assembly/Assemble",
+      "source": "models/assembly.yml#Assembly/Assemble"
+    },
+    {
+      "s": "assembly/Assembly/Assemble",
+      "r": "has_parameter",
+      "o": "assembly/Assembly/Assemble/board",
+      "source": "models/assembly.yml#Assembly/Assemble"
+    },
+    {
+      "s": "assembly/Assembly/Assemble",
+      "r": "returns",
+      "o": "assembly/Assembly/Assemble/done",
+      "source": "models/assembly.yml#Assembly/Assemble"
+    },
+    {
+      "s": "assembly/Assembly",
+      "r": "exposes_method",
+      "o": "assembly/Assembly/Screw",
+      "source": "models/assembly.yml#Assembly/Screw"
+    },
+    {
+      "s": "assembly/Assembly/Screw",
+      "r": "has_parameter",
+      "o": "assembly/Assembly/Screw/program",
+      "source": "models/assembly.yml#Assembly/Screw"
+    },
+    {
+      "s": "assembly/Assembly/Screw",
+      "r": "returns",
+      "o": "assembly/Assembly/Screw/done",
+      "source": "models/assembly.yml#Assembly/Screw"
+    },
+    {
+      "s": "cell:assembly",
+      "r": "contains",
+      "o": "assembly",
+      "source": "line"
+    },
+    {
+      "s": "qc",
+      "r": "contains",
+      "o": "qc/Status",
+      "source": "models/qc.yml#Status"
+    },
+    {
+      "s": "qc/Status",
+      "r": "exposes_variable",
+      "o": "qc/Status/Busy",
+      "source": "models/qc.yml#Status/Busy"
+    },
+    {
+      "s": "qc/Status",
+      "r": "exposes_variable",
+      "o": "qc/Status/CurrentMission",
+      "source": "models/qc.yml#Status/CurrentMission"
+    },
+    {
+      "s": "qc/Status",
+      "r": "exposes_variable",
+      "o": "qc/Status/LastResult",
+      "source": "models/qc.yml#Status/LastResult"
+    },
+    {
+      "s": "qc",
+      "r": "contains",
+      "o": "qc/Inspection",
+      "source": "models/qc.yml#Inspection"
+    },
+    {
+      "s": "qc/Inspection",
+      "r": "exposes_method",
+      "o": "qc/Inspection/CheckPallet",
+      "source": "models/qc.yml#Inspection/CheckPallet"
+    },
+    {
+      "s": "qc/Inspection/CheckPallet",
+      "r": "has_parameter",
+      "o": "qc/Inspection/CheckPallet/pallet",
+      "source": "models/qc.yml#Inspection/CheckPallet"
+    },
+    {
+      "s": "qc/Inspection/CheckPallet",
+      "r": "returns",
+      "o": "qc/Inspection/CheckPallet/passed",
+      "source": "models/qc.yml#Inspection/CheckPallet"
+    },
+    {
+      "s": "qc/Inspection",
+      "r": "exposes_variable",
+      "o": "qc/Inspection/Passed",
+      "source": "models/qc.yml#Inspection/Passed"
+    },
+    {
+      "s": "qc/Inspection",
+      "r": "exposes_variable",
+      "o": "qc/Inspection/ChecksTotal",
+      "source": "models/qc.yml#Inspection/ChecksTotal"
+    },
+    {
+      "s": "cell:qc",
+      "r": "contains",
+      "o": "qc",
+      "source": "line"
+    },
+    {
+      "s": "conveyor",
+      "r": "serves_bay",
+      "o": "bay:1",
+      "source": "conveyor-route"
+    },
+    {
+      "s": "conveyor",
+      "r": "serves_bay",
+      "o": "bay:2",
+      "source": "conveyor-route"
+    },
+    {
+      "s": "conveyor",
+      "r": "moves",
+      "o": "pallet:7",
+      "source": "conveyor-route"
+    },
+    {
+      "s": "conveyor/MovePallet",
+      "r": "requires",
+      "o": "cond:conveyor/ready",
+      "source": "conveyor-route"
+    },
+    {
+      "s": "cond:conveyor/ready",
+      "r": "observed_by",
+      "o": "conveyor/Status/Busy",
+      "source": "conveyor-route"
+    },
+    {
+      "s": "alarm:conveyor/NoAirPressure",
+      "r": "stops",
+      "o": "assembly",
+      "source": "conveyor-alarms"
+    },
+    {
+      "s": "alarm:conveyor/MotorTrip",
+      "r": "stops",
+      "o": "qc",
+      "source": "conveyor-alarms"
+    },
+    {
+      "s": "warehouse",
+      "r": "serves_bay",
+      "o": "bay:5",
+      "source": "warehouse-operations"
+    },
+    {
+      "s": "warehouse/ExtractTray",
+      "r": "requires",
+      "o": "cond:warehouse/idle",
+      "source": "warehouse-operations"
+    },
+    {
+      "s": "cond:warehouse/idle",
+      "r": "observed_by",
+      "o": "warehouse/Status/Busy",
+      "source": "warehouse-operations"
+    },
+    {
+      "s": "warehouse",
+      "r": "moves",
+      "o": "item:tray",
+      "source": "warehouse-operations"
+    },
+    {
+      "s": "warehouse/ResetAlarms",
+      "r": "requires",
+      "o": "cond:warehouse/stock-ready",
+      "source": "warehouse-reset"
+    },
+    {
+      "s": "cond:warehouse/stock-ready",
+      "r": "observed_by",
+      "o": "warehouse/Inventory/StockReady",
+      "source": "warehouse-reset"
+    },
+    {
+      "s": "rover1",
+      "r": "serves_bay",
+      "o": "bay:5",
+      "source": "rovers-missions"
+    },
+    {
+      "s": "rover1",
+      "r": "moves",
+      "o": "item:board",
+      "source": "rovers-missions"
+    },
+    {
+      "s": "rover1/Motion/StartMission",
+      "r": "requires",
+      "o": "cond:rover/idle",
+      "source": "rovers-missions"
+    },
+    {
+      "s": "cond:rover/idle",
+      "r": "observed_by",
+      "o": "rover1/Status/Busy",
+      "source": "rovers-missions"
+    },
+    {
+      "s": "rover2",
+      "r": "serves_bay",
+      "o": "bay:5",
+      "source": "rovers-missions"
+    },
+    {
+      "s": "rover1/Status/LastResult",
+      "r": "confirms",
+      "o": "mission:rover/deliver-board",
+      "source": "rovers-confirm"
+    },
+    {
+      "s": "rover2",
+      "r": "moves",
+      "o": "item:cover",
+      "source": "rovers-confirm"
+    },
+    {
+      "s": "tester",
+      "r": "serves_bay",
+      "o": "bay:2",
+      "source": "tester-route"
+    },
+    {
+      "s": "tester",
+      "r": "moves",
+      "o": "item:board",
+      "source": "tester-route"
+    },
+    {
+      "s": "tester/Boards/BoardIn",
+      "r": "requires",
+      "o": "cond:tester/ready",
+      "source": "tester-route"
+    },
+    {
+      "s": "cond:tester/ready",
+      "r": "observed_by",
+      "o": "tester/Status/Busy",
+      "source": "tester-route"
+    },
+    {
+      "s": "tester/Boards/TestPassed",
+      "r": "confirms",
+      "o": "mission:tester/board-test",
+      "source": "tester-result"
+    },
+    {
+      "s": "cnc",
+      "r": "serves_bay",
+      "o": "bay:3",
+      "source": "cnc-route"
+    },
+    {
+      "s": "cnc",
+      "r": "moves",
+      "o": "item:board",
+      "source": "cnc-route"
+    },
+    {
+      "s": "cnc/Arm/PickBoard",
+      "r": "requires",
+      "o": "cond:cnc/idle",
+      "source": "cnc-route"
+    },
+    {
+      "s": "cond:cnc/idle",
+      "r": "observed_by",
+      "o": "cnc/Status/Busy",
+      "source": "cnc-route"
+    },
+    {
+      "s": "cnc/Status/LastResult",
+      "r": "confirms",
+      "o": "mission:cnc/engrave-board",
+      "source": "cnc-confirm"
+    },
+    {
+      "s": "cnc",
+      "r": "moves",
+      "o": "item:board",
+      "source": "cnc-confirm"
+    },
+    {
+      "s": "assembly",
+      "r": "serves_bay",
+      "o": "bay:4",
+      "source": "assembly-route"
+    },
+    {
+      "s": "assembly",
+      "r": "moves",
+      "o": "item:cover-top",
+      "source": "assembly-route"
+    },
+    {
+      "s": "assembly",
+      "r": "moves",
+      "o": "item:cover-bottom",
+      "source": "assembly-route"
+    },
+    {
+      "s": "assembly/Assembly/Assemble",
+      "r": "requires",
+      "o": "cond:assembly/idle",
+      "source": "assembly-route"
+    },
+    {
+      "s": "cond:assembly/idle",
+      "r": "observed_by",
+      "o": "assembly/Status/Busy",
+      "source": "assembly-route"
+    },
+    {
+      "s": "assembly/Status/LastResult",
+      "r": "confirms",
+      "o": "mission:assembly/fit-covers",
+      "source": "assembly-confirm"
+    },
+    {
+      "s": "assembly/Assembly/Screw",
+      "r": "requires",
+      "o": "cond:assembly/screwdriver-ready",
+      "source": "assembly-confirm"
+    },
+    {
+      "s": "cond:assembly/screwdriver-ready",
+      "r": "observed_by",
+      "o": "assembly/Status/Busy",
+      "source": "assembly-confirm"
+    },
+    {
+      "s": "qc",
+      "r": "serves_bay",
+      "o": "bay:5",
+      "source": "qc-route"
+    },
+    {
+      "s": "qc/Inspection/CheckPallet",
+      "r": "requires",
+      "o": "cond:qc/idle",
+      "source": "qc-route"
+    },
+    {
+      "s": "cond:qc/idle",
+      "r": "observed_by",
+      "o": "qc/Status/Busy",
+      "source": "qc-route"
+    },
+    {
+      "s": "qc/Inspection/Passed",
+      "r": "confirms",
+      "o": "mission:qc/inspect-pallet",
+      "source": "qc-route"
+    },
+    {
+      "s": "qc/Inspection/Passed",
+      "r": "confirms",
+      "o": "mission:qc/inspect-pallet",
+      "source": "qc-result"
+    },
+    {
+      "s": "qc",
+      "r": "moves",
+      "o": "item:board",
+      "source": "qc-result"
+    },
+    {
+      "s": "bay:1",
+      "r": "next_step",
+      "o": "bay:2",
+      "source": "line-route"
+    },
+    {
+      "s": "bay:2",
+      "r": "next_step",
+      "o": "bay:3",
+      "source": "line-route"
+    },
+    {
+      "s": "bay:3",
+      "r": "next_step",
+      "o": "bay:4",
+      "source": "line-route"
+    },
+    {
+      "s": "bay:4",
+      "r": "next_step",
+      "o": "bay:5",
+      "source": "line-route"
+    },
+    {
+      "s": "alarm:assembly/EmergencyStop",
+      "r": "stops",
+      "o": "conveyor",
+      "source": "line-stops"
+    },
+    {
+      "s": "alarm:conveyor/EmergencyStop",
+      "r": "stops",
+      "o": "warehouse",
+      "source": "line-stops"
+    },
+    {
+      "s": "alarm:conveyor/NoAirPressure",
+      "r": "stops",
+      "o": "assembly",
+      "source": "line-stops"
+    },
+    {
+      "s": "incident:2026-03-04-1",
+      "r": "incident_on",
+      "o": "rover1",
+      "source": "incident-rover-alias"
+    },
+    {
+      "s": "incident:2026-03-04-1",
+      "r": "raised",
+      "o": "alarm:conveyor/RFIDFault",
+      "source": "incident-rover-alias"
+    },
+    {
+      "s": "incident:2026-03-04-1",
+      "r": "fixed_by_method",
+      "o": "rover1/Motion/StopMission",
+      "source": "incident-rover-alias"
+    },
+    {
+      "s": "incident:2026-03-05-1",
+      "r": "incident_on",
+      "o": "rover2",
+      "source": "incident-rover-second"
+    },
+    {
+      "s": "incident:2026-03-05-1",
+      "r": "raised",
+      "o": "alarm:assembly/ScrewdriverFault",
+      "source": "incident-rover-second"
+    },
+    {
+      "s": "incident:2026-03-05-1",
+      "r": "fixed_by_method",
+      "o": "rover2/Motion/StopMission",
+      "source": "incident-rover-second"
+    },
+    {
+      "s": "incident:2026-03-06-1",
+      "r": "raised",
+      "o": "alarm:conveyor/MotorTrip",
+      "source": "incident-ambiguous"
+    }
+  ],
+  "ambiguous": {
+    "the rover": [
+      "rover1",
+      "rover2"
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+device: qc
+name: Camera Quality Cell
+kind: camera quality control
+cell: cell:qc
+nodes:
+- folder: Status
+  description: Current device state.
+  children:
+  - variable: Busy
+    type: bool
+    initial: false
+    description: True while the current operation runs.
+  - variable: CurrentMission
+    type: string
+    initial: ''
+    description: Name of the active mission.
+  - variable: LastResult
+    type: string
+    initial: idle
+    description: Result of the last operation.
+- folder: Inspection
+  description: Pallet inspection operations.
+  children:
+  - method: CheckPallet
+    description: Checks the assembled pallet.
+    parameters:
+    - name: pallet
+      type: string
+      description: Pallet identifier.
+    returns:
+    - name: passed
+      type: bool
+      description: True when all checks pass.
+  - variable: Passed
+    type: bool
+    initial: false
+    description: Result of the last pallet inspection.
+  - variable: ChecksTotal
+    type: number
+    initial: 0
+    description: Number of completed inspections.

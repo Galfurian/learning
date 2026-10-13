@@ -1,0 +1,62 @@
+device: conveyor
+name: Loop Conveyor
+kind: pallet conveyor
+cell: cell:conveyor
+nodes:
+- folder: Status
+  description: Current device state.
+  children:
+  - variable: Busy
+    type: bool
+    initial: false
+    description: True while the current operation runs.
+  - variable: CurrentMission
+    type: string
+    initial: ''
+    description: Name of the active mission.
+  - variable: LastResult
+    type: string
+    initial: idle
+    description: Result of the last operation.
+- folder: Alarms
+  description: Alarm flags reported by the device.
+  children:
+  - variable: NoAirPressure
+    type: bool
+    initial: false
+    description: The air supply is below the safe level.
+  - variable: EmergencyStop
+    type: bool
+    initial: false
+    description: An emergency stop is active.
+  - variable: MotorTrip
+    type: bool
+    initial: false
+    description: The drive motor has tripped.
+  - variable: RFIDFault
+    type: bool
+    initial: false
+    description: A pallet RFID read failed.
+- method: ResetAlarms
+  description: Clears alarms after the cause is safe.
+  parameters:
+  - name: mask
+    type: string
+    description: Alarm group to clear.
+  returns:
+  - name: done
+    type: bool
+    description: True when the reset is accepted.
+- method: MovePallet
+  description: Moves one pallet to a bay.
+  parameters:
+  - name: pallet
+    type: string
+    description: Pallet identifier.
+  - name: bay
+    type: string
+    description: Destination bay.
+  returns:
+  - name: accepted
+    type: bool
+    description: True when the move is queued.

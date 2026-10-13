@@ -1,0 +1,51 @@
+device: tester
+name: Board Tester
+kind: test cell
+cell: cell:test
+nodes:
+- folder: Status
+  description: Current device state.
+  children:
+  - variable: Busy
+    type: bool
+    initial: false
+    description: True while the current operation runs.
+  - variable: CurrentMission
+    type: string
+    initial: ''
+    description: Name of the active mission.
+  - variable: LastResult
+    type: string
+    initial: idle
+    description: Result of the last operation.
+- folder: Boards
+  description: Board transfer and test operations.
+  children:
+  - method: BoardIn
+    description: Accepts a board at the input bay.
+    parameters: []
+    returns:
+    - name: accepted
+      type: bool
+      description: True when accepted.
+  - method: RunTest
+    description: Runs the board test.
+    parameters:
+    - name: serial
+      type: string
+      description: Board serial number.
+    returns:
+    - name: started
+      type: bool
+      description: True when the test starts.
+  - method: BoardOut
+    description: Releases a tested board.
+    parameters: []
+    returns:
+    - name: done
+      type: bool
+      description: True when released.
+  - variable: TestPassed
+    type: bool
+    initial: false
+    description: Result of the last board test.

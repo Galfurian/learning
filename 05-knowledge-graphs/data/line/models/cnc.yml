@@ -1,0 +1,51 @@
+device: cnc
+name: Engraving Cell
+kind: CNC and arm
+cell: cell:cnc
+nodes:
+- folder: Status
+  description: Current device state.
+  children:
+  - variable: Busy
+    type: bool
+    initial: false
+    description: True while the current operation runs.
+  - variable: CurrentMission
+    type: string
+    initial: ''
+    description: Name of the active mission.
+  - variable: LastResult
+    type: string
+    initial: idle
+    description: Result of the last operation.
+- folder: Arm
+  description: Arm and spindle operations.
+  children:
+  - variable: AtPallet
+    type: bool
+    initial: false
+    description: True when the arm is at the pallet.
+  - method: PickBoard
+    description: Picks a board from the pallet.
+    parameters: []
+    returns:
+    - name: done
+      type: bool
+      description: True when picked.
+  - method: Engrave
+    description: Engraves the board identifier.
+    parameters:
+    - name: serial
+      type: string
+      description: Board serial number.
+    returns:
+    - name: done
+      type: bool
+      description: True when engraving is complete.
+  - method: PlaceBoard
+    description: Places the board on the pallet.
+    parameters: []
+    returns:
+    - name: done
+      type: bool
+      description: True when placed.

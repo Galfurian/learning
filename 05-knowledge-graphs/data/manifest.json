@@ -1,0 +1,100 @@
+{
+  "seed": 5,
+  "documents": [
+    {
+      "path": "line/models/conveyor.yml",
+      "sections": 0,
+      "mode": "parse"
+    },
+    {
+      "path": "line/models/warehouse.yml",
+      "sections": 0,
+      "mode": "parse"
+    },
+    {
+      "path": "line/models/rover1.yml",
+      "sections": 0,
+      "mode": "parse"
+    },
+    {
+      "path": "line/models/rover2.yml",
+      "sections": 0,
+      "mode": "parse"
+    },
+    {
+      "path": "line/models/tester.yml",
+      "sections": 0,
+      "mode": "parse"
+    },
+    {
+      "path": "line/models/cnc.yml",
+      "sections": 0,
+      "mode": "parse"
+    },
+    {
+      "path": "line/models/assembly.yml",
+      "sections": 0,
+      "mode": "parse"
+    },
+    {
+      "path": "line/models/qc.yml",
+      "sections": 0,
+      "mode": "parse"
+    },
+    {
+      "path": "line/notes/conveyor.md",
+      "sections": 2,
+      "mode": "extract"
+    },
+    {
+      "path": "line/notes/warehouse.md",
+      "sections": 2,
+      "mode": "extract"
+    },
+    {
+      "path": "line/notes/rovers.md",
+      "sections": 2,
+      "mode": "extract"
+    },
+    {
+      "path": "line/notes/tester.md",
+      "sections": 2,
+      "mode": "extract"
+    },
+    {
+      "path": "line/notes/cnc.md",
+      "sections": 2,
+      "mode": "extract"
+    },
+    {
+      "path": "line/notes/assembly.md",
+      "sections": 2,
+      "mode": "extract"
+    },
+    {
+      "path": "line/notes/qc.md",
+      "sections": 2,
+      "mode": "extract"
+    },
+    {
+      "path": "line/notes/line.md",
+      "sections": 2,
+      "mode": "extract"
+    },
+    {
+      "path": "line/notes/incidents.md",
+      "sections": 3,
+      "mode": "extract"
+    }
+  ],
+  "prose_chunks": 19,
+  "chunk_size": 120,
+  "overlap": 0,
+  "words_per_section": {
+    "min": 9,
+    "mean": 18.6,
+    "max": 31
+  },
+  "link_edges": 59,
+  "estimated_extraction_seconds": null
+}

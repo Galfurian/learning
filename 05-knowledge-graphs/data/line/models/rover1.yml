@@ -1,0 +1,40 @@
+device: rover1
+name: Rover R-1
+kind: mobile robot
+cell: cell:transport
+nodes:
+- folder: Status
+  description: Current device state.
+  children:
+  - variable: Busy
+    type: bool
+    initial: false
+    description: True while the current operation runs.
+  - variable: CurrentMission
+    type: string
+    initial: ''
+    description: Name of the active mission.
+  - variable: LastResult
+    type: string
+    initial: idle
+    description: Result of the last operation.
+- folder: Motion
+  description: Motion commands.
+  children:
+  - method: StartMission
+    description: Starts a named delivery mission.
+    parameters:
+    - name: mission
+      type: string
+      description: Mission identifier.
+    returns:
+    - name: submitted
+      type: bool
+      description: True when accepted.
+  - method: StopMission
+    description: Stops the active delivery mission.
+    parameters: []
+    returns:
+    - name: stopped
+      type: bool
+      description: True when stopped.
