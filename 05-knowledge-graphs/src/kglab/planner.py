@@ -90,7 +90,9 @@ def plan_messages(question: str) -> list[dict[str, str]]:
     relations = "\n".join(f"- {r.name}: {' or '.join(r.subject)} -> {' or '.join(r.object)}: {r.meaning}"
                           for r in SCENARIO.relations.values())
     return [
-        {"role": "system", "content": PLAN_PROMPT.format(domain=SCENARIO.generation["domain"], relations=relations)},
+        {"role": "system", "content": PLAN_PROMPT.format(domain=SCENARIO.generation["domain"], relations=relations)
+         + "".join(f"\n\nExample question: {x['question']}\nExample plan: {json.dumps(x['plan'])}"
+                   for x in SCENARIO.planner_examples)},
         {"role": "user", "content": question},
     ]
 

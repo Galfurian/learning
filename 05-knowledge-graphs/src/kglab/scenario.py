@@ -47,6 +47,7 @@ class Scenario:
     extraction: dict[str, Any]
     generation: dict[str, str]
     planner_rules: list[dict[str, Any]] = field(default_factory=list)
+    planner_examples: list[dict[str, Any]] = field(default_factory=list)
 
     def path(self, key: str) -> Path:
         return self.folder / self.paths[key]
@@ -81,6 +82,7 @@ def parse_scenario(data: dict[str, Any], folder: Path) -> Scenario:
         owned_types=tuple(data.get("owned_types", [])), owner_type=data.get("owner_type", types[0]),
         relations=relations, data_model=dict(data["data_model"]), extraction=dict(data["extraction"]),
         generation=dict(data["generation"]), planner_rules=list(data.get("planner_rules", [])),
+        planner_examples=list(data.get("planner_examples", [])),
     )
 
 

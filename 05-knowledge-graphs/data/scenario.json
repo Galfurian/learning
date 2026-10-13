@@ -503,5 +503,44 @@
   "Alarm",
   "Condition"
  ],
- "owner_type": "Device"
+ "owner_type": "Device",
+ "planner_examples": [
+  {
+   "question": "Which devices serve bay 9?",
+   "plan": {
+    "start": [
+     "bay 9"
+    ],
+    "path": [
+     "^serves_bay"
+    ],
+    "op": "list"
+   }
+  },
+  {
+   "question": "How many parameters does the Stamp method of Press P-4 take?",
+   "plan": {
+    "start": [
+     "Stamp"
+    ],
+    "path": [
+     "has_parameter"
+    ],
+    "op": "count"
+   }
+  },
+  {
+   "question": "Which variable observes the condition that Stamp requires?",
+   "plan": {
+    "start": [
+     "Stamp"
+    ],
+    "path": [
+     "requires",
+     "observed_by"
+    ],
+    "op": "list"
+   }
+  }
+ ]
 }
