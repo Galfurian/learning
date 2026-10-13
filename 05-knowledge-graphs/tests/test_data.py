@@ -4,6 +4,8 @@ from pathlib import Path
 
 import yaml
 from kglab.parse import load_models
+from kglab.scenario import SCENARIO
+from kglab.world import World
 
 
 ROOT = Path(__file__).parents[1]
@@ -67,6 +69,23 @@ def test_gold_node_ids_are_unique_and_sources_exist():
         assert source in chunks, source
 
 
+def test_gold_graph_matches_the_scenario_contract():
+    gold = json.loads((DATA / "gold.json").read_text(encoding="utf-8"))
+    node_by_id = {node["id"]: node for node in gold["nodes"]}
+    allowed_types = set(SCENARIO.node_types)
+    assert all(node["type"] in allowed_types for node in gold["nodes"])
+    for edge in gold["edges"]:
+        assert edge["r"] in SCENARIO.relations
+        relation = SCENARIO.relations[edge["r"]]
+        assert node_by_id[edge["s"]]["type"] in relation.subject
+        assert node_by_id[edge["o"]]["type"] in relation.object
+
+    expected_glossary = {
+        node["id"] for node in gold["nodes"] if node["type"] in SCENARIO.glossary_types
+    }
+    assert {node.id for node in World().glossary} == expected_glossary
+
+
 def test_prose_uses_human_mentions_not_graph_ids():
     text = "\n".join(sections().values())
     gold = json.loads((DATA / "gold.json").read_text(encoding="utf-8"))
@@ -122,7 +141,7 @@ def test_glossary_mentions_are_present_in_link_sources():
 
 
 def test_exercise_mentions_are_present_in_their_chunks():
-    mentions = json.loads((DATA / "mentions.json").read_text(encoding="utf-8"))
+    mentions = json.loads(SCENARIO.path("mentions").read_text(encoding="utf-8"))
     chunks = sections()
     gold = json.loads((DATA / "gold.json").read_text(encoding="utf-8"))
     node_ids = {node["id"] for node in gold["nodes"]}
@@ -139,7 +158,7 @@ def test_exercise_mentions_are_present_in_their_chunks():
 
 
 def test_each_prose_edge_endpoint_has_a_surface_mention():
-    mentions = json.loads((DATA / "mentions.json").read_text(encoding="utf-8"))
+    mentions = json.loads(SCENARIO.path("mentions").read_text(encoding="utf-8"))
     covered = {(item["chunk"], item["node"]) for item in mentions}
     gold = json.loads((DATA / "gold.json").read_text(encoding="utf-8"))
     for edge in gold["edges"]:

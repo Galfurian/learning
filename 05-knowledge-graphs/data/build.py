@@ -14,6 +14,7 @@ from pathlib import Path
 from typing import Any
 
 import yaml
+from kglab.scenario import SCENARIO
 
 
 ROOT = Path(__file__).resolve().parent
@@ -21,7 +22,7 @@ MODELS = ROOT / "line" / "models"
 NOTES = ROOT / "line" / "notes"
 GOLD = ROOT / "gold.json"
 MANIFEST = ROOT / "manifest.json"
-MENTIONS = ROOT / "mentions.json"
+MENTIONS = SCENARIO.path("mentions")
 SEED = 5
 
 
