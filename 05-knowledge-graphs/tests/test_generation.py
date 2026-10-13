@@ -21,7 +21,7 @@ def test_facts_context_numbers_and_sources():
     g = graph()
     ctx = facts_context(g, g.edges + g.edges[:1])
     assert ctx.ids == ["f1", "f2"]
-    assert ctx.text.splitlines()[0] == "[f1] Rover R-1 (rover1) serves_bay Bay 5 (bay:5)"
+    assert ctx.text.splitlines()[0] == "[f1] Rover R-1 serves Bay 5"
     assert ctx.sources == {"f1": "rovers-missions", "f2": "rovers-missions"}
 
 

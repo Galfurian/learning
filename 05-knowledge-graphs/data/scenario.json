@@ -49,7 +49,8 @@
     "Device",
     "Folder"
    ],
-   "meaning": "the line, a cell, a device or a folder holds it"
+   "meaning": "the line, a cell, a device or a folder holds it",
+   "phrase": "{s} contains {o}"
   },
   "exposes_variable": {
    "kind": "tree",
@@ -60,7 +61,8 @@
    "object": [
     "Variable"
    ],
-   "meaning": "the device or folder exposes that variable"
+   "meaning": "the device or folder exposes that variable",
+   "phrase": "{s} exposes the variable {o}"
   },
   "exposes_method": {
    "kind": "tree",
@@ -71,7 +73,8 @@
    "object": [
     "Method"
    ],
-   "meaning": "the device or folder exposes that method"
+   "meaning": "the device or folder exposes that method",
+   "phrase": "{s} exposes the method {o}"
   },
   "has_parameter": {
    "kind": "tree",
@@ -81,7 +84,8 @@
    "object": [
     "Parameter"
    ],
-   "meaning": "the method takes that input parameter"
+   "meaning": "the method takes that input parameter",
+   "phrase": "{s} takes the parameter {o}"
   },
   "returns": {
    "kind": "tree",
@@ -91,7 +95,8 @@
    "object": [
     "Variable"
    ],
-   "meaning": "the method returns that variable"
+   "meaning": "the method returns that variable",
+   "phrase": "{s} returns {o}"
   },
   "has_alarm": {
    "kind": "tree",
@@ -101,7 +106,8 @@
    "object": [
     "Alarm"
    ],
-   "meaning": "the device can raise that alarm"
+   "meaning": "the device can raise that alarm",
+   "phrase": "{s} has the alarm {o}"
   },
   "serves_bay": {
    "kind": "link",
@@ -111,7 +117,8 @@
    "object": [
     "Bay"
    ],
-   "meaning": "the device loads or unloads pallets at that conveyor bay"
+   "meaning": "the device loads or unloads pallets at that conveyor bay",
+   "phrase": "{s} serves {o}"
   },
   "next_step": {
    "kind": "link",
@@ -121,7 +128,8 @@
    "object": [
     "Bay"
    ],
-   "meaning": "on the route, pallets go from the first bay to the second"
+   "meaning": "on the route, pallets go from the first bay to the second",
+   "phrase": "on the route, {s} is followed by {o}"
   },
   "moves": {
    "kind": "link",
@@ -132,7 +140,8 @@
     "Item",
     "Pallet"
    ],
-   "meaning": "the device carries or handles that item or pallet"
+   "meaning": "the device carries or handles that item or pallet",
+   "phrase": "{s} moves {o}"
   },
   "stops": {
    "kind": "link",
@@ -142,7 +151,8 @@
    "object": [
     "Device"
    ],
-   "meaning": "when the alarm is active, the device stops"
+   "meaning": "when the alarm is active, the device stops",
+   "phrase": "{s} stops {o}"
   },
   "confirms": {
    "kind": "link",
@@ -153,7 +163,8 @@
     "Mission",
     "Method"
    ],
-   "meaning": "the variable reports the result of that mission or method"
+   "meaning": "the variable reports the result of that mission or method",
+   "phrase": "{s} confirms {o}"
   },
   "requires": {
    "kind": "link",
@@ -163,7 +174,8 @@
    "object": [
     "Condition"
    ],
-   "meaning": "the method runs only when the condition is true"
+   "meaning": "the method runs only when the condition is true",
+   "phrase": "{s} requires {o}"
   },
   "observed_by": {
    "kind": "link",
@@ -173,7 +185,8 @@
    "object": [
     "Variable"
    ],
-   "meaning": "the variable tells whether the condition is true"
+   "meaning": "the variable tells whether the condition is true",
+   "phrase": "{s} is observed by {o}"
   },
   "incident_on": {
    "kind": "link",
@@ -183,7 +196,8 @@
    "object": [
     "Device"
    ],
-   "meaning": "the incident happened on that device"
+   "meaning": "the incident happened on that device",
+   "phrase": "{s} happened on {o}"
   },
   "raised": {
    "kind": "link",
@@ -193,7 +207,8 @@
    "object": [
     "Alarm"
    ],
-   "meaning": "the incident raised that alarm"
+   "meaning": "the incident raised that alarm",
+   "phrase": "{s} raised {o}"
   },
   "fixed_by_method": {
    "kind": "link",
@@ -203,7 +218,8 @@
    "object": [
     "Method"
    ],
-   "meaning": "calling that method fixed the incident"
+   "meaning": "calling that method fixed the incident",
+   "phrase": "{s} was fixed by {o}"
   }
  },
  "data_model": {
@@ -461,5 +477,13 @@
    ],
    "op": "list"
   }
+ ],
+ "owned_types": [
+  "Folder",
+  "Variable",
+  "Method",
+  "Parameter",
+  "Alarm",
+  "Condition"
  ]
 }

@@ -9,7 +9,7 @@ from kglab.runners import run_facts
 
 # TODO: turn graph edges into a compact Context for the answer generator.
 # - write one numbered line per unique (subject, relation, object): [f1] ...;
-# - use graph node names and ids as in generation.fact_line();
+# - write each fact with kglab.generation.fact_line(graph, edge): a sentence from the scenario's phrase;
 # - keep sources as {fact_id: edge.source};
 # - stop when the estimated token budget would be exceeded and count dropped edges;
 # - return a kglab.generation.Context.

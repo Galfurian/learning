@@ -29,6 +29,7 @@ class Relation:
     subject: tuple[str, ...]
     object: tuple[str, ...]
     meaning: str
+    phrase: str = "{s} {relation} {o}"   # how a fact reads in the generator's context
 
 
 @dataclass(frozen=True)
@@ -39,6 +40,7 @@ class Scenario:
     node_types: tuple[str, ...]
     glossary_types: tuple[str, ...]
     owner_pattern: str              # regex; group 1 of a node id is the id of the node that owns it
+    owned_types: tuple[str, ...]    # types named with their owner in a fact: "Busy of Rover R-1"
     relations: dict[str, Relation]
     data_model: dict[str, Any]
     extraction: dict[str, Any]
@@ -56,7 +58,8 @@ def parse_scenario(data: dict[str, Any], folder: Path) -> Scenario:
     types = tuple(data["node_types"])
     relations = {}
     for name, r in data["relations"].items():
-        rel = Relation(name, r["kind"], tuple(r["subject"]), tuple(r["object"]), r["meaning"])
+        rel = Relation(name, r["kind"], tuple(r["subject"]), tuple(r["object"]), r["meaning"],
+                       r.get("phrase", "{s} {relation} {o}"))
         if rel.kind not in ("tree", "link"):
             raise ValueError(f"relation {name}: kind must be 'tree' or 'link', not {rel.kind!r}")
         unknown = [t for t in (*rel.subject, *rel.object) if t not in types]
@@ -69,6 +72,7 @@ def parse_scenario(data: dict[str, Any], folder: Path) -> Scenario:
     return Scenario(
         name=data["name"], folder=folder, paths=dict(data["paths"]), node_types=types,
         glossary_types=tuple(data.get("glossary_types", [])), owner_pattern=data["owner_pattern"],
+        owned_types=tuple(data.get("owned_types", [])),
         relations=relations, data_model=dict(data["data_model"]), extraction=dict(data["extraction"]),
         generation=dict(data["generation"]), planner_rules=list(data.get("planner_rules", [])),
     )

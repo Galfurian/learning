@@ -54,15 +54,29 @@ def chunk_context(chunks: Sequence[Chunk], budget: int = DEFAULT_BUDGET) -> Cont
     return Context(ids, text, estimate_tokens(text), {i: i for i in ids}, dropped)
 
 
+def owner_of(node_id: str) -> str:
+    m = re.match(SCENARIO.owner_pattern, node_id)
+    return m.group(1) if m else node_id
+
+
 def label(graph: Graph, node_id: str) -> str:
+    """A name a reader knows: "Busy of Rover R-1", not "rover1/Status/Busy". Ids stay out of the text."""
     node = graph.nodes.get(node_id)
-    if node is None or not node.name or node.name == node_id:
+    if node is None:
         return node_id
-    return f"{node.name} ({node_id})"
+    name = node.name or node_id
+    if node.type in SCENARIO.owned_types:
+        owner = graph.nodes.get(owner_of(node_id))
+        if owner is not None and owner.id != node_id:
+            return f"{name} of {owner.name or owner.id}"
+    return name
 
 
 def fact_line(graph: Graph, edge: Edge) -> str:
-    return f"{label(graph, edge.s)} {edge.r} {label(graph, edge.o)}"
+    """One fact as a sentence, with the relation's phrase from the scenario."""
+    relation = SCENARIO.relations.get(edge.r)
+    phrase = relation.phrase if relation else "{s} {relation} {o}"
+    return phrase.format(s=label(graph, edge.s), o=label(graph, edge.o), relation=edge.r)
 
 
 def facts_context(graph: Graph, edges: Sequence[Edge], budget: int = DEFAULT_BUDGET) -> Context:
@@ -174,9 +188,12 @@ def score_answer(answer: str, question: Question, graph: Graph) -> AnswerScore:
     missing = [g for g in question.gold_answers if g not in found]
     types = {graph.nodes[g].type for g in question.gold_answers if g in graph.nodes}
     # "Busy" names the Busy flag of every device: a node that shares a name with a gold node is not extra.
+    # Nor are the question's own entities and their owners, which an answer may repeat.
+    starts = set(question.gold_path.start) if question.gold_path else set()
+    allowed = set(question.gold_answers) | starts | {owner_of(s) for s in starts}
     gold_names = {x.lower() for g in question.gold_answers for x in names_of(graph, g)}
     extra = [n.id for n in graph.nodes.values()
-             if n.type in types and n.id not in question.gold_answers
+             if n.type in types and n.id not in allowed
              and not gold_names & {x.lower() for x in names_of(graph, n.id)} and mentioned(answer, graph, n.id)]
     if question.count is not None:
         count_ok = re.search(rf"(?<!\d){question.count}(?!\d)", answer) is not None

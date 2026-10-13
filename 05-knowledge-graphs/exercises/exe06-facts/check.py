@@ -1,5 +1,5 @@
 from kglab.checks import run_checks
-from kglab.generation import estimate_tokens
+from kglab.generation import estimate_tokens, fact_line
 from kglab.graph import Graph, Node
 
 
@@ -19,10 +19,8 @@ def checks(exe, check):
     if not done:
         return
     check.ok(out.ids == ["f1", "f2"], "unique facts get consecutive ids", out.ids)
-    check.ok(out.text.splitlines() == [
-        "[f1] Rover R-1 (rover1) serves_bay Bay 5 (bay:5)",
-        "[f2] Rover R-2 (rover2) serves_bay Bay 5 (bay:5)",
-    ], "facts use readable labels and relation names", out.text)
+    want = [f"[f{i}] {fact_line(g, e)}" for i, e in enumerate(g.edges, start=1)]
+    check.ok(out.text.splitlines() == want, "one line per fact: its id, then fact_line()", out.text)
     check.ok(out.sources == {"f1": "rovers-missions", "f2": "rovers-missions"},
              "sources point from fact id to edge source", out.sources)
     check.ok(out.tokens == estimate_tokens(out.text), "tokens describe the context text", out.tokens)
