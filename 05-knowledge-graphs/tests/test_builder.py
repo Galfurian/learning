@@ -47,3 +47,9 @@ def test_bare_type_word_means_the_one_in_the_chunk():
     r = Linker(g).resolve("The incident", ("Incident",), "On 4 March, R-1 stopped.")
     assert (r.node, r.level) == ("incident:2026-03-04-1", "chunk")
     assert Linker(g).resolve("The incident", ("Incident",), "R-1 stopped.").node is None
+
+
+def test_backwards_triple_is_repaired_by_the_types():
+    chunk = Chunk("c1", "c1", "Rovers", "Missions", "R-1 serves bay 5.")
+    g, report = build(tree(), GLOSSARY, [chunk], {"c1": Extraction([Mention("bay 5", "serves_bay", "R-1")])})
+    assert ("rover1", "serves_bay", "bay:5") in g.triples() and report.reversed == 1

@@ -41,7 +41,9 @@ def parse_model(data: dict[str, Any], file: str, graph: Graph | None = None) -> 
     graph = graph if graph is not None else Graph()
     device = data["device"]
     graph.add_node(Node(LINE, FORMAT["root_type"], FORMAT["root_name"]))
-    graph.add_node(Node(device, "Device", data.get("name", device), props={"kind": data.get("kind", "")}))
+    # Short names come from the asset register (the `aliases` key), not from the OPC-UA tree.
+    graph.add_node(Node(device, "Device", data.get("name", device), list(data.get("aliases", [])),
+                        props={"kind": data.get("kind", "")}))
     if data.get("cell"):
         cell = cell_id(data["cell"])
         graph.add_node(Node(cell, "Cell", data["cell"]))

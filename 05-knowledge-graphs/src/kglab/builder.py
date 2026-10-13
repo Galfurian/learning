@@ -101,6 +101,7 @@ class BuildReport:
     mentions: int = 0
     kept: int = 0
     invalid: int = 0                      # out of schema or not parseable (extract.py)
+    reversed: int = 0                     # kept after swapping subject and object
     unresolved: Counter = field(default_factory=Counter)   # by level: none, ambiguous
     levels: Counter = field(default_factory=Counter)       # resolution level of each kept end
     dropped: list[tuple[str, Mention, str]] = field(default_factory=list)  # chunk id, mention, why
@@ -114,6 +115,14 @@ def add_links(graph: Graph, linker: Linker, chunk: Chunk, extraction: Extraction
         s = linker.resolve(m.subject, s_types, chunk.text)
         o = linker.resolve(m.object, o_types, chunk.text)
         bad = [r for r in (s, o) if r.node in (None, AMBIGUOUS)]
+        if bad:
+            # Small models often write the triple backwards ("R-1 incident_on the incident").
+            # If the ends fit the relation's types the other way round, the schema repairs the direction.
+            s2 = linker.resolve(m.object, s_types, chunk.text)
+            o2 = linker.resolve(m.subject, o_types, chunk.text)
+            if all(r.node not in (None, AMBIGUOUS) for r in (s2, o2)):
+                s, o, bad = s2, o2, []
+                report.reversed += 1
         if bad:
             for r in bad:
                 report.unresolved[r.level] += 1
