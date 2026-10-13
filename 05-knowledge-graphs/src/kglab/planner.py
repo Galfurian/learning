@@ -59,11 +59,11 @@ class RulePlanner:
     rules: list[Rule] = field(default_factory=list)
 
     def plan(self, question: str) -> Plan | None:
-        text = question.lower().strip()
+        text = question.strip()
         for rule in self.rules:
-            m = re.search(rule.pattern, text)
-            if m:
-                return Plan((m.group("x").strip(" ?.,"),), rule.path, rule.op, rule.name)
+            m = re.search(rule.pattern, text.lower())
+            if m:  # the mention keeps the question's case: "MovePallet", not "movepallet"
+                return Plan((text[m.start("x"):m.end("x")].strip(" ?.,"),), rule.path, rule.op, rule.name)
         return None
 
 

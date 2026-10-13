@@ -27,6 +27,11 @@ def expected_types(relation: str) -> tuple[tuple[str, ...], tuple[str, ...]]:
     return tuple(s.split(" or ")), tuple(o.split(" or "))
 
 
+def owner(node_id: str) -> str:
+    """The device a node belongs to: "alarm:assembly/EmergencyStop" -> "assembly"."""
+    return node_id.split(":", 1)[-1].split("/")[0] if node_id.startswith(("alarm:", "cond:")) else node_id.split("/")[0]
+
+
 def contains_words(text: str, phrase: str) -> bool:
     return bool(phrase) and re.search(rf"(?<![a-z0-9]){re.escape(phrase)}(?![a-z0-9])", text) is not None
 
@@ -78,7 +83,7 @@ class Linker:
             return Resolution(mention, names[0].id, "scoped")
         # Many candidates: the devices named in the mention, or else in the chunk, choose.
         for scope in (self.devices_in(mention), self.devices_in(chunk_text)):
-            narrowed = [n for n in names if n.id in scope or n.id.split("/")[0] in scope]
+            narrowed = [n for n in names if owner(n.id) in scope]
             if len(narrowed) == 1:
                 return Resolution(mention, narrowed[0].id, "scoped")
             if narrowed:
