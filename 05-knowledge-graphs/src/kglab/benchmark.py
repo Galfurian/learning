@@ -60,3 +60,8 @@ def diagnose(run: GraphRun, gold: Graph, graph: Graph, report: BuildReport | Non
 
 def count_stages(labels: Sequence[str]) -> dict[str, int]:
     return {s: sum(1 for x in labels if x == s) for s in STAGES}
+
+
+def stages_text(labels: Sequence[str]) -> str:
+    """"PLAN 3 · LINKING 3 · NONE 34": the stages that occur, in pipeline order."""
+    return " · ".join(f"{s} {n}" for s, n in count_stages(labels).items() if n)

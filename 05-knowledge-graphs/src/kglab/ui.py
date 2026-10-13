@@ -2,7 +2,6 @@
 
 import json
 from collections.abc import Sequence
-from itertools import pairwise
 from typing import Any
 
 from rich.console import Console
@@ -75,28 +74,32 @@ def show_hits(hits: Sequence[Any], relevant: frozenset[str] = frozenset(), title
     console.print(table)
 
 
-def show_context(context: Any, reason: str = "") -> None:
-    if not context.chunks:
-        console.print(Panel(f"empty context ({reason or 'no chunks'})", title="Context · APP", border_style="magenta"))
+def show_context(context: Any, title: str = "Context · what the APP gives the generator") -> None:
+    if not context.ids:
+        console.print(Panel("empty context: nothing found", title=title, border_style="magenta"))
         return
-    footer = f"{len(context.chunks)} chunks · ~{context.tokens} tokens (estimated)"
+    footer = f"{len(context.ids)} items · ~{context.tokens} tokens (estimated)"
     if context.dropped:
-        footer += f" · dropped by budget: {', '.join(c.id for c in context.dropped)}"
-    console.print(Panel(Text(context.text), title="Context · what the APP gives the generator", subtitle=footer, border_style="magenta"))
+        footer += f" · {context.dropped} dropped by the budget"
+    console.print(Panel(Text(context.text), title=title, subtitle=footer, border_style="magenta"))
 
 
-def show_answer(trace: Any) -> None:
-    if trace.abstained:
-        console.print(Panel(f"{trace.answer}\n\nThe APP abstained ({trace.abstain_reason}); the generator was not called.",
-                            title="Answer · APP", border_style="magenta"))
+def show_answer(answer: Any, model: str) -> None:
+    c, s = answer.citations, answer.score
+    status = "citations ok" if c.ok else f"citation problem: {c.problem}"
+    verdict = "right" if s.ok else ("refused" if s.refused else f"wrong (missing {s.missing}, extra {s.extra})")
+    console.print(Panel(Text(answer.text), title="Answer · GENERATIVE MODEL", border_style="green",
+                        subtitle=f"{model} · {answer.seconds:.1f}s · {status} · {verdict}"))
+
+
+def show_plan(plan: Any, starts: Sequence[Any]) -> None:
+    if plan is None:
+        console.print(Panel("no plan: the planner did not recognize the question", title="Plan · APP",
+                            border_style="magenta"))
         return
-    if trace.thinking:
-        console.print(Panel(Text(trace.thinking, style="dim"), title="Thinking · GENERATIVE MODEL (--think)",
-                            border_style="dim green"))
-    status = "citations ok" if trace.citations.ok else f"citation problem: {trace.citations.problem}"
-    subtitle = (f"{trace.model} · {trace.seconds_generation:.1f}s · prompt {trace.prompt_tokens} tokens "
-                f"(est. context {trace.context.tokens}) · {status}")
-    console.print(Panel(Text(trace.answer), title="Answer · GENERATIVE MODEL", subtitle=subtitle, border_style="green"))
+    linked = ", ".join(f"{r.mention!r} -> {r.node} ({r.level})" for r in starts) or "-"
+    console.print(Panel(f"path   {' -> '.join(plan.path) or '-'}   op {plan.op}   rule {plan.why}\nstart  {linked}",
+                        title="Plan · APP", border_style="magenta"))
 
 
 def show_raw(text: str, title: str = "Rendered prompt · exactly what the generator reads") -> None:
@@ -119,20 +122,6 @@ def show_table(title: str, columns: Sequence[str], rows: Sequence[Sequence[Any]]
     console.print(table)
 
 
-def show_histogram(groups: dict[str, list[float]], bins: list[float]) -> None:
-    table = Table(title="Top-1 score per question", expand=True)
-    table.add_column("score")
-    for name in groups:
-        table.add_column(name)
-    for low, high in pairwise(bins):
-        row = [f"{low:.2f}–{high:.2f}"]
-        for scores in groups.values():
-            count = sum(low <= s < high for s in scores)
-            row.append("█" * count)
-        table.add_row(*row)
-    console.print(table)
-
-
 def show_chunks(chunks: Sequence[Any], limit: int | None = None) -> None:
     table = Table(title=f"{len(chunks)} chunks", expand=True)
     for column in ("chunk", "words", "text"):
@@ -152,27 +141,3 @@ def show_error(text: str) -> None:
 
 def show_todo(function: str, why: str) -> None:
     console.print(Panel(f"{function} is not implemented yet.\n{why}", title="TODO", border_style="yellow"))
-
-
-def show_candidates(hits: Sequence[Any], question: Any, limit: int = 10) -> None:
-    from .metrics import gain
-
-    table = Table(title=f"First stage · {len(hits)} candidates (first {min(limit, len(hits))} shown)", expand=True)
-    for column in ("rank", "chunk", "score", "gain"):
-        table.add_column(column)
-    for hit in list(hits)[:limit]:
-        table.add_row(str(hit.rank), hit.chunk.id, f"{hit.score:.3f}", str(gain(hit.chunk, question)))
-    console.print(table)
-
-
-def show_reranked(hits: Sequence[Any], question: Any, title: str = "Reranked") -> None:
-    from .metrics import gain
-
-    table = Table(title=title, expand=True)
-    for column in ("rank", "from", "chunk", "relevance score", "gain"):
-        table.add_column(column)
-    for hit in hits:
-        moved = "" if hit.first_rank == hit.rank else f"{hit.first_rank} → {hit.rank}"
-        score = "-" if hit.rerank_score is None else f"{hit.rerank_score:.3f}"
-        table.add_row(str(hit.rank), moved or str(hit.first_rank), hit.chunk.id, score, str(gain(hit.chunk, question)))
-    console.print(table)

@@ -4,7 +4,7 @@ import json
 from dataclasses import dataclass, field
 from pathlib import Path
 
-TYPES = ("single", "multi-hop", "aggregation", "alias", "no-answer")
+TYPES = ("single", "multi-hop", "aggregation", "alias", "no-answer")  # "free": typed on the command line
 
 
 @dataclass(frozen=True)
@@ -28,6 +28,11 @@ class Question:
     @property
     def answerable(self) -> bool:
         return self.type != "no-answer" and not self.ambiguous
+
+    @property
+    def scored(self) -> bool:
+        """A question typed on the command line ("free") has no gold: nothing to score."""
+        return self.type != "free"
 
 
 def parse_question(item: dict) -> Question:
