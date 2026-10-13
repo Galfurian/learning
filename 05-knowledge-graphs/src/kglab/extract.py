@@ -16,6 +16,7 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from .client import DEFAULT_CHAT_MODEL, Tracer, chat
+from .scorecache import ScoreCache
 
 # relation -> (subject type, object type, meaning)
 LINK_RELATIONS: dict[str, tuple[str, str, str]] = {
@@ -116,7 +117,16 @@ def parse_triples(raw: str) -> tuple[list[Mention], list[dict[str, Any]]]:
 
 
 def extract(title: str, text: str, *, model: str = DEFAULT_CHAT_MODEL, constrained: bool = True,
-            tracer: Tracer | None = None) -> Extraction:
-    result = chat(model, messages(title, text), format=json_schema(constrained=constrained), tracer=tracer)
-    triples, invalid = parse_triples(result.content)
-    return Extraction(triples, invalid, result.seconds, result.content)
+            cache: ScoreCache | None = None, tracer: Tracer | None = None) -> Extraction:
+    """One request per chunk. The cache key covers the model, the schema mode, the prompt and the chunk,
+    so a changed prompt re-extracts and nothing stale is reused. `seconds` is the time of the first run."""
+    msgs = messages(title, text)
+    parts = ["extract", model, str(constrained), *(m["content"] for m in msgs)]
+    stored = cache.get(parts) if cache else None
+    if stored is None:
+        result = chat(model, msgs, format=json_schema(constrained=constrained), tracer=tracer)
+        stored = {"raw": result.content, "seconds": result.seconds}
+        if cache:
+            cache.put(parts, stored)
+    triples, invalid = parse_triples(stored["raw"])
+    return Extraction(triples, invalid, stored["seconds"], stored["raw"])
