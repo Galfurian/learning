@@ -1,0 +1,29 @@
+[project]
+name = "learning-knowledge-graphs"
+version = "0.1.0"
+description = "Knowledge graph workbench: a data model tree, links extracted from prose, queries that follow the links"
+requires-python = ">=3.11"
+dependencies = [
+  "huggingface_hub>=0.25,<2",
+  "numpy>=2,<3",
+  "onnxruntime>=1.20,<2",
+  "pyyaml>=6,<7",
+  "rich>=14,<15",
+  "tokenizers>=0.20,<1",
+]
+
+[dependency-groups]
+dev = ["pytest>=8,<9"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/kglab"]
+
+[tool.uv]
+package = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
