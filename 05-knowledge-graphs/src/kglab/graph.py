@@ -87,16 +87,21 @@ def follow(graph: Graph, start: Iterable[str], relations: Sequence[str]) -> list
 
 
 def follow_edges(graph: Graph, start: Iterable[str], relations: Sequence[str]) -> list[Edge]:
-    """The edges on every path that `follow` walks, for provenance and context."""
-    frontier, used = set(start), []
+    """The edges on the paths that `follow` walks and that reach an end node: the evidence of the answer.
+
+    Branches that die on the way (a folder with no matching variable) are left out.
+    """
+    frontier, layers = set(start), []
     for relation in relations:
         name, backward = step(relation)
-        nxt = set()
-        for node in sorted(frontier):
-            for edge in graph.edges_on(node, name, backward=backward):
-                used.append(edge)
-                nxt.add(edge.s if backward else edge.o)
-        frontier = nxt
+        layer = [e for node in sorted(frontier) for e in graph.edges_on(node, name, backward=backward)]
+        layers.append((layer, backward))
+        frontier = {e.s if backward else e.o for e in layer}
+    keep, used = frontier, []
+    for layer, backward in reversed(layers):
+        kept = [e for e in layer if (e.s if backward else e.o) in keep]
+        used = kept + used
+        keep = {e.o if backward else e.s for e in kept}
     return used
 
 

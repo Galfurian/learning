@@ -37,3 +37,10 @@ def test_json_round_trip():
     h = from_json(to_json(g))
     assert h.triples() == g.triples()
     assert set(h.nodes) == set(g.nodes)
+
+
+def test_follow_edges_drops_dead_branches():
+    g = small()
+    g.add_triple("rover1", "serves_bay", "bay:9", "c9")   # bay 9 has no next step
+    sources = [e.source for e in follow_edges(g, ["rover1"], ["serves_bay", "next_step"])]
+    assert sources == ["c1", "c3"]
