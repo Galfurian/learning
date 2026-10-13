@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import re
+from datetime import date as calendar_date
 from pathlib import Path
 from typing import Any
 
@@ -386,29 +387,48 @@ def main() -> None:
         ("bay:1", "Bay", "Bay 1"), ("bay:2", "Bay", "Bay 2"), ("bay:3", "Bay", "Bay 3"),
         ("bay:4", "Bay", "Bay 4"), ("bay:5", "Bay", "Bay 5"), ("pallet:7", "Pallet", "Pallet 7"),
         ("pallet:8", "Pallet", "Pallet 8"),
-        ("item:board", "Item", "Board"), ("item:cover", "Item", "Cover"),
-        ("item:cover-top", "Item", "Top cover"),
-        ("item:cover-bottom", "Item", "Bottom cover"), ("item:tray", "Item", "Tray"),
+        ("item:board", "Item", "board", ["bare board", "boards"]),
+        ("item:cover", "Item", "cover", ["a cover"]),
+        ("item:cover-top", "Item", "top cover", ["a top cover"]),
+        ("item:cover-bottom", "Item", "bottom cover", ["a bottom cover"]),
+        ("item:tray", "Item", "tray", ["a tray", "replenishment tray", "spare tray"]),
     ]
-    for node_id, kind, name in extra_nodes:
-        all_nodes.append({"id": node_id, "type": kind, "name": name, "aliases": [], "props": {}})
+    for entry in extra_nodes:
+        node_id, kind, name, *aliases = entry
+        all_nodes.append({"id": node_id, "type": kind, "name": name, "aliases": aliases[0] if aliases else [], "props": {}})
     for node_id, kind, name in [
-        ("mission:rover/deliver-board", "Mission", "Deliver board"), ("mission:tester/board-test", "Mission", "Test board"),
-        ("mission:cnc/engrave-board", "Mission", "Engrave board"), ("mission:assembly/fit-covers", "Mission", "Fit covers"),
-        ("mission:qc/inspect-pallet", "Mission", "Inspect pallet"),
+        ("mission:rover/deliver-board", "Mission", "board delivery"), ("mission:tester/board-test", "Mission", "board test mission"),
+        ("mission:cnc/engrave-board", "Mission", "engraving mission"), ("mission:assembly/fit-covers", "Mission", "assembly mission"),
+        ("mission:qc/inspect-pallet", "Mission", "pallet inspection"),
     ]:
-        all_nodes.append({"id": node_id, "type": kind, "name": name, "aliases": [], "props": {}})
-    for node_id, name in [("cond:conveyor/ready", "Conveyor ready"), ("cond:warehouse/idle", "Warehouse idle"),
-                          ("cond:warehouse/stock-ready", "Stock ready"), ("cond:rover/idle", "Rover idle"),
-                          ("cond:tester/ready", "Tester ready"), ("cond:cnc/idle", "CNC idle"),
-                          ("cond:assembly/idle", "Assembly idle"), ("cond:assembly/screwdriver-ready", "Screwdriver ready"),
-                          ("cond:qc/idle", "QC idle")]:
-        all_nodes.append({"id": node_id, "type": "Condition", "name": name, "aliases": [], "props": {}})
+        aliases = {
+            "mission:rover/deliver-board": ["delivery mission"],
+            "mission:tester/board-test": ["test mission"],
+            "mission:cnc/engrave-board": ["engraving job"],
+            "mission:assembly/fit-covers": ["fit covers mission"],
+            "mission:qc/inspect-pallet": ["pallet inspection mission"],
+        }[node_id]
+        all_nodes.append({"id": node_id, "type": kind, "name": name, "aliases": aliases, "props": {}})
+    conditions = [
+        ("cond:conveyor/ready", "line-ready condition", ["line ready"]),
+        ("cond:warehouse/idle", "warehouse idle", ["warehouse to be idle", "warehouse is idle"]),
+        ("cond:warehouse/stock-ready", "stock-ready condition", ["stock ready"]),
+        ("cond:rover/idle", "R-1 idle", ["R-1 is idle", "first rover is idle", "rover to be idle"]),
+        ("cond:tester/ready", "tester ready", ["tester to be ready", "tester is ready"]),
+        ("cond:cnc/idle", "CNC cell idle", ["CNC cell to be idle", "CNC cell is idle"]),
+        ("cond:assembly/idle", "assembly cell idle", ["cell to be idle", "Assembly Cell is idle"]),
+        ("cond:assembly/screwdriver-ready", "screwdriver ready", ["screwdriver to be ready", "screwdriver is ready"]),
+        ("cond:qc/idle", "inspection cell idle", ["inspection cell to be idle", "inspection cell is idle"]),
+    ]
+    for node_id, name, aliases in conditions:
+        all_nodes.append({"id": node_id, "type": "Condition", "name": name, "aliases": aliases, "props": {}})
     notes, links = prose()
     incident_ids = sorted({edge["s"] for edge in links if edge["s"].startswith("incident:")})
     for incident_id in incident_ids:
-        date = incident_id.split(":", 1)[1].rsplit("-", 1)[0]
-        all_nodes.append({"id": incident_id, "type": "Incident", "name": incident_id, "aliases": [], "props": {"date": date}})
+        iso_date = incident_id.split(":", 1)[1].rsplit("-", 1)[0]
+        parsed_date = calendar_date.fromisoformat(iso_date)
+        human_date = f"{parsed_date.day} {parsed_date.strftime('%B')}"
+        all_nodes.append({"id": incident_id, "type": "Incident", "name": f"{human_date} incident", "aliases": [human_date], "props": {"date": iso_date}})
     for file, sections in notes.items():
         path = NOTES / file
         lines = [f"# {file.removesuffix('.md').replace('-', ' ').title()}", ""]

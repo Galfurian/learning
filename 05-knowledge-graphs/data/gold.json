@@ -3222,141 +3222,192 @@
     {
       "id": "item:board",
       "type": "Item",
-      "name": "Board",
-      "aliases": [],
+      "name": "board",
+      "aliases": [
+        "bare board",
+        "boards"
+      ],
       "props": {}
     },
     {
       "id": "item:cover",
       "type": "Item",
-      "name": "Cover",
-      "aliases": [],
+      "name": "cover",
+      "aliases": [
+        "a cover"
+      ],
       "props": {}
     },
     {
       "id": "item:cover-top",
       "type": "Item",
-      "name": "Top cover",
-      "aliases": [],
+      "name": "top cover",
+      "aliases": [
+        "a top cover"
+      ],
       "props": {}
     },
     {
       "id": "item:cover-bottom",
       "type": "Item",
-      "name": "Bottom cover",
-      "aliases": [],
+      "name": "bottom cover",
+      "aliases": [
+        "a bottom cover"
+      ],
       "props": {}
     },
     {
       "id": "item:tray",
       "type": "Item",
-      "name": "Tray",
-      "aliases": [],
+      "name": "tray",
+      "aliases": [
+        "a tray",
+        "replenishment tray",
+        "spare tray"
+      ],
       "props": {}
     },
     {
       "id": "mission:rover/deliver-board",
       "type": "Mission",
-      "name": "Deliver board",
-      "aliases": [],
+      "name": "board delivery",
+      "aliases": [
+        "delivery mission"
+      ],
       "props": {}
     },
     {
       "id": "mission:tester/board-test",
       "type": "Mission",
-      "name": "Test board",
-      "aliases": [],
+      "name": "board test mission",
+      "aliases": [
+        "test mission"
+      ],
       "props": {}
     },
     {
       "id": "mission:cnc/engrave-board",
       "type": "Mission",
-      "name": "Engrave board",
-      "aliases": [],
+      "name": "engraving mission",
+      "aliases": [
+        "engraving job"
+      ],
       "props": {}
     },
     {
       "id": "mission:assembly/fit-covers",
       "type": "Mission",
-      "name": "Fit covers",
-      "aliases": [],
+      "name": "assembly mission",
+      "aliases": [
+        "fit covers mission"
+      ],
       "props": {}
     },
     {
       "id": "mission:qc/inspect-pallet",
       "type": "Mission",
-      "name": "Inspect pallet",
-      "aliases": [],
+      "name": "pallet inspection",
+      "aliases": [
+        "pallet inspection mission"
+      ],
       "props": {}
     },
     {
       "id": "cond:conveyor/ready",
       "type": "Condition",
-      "name": "Conveyor ready",
-      "aliases": [],
+      "name": "line-ready condition",
+      "aliases": [
+        "line ready"
+      ],
       "props": {}
     },
     {
       "id": "cond:warehouse/idle",
       "type": "Condition",
-      "name": "Warehouse idle",
-      "aliases": [],
+      "name": "warehouse idle",
+      "aliases": [
+        "warehouse to be idle",
+        "warehouse is idle"
+      ],
       "props": {}
     },
     {
       "id": "cond:warehouse/stock-ready",
       "type": "Condition",
-      "name": "Stock ready",
-      "aliases": [],
+      "name": "stock-ready condition",
+      "aliases": [
+        "stock ready"
+      ],
       "props": {}
     },
     {
       "id": "cond:rover/idle",
       "type": "Condition",
-      "name": "Rover idle",
-      "aliases": [],
+      "name": "R-1 idle",
+      "aliases": [
+        "R-1 is idle",
+        "first rover is idle",
+        "rover to be idle"
+      ],
       "props": {}
     },
     {
       "id": "cond:tester/ready",
       "type": "Condition",
-      "name": "Tester ready",
-      "aliases": [],
+      "name": "tester ready",
+      "aliases": [
+        "tester to be ready",
+        "tester is ready"
+      ],
       "props": {}
     },
     {
       "id": "cond:cnc/idle",
       "type": "Condition",
-      "name": "CNC idle",
-      "aliases": [],
+      "name": "CNC cell idle",
+      "aliases": [
+        "CNC cell to be idle",
+        "CNC cell is idle"
+      ],
       "props": {}
     },
     {
       "id": "cond:assembly/idle",
       "type": "Condition",
-      "name": "Assembly idle",
-      "aliases": [],
+      "name": "assembly cell idle",
+      "aliases": [
+        "cell to be idle",
+        "Assembly Cell is idle"
+      ],
       "props": {}
     },
     {
       "id": "cond:assembly/screwdriver-ready",
       "type": "Condition",
-      "name": "Screwdriver ready",
-      "aliases": [],
+      "name": "screwdriver ready",
+      "aliases": [
+        "screwdriver to be ready",
+        "screwdriver is ready"
+      ],
       "props": {}
     },
     {
       "id": "cond:qc/idle",
       "type": "Condition",
-      "name": "QC idle",
-      "aliases": [],
+      "name": "inspection cell idle",
+      "aliases": [
+        "inspection cell to be idle",
+        "inspection cell is idle"
+      ],
       "props": {}
     },
     {
       "id": "incident:2026-03-04-1",
       "type": "Incident",
-      "name": "incident:2026-03-04-1",
-      "aliases": [],
+      "name": "4 March incident",
+      "aliases": [
+        "4 March"
+      ],
       "props": {
         "date": "2026-03-04"
       }
@@ -3364,8 +3415,10 @@
     {
       "id": "incident:2026-03-05-1",
       "type": "Incident",
-      "name": "incident:2026-03-05-1",
-      "aliases": [],
+      "name": "5 March incident",
+      "aliases": [
+        "5 March"
+      ],
       "props": {
         "date": "2026-03-05"
       }
@@ -3373,8 +3426,10 @@
     {
       "id": "incident:2026-03-06-1",
       "type": "Incident",
-      "name": "incident:2026-03-06-1",
-      "aliases": [],
+      "name": "6 March incident",
+      "aliases": [
+        "6 March"
+      ],
       "props": {
         "date": "2026-03-06"
       }
@@ -3382,8 +3437,10 @@
     {
       "id": "incident:2026-03-07-1",
       "type": "Incident",
-      "name": "incident:2026-03-07-1",
-      "aliases": [],
+      "name": "7 March incident",
+      "aliases": [
+        "7 March"
+      ],
       "props": {
         "date": "2026-03-07"
       }
@@ -3391,8 +3448,10 @@
     {
       "id": "incident:2026-03-08-1",
       "type": "Incident",
-      "name": "incident:2026-03-08-1",
-      "aliases": [],
+      "name": "8 March incident",
+      "aliases": [
+        "8 March"
+      ],
       "props": {
         "date": "2026-03-08"
       }
@@ -3400,8 +3459,10 @@
     {
       "id": "incident:2026-03-09-1",
       "type": "Incident",
-      "name": "incident:2026-03-09-1",
-      "aliases": [],
+      "name": "9 March incident",
+      "aliases": [
+        "9 March"
+      ],
       "props": {
         "date": "2026-03-09"
       }
@@ -3409,8 +3470,10 @@
     {
       "id": "incident:2026-03-10-1",
       "type": "Incident",
-      "name": "incident:2026-03-10-1",
-      "aliases": [],
+      "name": "10 March incident",
+      "aliases": [
+        "10 March"
+      ],
       "props": {
         "date": "2026-03-10"
       }
@@ -3418,8 +3481,10 @@
     {
       "id": "incident:2026-03-11-1",
       "type": "Incident",
-      "name": "incident:2026-03-11-1",
-      "aliases": [],
+      "name": "11 March incident",
+      "aliases": [
+        "11 March"
+      ],
       "props": {
         "date": "2026-03-11"
       }
@@ -3427,8 +3492,10 @@
     {
       "id": "incident:2026-03-12-1",
       "type": "Incident",
-      "name": "incident:2026-03-12-1",
-      "aliases": [],
+      "name": "12 March incident",
+      "aliases": [
+        "12 March"
+      ],
       "props": {
         "date": "2026-03-12"
       }
@@ -3436,8 +3503,10 @@
     {
       "id": "incident:2026-03-13-1",
       "type": "Incident",
-      "name": "incident:2026-03-13-1",
-      "aliases": [],
+      "name": "13 March incident",
+      "aliases": [
+        "13 March"
+      ],
       "props": {
         "date": "2026-03-13"
       }
@@ -3445,8 +3514,10 @@
     {
       "id": "incident:2026-03-14-1",
       "type": "Incident",
-      "name": "incident:2026-03-14-1",
-      "aliases": [],
+      "name": "14 March incident",
+      "aliases": [
+        "14 March"
+      ],
       "props": {
         "date": "2026-03-14"
       }
@@ -3454,8 +3525,10 @@
     {
       "id": "incident:2026-03-15-1",
       "type": "Incident",
-      "name": "incident:2026-03-15-1",
-      "aliases": [],
+      "name": "15 March incident",
+      "aliases": [
+        "15 March"
+      ],
       "props": {
         "date": "2026-03-15"
       }
@@ -3463,8 +3536,10 @@
     {
       "id": "incident:2026-03-16-1",
       "type": "Incident",
-      "name": "incident:2026-03-16-1",
-      "aliases": [],
+      "name": "16 March incident",
+      "aliases": [
+        "16 March"
+      ],
       "props": {
         "date": "2026-03-16"
       }
@@ -3472,8 +3547,10 @@
     {
       "id": "incident:2026-03-17-1",
       "type": "Incident",
-      "name": "incident:2026-03-17-1",
-      "aliases": [],
+      "name": "17 March incident",
+      "aliases": [
+        "17 March"
+      ],
       "props": {
         "date": "2026-03-17"
       }
@@ -3481,8 +3558,10 @@
     {
       "id": "incident:2026-03-18-1",
       "type": "Incident",
-      "name": "incident:2026-03-18-1",
-      "aliases": [],
+      "name": "18 March incident",
+      "aliases": [
+        "18 March"
+      ],
       "props": {
         "date": "2026-03-18"
       }
@@ -3490,8 +3569,10 @@
     {
       "id": "incident:2026-03-19-1",
       "type": "Incident",
-      "name": "incident:2026-03-19-1",
-      "aliases": [],
+      "name": "19 March incident",
+      "aliases": [
+        "19 March"
+      ],
       "props": {
         "date": "2026-03-19"
       }
@@ -3499,8 +3580,10 @@
     {
       "id": "incident:2026-03-20-1",
       "type": "Incident",
-      "name": "incident:2026-03-20-1",
-      "aliases": [],
+      "name": "20 March incident",
+      "aliases": [
+        "20 March"
+      ],
       "props": {
         "date": "2026-03-20"
       }
@@ -3508,8 +3591,10 @@
     {
       "id": "incident:2026-03-21-1",
       "type": "Incident",
-      "name": "incident:2026-03-21-1",
-      "aliases": [],
+      "name": "21 March incident",
+      "aliases": [
+        "21 March"
+      ],
       "props": {
         "date": "2026-03-21"
       }
@@ -3517,8 +3602,10 @@
     {
       "id": "incident:2026-03-22-1",
       "type": "Incident",
-      "name": "incident:2026-03-22-1",
-      "aliases": [],
+      "name": "22 March incident",
+      "aliases": [
+        "22 March"
+      ],
       "props": {
         "date": "2026-03-22"
       }
@@ -3526,8 +3613,10 @@
     {
       "id": "incident:2026-03-23-1",
       "type": "Incident",
-      "name": "incident:2026-03-23-1",
-      "aliases": [],
+      "name": "23 March incident",
+      "aliases": [
+        "23 March"
+      ],
       "props": {
         "date": "2026-03-23"
       }

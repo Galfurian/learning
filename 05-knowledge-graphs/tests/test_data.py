@@ -104,6 +104,23 @@ def test_prose_does_not_leak_schema_vocabulary():
         assert not any(term in lowered for term in forbidden), chunk_id
 
 
+def test_glossary_mentions_are_present_in_link_sources():
+    glossary_types = {"Bay", "Item", "Pallet", "Mission", "Condition", "Incident"}
+    gold = json.loads((DATA / "gold.json").read_text(encoding="utf-8"))
+    chunks = sections()
+    nodes = {node["id"]: node for node in gold["nodes"]}
+    for edge in gold["edges"]:
+        if edge["source"] not in chunks:
+            continue
+        text = chunks[edge["source"]].lower()
+        for endpoint in (edge["s"], edge["o"]):
+            node = nodes[endpoint]
+            if node["type"] not in glossary_types:
+                continue
+            mentions = [node["name"], *node.get("aliases", [])]
+            assert any(mention.lower() in text for mention in mentions), (edge, node)
+
+
 def test_gold_tree_matches_independent_generator_contract():
     gold = json.loads((DATA / "gold.json").read_text(encoding="utf-8"))
     parsed = load_models(DATA / "line" / "models")
