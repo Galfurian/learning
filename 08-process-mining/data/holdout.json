@@ -1,0 +1,367 @@
+{
+  "schema_version": 1,
+  "about": "Holdout questions of unit 08, committed before the first benchmark run. Order ids are the found ids. Logs: holdout (simulated), ref-skip-check and ref-no-end (injected copies of the reference order). There is no second real order: the holdout is simulated or injected.",
+  "questions": [
+    {
+      "id": "h01",
+      "type": "which-recipe",
+      "log": "holdout",
+      "order": "order:3",
+      "now": 1200,
+      "text": "Which recipe is order 3 following at t=1200 s?",
+      "gold_recipe": [
+        "gadget",
+        "parts_test"
+      ],
+      "gold_open": [
+        [
+          "load_covers",
+          "running"
+        ],
+        [
+          "test_board",
+          "running"
+        ]
+      ],
+      "gold_moves": [],
+      "gold_ids": [
+        "e38"
+      ],
+      "gold_answer": "Order 3 is probably gadget or parts_test: up to load_board the two recipes share their steps, so the recipe is not decided yet [e38, e41, e42, e49]. A check_covers or a buffer_board would decide gadget, a mill_part would decide parts_test [e38].",
+      "expect": {
+        "all": [
+          [
+            "gadget"
+          ],
+          [
+            "parts_test",
+            "parts test"
+          ],
+          [
+            "not decided",
+            "undecided",
+            "not yet",
+            "cannot tell",
+            "either"
+          ]
+        ],
+        "none": []
+      },
+      "abstain": false
+    },
+    {
+      "id": "h02",
+      "type": "which-recipe",
+      "log": "holdout",
+      "order": "order:4",
+      "now": 2460,
+      "text": "Which recipe is order 4 at t=2460 s?",
+      "gold_recipe": "parts_test",
+      "gold_open": [
+        [
+          "mill_part",
+          "running"
+        ]
+      ],
+      "gold_moves": [],
+      "gold_ids": [
+        "e94"
+      ],
+      "gold_answer": "Order 4 follows the parts_test recipe: only parts_test fits once mill_part started at t=2391.6 s [e94, e101, e102].",
+      "expect": {
+        "all": [
+          [
+            "parts_test",
+            "parts test"
+          ],
+          [
+            "mill_part",
+            "mill"
+          ]
+        ],
+        "none": [
+          [
+            "is gadget",
+            "is a gadget",
+            "follows gadget",
+            "follows the gadget",
+            "is the gadget"
+          ]
+        ]
+      },
+      "abstain": false
+    },
+    {
+      "id": "h03",
+      "type": "where",
+      "log": "holdout",
+      "order": "order:2",
+      "now": 1000,
+      "text": "Where is order 2 at t=1000 s?",
+      "gold_recipe": "brick_demo",
+      "gold_open": [
+        [
+          "build_bricks",
+          "running"
+        ]
+      ],
+      "gold_moves": [],
+      "gold_ids": [
+        "e37"
+      ],
+      "gold_answer": "At t=1000 s order 2 is at build_bricks: it started at t=938.5 s and is open for 61.5 s, within the p95 of 161.5 s, so it is running [e37, e39, e40].",
+      "expect": {
+        "all": [
+          [
+            "build_bricks",
+            "build"
+          ]
+        ],
+        "none": [
+          [
+            "is unusual",
+            "longer than the p95",
+            "longer than usual"
+          ]
+        ]
+      },
+      "abstain": false
+    },
+    {
+      "id": "h04",
+      "type": "stopped",
+      "log": "ref-no-end",
+      "order": "order:1",
+      "now": 1118,
+      "text": "The recipe stopped, I don't know why.",
+      "gold_recipe": "gadget",
+      "gold_open": [
+        [
+          "engrave_gadget",
+          "running"
+        ]
+      ],
+      "gold_moves": [],
+      "gold_ids": [
+        "e53"
+      ],
+      "gold_answer": "Order 1 has not stopped: engrave_gadget started at t=918 s and is open for 200 s, within the p95 of 216.5 s, so it is still running [e53, e54, e55].",
+      "expect": {
+        "all": [
+          [
+            "engrave_gadget",
+            "engrav"
+          ],
+          [
+            "running"
+          ],
+          [
+            "200"
+          ]
+        ],
+        "none": [
+          [
+            "is unusual",
+            "was unusual",
+            "longer than the p95",
+            "longer than usual"
+          ],
+          [
+            "is stuck",
+            "was stuck",
+            "has stopped",
+            "is stopped"
+          ]
+        ]
+      },
+      "abstain": false
+    },
+    {
+      "id": "h05",
+      "type": "conformance",
+      "log": "ref-skip-check",
+      "order": "order:1",
+      "now": 1118,
+      "text": "Did order 1 follow the recipe?",
+      "gold_recipe": [],
+      "gold_open": [
+        [
+          "engrave_gadget",
+          "running"
+        ]
+      ],
+      "gold_moves": [
+        [
+          "model",
+          "check_covers"
+        ]
+      ],
+      "gold_ids": [
+        "e21"
+      ],
+      "gold_answer": "No: after reload_covers the gadget recipe has check_covers again, and order 1 does not have it, so the check was skipped [e21, e25, e26, e30]. The first failed check and the fail branch before it are conformant [e17, e20, e21].",
+      "expect": {
+        "all": [
+          [
+            "check_covers",
+            "covers check"
+          ],
+          [
+            "skipped",
+            "skip",
+            "missing",
+            "does not have"
+          ],
+          [
+            "no,",
+            "no:",
+            "no.",
+            "did not follow",
+            "does not follow",
+            "didn't follow",
+            "doesn't follow",
+            "not conform",
+            "deviat"
+          ]
+        ],
+        "none": [
+          [
+            "yes,",
+            "yes:",
+            "yes.",
+            "yes it",
+            "yes order"
+          ],
+          [
+            "no deviation",
+            "with no deviation"
+          ]
+        ]
+      },
+      "abstain": false
+    },
+    {
+      "id": "h06",
+      "type": "conformance",
+      "log": "holdout",
+      "order": "order:13",
+      "now": 6500,
+      "text": "Did order 13 follow the recipe?",
+      "gold_recipe": [],
+      "gold_open": [],
+      "gold_moves": [
+        [
+          "log",
+          "check_covers"
+        ]
+      ],
+      "gold_ids": [
+        "e372"
+      ],
+      "gold_answer": "No: order 13 has an extra check_covers that the gadget recipe does not have at that point [e372, e373, e374, e375]. Its earlier failed check and the fail branch are conformant [e326, e329, e354].",
+      "expect": {
+        "all": [
+          [
+            "check_covers",
+            "covers check"
+          ],
+          [
+            "extra",
+            "additional",
+            "one more"
+          ],
+          [
+            "no,",
+            "no:",
+            "no.",
+            "did not follow",
+            "does not follow",
+            "didn't follow",
+            "doesn't follow",
+            "not conform",
+            "deviat"
+          ]
+        ],
+        "none": [
+          [
+            "yes,",
+            "yes:",
+            "yes.",
+            "yes it",
+            "yes order"
+          ],
+          [
+            "no deviation",
+            "with no deviation"
+          ]
+        ]
+      },
+      "abstain": false
+    },
+    {
+      "id": "h07",
+      "type": "normal",
+      "log": "holdout",
+      "order": "order:38",
+      "now": 14600,
+      "text": "Is a failed covers check normal? Order 38 had one.",
+      "gold_recipe": "gadget",
+      "gold_open": [],
+      "gold_moves": [],
+      "gold_ids": [
+        "e995"
+      ],
+      "gold_answer": "Yes, it is part of the recipe: on order 38 check_covers failed 2 times, then bin_covers and reload_covers ran, which is the fail branch of the recipe [e995, e998]. Over the train log check_covers failed 19 of 120 times (16%).",
+      "expect": {
+        "all": [
+          [
+            "normal",
+            "common",
+            "expected",
+            "part of the recipe"
+          ],
+          [
+            "19 of 120",
+            "16%",
+            "16 %"
+          ]
+        ],
+        "none": [
+          [
+            "not normal",
+            "isn't normal",
+            "abnormal",
+            "not part of the recipe",
+            "a deviation"
+          ]
+        ]
+      },
+      "abstain": false
+    },
+    {
+      "id": "h08",
+      "type": "abstain",
+      "log": "holdout",
+      "order": "order:11",
+      "now": 5800,
+      "text": "Why did the covers check fail on order 11?",
+      "gold_recipe": "gadget",
+      "gold_open": [],
+      "gold_moves": [],
+      "gold_ids": [],
+      "gold_answer": "The recording does not show why: check_covers failed once on order 11 and the fail branch of the recipe ran, but no line gives a cause [e268].",
+      "expect": {
+        "all": [
+          [
+            "does not show why",
+            "not show why",
+            "no cause",
+            "not recorded"
+          ]
+        ],
+        "none": []
+      },
+      "abstain": true
+    }
+  ]
+}

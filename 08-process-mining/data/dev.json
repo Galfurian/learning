@@ -1,0 +1,499 @@
+{
+  "schema_version": 1,
+  "about": "Dev questions of unit 08. Order ids are the found ids (order:N, numbered by load time). Logs: train (simulated), ref-order, ref-stuck, ref-prefix (copies of the reference order).",
+  "questions": [
+    {
+      "id": "d01",
+      "type": "which-recipe",
+      "log": "ref-prefix",
+      "order": "order:1",
+      "now": 250,
+      "text": "Which recipe is order 1 following?",
+      "gold_recipe": [
+        "gadget",
+        "parts_test"
+      ],
+      "gold_open": [
+        [
+          "load_covers",
+          "running"
+        ]
+      ],
+      "gold_moves": [],
+      "gold_ids": [
+        "e1"
+      ],
+      "gold_answer": "Order 1 is probably gadget or parts_test: the two recipes share the steps up to load_board, so the recipe is not decided yet [e1, e2, e3, e5]. A check_covers would decide gadget, a mill_part would decide parts_test [e1].",
+      "expect": {
+        "all": [
+          [
+            "gadget"
+          ],
+          [
+            "parts_test",
+            "parts test"
+          ],
+          [
+            "not decided",
+            "undecided",
+            "not yet",
+            "cannot tell",
+            "either"
+          ]
+        ],
+        "none": []
+      },
+      "abstain": false
+    },
+    {
+      "id": "d02",
+      "type": "which-recipe",
+      "log": "ref-order",
+      "order": "order:1",
+      "now": 1118,
+      "text": "Which recipe is order 1?",
+      "gold_recipe": "gadget",
+      "gold_open": [
+        [
+          "engrave_gadget",
+          "running"
+        ]
+      ],
+      "gold_moves": [],
+      "gold_ids": [
+        "e17"
+      ],
+      "gold_answer": "Order 1 follows the gadget recipe [e17, e18, e19, e29]. Only gadget fits once check_covers started at t=380.5 s [e17].",
+      "expect": {
+        "all": [
+          [
+            "gadget"
+          ],
+          [
+            "check_covers",
+            "covers check"
+          ]
+        ],
+        "none": [
+          [
+            "is parts_test",
+            "is a parts_test",
+            "follows parts_test",
+            "follows the parts_test",
+            "is the parts_test",
+            "is parts test",
+            "is a parts test",
+            "follows parts test",
+            "follows the parts test",
+            "is the parts test"
+          ],
+          [
+            "is brick_demo",
+            "is a brick_demo",
+            "follows brick_demo",
+            "follows the brick_demo",
+            "is the brick_demo"
+          ]
+        ]
+      },
+      "abstain": false
+    },
+    {
+      "id": "d03",
+      "type": "which-recipe",
+      "log": "train",
+      "order": "order:1",
+      "now": 420,
+      "text": "Which recipe is order 1 at t=420 s?",
+      "gold_recipe": "parts_test",
+      "gold_open": [
+        [
+          "mill_part",
+          "running"
+        ]
+      ],
+      "gold_moves": [],
+      "gold_ids": [
+        "e17"
+      ],
+      "gold_answer": "Order 1 follows the parts_test recipe: only parts_test fits once mill_part started at t=315.2 s [e17, e18, e19].",
+      "expect": {
+        "all": [
+          [
+            "parts_test",
+            "parts test"
+          ],
+          [
+            "mill_part",
+            "mill"
+          ]
+        ],
+        "none": [
+          [
+            "is gadget",
+            "is a gadget",
+            "follows gadget",
+            "follows the gadget",
+            "is the gadget"
+          ]
+        ]
+      },
+      "abstain": false
+    },
+    {
+      "id": "d04",
+      "type": "where",
+      "log": "train",
+      "order": "order:2",
+      "now": 900,
+      "text": "Where is order 2 at t=900 s?",
+      "gold_recipe": "gadget",
+      "gold_open": [
+        [
+          "assemble_gadget",
+          "running"
+        ]
+      ],
+      "gold_moves": [],
+      "gold_ids": [
+        "e46"
+      ],
+      "gold_answer": "At t=900 s order 2 is at assemble_gadget: it started at t=853.4 s and is open for 46.6 s [e46, e55, e57]. This is within the p95 of 211.4 s, so it is running [e46].",
+      "expect": {
+        "all": [
+          [
+            "assemble_gadget",
+            "assembl"
+          ]
+        ],
+        "none": [
+          [
+            "is unusual",
+            "longer than the p95",
+            "longer than usual"
+          ]
+        ]
+      },
+      "abstain": false
+    },
+    {
+      "id": "d05",
+      "type": "where",
+      "log": "train",
+      "order": "order:5",
+      "now": 2460,
+      "text": "Where is order 5 at t=2460 s?",
+      "gold_recipe": "gadget",
+      "gold_open": [],
+      "gold_moves": [],
+      "gold_ids": [
+        "e181"
+      ],
+      "gold_answer": "At t=2460 s order 5 has no open operation: test_board completed at t=2453.6 s and the next operation is buffer_board [e181, e182].",
+      "expect": {
+        "all": [
+          [
+            "test_board",
+            "board test"
+          ],
+          [
+            "buffer_board",
+            "buffer"
+          ]
+        ],
+        "none": []
+      },
+      "abstain": false
+    },
+    {
+      "id": "d06",
+      "type": "stopped",
+      "log": "ref-stuck",
+      "order": "order:1",
+      "now": 1400,
+      "text": "The recipe stopped, I don't know why.",
+      "gold_recipe": "gadget",
+      "gold_open": [
+        [
+          "engrave_gadget",
+          "unusual"
+        ]
+      ],
+      "gold_moves": [],
+      "gold_ids": [
+        "e54"
+      ],
+      "gold_answer": "Order 1 is at engrave_gadget, open for 482 s since t=918 s; this is longer than the p95 of 216.5 s, so it is unusual [e54, e55, e56]. The recording does not show why it is slow [e54].",
+      "expect": {
+        "all": [
+          [
+            "engrave_gadget",
+            "engrav"
+          ],
+          [
+            "482"
+          ],
+          [
+            "unusual",
+            "longer than usual",
+            "longer than the p95"
+          ],
+          [
+            "does not show why",
+            "not show why",
+            "no cause",
+            "not recorded"
+          ]
+        ],
+        "none": [
+          [
+            "is within the p95",
+            "is running normally",
+            "is not unusual"
+          ]
+        ]
+      },
+      "abstain": false
+    },
+    {
+      "id": "d07",
+      "type": "stopped",
+      "log": "ref-order",
+      "order": "order:1",
+      "now": 1118,
+      "text": "The recipe stopped, I don't know why.",
+      "gold_recipe": "gadget",
+      "gold_open": [
+        [
+          "engrave_gadget",
+          "running"
+        ]
+      ],
+      "gold_moves": [],
+      "gold_ids": [
+        "e54"
+      ],
+      "gold_answer": "Order 1 has not stopped: engrave_gadget started at t=918 s and is open for 200 s, within the p95 of 216.5 s, so it is still running [e54, e55, e56].",
+      "expect": {
+        "all": [
+          [
+            "engrave_gadget",
+            "engrav"
+          ],
+          [
+            "running"
+          ],
+          [
+            "200"
+          ]
+        ],
+        "none": [
+          [
+            "is unusual",
+            "was unusual",
+            "longer than the p95",
+            "longer than usual"
+          ],
+          [
+            "is stuck",
+            "was stuck",
+            "has stopped",
+            "is stopped"
+          ]
+        ]
+      },
+      "abstain": false
+    },
+    {
+      "id": "d08",
+      "type": "conformance",
+      "log": "train",
+      "order": "order:33",
+      "now": 14100,
+      "text": "Did order 33 follow the recipe?",
+      "gold_recipe": [],
+      "gold_open": [],
+      "gold_moves": [
+        [
+          "model",
+          "buffer_board"
+        ]
+      ],
+      "gold_ids": [
+        "e1002"
+      ],
+      "gold_answer": "No: order 33 skipped buffer_board, which the gadget recipe has after check_covers [e1002, e1003, e1006, e1007]. No recipe fits the order exactly.",
+      "expect": {
+        "all": [
+          [
+            "buffer_board",
+            "buffer"
+          ],
+          [
+            "skipped",
+            "skip",
+            "missing",
+            "does not have"
+          ],
+          [
+            "no,",
+            "no:",
+            "no.",
+            "did not follow",
+            "does not follow",
+            "didn't follow",
+            "doesn't follow",
+            "not conform",
+            "deviat"
+          ]
+        ],
+        "none": [
+          [
+            "yes,",
+            "yes:",
+            "yes.",
+            "yes it",
+            "yes order"
+          ],
+          [
+            "no deviation",
+            "with no deviation"
+          ]
+        ]
+      },
+      "abstain": false
+    },
+    {
+      "id": "d09",
+      "type": "conformance",
+      "log": "train",
+      "order": "order:3",
+      "now": 1900,
+      "text": "Did order 3 follow the recipe?",
+      "gold_recipe": "gadget",
+      "gold_open": [],
+      "gold_moves": [],
+      "gold_ids": [
+        "e49",
+        "e65"
+      ],
+      "gold_answer": "Yes: order 3 follows the gadget recipe with no deviation and is finished [e131]. check_covers failed once and bin_covers and reload_covers ran, but this is the fail branch of the recipe, so it is conformant [e65, e68, e86].",
+      "expect": {
+        "all": [
+          [
+            "conformant",
+            "no deviation",
+            "followed the recipe",
+            "did follow",
+            "follows the recipe"
+          ]
+        ],
+        "none": [
+          [
+            "not conformant",
+            "non-conformant",
+            "nonconformant",
+            "isn't conformant",
+            "not conform",
+            "did not follow",
+            "didn't follow",
+            "does not follow",
+            "doesn't follow"
+          ]
+        ]
+      },
+      "abstain": false
+    },
+    {
+      "id": "d10",
+      "type": "normal",
+      "log": "train",
+      "order": "order:27",
+      "now": 12000,
+      "text": "Is a failed covers check normal? It happened on order 27.",
+      "gold_recipe": "gadget",
+      "gold_open": [],
+      "gold_moves": [],
+      "gold_ids": [
+        "e783"
+      ],
+      "gold_answer": "Yes, it is part of the recipe: on order 27 check_covers failed 2 times, then bin_covers and reload_covers ran, which is the fail branch of the recipe [e783, e786]. Over the train log check_covers failed 19 of 120 times (16%).",
+      "expect": {
+        "all": [
+          [
+            "normal",
+            "common",
+            "expected",
+            "part of the recipe"
+          ],
+          [
+            "19 of 120",
+            "16%",
+            "16 %"
+          ]
+        ],
+        "none": [
+          [
+            "not normal",
+            "isn't normal",
+            "abnormal",
+            "not part of the recipe",
+            "a deviation"
+          ]
+        ]
+      },
+      "abstain": false
+    },
+    {
+      "id": "d11",
+      "type": "abstain",
+      "log": "train",
+      "order": "order:250",
+      "now": 1000,
+      "text": "Where is order 250 at t=1000 s?",
+      "gold_recipe": [],
+      "gold_open": [],
+      "gold_moves": [],
+      "gold_ids": [],
+      "gold_answer": "Not in the recording.",
+      "expect": {
+        "all": [
+          [
+            "not in the recording",
+            "not in the log",
+            "no order",
+            "does not exist",
+            "doesn't exist"
+          ]
+        ],
+        "none": []
+      },
+      "abstain": true
+    },
+    {
+      "id": "d12",
+      "type": "abstain",
+      "log": "train",
+      "order": "order:6",
+      "now": 3600,
+      "text": "Why did the covers check fail on order 6?",
+      "gold_recipe": "gadget",
+      "gold_open": [],
+      "gold_moves": [],
+      "gold_ids": [],
+      "gold_answer": "The recording does not show why: check_covers failed once on order 6 and the fail branch of the recipe ran, but no line gives a cause [e204].",
+      "expect": {
+        "all": [
+          [
+            "does not show why",
+            "not show why",
+            "no cause",
+            "not recorded"
+          ]
+        ],
+        "none": []
+      },
+      "abstain": true
+    }
+  ]
+}

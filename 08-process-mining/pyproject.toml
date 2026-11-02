@@ -1,0 +1,35 @@
+[project]
+name = "learning-process-mining"
+version = "0.1.0"
+description = "From low-level events to process models: abstraction, discovery, conformance, monitoring"
+requires-python = ">=3.11"
+dependencies = [
+  "pyyaml>=6,<7",
+  "rich>=14,<15",
+  "pm4py>=2.7,<3",
+]
+
+[dependency-groups]
+dev = ["pytest>=8,<9"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pmlab"]
+
+[tool.uv]
+package = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# pm4py and its scientific stack warn about their own internals; the reference checks do not depend on them.
+filterwarnings = [
+  "ignore::DeprecationWarning:pm4py",
+  "ignore::UserWarning:pm4py",
+  "ignore::DeprecationWarning:numpy",
+  "ignore:check_soundness is deprecated",
+  "ignore::DeprecationWarning:scipy",
+  "ignore:the matrix subclass:PendingDeprecationWarning",
+]

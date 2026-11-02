@@ -1,0 +1,129 @@
+# Invented recipes with the shape of a real recipe ConfigMap: per operation a
+# name, a sequence, nominal and minimum durations (seconds), resources,
+# dependencies and a branch, plus our addition: the low-level evidence.
+#
+# Evidence vocabulary (the simulator emits exactly these):
+#   mission                      robot_a or robot_b, attrs.mission names it
+#   bay_stay                     conveyor, attrs.bay
+#   check_passed, check_failed   qc_station
+#   test_result                  tester
+#   operation_started/done       assembly_cell
+#   program_started/ended        mill_cell (derived from signal_changed)
+#
+# Ruling R1: an evidence step with activity "mission" means a mission_started
+# and mission_ended pair on that resource with that attrs.mission.
+# Ruling R2: an operation with the same name in several recipes has the same
+# evidence, resources and durations in all of them.
+# A step matches an event when the activity, the resource and every attr
+# given in the step are equal (the event may carry more attrs).
+# Each operation has at least one evidence step that no other operation uses
+# (not equal to, and not a subset of, a step of another operation), with one
+# exception (ruling R6): reload_covers has the same missions as load_covers,
+# as in the real data. It is told apart by context: a covers load after
+# bin_covers in the same order. Fail-branch operations (branch: fail) run only after a
+# failed check_covers; then check_covers runs again.
+recipes:
+  gadget:
+    operations:
+      - {name: reserve_pallet, sequence: 10, nominal_s: 10, min_s: 5, resources: {"conveyor": 1},
+         depends: [], branch: main,
+         evidence: [{"activity": "bay_stay", "resource": "conveyor", "attrs": {"bay": "load"}}]}
+      - {name: load_board, sequence: 20, nominal_s: 130, min_s: 90, resources: {"robot_a": 1, "conveyor": 1},
+         depends: ["reserve_pallet"], branch: main,
+         evidence: [{"activity": "mission", "resource": "robot_a", "attrs": {"mission": "fetch_board_from_storage"}},
+                    {"activity": "mission", "resource": "robot_a", "attrs": {"mission": "place_board_on_pallet"}}]}
+      - {name: load_covers, sequence: 30, nominal_s: 130, min_s: 90, resources: {"robot_a": 1, "conveyor": 1},
+         depends: ["reserve_pallet"], branch: main,
+         evidence: [{"activity": "mission", "resource": "robot_a", "attrs": {"mission": "fetch_cover_top_from_storage"}},
+                    {"activity": "mission", "resource": "robot_a", "attrs": {"mission": "fetch_cover_bottom_from_storage"}},
+                    {"activity": "mission", "resource": "robot_a", "attrs": {"mission": "place_cover_top_on_pallet"}},
+                    {"activity": "mission", "resource": "robot_a", "attrs": {"mission": "place_cover_bottom_on_pallet"}}]}
+      - {name: test_board, sequence: 40, nominal_s: 75, min_s: 50, resources: {"tester": 1, "conveyor": 1},
+         depends: ["load_board"], branch: main,
+         evidence: [{"activity": "bay_stay", "resource": "conveyor", "attrs": {"bay": "tester"}},
+                    {"activity": "test_result", "resource": "tester", "attrs": {}}]}
+      - {name: check_covers, sequence: 50, nominal_s: 10, min_s: 5, resources: {"qc_station": 1, "robot_b": 1, "conveyor": 1},
+         depends: ["load_covers"], branch: main,
+         evidence: [{"activity": "mission", "resource": "robot_b", "attrs": {"mission": "go_to_qc_bay"}},
+                    {"activity": "bay_stay", "resource": "conveyor", "attrs": {"bay": "qc"}},
+                    {"activity": "check_passed", "resource": "qc_station", "attrs": {}},
+                    {"activity": "check_failed", "resource": "qc_station", "attrs": {}}]}
+      - {name: bin_covers, sequence: 55, nominal_s: 160, min_s: 110, resources: {"robot_b": 1, "conveyor": 1},
+         depends: ["check_covers"], branch: fail,
+         evidence: [{"activity": "mission", "resource": "robot_b", "attrs": {"mission": "take_cover_top_from_pallet"}},
+                    {"activity": "mission", "resource": "robot_b", "attrs": {"mission": "take_cover_bottom_from_pallet"}},
+                    {"activity": "mission", "resource": "robot_b", "attrs": {"mission": "go_to_bin"}},
+                    {"activity": "mission", "resource": "robot_b", "attrs": {"mission": "drop_covers_in_bin"}},
+                    {"activity": "mission", "resource": "robot_b", "attrs": {"mission": "go_home"}}]}
+      - {name: reload_covers, sequence: 56, nominal_s: 130, min_s: 90, resources: {"robot_a": 1, "robot_b": 1, "conveyor": 1},
+         depends: ["bin_covers"], branch: fail,
+         evidence: [{"activity": "mission", "resource": "robot_a", "attrs": {"mission": "fetch_cover_top_from_storage"}},
+                    {"activity": "mission", "resource": "robot_a", "attrs": {"mission": "fetch_cover_bottom_from_storage"}},
+                    {"activity": "mission", "resource": "robot_a", "attrs": {"mission": "place_cover_top_on_pallet"}},
+                    {"activity": "mission", "resource": "robot_a", "attrs": {"mission": "place_cover_bottom_on_pallet"}}]}
+      - {name: buffer_board, sequence: 60, nominal_s: 20, min_s: 10, resources: {"conveyor": 1},
+         depends: ["test_board"], branch: main,
+         evidence: [{"activity": "bay_stay", "resource": "conveyor", "attrs": {"bay": "assembly"}}]}
+      - {name: assemble_gadget, sequence: 70, nominal_s: 140, min_s: 100, resources: {"assembly_cell": 1},
+         depends: ["buffer_board", "check_covers"], branch: main,
+         evidence: [{"activity": "operation_started", "resource": "assembly_cell", "attrs": {"operation": "assemble_gadget"}},
+                    {"activity": "operation_done", "resource": "assembly_cell", "attrs": {"operation": "assemble_gadget"}}]}
+      - {name: engrave_gadget, sequence: 80, nominal_s: 150, min_s: 110, resources: {"mill_cell": 1, "conveyor": 1},
+         depends: ["assemble_gadget"], branch: main,
+         evidence: [{"activity": "bay_stay", "resource": "conveyor", "attrs": {"bay": "mill"}},
+                    {"activity": "program_started", "resource": "mill_cell", "attrs": {"program": "engrave"}},
+                    {"activity": "program_ended", "resource": "mill_cell", "attrs": {"program": "engrave"}}]}
+      - {name: deliver_gadget, sequence: 90, nominal_s: 30, min_s: 15, resources: {"robot_a": 1, "conveyor": 1},
+         depends: ["engrave_gadget"], branch: main,
+         evidence: [{"activity": "mission", "resource": "robot_a", "attrs": {"mission": "take_gadget_from_pallet"}},
+                    {"activity": "mission", "resource": "robot_a", "attrs": {"mission": "deliver_to_storage"}}]}
+  parts_test:
+    operations:
+      - {name: reserve_pallet, sequence: 10, nominal_s: 10, min_s: 5, resources: {"conveyor": 1},
+         depends: [], branch: main,
+         evidence: [{"activity": "bay_stay", "resource": "conveyor", "attrs": {"bay": "load"}}]}
+      - {name: load_board, sequence: 20, nominal_s: 130, min_s: 90, resources: {"robot_a": 1, "conveyor": 1},
+         depends: ["reserve_pallet"], branch: main,
+         evidence: [{"activity": "mission", "resource": "robot_a", "attrs": {"mission": "fetch_board_from_storage"}},
+                    {"activity": "mission", "resource": "robot_a", "attrs": {"mission": "place_board_on_pallet"}}]}
+      - {name: load_covers, sequence: 30, nominal_s: 130, min_s: 90, resources: {"robot_a": 1, "conveyor": 1},
+         depends: ["reserve_pallet"], branch: main,
+         evidence: [{"activity": "mission", "resource": "robot_a", "attrs": {"mission": "fetch_cover_top_from_storage"}},
+                    {"activity": "mission", "resource": "robot_a", "attrs": {"mission": "fetch_cover_bottom_from_storage"}},
+                    {"activity": "mission", "resource": "robot_a", "attrs": {"mission": "place_cover_top_on_pallet"}},
+                    {"activity": "mission", "resource": "robot_a", "attrs": {"mission": "place_cover_bottom_on_pallet"}}]}
+      - {name: test_board, sequence: 40, nominal_s: 75, min_s: 50, resources: {"tester": 1, "conveyor": 1},
+         depends: ["load_board"], branch: main,
+         evidence: [{"activity": "bay_stay", "resource": "conveyor", "attrs": {"bay": "tester"}},
+                    {"activity": "test_result", "resource": "tester", "attrs": {}}]}
+      - {name: mill_part, sequence: 50, nominal_s: 150, min_s: 110, resources: {"mill_cell": 1, "conveyor": 1},
+         depends: ["test_board", "load_covers"], branch: main,
+         evidence: [{"activity": "bay_stay", "resource": "conveyor", "attrs": {"bay": "mill"}},
+                    {"activity": "program_started", "resource": "mill_cell", "attrs": {"program": "part"}},
+                    {"activity": "program_ended", "resource": "mill_cell", "attrs": {"program": "part"}}]}
+      - {name: deliver_part, sequence: 60, nominal_s: 30, min_s: 15, resources: {"robot_a": 1, "conveyor": 1},
+         depends: ["mill_part"], branch: main,
+         evidence: [{"activity": "mission", "resource": "robot_a", "attrs": {"mission": "take_part_from_pallet"}},
+                    {"activity": "mission", "resource": "robot_a", "attrs": {"mission": "deliver_to_storage"}}]}
+  brick_demo:
+    operations:
+      - {name: reserve_pallet, sequence: 10, nominal_s: 10, min_s: 5, resources: {"conveyor": 1},
+         depends: [], branch: main,
+         evidence: [{"activity": "bay_stay", "resource": "conveyor", "attrs": {"bay": "load"}}]}
+      - {name: load_bricks, sequence: 20, nominal_s: 90, min_s: 60, resources: {"robot_a": 1, "conveyor": 1},
+         depends: ["reserve_pallet"], branch: main,
+         evidence: [{"activity": "mission", "resource": "robot_a", "attrs": {"mission": "fetch_bricks_from_storage"}},
+                    {"activity": "mission", "resource": "robot_a", "attrs": {"mission": "place_bricks_on_pallet"}}]}
+      - {name: build_bricks, sequence: 30, nominal_s: 120, min_s: 80, resources: {"assembly_cell": 1, "conveyor": 1},
+         depends: ["load_bricks"], branch: main,
+         evidence: [{"activity": "operation_started", "resource": "assembly_cell", "attrs": {"operation": "build_bricks"}},
+                    {"activity": "operation_done", "resource": "assembly_cell", "attrs": {"operation": "build_bricks"}}]}
+      - {name: check_bricks, sequence: 40, nominal_s: 10, min_s: 5, resources: {"qc_station": 1, "conveyor": 1},
+         depends: ["build_bricks"], branch: main,
+         evidence: [{"activity": "bay_stay", "resource": "conveyor", "attrs": {"bay": "qc"}},
+                    {"activity": "mission", "resource": "robot_b", "attrs": {"mission": "inspect_bricks"}},
+                    {"activity": "check_passed", "resource": "qc_station", "attrs": {"kind": "bricks"}}]}
+      - {name: unbuild_bricks, sequence: 50, nominal_s: 100, min_s: 70, resources: {"robot_b": 1, "assembly_cell": 1},
+         depends: ["check_bricks"], branch: main,
+         evidence: [{"activity": "operation_started", "resource": "assembly_cell", "attrs": {"operation": "unbuild_bricks"}},
+                    {"activity": "operation_done", "resource": "assembly_cell", "attrs": {"operation": "unbuild_bricks"}}]}

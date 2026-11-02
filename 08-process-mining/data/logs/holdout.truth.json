@@ -1,0 +1,6611 @@
+{
+ "orders": {
+  "order:1": {
+   "deviations": [],
+   "event_ids": [
+    "e1",
+    "e2",
+    "e3",
+    "e4",
+    "e5",
+    "e6",
+    "e7",
+    "e8",
+    "e9",
+    "e10",
+    "e11",
+    "e12",
+    "e13",
+    "e14",
+    "e15",
+    "e16",
+    "e17",
+    "e18",
+    "e19",
+    "e20",
+    "e21",
+    "e22",
+    "e23",
+    "e24",
+    "e25",
+    "e26",
+    "e27",
+    "e28",
+    "e29",
+    "e30",
+    "e31"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1",
+      "e2",
+      "e3",
+      "e5"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e4"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e6",
+      "e7",
+      "e8",
+      "e10",
+      "e11",
+      "e13",
+      "e14",
+      "e16",
+      "e17"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e9",
+      "e12"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e15"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e18",
+      "e19",
+      "e20",
+      "e21"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e22",
+      "e23",
+      "e24"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e25",
+      "e26",
+      "e27"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e28",
+      "e29",
+      "e30",
+      "e31"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    2,
+    5
+   ],
+   "recipe": "gadget"
+  },
+  "order:10": {
+   "deviations": [],
+   "event_ids": [
+    "e225",
+    "e226",
+    "e227",
+    "e228",
+    "e229",
+    "e230",
+    "e231",
+    "e232",
+    "e233",
+    "e234",
+    "e235",
+    "e236",
+    "e237",
+    "e238",
+    "e239",
+    "e240",
+    "e241",
+    "e242",
+    "e244",
+    "e245",
+    "e248",
+    "e249",
+    "e255",
+    "e256",
+    "e260",
+    "e278",
+    "e280",
+    "e281",
+    "e285",
+    "e286",
+    "e287"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e225",
+      "e226",
+      "e227",
+      "e228",
+      "e229",
+      "e230",
+      "e231",
+      "e233"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e232"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e234",
+      "e236",
+      "e237",
+      "e238"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e235",
+      "e239",
+      "e240",
+      "e241",
+      "e242"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e244",
+      "e245"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e248"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e249",
+      "e255",
+      "e256"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e260",
+      "e278",
+      "e280"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e281",
+      "e285",
+      "e286",
+      "e287"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    5,
+    9
+   ],
+   "recipe": "gadget"
+  },
+  "order:11": {
+   "deviations": [],
+   "event_ids": [
+    "e243",
+    "e246",
+    "e247",
+    "e250",
+    "e251",
+    "e252",
+    "e253",
+    "e254",
+    "e257",
+    "e258",
+    "e259",
+    "e261",
+    "e262",
+    "e263",
+    "e264",
+    "e265",
+    "e266",
+    "e268",
+    "e269",
+    "e270",
+    "e271",
+    "e274",
+    "e275",
+    "e282",
+    "e283",
+    "e284",
+    "e288",
+    "e289",
+    "e290",
+    "e291",
+    "e294",
+    "e295",
+    "e300",
+    "e301",
+    "e303",
+    "e304",
+    "e305",
+    "e306",
+    "e307",
+    "e308",
+    "e310",
+    "e313",
+    "e314",
+    "e315",
+    "e318",
+    "e335",
+    "e336",
+    "e337",
+    "e347",
+    "e348",
+    "e349",
+    "e350",
+    "e351",
+    "e353"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e243",
+      "e246",
+      "e247",
+      "e251"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e250"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e252",
+      "e253",
+      "e254",
+      "e258",
+      "e259",
+      "e262",
+      "e263",
+      "e265",
+      "e266"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e257",
+      "e261"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e264"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e268",
+      "e269",
+      "e270",
+      "e284"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e271",
+      "e274",
+      "e275",
+      "e282",
+      "e283",
+      "e288",
+      "e289",
+      "e290",
+      "e291",
+      "e294"
+     ],
+     "name": "bin_covers"
+    },
+    {
+     "event_ids": [
+      "e295",
+      "e300",
+      "e301",
+      "e303",
+      "e304",
+      "e305",
+      "e306",
+      "e307",
+      "e308"
+     ],
+     "name": "reload_covers"
+    },
+    {
+     "event_ids": [
+      "e310",
+      "e313",
+      "e314",
+      "e315"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e318",
+      "e335",
+      "e336"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e337",
+      "e347",
+      "e348"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e349",
+      "e350",
+      "e351",
+      "e353"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    1,
+    3,
+    6
+   ],
+   "recipe": "gadget"
+  },
+  "order:12": {
+   "deviations": [
+    {
+     "event_ids": [
+      "e372",
+      "e373",
+      "e374",
+      "e375"
+     ],
+     "kind": "extra",
+     "operation": "check_covers"
+    }
+   ],
+   "event_ids": [
+    "e309",
+    "e316",
+    "e317",
+    "e319",
+    "e320",
+    "e321",
+    "e322",
+    "e323",
+    "e324",
+    "e325",
+    "e326",
+    "e327",
+    "e328",
+    "e329",
+    "e330",
+    "e331",
+    "e332",
+    "e333",
+    "e334",
+    "e338",
+    "e339",
+    "e340",
+    "e341",
+    "e342",
+    "e343",
+    "e344",
+    "e345",
+    "e346",
+    "e352",
+    "e354",
+    "e355",
+    "e356",
+    "e357",
+    "e358",
+    "e359",
+    "e360",
+    "e361",
+    "e362",
+    "e363",
+    "e364",
+    "e366",
+    "e367",
+    "e368",
+    "e369",
+    "e378",
+    "e399",
+    "e400",
+    "e405",
+    "e412",
+    "e413",
+    "e414",
+    "e417",
+    "e418",
+    "e419"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e309",
+      "e316",
+      "e317",
+      "e319",
+      "e320",
+      "e321",
+      "e322",
+      "e324"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e323"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e325",
+      "e338",
+      "e339",
+      "e345",
+      "e346"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e326",
+      "e327",
+      "e328",
+      "e334"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e329",
+      "e330",
+      "e331",
+      "e332",
+      "e333",
+      "e340",
+      "e341",
+      "e342",
+      "e343",
+      "e344"
+     ],
+     "name": "bin_covers"
+    },
+    {
+     "event_ids": [
+      "e352",
+      "e355"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e354",
+      "e357",
+      "e358",
+      "e359",
+      "e360",
+      "e361",
+      "e362",
+      "e363",
+      "e364"
+     ],
+     "name": "reload_covers"
+    },
+    {
+     "event_ids": [
+      "e356"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e366",
+      "e367",
+      "e368",
+      "e369"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e378",
+      "e399",
+      "e400"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e405",
+      "e412",
+      "e413"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e414",
+      "e417",
+      "e418",
+      "e419"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    3,
+    7,
+    10
+   ],
+   "recipe": "gadget"
+  },
+  "order:13": {
+   "deviations": [],
+   "event_ids": [
+    "e267",
+    "e272",
+    "e273",
+    "e276",
+    "e277",
+    "e279",
+    "e292",
+    "e293",
+    "e296",
+    "e297",
+    "e298",
+    "e299",
+    "e302",
+    "e311",
+    "e312"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e267",
+      "e272",
+      "e273",
+      "e277"
+     ],
+     "name": "load_bricks"
+    },
+    {
+     "event_ids": [
+      "e276"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e279",
+      "e292",
+      "e293"
+     ],
+     "name": "build_bricks"
+    },
+    {
+     "event_ids": [
+      "e296",
+      "e297",
+      "e298",
+      "e299"
+     ],
+     "name": "check_bricks"
+    },
+    {
+     "event_ids": [
+      "e302",
+      "e311",
+      "e312"
+     ],
+     "name": "unbuild_bricks"
+    }
+   ],
+   "pallets": [
+    8
+   ],
+   "recipe": "brick_demo"
+  },
+  "order:14": {
+   "deviations": [],
+   "event_ids": [
+    "e365",
+    "e370",
+    "e371",
+    "e376",
+    "e377",
+    "e379",
+    "e380",
+    "e381",
+    "e382",
+    "e383",
+    "e384",
+    "e385",
+    "e386",
+    "e387",
+    "e388",
+    "e389",
+    "e390",
+    "e391",
+    "e392",
+    "e393",
+    "e394",
+    "e395",
+    "e396",
+    "e397",
+    "e398",
+    "e401",
+    "e402",
+    "e403",
+    "e408",
+    "e411",
+    "e415",
+    "e420",
+    "e421",
+    "e422",
+    "e425",
+    "e426",
+    "e431",
+    "e432",
+    "e433",
+    "e434",
+    "e436",
+    "e437",
+    "e438",
+    "e439",
+    "e440",
+    "e445",
+    "e446",
+    "e448",
+    "e456",
+    "e457",
+    "e458",
+    "e459",
+    "e460",
+    "e461"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e365",
+      "e370",
+      "e371",
+      "e376",
+      "e377",
+      "e379",
+      "e380",
+      "e382"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e381"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e383",
+      "e392",
+      "e394",
+      "e402",
+      "e403"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e384",
+      "e385",
+      "e386",
+      "e393"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e387",
+      "e388",
+      "e389",
+      "e390",
+      "e391",
+      "e395",
+      "e396",
+      "e397",
+      "e398",
+      "e401"
+     ],
+     "name": "bin_covers"
+    },
+    {
+     "event_ids": [
+      "e408",
+      "e411"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e415"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e420",
+      "e421",
+      "e422",
+      "e425",
+      "e426",
+      "e431",
+      "e432",
+      "e433",
+      "e434"
+     ],
+     "name": "reload_covers"
+    },
+    {
+     "event_ids": [
+      "e436",
+      "e437",
+      "e438",
+      "e439"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e440",
+      "e445",
+      "e446"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e448",
+      "e456",
+      "e457"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e458",
+      "e459",
+      "e460",
+      "e461"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    4,
+    6,
+    9
+   ],
+   "recipe": "gadget"
+  },
+  "order:15": {
+   "deviations": [],
+   "event_ids": [
+    "e435",
+    "e441",
+    "e442",
+    "e443",
+    "e444",
+    "e447",
+    "e449",
+    "e450",
+    "e451",
+    "e452",
+    "e453",
+    "e454",
+    "e455",
+    "e463",
+    "e464"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e435",
+      "e441",
+      "e442",
+      "e444"
+     ],
+     "name": "load_bricks"
+    },
+    {
+     "event_ids": [
+      "e443"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e447",
+      "e449",
+      "e450"
+     ],
+     "name": "build_bricks"
+    },
+    {
+     "event_ids": [
+      "e451",
+      "e452",
+      "e453",
+      "e454"
+     ],
+     "name": "check_bricks"
+    },
+    {
+     "event_ids": [
+      "e455",
+      "e463",
+      "e464"
+     ],
+     "name": "unbuild_bricks"
+    }
+   ],
+   "pallets": [
+    4
+   ],
+   "recipe": "brick_demo"
+  },
+  "order:16": {
+   "deviations": [],
+   "event_ids": [
+    "e404",
+    "e406",
+    "e407",
+    "e409",
+    "e410",
+    "e416",
+    "e423",
+    "e424",
+    "e427",
+    "e428",
+    "e429",
+    "e430",
+    "e466",
+    "e471",
+    "e472"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e404",
+      "e406",
+      "e407",
+      "e410"
+     ],
+     "name": "load_bricks"
+    },
+    {
+     "event_ids": [
+      "e409"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e416",
+      "e423",
+      "e424"
+     ],
+     "name": "build_bricks"
+    },
+    {
+     "event_ids": [
+      "e427",
+      "e428",
+      "e429",
+      "e430"
+     ],
+     "name": "check_bricks"
+    },
+    {
+     "event_ids": [
+      "e466",
+      "e471",
+      "e472"
+     ],
+     "name": "unbuild_bricks"
+    }
+   ],
+   "pallets": [
+    5
+   ],
+   "recipe": "brick_demo"
+  },
+  "order:17": {
+   "deviations": [],
+   "event_ids": [
+    "e462",
+    "e465",
+    "e467",
+    "e468",
+    "e469",
+    "e470",
+    "e473",
+    "e474",
+    "e475",
+    "e476",
+    "e477",
+    "e478",
+    "e479",
+    "e480",
+    "e481",
+    "e482",
+    "e483",
+    "e484",
+    "e485",
+    "e486",
+    "e487",
+    "e488",
+    "e489"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e462",
+      "e465",
+      "e467",
+      "e469"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e468"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e470",
+      "e473",
+      "e474",
+      "e477",
+      "e478",
+      "e479",
+      "e480",
+      "e481",
+      "e482"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e475",
+      "e476"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e483",
+      "e484",
+      "e485"
+     ],
+     "name": "mill_part"
+    },
+    {
+     "event_ids": [
+      "e486",
+      "e487",
+      "e488",
+      "e489"
+     ],
+     "name": "deliver_part"
+    }
+   ],
+   "pallets": [
+    6,
+    8
+   ],
+   "recipe": "parts_test"
+  },
+  "order:18": {
+   "deviations": [],
+   "event_ids": [
+    "e490",
+    "e491",
+    "e492",
+    "e493",
+    "e494",
+    "e495",
+    "e496",
+    "e497",
+    "e498",
+    "e499",
+    "e500",
+    "e501",
+    "e502",
+    "e503",
+    "e507",
+    "e509",
+    "e511",
+    "e523",
+    "e524",
+    "e526",
+    "e527",
+    "e528",
+    "e529"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e490",
+      "e491",
+      "e492",
+      "e493",
+      "e494",
+      "e495",
+      "e496",
+      "e498"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e497"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e499",
+      "e500",
+      "e501",
+      "e502",
+      "e503"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e507",
+      "e509"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e511",
+      "e523",
+      "e524"
+     ],
+     "name": "mill_part"
+    },
+    {
+     "event_ids": [
+      "e526",
+      "e527",
+      "e528",
+      "e529"
+     ],
+     "name": "deliver_part"
+    }
+   ],
+   "pallets": [
+    1,
+    8
+   ],
+   "recipe": "parts_test"
+  },
+  "order:19": {
+   "deviations": [],
+   "event_ids": [
+    "e504",
+    "e505",
+    "e506",
+    "e508",
+    "e510",
+    "e512",
+    "e513",
+    "e514",
+    "e515",
+    "e516",
+    "e517",
+    "e518",
+    "e519",
+    "e520",
+    "e521",
+    "e522",
+    "e525",
+    "e530",
+    "e531",
+    "e532",
+    "e533",
+    "e534",
+    "e535"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e504",
+      "e505",
+      "e506",
+      "e510"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e508"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e512",
+      "e513",
+      "e514",
+      "e515",
+      "e516",
+      "e518",
+      "e519",
+      "e521",
+      "e522"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e517",
+      "e520"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e525",
+      "e530",
+      "e531"
+     ],
+     "name": "mill_part"
+    },
+    {
+     "event_ids": [
+      "e532",
+      "e533",
+      "e534",
+      "e535"
+     ],
+     "name": "deliver_part"
+    }
+   ],
+   "pallets": [
+    7,
+    9
+   ],
+   "recipe": "parts_test"
+  },
+  "order:2": {
+   "deviations": [],
+   "event_ids": [
+    "e32",
+    "e33",
+    "e34",
+    "e35",
+    "e36",
+    "e37",
+    "e39",
+    "e40",
+    "e43",
+    "e44",
+    "e45",
+    "e46",
+    "e47",
+    "e53",
+    "e54"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e32",
+      "e33",
+      "e34",
+      "e36"
+     ],
+     "name": "load_bricks"
+    },
+    {
+     "event_ids": [
+      "e35"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e37",
+      "e39",
+      "e40"
+     ],
+     "name": "build_bricks"
+    },
+    {
+     "event_ids": [
+      "e43",
+      "e44",
+      "e45",
+      "e46"
+     ],
+     "name": "check_bricks"
+    },
+    {
+     "event_ids": [
+      "e47",
+      "e53",
+      "e54"
+     ],
+     "name": "unbuild_bricks"
+    }
+   ],
+   "pallets": [
+    7
+   ],
+   "recipe": "brick_demo"
+  },
+  "order:20": {
+   "deviations": [],
+   "event_ids": [
+    "e536",
+    "e537",
+    "e538",
+    "e539",
+    "e540",
+    "e541",
+    "e542",
+    "e543",
+    "e544",
+    "e545",
+    "e546",
+    "e547",
+    "e548",
+    "e549",
+    "e550",
+    "e551",
+    "e552",
+    "e553",
+    "e557",
+    "e558",
+    "e562",
+    "e563",
+    "e593",
+    "e594",
+    "e597",
+    "e615",
+    "e616",
+    "e617",
+    "e621",
+    "e622",
+    "e624"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e536",
+      "e537",
+      "e538",
+      "e539",
+      "e540",
+      "e541",
+      "e542",
+      "e544"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e543"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e545",
+      "e547",
+      "e548",
+      "e549"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e546",
+      "e550",
+      "e551",
+      "e552",
+      "e553"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e557",
+      "e558"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e562"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e563",
+      "e593",
+      "e594"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e597",
+      "e615",
+      "e616"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e617",
+      "e621",
+      "e622",
+      "e624"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    5,
+    6
+   ],
+   "recipe": "gadget"
+  },
+  "order:21": {
+   "deviations": [
+    {
+     "event_ids": [],
+     "kind": "gap",
+     "operation": "reload_covers",
+     "removed": {
+      "activity": "mission_started",
+      "resource": "robot_a",
+      "time": 8722.085
+     }
+    }
+   ],
+   "event_ids": [
+    "e554",
+    "e555",
+    "e556",
+    "e559",
+    "e560",
+    "e561",
+    "e564",
+    "e565",
+    "e566",
+    "e567",
+    "e568",
+    "e569",
+    "e570",
+    "e571",
+    "e572",
+    "e573",
+    "e575",
+    "e576",
+    "e577",
+    "e578",
+    "e579",
+    "e580",
+    "e583",
+    "e584",
+    "e585",
+    "e587",
+    "e588",
+    "e590",
+    "e591",
+    "e592",
+    "e595",
+    "e596",
+    "e598",
+    "e599",
+    "e600",
+    "e601",
+    "e602",
+    "e603",
+    "e604",
+    "e606",
+    "e607",
+    "e608",
+    "e609",
+    "e611",
+    "e618",
+    "e619",
+    "e623",
+    "e628",
+    "e629",
+    "e632",
+    "e634",
+    "e635",
+    "e636"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e554",
+      "e555",
+      "e556",
+      "e560"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e559"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e561",
+      "e564",
+      "e565",
+      "e566",
+      "e567",
+      "e568",
+      "e569",
+      "e572",
+      "e573"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e570",
+      "e571"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e575",
+      "e576",
+      "e577",
+      "e585"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e578",
+      "e579",
+      "e580",
+      "e583",
+      "e584",
+      "e587",
+      "e588",
+      "e590",
+      "e591",
+      "e592"
+     ],
+     "name": "bin_covers"
+    },
+    {
+     "event_ids": [
+      "e595",
+      "e596",
+      "e599",
+      "e600",
+      "e601",
+      "e602",
+      "e603",
+      "e604"
+     ],
+     "name": "reload_covers"
+    },
+    {
+     "event_ids": [
+      "e598"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e606",
+      "e607",
+      "e608",
+      "e609"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e611",
+      "e618",
+      "e619"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e623",
+      "e628",
+      "e629"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e632",
+      "e634",
+      "e635",
+      "e636"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    3,
+    4,
+    8
+   ],
+   "recipe": "gadget"
+  },
+  "order:22": {
+   "deviations": [],
+   "event_ids": [
+    "e637",
+    "e638",
+    "e639",
+    "e643",
+    "e644",
+    "e645",
+    "e646",
+    "e647",
+    "e650",
+    "e651",
+    "e652",
+    "e653",
+    "e658",
+    "e659",
+    "e664",
+    "e666",
+    "e667",
+    "e676",
+    "e677",
+    "e678",
+    "e679",
+    "e680",
+    "e681"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e637",
+      "e638",
+      "e639",
+      "e644"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e643"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e645",
+      "e646",
+      "e647",
+      "e651",
+      "e652",
+      "e658",
+      "e659",
+      "e664",
+      "e666"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e650",
+      "e653"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e667",
+      "e676",
+      "e677"
+     ],
+     "name": "mill_part"
+    },
+    {
+     "event_ids": [
+      "e678",
+      "e679",
+      "e680",
+      "e681"
+     ],
+     "name": "deliver_part"
+    }
+   ],
+   "pallets": [
+    3,
+    8
+   ],
+   "recipe": "parts_test"
+  },
+  "order:23": {
+   "deviations": [
+    {
+     "event_ids": [
+      "e713",
+      "e714"
+     ],
+     "kind": "duplicate",
+     "operation": "mill_part"
+    }
+   ],
+   "event_ids": [
+    "e682",
+    "e683",
+    "e684",
+    "e685",
+    "e686",
+    "e687",
+    "e688",
+    "e691",
+    "e693",
+    "e695",
+    "e698",
+    "e699",
+    "e700",
+    "e701",
+    "e709",
+    "e712",
+    "e713",
+    "e714",
+    "e722",
+    "e723",
+    "e724",
+    "e725",
+    "e726",
+    "e727"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e682",
+      "e683",
+      "e684",
+      "e685",
+      "e686",
+      "e687",
+      "e688",
+      "e693"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e691"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e695",
+      "e698",
+      "e699",
+      "e700",
+      "e701"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e709",
+      "e712"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e713",
+      "e714",
+      "e722",
+      "e723"
+     ],
+     "name": "mill_part"
+    },
+    {
+     "event_ids": [
+      "e724",
+      "e725",
+      "e726",
+      "e727"
+     ],
+     "name": "deliver_part"
+    }
+   ],
+   "pallets": [
+    1,
+    10
+   ],
+   "recipe": "parts_test"
+  },
+  "order:24": {
+   "deviations": [
+    {
+     "event_ids": [
+      "e749",
+      "e763",
+      "e764",
+      "e777",
+      "e778"
+     ],
+     "kind": "swap",
+     "operation": "test_board",
+     "with": "mill_part"
+    }
+   ],
+   "event_ids": [
+    "e728",
+    "e731",
+    "e732",
+    "e735",
+    "e736",
+    "e737",
+    "e738",
+    "e739",
+    "e740",
+    "e741",
+    "e744",
+    "e745",
+    "e746",
+    "e747",
+    "e749",
+    "e763",
+    "e764",
+    "e777",
+    "e778",
+    "e781",
+    "e782",
+    "e783",
+    "e785"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e728",
+      "e731",
+      "e732",
+      "e736"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e735"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e737",
+      "e738",
+      "e739",
+      "e740",
+      "e741",
+      "e744",
+      "e745",
+      "e746",
+      "e747"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e749",
+      "e763",
+      "e764"
+     ],
+     "name": "mill_part"
+    },
+    {
+     "event_ids": [
+      "e777",
+      "e778"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e781",
+      "e782",
+      "e783",
+      "e785"
+     ],
+     "name": "deliver_part"
+    }
+   ],
+   "pallets": [
+    3,
+    4
+   ],
+   "recipe": "parts_test"
+  },
+  "order:25": {
+   "deviations": [
+    {
+     "event_ids": [],
+     "kind": "gap",
+     "operation": "unbuild_bricks",
+     "removed": {
+      "activity": "operation_started",
+      "resource": "assembly_cell",
+      "time": 9199.392
+     }
+    }
+   ],
+   "event_ids": [
+    "e574",
+    "e581",
+    "e582",
+    "e586",
+    "e589",
+    "e620",
+    "e625",
+    "e626",
+    "e627",
+    "e630",
+    "e631",
+    "e633",
+    "e640",
+    "e641"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e574",
+      "e581",
+      "e582",
+      "e589"
+     ],
+     "name": "load_bricks"
+    },
+    {
+     "event_ids": [
+      "e586"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e620",
+      "e625",
+      "e626"
+     ],
+     "name": "build_bricks"
+    },
+    {
+     "event_ids": [
+      "e627",
+      "e630",
+      "e631",
+      "e633"
+     ],
+     "name": "check_bricks"
+    },
+    {
+     "event_ids": [
+      "e640",
+      "e641"
+     ],
+     "name": "unbuild_bricks"
+    }
+   ],
+   "pallets": [
+    9
+   ],
+   "recipe": "brick_demo"
+  },
+  "order:26": {
+   "deviations": [
+    {
+     "event_ids": [
+      "e806",
+      "e811",
+      "e812",
+      "e813",
+      "e814"
+     ],
+     "kind": "swap",
+     "operation": "test_board",
+     "with": "mill_part"
+    }
+   ],
+   "event_ids": [
+    "e786",
+    "e787",
+    "e788",
+    "e790",
+    "e792",
+    "e795",
+    "e796",
+    "e798",
+    "e799",
+    "e800",
+    "e801",
+    "e802",
+    "e803",
+    "e804",
+    "e806",
+    "e811",
+    "e812",
+    "e813",
+    "e814",
+    "e815",
+    "e816",
+    "e817",
+    "e818"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e786",
+      "e787",
+      "e788",
+      "e790",
+      "e792",
+      "e795",
+      "e796",
+      "e799"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e798"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e800",
+      "e801",
+      "e802",
+      "e803",
+      "e804"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e806",
+      "e811",
+      "e812"
+     ],
+     "name": "mill_part"
+    },
+    {
+     "event_ids": [
+      "e813",
+      "e814"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e815",
+      "e816",
+      "e817",
+      "e818"
+     ],
+     "name": "deliver_part"
+    }
+   ],
+   "pallets": [
+    1,
+    5
+   ],
+   "recipe": "parts_test"
+  },
+  "order:27": {
+   "deviations": [
+    {
+     "event_ids": [
+      "e660",
+      "e661",
+      "e662",
+      "e663"
+     ],
+     "kind": "extra",
+     "operation": "check_bricks"
+    }
+   ],
+   "event_ids": [
+    "e605",
+    "e610",
+    "e612",
+    "e613",
+    "e614",
+    "e642",
+    "e648",
+    "e649",
+    "e654",
+    "e655",
+    "e656",
+    "e657",
+    "e665",
+    "e669",
+    "e670"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e605",
+      "e610",
+      "e612",
+      "e614"
+     ],
+     "name": "load_bricks"
+    },
+    {
+     "event_ids": [
+      "e613"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e642",
+      "e648",
+      "e649"
+     ],
+     "name": "build_bricks"
+    },
+    {
+     "event_ids": [
+      "e654",
+      "e655",
+      "e656",
+      "e657"
+     ],
+     "name": "check_bricks"
+    },
+    {
+     "event_ids": [
+      "e665",
+      "e669",
+      "e670"
+     ],
+     "name": "unbuild_bricks"
+    }
+   ],
+   "pallets": [
+    2
+   ],
+   "recipe": "brick_demo"
+  },
+  "order:28": {
+   "deviations": [
+    {
+     "event_ids": [],
+     "kind": "skip",
+     "operation": "check_covers"
+    }
+   ],
+   "event_ids": [
+    "e702",
+    "e704",
+    "e706",
+    "e707",
+    "e708",
+    "e710",
+    "e711",
+    "e715",
+    "e716",
+    "e717",
+    "e718",
+    "e719",
+    "e720",
+    "e721",
+    "e729",
+    "e730",
+    "e733",
+    "e734",
+    "e742",
+    "e743",
+    "e765",
+    "e791",
+    "e794",
+    "e805",
+    "e807",
+    "e808",
+    "e809"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e702",
+      "e704",
+      "e706",
+      "e707",
+      "e708",
+      "e710",
+      "e711",
+      "e716"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e715"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e717",
+      "e718",
+      "e719",
+      "e720",
+      "e721"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e729",
+      "e730"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e733"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e734",
+      "e742",
+      "e743"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e765",
+      "e791",
+      "e794"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e805",
+      "e807",
+      "e808",
+      "e809"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    6,
+    9
+   ],
+   "recipe": "gadget"
+  },
+  "order:29": {
+   "deviations": [
+    {
+     "event_ids": [
+      "e810"
+     ],
+     "kind": "stuck",
+     "operation": "reload_covers"
+    }
+   ],
+   "event_ids": [
+    "e748",
+    "e750",
+    "e751",
+    "e752",
+    "e753",
+    "e754",
+    "e755",
+    "e756",
+    "e757",
+    "e758",
+    "e759",
+    "e760",
+    "e761",
+    "e762",
+    "e766",
+    "e767",
+    "e768",
+    "e769",
+    "e770",
+    "e771",
+    "e772",
+    "e773",
+    "e774",
+    "e775",
+    "e776",
+    "e779",
+    "e780",
+    "e784",
+    "e789",
+    "e793",
+    "e797",
+    "e810"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e748",
+      "e750",
+      "e751",
+      "e752",
+      "e753",
+      "e754",
+      "e755",
+      "e757"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e756"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e758",
+      "e766",
+      "e768",
+      "e773",
+      "e775"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e759",
+      "e760",
+      "e761",
+      "e772"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e762",
+      "e767",
+      "e769",
+      "e770",
+      "e771",
+      "e774",
+      "e776",
+      "e779",
+      "e780",
+      "e784"
+     ],
+     "name": "bin_covers"
+    },
+    {
+     "event_ids": [
+      "e789",
+      "e793"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e797"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e810"
+     ],
+     "name": "reload_covers"
+    }
+   ],
+   "pallets": [
+    3,
+    6,
+    7,
+    9
+   ],
+   "recipe": "gadget"
+  },
+  "order:3": {
+   "deviations": [],
+   "event_ids": [
+    "e38",
+    "e41",
+    "e42",
+    "e48",
+    "e49",
+    "e50",
+    "e51",
+    "e52",
+    "e55",
+    "e56",
+    "e57",
+    "e58",
+    "e59",
+    "e60",
+    "e61",
+    "e62",
+    "e63",
+    "e64",
+    "e65",
+    "e66",
+    "e67",
+    "e68",
+    "e69",
+    "e70",
+    "e71",
+    "e72",
+    "e73",
+    "e74",
+    "e75",
+    "e76",
+    "e77"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e38",
+      "e41",
+      "e42",
+      "e49"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e48"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e50",
+      "e51",
+      "e52",
+      "e55",
+      "e56",
+      "e57",
+      "e58",
+      "e61",
+      "e62"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e59",
+      "e60"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e63",
+      "e64",
+      "e65",
+      "e66"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e67"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e68",
+      "e69",
+      "e70"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e71",
+      "e72",
+      "e73"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e74",
+      "e75",
+      "e76",
+      "e77"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    1,
+    10
+   ],
+   "recipe": "gadget"
+  },
+  "order:30": {
+   "deviations": [
+    {
+     "event_ids": [],
+     "kind": "gap",
+     "operation": "check_bricks",
+     "removed": {
+      "activity": "mission_ended",
+      "resource": "robot_b",
+      "time": 9841.317
+     }
+    }
+   ],
+   "event_ids": [
+    "e668",
+    "e671",
+    "e672",
+    "e673",
+    "e674",
+    "e675",
+    "e689",
+    "e690",
+    "e692",
+    "e694",
+    "e696",
+    "e697",
+    "e703",
+    "e705"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e668",
+      "e671",
+      "e672",
+      "e674"
+     ],
+     "name": "load_bricks"
+    },
+    {
+     "event_ids": [
+      "e673"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e675",
+      "e689",
+      "e690"
+     ],
+     "name": "build_bricks"
+    },
+    {
+     "event_ids": [
+      "e692",
+      "e694",
+      "e696"
+     ],
+     "name": "check_bricks"
+    },
+    {
+     "event_ids": [
+      "e697",
+      "e703",
+      "e705"
+     ],
+     "name": "unbuild_bricks"
+    }
+   ],
+   "pallets": [
+    2
+   ],
+   "recipe": "brick_demo"
+  },
+  "order:31": {
+   "deviations": [],
+   "event_ids": [
+    "e819",
+    "e820",
+    "e821",
+    "e822",
+    "e823",
+    "e824",
+    "e825",
+    "e826",
+    "e827",
+    "e828",
+    "e829",
+    "e830",
+    "e831",
+    "e832",
+    "e833",
+    "e834",
+    "e835",
+    "e836",
+    "e837",
+    "e838",
+    "e839",
+    "e840",
+    "e841",
+    "e842",
+    "e843",
+    "e844",
+    "e845",
+    "e846",
+    "e847",
+    "e848",
+    "e849",
+    "e850",
+    "e851",
+    "e852",
+    "e853",
+    "e854",
+    "e855",
+    "e856",
+    "e857",
+    "e858",
+    "e860",
+    "e861",
+    "e864",
+    "e865",
+    "e866",
+    "e874",
+    "e875",
+    "e878",
+    "e881",
+    "e882",
+    "e883",
+    "e887",
+    "e888",
+    "e889"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e819",
+      "e820",
+      "e821",
+      "e822",
+      "e823",
+      "e824",
+      "e825",
+      "e827"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e826"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e828",
+      "e835",
+      "e836",
+      "e842",
+      "e844"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e829",
+      "e830",
+      "e831",
+      "e839"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e832",
+      "e833",
+      "e834",
+      "e837",
+      "e838",
+      "e840",
+      "e841",
+      "e843",
+      "e845",
+      "e846"
+     ],
+     "name": "bin_covers"
+    },
+    {
+     "event_ids": [
+      "e847",
+      "e848",
+      "e849",
+      "e852",
+      "e853",
+      "e855",
+      "e856",
+      "e857",
+      "e858"
+     ],
+     "name": "reload_covers"
+    },
+    {
+     "event_ids": [
+      "e850",
+      "e851"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e854"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e860",
+      "e861",
+      "e864",
+      "e865"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e866",
+      "e874",
+      "e875"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e878",
+      "e881",
+      "e882"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e883",
+      "e887",
+      "e888",
+      "e889"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    1,
+    5,
+    9
+   ],
+   "recipe": "gadget"
+  },
+  "order:32": {
+   "deviations": [],
+   "event_ids": [
+    "e859",
+    "e862",
+    "e863",
+    "e867",
+    "e868",
+    "e869",
+    "e870",
+    "e871",
+    "e872",
+    "e873",
+    "e876",
+    "e877",
+    "e879",
+    "e880",
+    "e884",
+    "e885",
+    "e886",
+    "e890",
+    "e891",
+    "e892",
+    "e893",
+    "e894",
+    "e895"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e859",
+      "e862",
+      "e863",
+      "e867",
+      "e868",
+      "e869",
+      "e870",
+      "e872"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e871"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e873",
+      "e876",
+      "e877",
+      "e879",
+      "e880"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e884",
+      "e885"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e886",
+      "e890",
+      "e891"
+     ],
+     "name": "mill_part"
+    },
+    {
+     "event_ids": [
+      "e892",
+      "e893",
+      "e894",
+      "e895"
+     ],
+     "name": "deliver_part"
+    }
+   ],
+   "pallets": [
+    2,
+    4
+   ],
+   "recipe": "parts_test"
+  },
+  "order:33": {
+   "deviations": [],
+   "event_ids": [
+    "e896",
+    "e897",
+    "e898",
+    "e899",
+    "e900",
+    "e901",
+    "e902",
+    "e903",
+    "e904",
+    "e905",
+    "e906",
+    "e907",
+    "e908",
+    "e909",
+    "e910",
+    "e911",
+    "e912",
+    "e914",
+    "e915",
+    "e916",
+    "e917",
+    "e920",
+    "e934",
+    "e935",
+    "e936",
+    "e941",
+    "e942",
+    "e943",
+    "e944",
+    "e945",
+    "e948"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e896",
+      "e897",
+      "e898",
+      "e900"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e899"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e901",
+      "e902",
+      "e903",
+      "e904",
+      "e905",
+      "e908",
+      "e909",
+      "e910",
+      "e912"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e906",
+      "e907"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e911"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e914",
+      "e915",
+      "e916",
+      "e917"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e920",
+      "e934",
+      "e935"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e936",
+      "e941",
+      "e942"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e943",
+      "e944",
+      "e945",
+      "e948"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    5,
+    10
+   ],
+   "recipe": "gadget"
+  },
+  "order:34": {
+   "deviations": [],
+   "event_ids": [
+    "e913",
+    "e918",
+    "e919",
+    "e921",
+    "e922",
+    "e923",
+    "e924",
+    "e925",
+    "e926",
+    "e927",
+    "e928",
+    "e929",
+    "e930",
+    "e931",
+    "e932",
+    "e933",
+    "e937",
+    "e938",
+    "e939",
+    "e940",
+    "e946",
+    "e947",
+    "e955",
+    "e956",
+    "e960",
+    "e971",
+    "e972",
+    "e977",
+    "e978",
+    "e979",
+    "e981"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e913",
+      "e918",
+      "e919",
+      "e921",
+      "e922",
+      "e923",
+      "e924",
+      "e926"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e925"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e927",
+      "e932",
+      "e933",
+      "e937",
+      "e938"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e928",
+      "e929",
+      "e930",
+      "e931"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e939",
+      "e940"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e946"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e947",
+      "e955",
+      "e956"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e960",
+      "e971",
+      "e972"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e977",
+      "e978",
+      "e979",
+      "e981"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    4,
+    10
+   ],
+   "recipe": "gadget"
+  },
+  "order:35": {
+   "deviations": [
+    {
+     "event_ids": [
+      "e967",
+      "e968"
+     ],
+     "kind": "duplicate",
+     "operation": "build_bricks"
+    }
+   ],
+   "event_ids": [
+    "e949",
+    "e950",
+    "e951",
+    "e952",
+    "e953",
+    "e957",
+    "e967",
+    "e968",
+    "e970",
+    "e973",
+    "e974",
+    "e975",
+    "e976",
+    "e980",
+    "e987",
+    "e990"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e949",
+      "e950",
+      "e951",
+      "e953"
+     ],
+     "name": "load_bricks"
+    },
+    {
+     "event_ids": [
+      "e952"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e957",
+      "e967",
+      "e968",
+      "e970"
+     ],
+     "name": "build_bricks"
+    },
+    {
+     "event_ids": [
+      "e973",
+      "e974",
+      "e975",
+      "e976"
+     ],
+     "name": "check_bricks"
+    },
+    {
+     "event_ids": [
+      "e980",
+      "e987",
+      "e990"
+     ],
+     "name": "unbuild_bricks"
+    }
+   ],
+   "pallets": [
+    9
+   ],
+   "recipe": "brick_demo"
+  },
+  "order:36": {
+   "deviations": [],
+   "event_ids": [
+    "e982",
+    "e983",
+    "e984",
+    "e985",
+    "e986",
+    "e988",
+    "e989",
+    "e992",
+    "e993",
+    "e994",
+    "e995",
+    "e996",
+    "e997",
+    "e998",
+    "e999",
+    "e1000",
+    "e1001",
+    "e1002",
+    "e1003",
+    "e1005",
+    "e1006",
+    "e1009",
+    "e1010",
+    "e1011",
+    "e1012",
+    "e1013",
+    "e1014",
+    "e1015",
+    "e1016",
+    "e1023",
+    "e1025",
+    "e1029",
+    "e1030",
+    "e1031",
+    "e1032",
+    "e1033",
+    "e1034",
+    "e1035",
+    "e1037",
+    "e1038",
+    "e1039",
+    "e1040",
+    "e1041",
+    "e1042",
+    "e1044",
+    "e1045",
+    "e1048",
+    "e1049",
+    "e1050",
+    "e1051",
+    "e1052",
+    "e1058",
+    "e1059",
+    "e1060",
+    "e1061",
+    "e1062",
+    "e1063",
+    "e1064",
+    "e1065",
+    "e1068",
+    "e1069",
+    "e1070",
+    "e1071",
+    "e1073",
+    "e1074",
+    "e1075",
+    "e1076",
+    "e1079",
+    "e1087",
+    "e1088",
+    "e1090",
+    "e1103",
+    "e1105",
+    "e1107",
+    "e1110",
+    "e1111",
+    "e1112"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e982",
+      "e983",
+      "e984",
+      "e985",
+      "e986",
+      "e988",
+      "e989",
+      "e993"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e992"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e994",
+      "e1001",
+      "e1002",
+      "e1011",
+      "e1012"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e995",
+      "e996",
+      "e997",
+      "e1006"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e998",
+      "e999",
+      "e1000",
+      "e1003",
+      "e1005",
+      "e1009",
+      "e1010",
+      "e1013",
+      "e1014",
+      "e1015"
+     ],
+     "name": "bin_covers"
+    },
+    {
+     "event_ids": [
+      "e1016",
+      "e1023",
+      "e1025",
+      "e1029",
+      "e1030",
+      "e1031",
+      "e1032",
+      "e1034",
+      "e1035"
+     ],
+     "name": "reload_covers"
+    },
+    {
+     "event_ids": [
+      "e1033",
+      "e1037"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e1038",
+      "e1039",
+      "e1040",
+      "e1050"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e1041",
+      "e1044",
+      "e1045",
+      "e1048",
+      "e1049",
+      "e1051",
+      "e1052",
+      "e1058",
+      "e1059",
+      "e1060"
+     ],
+     "name": "bin_covers"
+    },
+    {
+     "event_ids": [
+      "e1042"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e1061",
+      "e1062",
+      "e1063",
+      "e1064",
+      "e1065",
+      "e1068",
+      "e1069",
+      "e1070",
+      "e1071"
+     ],
+     "name": "reload_covers"
+    },
+    {
+     "event_ids": [
+      "e1073",
+      "e1074",
+      "e1075",
+      "e1076"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e1079",
+      "e1087",
+      "e1088"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e1090",
+      "e1103",
+      "e1105"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e1107",
+      "e1110",
+      "e1111",
+      "e1112"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    1,
+    2,
+    5,
+    8
+   ],
+   "recipe": "gadget"
+  },
+  "order:37": {
+   "deviations": [],
+   "event_ids": [
+    "e1072",
+    "e1077",
+    "e1078",
+    "e1080",
+    "e1081",
+    "e1082",
+    "e1083",
+    "e1084",
+    "e1085",
+    "e1086",
+    "e1091",
+    "e1092",
+    "e1100",
+    "e1101",
+    "e1102",
+    "e1104",
+    "e1106",
+    "e1113",
+    "e1114",
+    "e1115",
+    "e1116",
+    "e1117",
+    "e1118"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1072",
+      "e1077",
+      "e1078",
+      "e1080",
+      "e1081",
+      "e1082",
+      "e1083",
+      "e1085"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e1084"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1086",
+      "e1091",
+      "e1092",
+      "e1100",
+      "e1101"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e1102",
+      "e1104"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e1106",
+      "e1113",
+      "e1114"
+     ],
+     "name": "mill_part"
+    },
+    {
+     "event_ids": [
+      "e1115",
+      "e1116",
+      "e1117",
+      "e1118"
+     ],
+     "name": "deliver_part"
+    }
+   ],
+   "pallets": [
+    5,
+    9
+   ],
+   "recipe": "parts_test"
+  },
+  "order:38": {
+   "deviations": [
+    {
+     "event_ids": [
+      "e1145",
+      "e1146"
+     ],
+     "kind": "extra",
+     "operation": "test_board"
+    }
+   ],
+   "event_ids": [
+    "e1119",
+    "e1120",
+    "e1121",
+    "e1122",
+    "e1123",
+    "e1124",
+    "e1125",
+    "e1126",
+    "e1127",
+    "e1128",
+    "e1129",
+    "e1130",
+    "e1131",
+    "e1132",
+    "e1138",
+    "e1140",
+    "e1147",
+    "e1152",
+    "e1153",
+    "e1154",
+    "e1155",
+    "e1156",
+    "e1157"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1119",
+      "e1120",
+      "e1121",
+      "e1122",
+      "e1123",
+      "e1124",
+      "e1125",
+      "e1127"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e1126"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1128",
+      "e1129",
+      "e1130",
+      "e1131",
+      "e1132"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e1138",
+      "e1140"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e1147",
+      "e1152",
+      "e1153"
+     ],
+     "name": "mill_part"
+    },
+    {
+     "event_ids": [
+      "e1154",
+      "e1155",
+      "e1156",
+      "e1157"
+     ],
+     "name": "deliver_part"
+    }
+   ],
+   "pallets": [
+    4,
+    6
+   ],
+   "recipe": "parts_test"
+  },
+  "order:39": {
+   "deviations": [],
+   "event_ids": [
+    "e954",
+    "e958",
+    "e959",
+    "e961",
+    "e962",
+    "e991",
+    "e1004",
+    "e1007",
+    "e1017",
+    "e1020",
+    "e1021",
+    "e1022",
+    "e1043",
+    "e1054",
+    "e1056"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e954",
+      "e958",
+      "e959",
+      "e962"
+     ],
+     "name": "load_bricks"
+    },
+    {
+     "event_ids": [
+      "e961"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e991",
+      "e1004",
+      "e1007"
+     ],
+     "name": "build_bricks"
+    },
+    {
+     "event_ids": [
+      "e1017",
+      "e1020",
+      "e1021",
+      "e1022"
+     ],
+     "name": "check_bricks"
+    },
+    {
+     "event_ids": [
+      "e1043",
+      "e1054",
+      "e1056"
+     ],
+     "name": "unbuild_bricks"
+    }
+   ],
+   "pallets": [
+    7
+   ],
+   "recipe": "brick_demo"
+  },
+  "order:4": {
+   "deviations": [],
+   "event_ids": [
+    "e78",
+    "e79",
+    "e80",
+    "e81",
+    "e82",
+    "e83",
+    "e84",
+    "e85",
+    "e86",
+    "e87",
+    "e88",
+    "e89",
+    "e90",
+    "e91",
+    "e92",
+    "e93",
+    "e94",
+    "e101",
+    "e102",
+    "e103",
+    "e104",
+    "e105",
+    "e106"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e78",
+      "e79",
+      "e80",
+      "e82"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e81"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e83",
+      "e84",
+      "e85",
+      "e88",
+      "e89",
+      "e90",
+      "e91",
+      "e92",
+      "e93"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e86",
+      "e87"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e94",
+      "e101",
+      "e102"
+     ],
+     "name": "mill_part"
+    },
+    {
+     "event_ids": [
+      "e103",
+      "e104",
+      "e105",
+      "e106"
+     ],
+     "name": "deliver_part"
+    }
+   ],
+   "pallets": [
+    5,
+    6
+   ],
+   "recipe": "parts_test"
+  },
+  "order:40": {
+   "deviations": [],
+   "event_ids": [
+    "e1133",
+    "e1134",
+    "e1135",
+    "e1136",
+    "e1137",
+    "e1139",
+    "e1141",
+    "e1142",
+    "e1143",
+    "e1144",
+    "e1148",
+    "e1149",
+    "e1150",
+    "e1151",
+    "e1159",
+    "e1160",
+    "e1161",
+    "e1167",
+    "e1168",
+    "e1169",
+    "e1170",
+    "e1171",
+    "e1172"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1133",
+      "e1134",
+      "e1135",
+      "e1136",
+      "e1137",
+      "e1139",
+      "e1141",
+      "e1143"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e1142"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1144",
+      "e1148",
+      "e1149",
+      "e1150",
+      "e1151"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e1159",
+      "e1160"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e1161",
+      "e1167",
+      "e1168"
+     ],
+     "name": "mill_part"
+    },
+    {
+     "event_ids": [
+      "e1169",
+      "e1170",
+      "e1171",
+      "e1172"
+     ],
+     "name": "deliver_part"
+    }
+   ],
+   "pallets": [
+    5,
+    8
+   ],
+   "recipe": "parts_test"
+  },
+  "order:41": {
+   "deviations": [],
+   "event_ids": [
+    "e963",
+    "e964",
+    "e965",
+    "e966",
+    "e969",
+    "e1008",
+    "e1018",
+    "e1019",
+    "e1024",
+    "e1026",
+    "e1027",
+    "e1028",
+    "e1057",
+    "e1066",
+    "e1067"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e963",
+      "e964",
+      "e965",
+      "e969"
+     ],
+     "name": "load_bricks"
+    },
+    {
+     "event_ids": [
+      "e966"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1008",
+      "e1018",
+      "e1019"
+     ],
+     "name": "build_bricks"
+    },
+    {
+     "event_ids": [
+      "e1024",
+      "e1026",
+      "e1027",
+      "e1028"
+     ],
+     "name": "check_bricks"
+    },
+    {
+     "event_ids": [
+      "e1057",
+      "e1066",
+      "e1067"
+     ],
+     "name": "unbuild_bricks"
+    }
+   ],
+   "pallets": [
+    3
+   ],
+   "recipe": "brick_demo"
+  },
+  "order:42": {
+   "deviations": [],
+   "event_ids": [
+    "e1036",
+    "e1046",
+    "e1047",
+    "e1053",
+    "e1055",
+    "e1089",
+    "e1093",
+    "e1094",
+    "e1095",
+    "e1096",
+    "e1097",
+    "e1098",
+    "e1099",
+    "e1108",
+    "e1109"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1036",
+      "e1046",
+      "e1047",
+      "e1055"
+     ],
+     "name": "load_bricks"
+    },
+    {
+     "event_ids": [
+      "e1053"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1089",
+      "e1093",
+      "e1094"
+     ],
+     "name": "build_bricks"
+    },
+    {
+     "event_ids": [
+      "e1095",
+      "e1096",
+      "e1097",
+      "e1098"
+     ],
+     "name": "check_bricks"
+    },
+    {
+     "event_ids": [
+      "e1099",
+      "e1108",
+      "e1109"
+     ],
+     "name": "unbuild_bricks"
+    }
+   ],
+   "pallets": [
+    2
+   ],
+   "recipe": "brick_demo"
+  },
+  "order:43": {
+   "deviations": [],
+   "event_ids": [
+    "e1173",
+    "e1176",
+    "e1177",
+    "e1181",
+    "e1182",
+    "e1184",
+    "e1185",
+    "e1186",
+    "e1187",
+    "e1188",
+    "e1191",
+    "e1192",
+    "e1193",
+    "e1194",
+    "e1200",
+    "e1203",
+    "e1204",
+    "e1216",
+    "e1217",
+    "e1218",
+    "e1219",
+    "e1220",
+    "e1223"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1173",
+      "e1176",
+      "e1177",
+      "e1181",
+      "e1182",
+      "e1184",
+      "e1185",
+      "e1187"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e1186"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1188",
+      "e1191",
+      "e1192",
+      "e1193",
+      "e1194"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e1200",
+      "e1203"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e1204",
+      "e1216",
+      "e1217"
+     ],
+     "name": "mill_part"
+    },
+    {
+     "event_ids": [
+      "e1218",
+      "e1219",
+      "e1220",
+      "e1223"
+     ],
+     "name": "deliver_part"
+    }
+   ],
+   "pallets": [
+    8,
+    9
+   ],
+   "recipe": "parts_test"
+  },
+  "order:44": {
+   "deviations": [
+    {
+     "event_ids": [
+      "e1277"
+     ],
+     "kind": "stuck",
+     "operation": "engrave_gadget"
+    }
+   ],
+   "event_ids": [
+    "e1224",
+    "e1227",
+    "e1228",
+    "e1229",
+    "e1230",
+    "e1231",
+    "e1232",
+    "e1233",
+    "e1234",
+    "e1235",
+    "e1236",
+    "e1237",
+    "e1238",
+    "e1239",
+    "e1243",
+    "e1244",
+    "e1245",
+    "e1246",
+    "e1252",
+    "e1254",
+    "e1258",
+    "e1259",
+    "e1274",
+    "e1275",
+    "e1277"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1224",
+      "e1227",
+      "e1228",
+      "e1229",
+      "e1230",
+      "e1231",
+      "e1232",
+      "e1234"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e1233"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1235",
+      "e1243",
+      "e1244",
+      "e1245",
+      "e1246"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e1236",
+      "e1237",
+      "e1238",
+      "e1239"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e1252",
+      "e1254"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e1258"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e1259",
+      "e1274",
+      "e1275"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e1277"
+     ],
+     "name": "engrave_gadget"
+    }
+   ],
+   "pallets": [
+    1,
+    6
+   ],
+   "recipe": "gadget"
+  },
+  "order:45": {
+   "deviations": [],
+   "event_ids": [
+    "e1247",
+    "e1248",
+    "e1249",
+    "e1250",
+    "e1251",
+    "e1256",
+    "e1257",
+    "e1260",
+    "e1261",
+    "e1262",
+    "e1263",
+    "e1264",
+    "e1265",
+    "e1266",
+    "e1267",
+    "e1268",
+    "e1269",
+    "e1270",
+    "e1278",
+    "e1280",
+    "e1283",
+    "e1284",
+    "e1287",
+    "e1288",
+    "e1290",
+    "e1291",
+    "e1292",
+    "e1296",
+    "e1301",
+    "e1302",
+    "e1304"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1247",
+      "e1248",
+      "e1249",
+      "e1250",
+      "e1251",
+      "e1256",
+      "e1257",
+      "e1261"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e1260"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1262",
+      "e1267",
+      "e1268",
+      "e1269",
+      "e1270"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e1263",
+      "e1264",
+      "e1265",
+      "e1266"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e1278",
+      "e1280"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e1283"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e1284",
+      "e1287",
+      "e1288"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e1290",
+      "e1291",
+      "e1292"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e1296",
+      "e1301",
+      "e1302",
+      "e1304"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    3,
+    6
+   ],
+   "recipe": "gadget"
+  },
+  "order:46": {
+   "deviations": [
+    {
+     "event_ids": [],
+     "kind": "gap",
+     "operation": "check_bricks",
+     "removed": {
+      "activity": "check_passed",
+      "resource": "qc_station",
+      "time": 15651.85
+     }
+    }
+   ],
+   "event_ids": [
+    "e1158",
+    "e1162",
+    "e1163",
+    "e1164",
+    "e1165",
+    "e1166",
+    "e1174",
+    "e1175",
+    "e1178",
+    "e1179",
+    "e1180",
+    "e1183",
+    "e1189",
+    "e1190"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1158",
+      "e1162",
+      "e1163",
+      "e1165"
+     ],
+     "name": "load_bricks"
+    },
+    {
+     "event_ids": [
+      "e1164"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1166",
+      "e1174",
+      "e1175"
+     ],
+     "name": "build_bricks"
+    },
+    {
+     "event_ids": [
+      "e1178",
+      "e1179",
+      "e1180"
+     ],
+     "name": "check_bricks"
+    },
+    {
+     "event_ids": [
+      "e1183",
+      "e1189",
+      "e1190"
+     ],
+     "name": "unbuild_bricks"
+    }
+   ],
+   "pallets": [
+    2
+   ],
+   "recipe": "brick_demo"
+  },
+  "order:47": {
+   "deviations": [
+    {
+     "event_ids": [],
+     "kind": "skip",
+     "operation": "test_board"
+    }
+   ],
+   "event_ids": [
+    "e1305",
+    "e1306",
+    "e1307",
+    "e1310",
+    "e1311",
+    "e1312",
+    "e1313",
+    "e1314",
+    "e1315",
+    "e1316",
+    "e1317",
+    "e1318",
+    "e1319",
+    "e1320",
+    "e1321",
+    "e1322",
+    "e1323",
+    "e1324",
+    "e1325",
+    "e1326",
+    "e1327",
+    "e1328",
+    "e1329",
+    "e1330",
+    "e1331",
+    "e1332",
+    "e1333",
+    "e1334",
+    "e1335",
+    "e1336",
+    "e1337",
+    "e1338",
+    "e1339",
+    "e1340",
+    "e1341",
+    "e1342",
+    "e1343",
+    "e1344",
+    "e1346",
+    "e1347",
+    "e1348",
+    "e1349",
+    "e1350",
+    "e1357",
+    "e1358",
+    "e1361",
+    "e1368",
+    "e1369",
+    "e1370",
+    "e1371",
+    "e1372",
+    "e1374"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1305",
+      "e1306",
+      "e1307",
+      "e1311"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e1310"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1312",
+      "e1314",
+      "e1315",
+      "e1316",
+      "e1317",
+      "e1318",
+      "e1319",
+      "e1320",
+      "e1321"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e1313"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e1322",
+      "e1323",
+      "e1324",
+      "e1330"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e1325",
+      "e1326",
+      "e1327",
+      "e1328",
+      "e1329",
+      "e1331",
+      "e1332",
+      "e1333",
+      "e1334",
+      "e1335"
+     ],
+     "name": "bin_covers"
+    },
+    {
+     "event_ids": [
+      "e1336",
+      "e1337",
+      "e1338",
+      "e1339",
+      "e1340",
+      "e1341",
+      "e1342",
+      "e1343",
+      "e1344"
+     ],
+     "name": "reload_covers"
+    },
+    {
+     "event_ids": [
+      "e1346",
+      "e1347",
+      "e1348",
+      "e1349"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e1350",
+      "e1357",
+      "e1358"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e1361",
+      "e1368",
+      "e1369"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e1370",
+      "e1371",
+      "e1372",
+      "e1374"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    1,
+    2,
+    10
+   ],
+   "recipe": "gadget"
+  },
+  "order:48": {
+   "deviations": [],
+   "event_ids": [
+    "e1195",
+    "e1196",
+    "e1197",
+    "e1198",
+    "e1199",
+    "e1201",
+    "e1202",
+    "e1205",
+    "e1206",
+    "e1207",
+    "e1208",
+    "e1209",
+    "e1210",
+    "e1211",
+    "e1212",
+    "e1213",
+    "e1214",
+    "e1215",
+    "e1221",
+    "e1222",
+    "e1225",
+    "e1226",
+    "e1240",
+    "e1241",
+    "e1242",
+    "e1253",
+    "e1255",
+    "e1271",
+    "e1272",
+    "e1273",
+    "e1276"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1195",
+      "e1196",
+      "e1197",
+      "e1198",
+      "e1199",
+      "e1201",
+      "e1202",
+      "e1206"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e1205"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1207",
+      "e1212",
+      "e1213",
+      "e1214",
+      "e1215"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e1208",
+      "e1209",
+      "e1210",
+      "e1211"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e1221",
+      "e1222"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e1225"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e1226",
+      "e1240",
+      "e1241"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e1242",
+      "e1253",
+      "e1255"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e1271",
+      "e1272",
+      "e1273",
+      "e1276"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    4,
+    7
+   ],
+   "recipe": "gadget"
+  },
+  "order:49": {
+   "deviations": [
+    {
+     "event_ids": [
+      "e1365",
+      "e1366"
+     ],
+     "kind": "duplicate",
+     "operation": "load_board"
+    }
+   ],
+   "event_ids": [
+    "e1345",
+    "e1351",
+    "e1352",
+    "e1353",
+    "e1354",
+    "e1355",
+    "e1356",
+    "e1359",
+    "e1360",
+    "e1362",
+    "e1363",
+    "e1364",
+    "e1365",
+    "e1366",
+    "e1367",
+    "e1373",
+    "e1375",
+    "e1376",
+    "e1377",
+    "e1378",
+    "e1379",
+    "e1380",
+    "e1381",
+    "e1382"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1345",
+      "e1351",
+      "e1352",
+      "e1353",
+      "e1354",
+      "e1355",
+      "e1356",
+      "e1360"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e1359"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1362",
+      "e1363",
+      "e1364",
+      "e1365",
+      "e1366",
+      "e1367"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e1373",
+      "e1375"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e1376",
+      "e1377",
+      "e1378"
+     ],
+     "name": "mill_part"
+    },
+    {
+     "event_ids": [
+      "e1379",
+      "e1380",
+      "e1381",
+      "e1382"
+     ],
+     "name": "deliver_part"
+    }
+   ],
+   "pallets": [
+    8,
+    10
+   ],
+   "recipe": "parts_test"
+  },
+  "order:5": {
+   "deviations": [],
+   "event_ids": [
+    "e107",
+    "e114",
+    "e115",
+    "e117",
+    "e118",
+    "e119",
+    "e122",
+    "e123",
+    "e124",
+    "e125",
+    "e126",
+    "e127",
+    "e128",
+    "e129",
+    "e130",
+    "e131",
+    "e132",
+    "e133",
+    "e134",
+    "e135",
+    "e136",
+    "e137",
+    "e138"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e107",
+      "e114",
+      "e115",
+      "e118"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e117"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e119",
+      "e122",
+      "e123",
+      "e124",
+      "e125",
+      "e126",
+      "e127",
+      "e129",
+      "e130"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e128",
+      "e131"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e132",
+      "e133",
+      "e134"
+     ],
+     "name": "mill_part"
+    },
+    {
+     "event_ids": [
+      "e135",
+      "e136",
+      "e137",
+      "e138"
+     ],
+     "name": "deliver_part"
+    }
+   ],
+   "pallets": [
+    1,
+    6
+   ],
+   "recipe": "parts_test"
+  },
+  "order:50": {
+   "deviations": [],
+   "event_ids": [
+    "e1383",
+    "e1384",
+    "e1385",
+    "e1386",
+    "e1387",
+    "e1388",
+    "e1389",
+    "e1390",
+    "e1391",
+    "e1392",
+    "e1393",
+    "e1394",
+    "e1395",
+    "e1396",
+    "e1409",
+    "e1412",
+    "e1413",
+    "e1420",
+    "e1421",
+    "e1422",
+    "e1423",
+    "e1424",
+    "e1425"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1383",
+      "e1384",
+      "e1385",
+      "e1386",
+      "e1387",
+      "e1388",
+      "e1389",
+      "e1391"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e1390"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1392",
+      "e1393",
+      "e1394",
+      "e1395",
+      "e1396"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e1409",
+      "e1412"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e1413",
+      "e1420",
+      "e1421"
+     ],
+     "name": "mill_part"
+    },
+    {
+     "event_ids": [
+      "e1422",
+      "e1423",
+      "e1424",
+      "e1425"
+     ],
+     "name": "deliver_part"
+    }
+   ],
+   "pallets": [
+    3,
+    9
+   ],
+   "recipe": "parts_test"
+  },
+  "order:51": {
+   "deviations": [],
+   "event_ids": [
+    "e1397",
+    "e1398",
+    "e1399",
+    "e1400",
+    "e1401",
+    "e1402",
+    "e1403",
+    "e1404",
+    "e1405",
+    "e1406",
+    "e1407",
+    "e1408",
+    "e1410",
+    "e1411",
+    "e1414",
+    "e1415",
+    "e1416",
+    "e1417",
+    "e1418",
+    "e1419",
+    "e1427",
+    "e1428",
+    "e1434",
+    "e1435",
+    "e1440",
+    "e1454",
+    "e1455",
+    "e1456",
+    "e1458",
+    "e1459",
+    "e1462"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1397",
+      "e1398",
+      "e1399",
+      "e1400",
+      "e1401",
+      "e1402",
+      "e1403",
+      "e1405"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e1404"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1406",
+      "e1414",
+      "e1415",
+      "e1416",
+      "e1417"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e1407",
+      "e1408",
+      "e1410",
+      "e1411"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e1418",
+      "e1419"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e1427"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e1428",
+      "e1434",
+      "e1435"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e1440",
+      "e1454",
+      "e1455"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e1456",
+      "e1458",
+      "e1459",
+      "e1462"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    6,
+    7
+   ],
+   "recipe": "gadget"
+  },
+  "order:52": {
+   "deviations": [],
+   "event_ids": [
+    "e1426",
+    "e1429",
+    "e1430",
+    "e1431",
+    "e1432",
+    "e1433",
+    "e1436",
+    "e1437",
+    "e1438",
+    "e1439",
+    "e1441",
+    "e1442",
+    "e1443",
+    "e1444",
+    "e1445",
+    "e1446",
+    "e1447",
+    "e1448",
+    "e1449",
+    "e1450",
+    "e1451",
+    "e1452",
+    "e1453",
+    "e1457",
+    "e1460",
+    "e1461",
+    "e1463",
+    "e1464",
+    "e1465",
+    "e1466",
+    "e1467",
+    "e1468",
+    "e1469",
+    "e1470",
+    "e1471",
+    "e1472",
+    "e1473",
+    "e1474",
+    "e1475",
+    "e1476",
+    "e1478",
+    "e1479",
+    "e1480",
+    "e1481",
+    "e1482",
+    "e1485",
+    "e1486",
+    "e1487",
+    "e1501",
+    "e1502",
+    "e1504",
+    "e1505",
+    "e1506",
+    "e1507"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1426",
+      "e1429",
+      "e1430",
+      "e1432"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e1431"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1433",
+      "e1436",
+      "e1438",
+      "e1442",
+      "e1443",
+      "e1444",
+      "e1445",
+      "e1446",
+      "e1447"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e1437",
+      "e1439"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e1441"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e1448",
+      "e1449",
+      "e1450",
+      "e1461"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e1451",
+      "e1452",
+      "e1453",
+      "e1457",
+      "e1460",
+      "e1463",
+      "e1464",
+      "e1465",
+      "e1466",
+      "e1467"
+     ],
+     "name": "bin_covers"
+    },
+    {
+     "event_ids": [
+      "e1468",
+      "e1469",
+      "e1470",
+      "e1471",
+      "e1472",
+      "e1473",
+      "e1474",
+      "e1475",
+      "e1476"
+     ],
+     "name": "reload_covers"
+    },
+    {
+     "event_ids": [
+      "e1478",
+      "e1479",
+      "e1480",
+      "e1481"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e1482",
+      "e1485",
+      "e1486"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e1487",
+      "e1501",
+      "e1502"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e1504",
+      "e1505",
+      "e1506",
+      "e1507"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    5,
+    6,
+    10
+   ],
+   "recipe": "gadget"
+  },
+  "order:53": {
+   "deviations": [
+    {
+     "event_ids": [
+      "e1294",
+      "e1295"
+     ],
+     "kind": "duplicate",
+     "operation": "build_bricks"
+    }
+   ],
+   "event_ids": [
+    "e1279",
+    "e1281",
+    "e1282",
+    "e1285",
+    "e1286",
+    "e1289",
+    "e1293",
+    "e1294",
+    "e1295",
+    "e1297",
+    "e1298",
+    "e1299",
+    "e1300",
+    "e1303",
+    "e1308",
+    "e1309"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1279",
+      "e1281",
+      "e1282",
+      "e1286"
+     ],
+     "name": "load_bricks"
+    },
+    {
+     "event_ids": [
+      "e1285"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1289",
+      "e1293",
+      "e1294",
+      "e1295"
+     ],
+     "name": "build_bricks"
+    },
+    {
+     "event_ids": [
+      "e1297",
+      "e1298",
+      "e1299",
+      "e1300"
+     ],
+     "name": "check_bricks"
+    },
+    {
+     "event_ids": [
+      "e1303",
+      "e1308",
+      "e1309"
+     ],
+     "name": "unbuild_bricks"
+    }
+   ],
+   "pallets": [
+    4
+   ],
+   "recipe": "brick_demo"
+  },
+  "order:54": {
+   "deviations": [],
+   "event_ids": [
+    "e1477",
+    "e1483",
+    "e1484",
+    "e1488",
+    "e1489",
+    "e1490",
+    "e1491",
+    "e1492",
+    "e1493",
+    "e1494",
+    "e1495",
+    "e1496",
+    "e1497",
+    "e1498",
+    "e1499",
+    "e1500",
+    "e1503",
+    "e1508",
+    "e1509",
+    "e1510",
+    "e1511",
+    "e1512",
+    "e1513"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1477",
+      "e1483",
+      "e1484",
+      "e1489"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e1488"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1490",
+      "e1491",
+      "e1492",
+      "e1493",
+      "e1494",
+      "e1495",
+      "e1496",
+      "e1498",
+      "e1499"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e1497",
+      "e1500"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e1503",
+      "e1508",
+      "e1509"
+     ],
+     "name": "mill_part"
+    },
+    {
+     "event_ids": [
+      "e1510",
+      "e1511",
+      "e1512",
+      "e1513"
+     ],
+     "name": "deliver_part"
+    }
+   ],
+   "pallets": [
+    5,
+    8
+   ],
+   "recipe": "parts_test"
+  },
+  "order:55": {
+   "deviations": [],
+   "event_ids": [
+    "e1514",
+    "e1515",
+    "e1516",
+    "e1517",
+    "e1518",
+    "e1519",
+    "e1520",
+    "e1521",
+    "e1522",
+    "e1523",
+    "e1524",
+    "e1525",
+    "e1526",
+    "e1527",
+    "e1528",
+    "e1529",
+    "e1530",
+    "e1532",
+    "e1533",
+    "e1534",
+    "e1535",
+    "e1538",
+    "e1552",
+    "e1553",
+    "e1554",
+    "e1561",
+    "e1562",
+    "e1563",
+    "e1564",
+    "e1565",
+    "e1566"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1514",
+      "e1515",
+      "e1516",
+      "e1518"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e1517"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1519",
+      "e1520",
+      "e1521",
+      "e1523",
+      "e1524",
+      "e1526",
+      "e1527",
+      "e1529",
+      "e1530"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e1522",
+      "e1525"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e1528"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e1532",
+      "e1533",
+      "e1534",
+      "e1535"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e1538",
+      "e1552",
+      "e1553"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e1554",
+      "e1561",
+      "e1562"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e1563",
+      "e1564",
+      "e1565",
+      "e1566"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    6,
+    8
+   ],
+   "recipe": "gadget"
+  },
+  "order:56": {
+   "deviations": [],
+   "event_ids": [
+    "e1531",
+    "e1536",
+    "e1537",
+    "e1539",
+    "e1540",
+    "e1541",
+    "e1542",
+    "e1543",
+    "e1544",
+    "e1545",
+    "e1546",
+    "e1547",
+    "e1548",
+    "e1549",
+    "e1550",
+    "e1551",
+    "e1555",
+    "e1556",
+    "e1557",
+    "e1558",
+    "e1559",
+    "e1560",
+    "e1572",
+    "e1573",
+    "e1576",
+    "e1595",
+    "e1596",
+    "e1597",
+    "e1600",
+    "e1601",
+    "e1602"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1531",
+      "e1536",
+      "e1537",
+      "e1539",
+      "e1540",
+      "e1541",
+      "e1542",
+      "e1544"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e1543"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1545",
+      "e1550",
+      "e1551",
+      "e1555",
+      "e1556"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e1546",
+      "e1547",
+      "e1548",
+      "e1549"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e1557",
+      "e1558"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e1559"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e1560",
+      "e1572",
+      "e1573"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e1576",
+      "e1595",
+      "e1596"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e1597",
+      "e1600",
+      "e1601",
+      "e1602"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    1,
+    7
+   ],
+   "recipe": "gadget"
+  },
+  "order:57": {
+   "deviations": [
+    {
+     "event_ids": [
+      "e1646",
+      "e1647"
+     ],
+     "kind": "duplicate",
+     "operation": "engrave_gadget"
+    }
+   ],
+   "event_ids": [
+    "e1567",
+    "e1568",
+    "e1569",
+    "e1570",
+    "e1571",
+    "e1574",
+    "e1575",
+    "e1577",
+    "e1578",
+    "e1579",
+    "e1580",
+    "e1581",
+    "e1582",
+    "e1583",
+    "e1584",
+    "e1585",
+    "e1586",
+    "e1587",
+    "e1588",
+    "e1589",
+    "e1590",
+    "e1591",
+    "e1592",
+    "e1593",
+    "e1594",
+    "e1598",
+    "e1599",
+    "e1603",
+    "e1604",
+    "e1605",
+    "e1606",
+    "e1607",
+    "e1608",
+    "e1609",
+    "e1610",
+    "e1611",
+    "e1612",
+    "e1613",
+    "e1614",
+    "e1615",
+    "e1617",
+    "e1618",
+    "e1619",
+    "e1620",
+    "e1621",
+    "e1627",
+    "e1628",
+    "e1631",
+    "e1646",
+    "e1647",
+    "e1648",
+    "e1649",
+    "e1650",
+    "e1651",
+    "e1652"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1567",
+      "e1568",
+      "e1569",
+      "e1570",
+      "e1571",
+      "e1574",
+      "e1575",
+      "e1578"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e1577"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1579",
+      "e1585",
+      "e1587",
+      "e1591",
+      "e1592"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e1580",
+      "e1581",
+      "e1582",
+      "e1590"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e1583",
+      "e1584",
+      "e1586",
+      "e1588",
+      "e1589",
+      "e1593",
+      "e1594",
+      "e1598",
+      "e1599",
+      "e1603"
+     ],
+     "name": "bin_covers"
+    },
+    {
+     "event_ids": [
+      "e1604",
+      "e1607",
+      "e1608",
+      "e1610",
+      "e1611",
+      "e1612",
+      "e1613",
+      "e1614",
+      "e1615"
+     ],
+     "name": "reload_covers"
+    },
+    {
+     "event_ids": [
+      "e1605",
+      "e1606"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e1609"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e1617",
+      "e1618",
+      "e1619",
+      "e1620"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e1621",
+      "e1627",
+      "e1628"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e1631",
+      "e1646",
+      "e1647",
+      "e1648"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e1649",
+      "e1650",
+      "e1651",
+      "e1652"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    3,
+    7,
+    10
+   ],
+   "recipe": "gadget"
+  },
+  "order:58": {
+   "deviations": [],
+   "event_ids": [
+    "e1653",
+    "e1654",
+    "e1655",
+    "e1659",
+    "e1660",
+    "e1661",
+    "e1662",
+    "e1665",
+    "e1666",
+    "e1667",
+    "e1668",
+    "e1669",
+    "e1670",
+    "e1671",
+    "e1672",
+    "e1673",
+    "e1674",
+    "e1676",
+    "e1677",
+    "e1678",
+    "e1679",
+    "e1680",
+    "e1686",
+    "e1687",
+    "e1688",
+    "e1700",
+    "e1701",
+    "e1702",
+    "e1707",
+    "e1708",
+    "e1710"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1653",
+      "e1654",
+      "e1655",
+      "e1660"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e1659"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1661",
+      "e1662",
+      "e1665",
+      "e1666",
+      "e1667",
+      "e1670",
+      "e1671",
+      "e1673",
+      "e1674"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e1668",
+      "e1669"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e1672"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e1676",
+      "e1677",
+      "e1678",
+      "e1679"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e1680",
+      "e1686",
+      "e1687"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e1688",
+      "e1700",
+      "e1701"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e1702",
+      "e1707",
+      "e1708",
+      "e1710"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    5,
+    10
+   ],
+   "recipe": "gadget"
+  },
+  "order:59": {
+   "deviations": [],
+   "event_ids": [
+    "e1675",
+    "e1681",
+    "e1682",
+    "e1683",
+    "e1684",
+    "e1685",
+    "e1689",
+    "e1690",
+    "e1691",
+    "e1692",
+    "e1693",
+    "e1694",
+    "e1695",
+    "e1696",
+    "e1697",
+    "e1698",
+    "e1699",
+    "e1703",
+    "e1704",
+    "e1705",
+    "e1706",
+    "e1709",
+    "e1715",
+    "e1716",
+    "e1717",
+    "e1718",
+    "e1719",
+    "e1720",
+    "e1721",
+    "e1722",
+    "e1723"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1675",
+      "e1681",
+      "e1682",
+      "e1684"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e1683"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1685",
+      "e1689",
+      "e1690",
+      "e1693",
+      "e1694",
+      "e1696",
+      "e1697",
+      "e1698",
+      "e1699"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e1691",
+      "e1692"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e1695"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e1703",
+      "e1704",
+      "e1705",
+      "e1706"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e1709",
+      "e1715",
+      "e1716"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e1717",
+      "e1718",
+      "e1719"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e1720",
+      "e1721",
+      "e1722",
+      "e1723"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    2,
+    10
+   ],
+   "recipe": "gadget"
+  },
+  "order:6": {
+   "deviations": [],
+   "event_ids": [
+    "e139",
+    "e140",
+    "e141",
+    "e142",
+    "e143",
+    "e144",
+    "e145",
+    "e146",
+    "e147",
+    "e148",
+    "e149",
+    "e150",
+    "e151",
+    "e152",
+    "e153",
+    "e154",
+    "e155",
+    "e156",
+    "e159",
+    "e161",
+    "e162",
+    "e163",
+    "e172",
+    "e174",
+    "e175",
+    "e186",
+    "e187",
+    "e188",
+    "e189",
+    "e190",
+    "e191"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e139",
+      "e140",
+      "e141",
+      "e142",
+      "e143",
+      "e144",
+      "e145",
+      "e147"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e146"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e148",
+      "e153",
+      "e154",
+      "e155",
+      "e156"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e149",
+      "e150",
+      "e151",
+      "e152"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e159",
+      "e161"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e162"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e163",
+      "e172",
+      "e174"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e175",
+      "e186",
+      "e187"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e188",
+      "e189",
+      "e190",
+      "e191"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    6,
+    7
+   ],
+   "recipe": "gadget"
+  },
+  "order:60": {
+   "deviations": [],
+   "event_ids": [
+    "e1616",
+    "e1622",
+    "e1623",
+    "e1624",
+    "e1625",
+    "e1626",
+    "e1629",
+    "e1630",
+    "e1632",
+    "e1633",
+    "e1634",
+    "e1635",
+    "e1636",
+    "e1637",
+    "e1638",
+    "e1639",
+    "e1640",
+    "e1641",
+    "e1642",
+    "e1643",
+    "e1644",
+    "e1645",
+    "e1656",
+    "e1657",
+    "e1658",
+    "e1663",
+    "e1664",
+    "e1711",
+    "e1712",
+    "e1713",
+    "e1714"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e1616",
+      "e1622",
+      "e1623",
+      "e1625"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e1624"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e1626",
+      "e1629",
+      "e1630",
+      "e1632",
+      "e1633",
+      "e1635",
+      "e1636",
+      "e1638",
+      "e1640"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e1634",
+      "e1637"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e1639"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e1641",
+      "e1642",
+      "e1643",
+      "e1644"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e1645",
+      "e1656",
+      "e1657"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e1658",
+      "e1663",
+      "e1664"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e1711",
+      "e1712",
+      "e1713",
+      "e1714"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    3,
+    6
+   ],
+   "recipe": "gadget"
+  },
+  "order:7": {
+   "deviations": [],
+   "event_ids": [
+    "e95",
+    "e96",
+    "e97",
+    "e98",
+    "e99",
+    "e100",
+    "e108",
+    "e109",
+    "e110",
+    "e111",
+    "e112",
+    "e113",
+    "e116",
+    "e120",
+    "e121"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e95",
+      "e96",
+      "e97",
+      "e99"
+     ],
+     "name": "load_bricks"
+    },
+    {
+     "event_ids": [
+      "e98"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e100",
+      "e108",
+      "e109"
+     ],
+     "name": "build_bricks"
+    },
+    {
+     "event_ids": [
+      "e110",
+      "e111",
+      "e112",
+      "e113"
+     ],
+     "name": "check_bricks"
+    },
+    {
+     "event_ids": [
+      "e116",
+      "e120",
+      "e121"
+     ],
+     "name": "unbuild_bricks"
+    }
+   ],
+   "pallets": [
+    5
+   ],
+   "recipe": "brick_demo"
+  },
+  "order:8": {
+   "deviations": [],
+   "event_ids": [
+    "e157",
+    "e158",
+    "e160",
+    "e164",
+    "e165",
+    "e166",
+    "e167",
+    "e168",
+    "e169",
+    "e170",
+    "e171",
+    "e173",
+    "e176",
+    "e177",
+    "e178",
+    "e179",
+    "e180",
+    "e181",
+    "e182",
+    "e183",
+    "e184",
+    "e185",
+    "e192",
+    "e193",
+    "e194",
+    "e195",
+    "e196",
+    "e197",
+    "e198",
+    "e199",
+    "e200"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e157",
+      "e158",
+      "e160",
+      "e165"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e164"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e166",
+      "e167",
+      "e168",
+      "e171",
+      "e173",
+      "e177",
+      "e178",
+      "e179",
+      "e180"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e169",
+      "e170"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e176"
+     ],
+     "name": "buffer_board"
+    },
+    {
+     "event_ids": [
+      "e181",
+      "e182",
+      "e183",
+      "e184"
+     ],
+     "name": "check_covers"
+    },
+    {
+     "event_ids": [
+      "e185",
+      "e192",
+      "e193"
+     ],
+     "name": "assemble_gadget"
+    },
+    {
+     "event_ids": [
+      "e194",
+      "e195",
+      "e196"
+     ],
+     "name": "engrave_gadget"
+    },
+    {
+     "event_ids": [
+      "e197",
+      "e198",
+      "e199",
+      "e200"
+     ],
+     "name": "deliver_gadget"
+    }
+   ],
+   "pallets": [
+    4,
+    9
+   ],
+   "recipe": "gadget"
+  },
+  "order:9": {
+   "deviations": [
+    {
+     "event_ids": [
+      "e212",
+      "e213"
+     ],
+     "kind": "duplicate",
+     "operation": "test_board"
+    }
+   ],
+   "event_ids": [
+    "e201",
+    "e202",
+    "e203",
+    "e204",
+    "e205",
+    "e206",
+    "e207",
+    "e208",
+    "e209",
+    "e210",
+    "e211",
+    "e212",
+    "e213",
+    "e214",
+    "e215",
+    "e216",
+    "e217",
+    "e218",
+    "e219",
+    "e220",
+    "e221",
+    "e222",
+    "e223",
+    "e224"
+   ],
+   "operations": [
+    {
+     "event_ids": [
+      "e201",
+      "e202",
+      "e203",
+      "e205"
+     ],
+     "name": "load_board"
+    },
+    {
+     "event_ids": [
+      "e204"
+     ],
+     "name": "reserve_pallet"
+    },
+    {
+     "event_ids": [
+      "e206",
+      "e207",
+      "e208",
+      "e209",
+      "e210",
+      "e214",
+      "e215",
+      "e216",
+      "e217"
+     ],
+     "name": "load_covers"
+    },
+    {
+     "event_ids": [
+      "e211",
+      "e212",
+      "e213"
+     ],
+     "name": "test_board"
+    },
+    {
+     "event_ids": [
+      "e218",
+      "e219",
+      "e220"
+     ],
+     "name": "mill_part"
+    },
+    {
+     "event_ids": [
+      "e221",
+      "e222",
+      "e223",
+      "e224"
+     ],
+     "name": "deliver_part"
+    }
+   ],
+   "pallets": [
+    2,
+    8
+   ],
+   "recipe": "parts_test"
+  }
+ }
+}
